@@ -1,0 +1,42 @@
+---
+title: "Inspection Data Wrangling"
+author: "Nathan Craig"
+date: "4/11/2021"
+output: 
+  html_document:
+    keep_md: true
+    toc: true
+---
+Use the [batch link downloader](https://chrome.google.com/webstore/detail/batch-link-downloader/aiahkbnnpafepcgnhhecilboebmmolnn/) tool for chrome to download all of the pdf files from the [ICE Facility Inspections](https://www.ice.gov/detain/facility-inspections) page. Generally each inspection contains an SIS and a cover letter. On the ICE website the SIS is listed as a Detention Review Summary Form.
+
+On 11 April 2021, Craig retrieved all inspections through February 2021. As of the date of the scrape, the page was last updated on 03/15/2021. On the day of the document scrape, the page was submitted to the Internet Archive Wayback Machine for a static copy.
+
+
+The SIS forms are in at least two different formats. The most recent forms seem to come in use around September 2019 but it is a mix. It looks like from around this time, each form will need to be evaluated individually to determine which form type it constitutes. Note, the older form type appears to have a smaller file size, generally less than 150kb while the newer form type is generally more than 200kb. This may be a method to sort the files, based on size.
+
+The old style forms are not OCR'd and none of the cover letters are OCR'd.
+
+Plan: isolate old style forms in a separate directory and batch OCR.
+
+```{r Load-Libraries}
+library(pdftools)
+library(tidyverse)
+```
+
+
+
+```{r Load-Data}
+PDF <- pdf_text("./data/bristolCountyMA_SIS_05_10_2018.pdf") %>% 
+  readr::read_lines()
+```
+
+```{r}
+view(PDF)
+```
+
+
+```{r}
+PDF_trim <- PDF[-c(1:5, 7, 9:10, 13:2022:36, 39:96, 104:107, 109:110, 112:113, 115:116,118, 119)]
+PDF_trim
+```
+
