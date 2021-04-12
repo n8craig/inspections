@@ -16,7 +16,12 @@ The SIS forms are in at least two different formats. The most recent forms seem 
 
 The old style forms are not OCR'd and none of the cover letters are OCR'd.
 
-Plan: isolate old style forms in a separate directory and batch OCR.
+Plan: isolate old style forms in a separate directory and batch OCR. Problem, because the line numbers are different depending on OCR it is difficult to easily separate out the items. The values for slicing the text by line differ from file to file.
+
+
+For either the old or new versions of the forms, it seems better to convert the files to word documents rather than trying to read the pdf. The issue is that the information is on different line numbers depending on the pdf. The script works fine for one file, but the break points have to be adjusted for the next file. This makes processing the files not very fast. Now converting the files to word documents using an action [Batch Convert PDF to Word](https://community.adobe.com/t5/acrobat/batch-convert-pdf-to-word/m-p/4527671). Once the files are converted will look at getting them into a table.
+
+For the new version forms, in Notepad++ one can use the following regex to remove the alpha characters `[^[:digit:][:space:]]+`
 
 ```{r Load-Libraries}
 library(pdftools)
@@ -26,7 +31,7 @@ library(tidyverse)
 
 
 ```{r Load-Data}
-PDF <- pdf_text("./data/bristolCountyMA_SIS_05_10_2018.pdf") %>% 
+PDF <- pdf_text("./data/WCCPBFL_SIS_10-31-2019.pdf") %>% 
   readr::read_lines()
 ```
 
@@ -35,8 +40,31 @@ view(PDF)
 ```
 
 
+
 ```{r}
+# New Version
 PDF_trim <- PDF[-c(1:5, 7, 9:10, 13:2022:36, 39:96, 104:107, 109:110, 112:113, 115:116,118, 119)]
+
+# Old version that is OCR'd. Note the cut values change from file to file.
+# PDF_trim <- PDF[-c(1:12, 14:22, 24:50, 51:63, 66:69, 72, 74:75, 77:78, 80, 82:83, 85:87, 89, 91:92, 94, 96, 98:102, 104, 106:107)]
+
+
 PDF_trim
+```
+```{r}
+view(PDF_trim)
+```
+
+
+```{r}
+library(docxtractr)
+```
+
+
+```{r}
+
+read_docx("./data/tulsaCoOK_SIS_06_01_2018.docx")
+
+
 ```
 
