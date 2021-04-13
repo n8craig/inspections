@@ -31,7 +31,7 @@ library(tidyverse)
 
 
 ```{r Load-Data}
-PDF <- pdf_text("./data/WCCPBFL_SIS_10-31-2019.pdf") %>% 
+PDF <- pdf_text("./data/auroraAnnex_SIS_01-29-2021.pdf") %>% 
   readr::read_lines()
 ```
 
@@ -40,9 +40,14 @@ view(PDF)
 ```
 
 
+```{r}
+
+```
+
+
 
 ```{r}
-# New Version
+# New Version from full pdf
 PDF_trim <- PDF[-c(1:5, 7, 9:10, 13:2022:36, 39:96, 104:107, 109:110, 112:113, 115:116,118, 119)]
 
 # Old version that is OCR'd. Note the cut values change from file to file.
@@ -56,15 +61,5 @@ view(PDF_trim)
 ```
 
 
-```{r}
-library(docxtractr)
-```
 
-
-```{r}
-
-read_docx("./data/tulsaCoOK_SIS_06_01_2018.docx")
-
-
-```
 

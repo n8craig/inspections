@@ -1,0 +1,1801 @@
+	Facility	Cover Letter	Review
+1	"Bergen County Jail (NJ) - Feb. 24, 2021"	  Cover Letter	Detention Review Summary Form
+4	"Eloy Detention Center (AZ) - Feb. 5, 2021"	  Cover Letter	    Detention Review Summary Form
+7	"Glades County Detention Center (FL) - Feb. 24, 2021"	      Cover Letter	        Detention Review Summary Form
+10	"Immigration Centers of America (ICA) - Farmville Detention Center (FDC) (VA) - Feb. 24, 2021  "	  Cover Letter	    Detention Review Summary Form 
+13	"Krome Special Processing Center (SPC) (FL) - Feb. 10, 2021"	      Cover Letter	        Detention Review Summary Form
+16	"Morrow County Correctional Facility (OH) - Feb. 10, 2021"	          Cover Letter	Detention Review Summary Form
+19	"Otay Mesa Detention Facility (CA) - Feb. 3, 2021"	              Cover Letter	                Detention Review Summary Form
+22	"Prarieland Detention Center (TX) - Feb. 10, 2021"	                  Cover Letter	                    Detention Review Summary Form
+25	"South Texas Processing Center (TX) - Feb. 26, 2021"	    Cover Letter	      Detention Review Summary Form
+28	"Webb County Detention Center (TX) - Feb. 3, 2021"	    Cover Letter	      Detention Review Summary Form
+31	"Worcester County Jail (MD) - Feb. 3, 2021"	    Cover Letter	      Detention Review Summary Form
+34	"Alamance County Detention Center (NC) - Jan. 8, 2021"	Cover Letter	Detention Review Summary Form
+37	"Aurora II Annex (CO) - Jan. 29, 2021"	Cover Letter	Detention Review Summary Form
+40	"Aurora ICE Processing Center (CO) - Jan. 27, 2021"	Cover Letter	Detention Review Summary Form
+43	"Butler County Jail (OH) - Jan. 21, 2021"	Cover Letter	Detention Review Summary Form
+46	"Chase County Detention Center (KS) - Jan. 27, 2021"	Cover Letter	Detention Review Summary Form
+49	"Christian County Jail (MO) - Jan. 13, 2021"	Cover Letter	Detention Review Summary Form
+52	"Houston Contract Detention Facility (TX) - Jan. 6, 2021"	Cover Letter	Detention Review Summary Form
+55	"Imperial Regional Detention Facility (CA) - Jan. 13, 2021"	Cover Letter	Detention Review Summary Form
+58	"Otero County Processing Center (NM) - Jan. 29, 2021"	Cover Letter	Detention Review Summary Form
+61	"Polk County Adult Detention Center (TX) - Jan. 6, 2021"	Cover Letter	Detention Review Summary Form
+64	"Port Isabel Service Processing Center (TX) - Jan. 27, 2021"	Cover Letter	Detention Review Summary Form
+67	"Seneca County Jail (OH) - Jan. 13, 2021"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+68	Cover Letter		
+69	Detention Review Summary Form		
+70	"Sherburne County Jail (MN) - Jan. 21, 2021"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+71	Cover Letter		
+72	Detention Review Summary Form		
+73	"Adams County Correctional Center (MS) - Dec. 3, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+74	Cover Letter		
+75	Detention Review Summary Form		
+76	"Allen Parish Public Safety Complex (LA) - Dec. 9, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+77	Cover Letter		
+78	Detention Review Summary Form		
+79	"Cibola County Correctional Center (NM) - Dec. 3, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+80	Cover Letter		
+81	Detention Review Summary Form		
+82	"Eden Detention Center (TX) - Dec. 3, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+83	Cover Letter		
+84	Detention Review Summary Form		
+85	"El Paso Service Processing Center (TX) - Dec. 3, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+86	Cover Letter		
+87	Detention Review Summary Form		
+88	"El Valle Detention Facility (TX) - Dec. 10, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+89	Cover Letter		
+90	Detention Review Summary Form		
+91	"Geauga County Jail (OH) - Dec. 10, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+92	Cover Letter		
+93	Detention Review Summary Form		
+94	"Howard County Detention Center (MD) - Dec. 9, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+95	Cover Letter		
+96	Detention Review Summary Form		
+97	"Joe Corley Processing Center (TX) - Dec. 18, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+98	Cover Letter		
+99	Detention Review Summary Form		
+100	"Monroe County Inmate Dormitory (MI) - Dec. 30, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+101	Cover Letter		
+102	Detention Review Summary Form		
+103	"Montgomery Processing Center (TX) - Dec. 16, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+104	Cover Letter		
+105	Detention Review Summary Form		
+106	"Northwest Contract Detention Center (WA) - Dec. 17, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+107	Cover Letter		
+108	Detention Review Summary Form		
+109	"Plymouth County Correctional Facility (MA) - Dec. 30, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+110	Cover Letter		
+111	Detention Review Summary Form		
+112	"Robert A. Deyton Detention Center (GA) - Dec. 17, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+113	Cover Letter		
+114	Detention Review Summary Form		
+115	"South Louisiana ICE Processing Center (LA) - Dec. 11, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+116	Cover Letter		
+117	Detention Review Summary Form		
+118	"Strafford County Corrections (NH) - Dec. 10, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+119	Cover Letter		
+120	Detention Review Summary Form		
+121	"York County Prison (PA) - Dec. 11, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+122	Cover Letter		
+123	Detention Review Summary Form		
+124	"Yuba County Jail (CA) - Dec. 30, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+125	Cover Letter		
+126	Detention Review Summary Form		
+127	"Adelanto ICE Processing Center - East (CA) - Nov. 20, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+128	Cover Letter		
+129	Detention Review Summary Form		
+130	"Adelanto ICE Processing Center - West (CA) - Nov. 18, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+131	Cover Letter		
+132	Detention Review Summary Form		
+133	"Baker County Detention Center (FL) - Nov. 5, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+134	Cover Letter		
+135	Detention Review Summary Form		
+136	"Bristol County Jail and House of Correction (MA) - Nov. 18, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+137	Cover Letter		
+138	Detention Review Summary Form		
+139	"CCA Florence Correctional Center (AZ) - Nov. 6, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+140	Cover Letter		
+141	Detention Review Summary Form		
+142	"Clinton County Correctional Facility (PA) - Nov. 25, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+143	Cover Letter		
+144	Detention Review Summary Form		
+145	"Donald W. Wyatt Detention Center (RI) - Oct. 28, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+146	Cover Letter		
+147	Detention Review Summary Form		
+148	"Florence SPC (AZ) - Nov. 4, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+149	Cover Letter		
+150	Detention Review Summary Form		
+151	"Hardin County Jail (IA) - Nov. 11, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+152	Cover Letter		
+153	Detention Review Summary Form		
+154	"Henderson Detention Center (NV) - Nov. 20, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+155	Cover Letter		
+156	Detention Review Summary Form		
+157	"Jackson Parish Correctional Center (LA) - Nov. 20, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+158	Cover Letter		
+159	Detention Review Summary Form		
+160	"Jerome Combs Detention Center (IL) - Nov. 25, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+161	Cover Letter		
+162	Detention Review Summary Form		
+163	"La Palma Correctional Center (AZ) - Nov. 5, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+164	Cover Letter		
+165	Detention Review Summary Form		
+166	"Morgan County Adult Detention Center (MO) - Nov. 11, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+167	Cover Letter		
+168	Detention Review Summary Form		
+169	"Nye County Detention Center (NV) - Nov. 4, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+170	Cover Letter		
+171	Detention Review Summary Form		
+172	"Pine Prairie ICE Processing Center (LA) - Nov. 5, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+173	Cover Letter		
+174	Detention Review Summary Form		
+175	"San Luis Regional Detention Center (AZ) - Nov. 25, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+176	Cover Letter		
+177	Detention Review Summary Form		
+178	"Bluebonnet Detention Center (TX) - Oct. 23, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+179	Cover Letter		
+180	Detention Review Summary Form		
+181	"Catahoula Correctional Center (LA) - Nov. 9, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+182	Cover Letter		
+183	Detention Review Summary Form		
+184	"Clay County Justice Center (IN) - Oct. 15, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+185	Cover Letter		
+186	Detention Review Summary Form		
+187	"Desert View Annex (CA) - Oct. 29, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+188	Cover Letter		
+189	Detention Review Summary Form		
+190	"Dodge County Detention Facility (AK) - Oct. 29, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+191	Cover Letter		
+192	Detention Review Summary Form		
+193	"East Hidalgo Detention Center (TX) - Oct. 3, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+194	Cover Letter		
+195	Detention Review Summary Form		
+196	"Essex County Correctional Facility (NJ) - Oct. 9, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+197	Cover Letter		
+198	Detention Review Summary Form		
+199	"Etowah County Jail (AL) - Oct. 23, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+200	Cover Letter		
+201	Detention Review Summary Form		
+202	"Folkston ICE Processing Center Annex (GA) - Oct. 9, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+203	Cover Letter		
+204	Detention Review Summary Form		
+205	"Folkston ICE Processing Center (GA) - Oct. 7, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+206	Cover Letter		
+207	Detention Review Summary Form		
+208	"Golden State Annex (GA) - Oct. 16, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+209	Cover Letter		
+210	Detention Review Summary Form		
+211	"Hudson County Corrections and Rehabilitation Center (NJ) - Oct. 7, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+212	Cover Letter		
+213	Detention Review Summary Form		
+214	"Jena LaSalle Detention Facility (LA) - Oct. 7, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+215	Cover Letter		
+216	Detention Review Summary Form		
+217	"Kay County Detention Center (OK) - Oct. 15, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+218	Cover Letter		
+219	Detention Review Summary Form		
+220	"Laredo Processing Center (TX) - Oct. 23, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+221	Cover Letter		
+222	Detention Review Summary Form		
+223			
+			
+	"LaSalle County Regional Detention Center (TX) - Oct. 21, 2020"		
+			
+	Cover Letter		
+		Detention Review Summary Form	
+			
+224	Cover Letter		
+225	Detention Review Summary Form		
+226	"Mesa Verde ICE Processing Facility (CA) - Oct. 14, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+227	Cover Letter		
+228	Detention Review Summary Form		
+229	"Orange County Jail (NY) - Oct. 30, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+230	Cover Letter		
+231	Detention Review Summary Form		
+232	"Pike County Correctional Facility (PA) - Oct. 28, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+233	Cover Letter		
+234	Detention Review Summary Form		
+235	"Richwood Correcrtional Center (LA) - Oct. 21, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+236	Cover Letter		
+237	Detention Review Summary Form		
+238	"Rolling Plains Detention Center (TX) - Oct. 21, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+239	Cover Letter		
+240	Detention Review Summary Form		
+241	"Teller County Jail (CO) - Oct. 29, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+242	Cover Letter		
+243	Detention Review Summary Form		
+244			
+			
+	"Wakulla County Detention Facility (FL) - Oct. 8, 2020"		
+			
+	Cover Letter		
+		Detention Review Summary Form	
+			
+245	Cover Letter		
+246	Detention Review Summary Form		
+247	"Washoe County Detention Centerr (NV) - Oct. 15, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+248	Cover Letter		
+249	Detention Review Summary Form		
+250	"Willacy County Regional Detention Facility (TX) - Oct. 7, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+251	Cover Letter		
+252	Detention Review Summary Form		
+253	"Winn Correctional Center (LA) - Oct. 19, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+254	Cover Letter		
+255	Detention Review Summary Form		
+256	"Broward Transitional Center (FL) - Sep. 24, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+257	Cover Letter		
+258	Detention Review Summary Form		
+259	"Caroline Detention Facility (VA) - Sep. 17, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+260	Cover Letter		
+261	Detention Review Summary Form		
+262	"Elizabeth Contract Detention Facility (NJ) - Sep. 17, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+263	Cover Letter		
+264	Detention Review Summary Form		
+265	"Freeborn County Adult Detention Center (MN) - Sep. 10, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+266	Cover Letter		
+267	Detention Review Summary Form		
+268	"Hall County Department of Corrections (NE) - Sep. 17, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+269	Cover Letter		
+270	Detention Review Summary Form		
+271	"Irwin County Detention Center (GA) - Sep. 25, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+272	Cover Letter		
+273	Detention Review Summary Form		
+274	"Johnson County Corrections Center (TX) - Sep. 17, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+275	Cover Letter		
+276	Detention Review Summary Form		
+277	"Limestone County Detention Center (TX) - Oct. 1, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+278	Cover Letter		
+279	Detention Review Summary Form		
+280	"McHenry County Adult Correctional Facility (IL) - Oct. 1, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+281	Cover Letter		
+282	Detention Review Summary Form		
+283	"Okmulgee County Jail - Moore Detention Facility (OK) - Oct. 1, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+284	Cover Letter		
+285	Detention Review Summary Form		
+286	"Saint Clair County Jail (MI) - Oct. 1, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+287	Cover Letter		
+288	Detention Review Summary Form		
+289	"Stewart Detention Center (GA) - Sep. 24, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+290	Cover Letter		
+291	Detention Review Summary Form		
+292	"Torrance County Detention Facility (NM) - Oct. 1, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+293	Cover Letter		
+294	Detention Review Summary Form		
+295	"West Texas Detention Facility (TX) - Sep. 29, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+296	Cover Letter		
+297	Detention Review Summary Form		
+298	"Boone County Jail (KY) - Mar. 5, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+299	Cover Letter		
+300	Detention Review Summary Form		
+301	"Calhoun County Correctional Center (MI) - Mar. 5, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+302	Cover Letter		
+303	Detention Review Summary Form		
+304	"Dorchester County Detention Center (MD) - Mar. 19, 2020"		
+	Cover Letter		
+			
+305	Cover Letter		
+306	"Glades County Detention Center (FL) - Mar. 5, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+307	Cover Letter		
+308	Detention Review Summary Form		
+309	"Pulaski County Detention Center (IL) - Mar. 12, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+310	Cover Letter		
+311	Detention Review Summary Form		
+312	"Rio Grande Processing Center (TX) - Mar. 12, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+313	Cover Letter		
+314	Detention Review Summary Form		
+315	"River Correctional Center (LA) - Mar. 12, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+316	Cover Letter		
+317	Detention Review Summary Form		
+318	"Bergen County Jail (NJ) - Feb. 27, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+319	Cover Letter		
+320	Detention Review Summary Form		
+321	"Brooks County Detention Center (TX) - Feb. 21, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+322	Cover Letter		
+323	Detention Review Summary Form		
+324	"Eloy Detention Center (AZ) - Feb. 6, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+325	Cover Letter		
+326	Detention Review Summary Form		
+327	"Farmville Detention Center (CA) - Feb. 27, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+328	Cover Letter		
+329	Detention Review Summary Form		
+330	"Karnes County Residential Center (TX) - Feb. 25, 2020"		
+	Compliance Inspection Report		
+			
+331	Compliance Inspection Report		
+332	"Krome Service Procesing Center (FL) - Feb. 13, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+333	Cover Letter		
+334	Detention Review Summary Form		
+335	"Prairieland Detention Center (TX) - Feb. 13, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+336	Cover Letter		
+337	Detention Review Summary Form		
+338	"South Texas Family Residential Center (TX) - Feb. 12, 2020"		
+	Compliance Inspection Report		
+			
+339	Compliance Inspection Report		
+340	"South Texas ICE Processing Center (TX) - Feb. 27, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+341	Cover Letter		
+342	Detention Review Summary Form		
+343	"Tulsa County Jail - David L. Moss Criminal Jutice Center (OK) - Feb. 21, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+344	Cover Letter		
+345	Detention Review Summary Form		
+346	"Webb County Detention Facility (TX) - Feb. 6, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+347	Cover Letter		
+348	Detention Review Summary Form		
+349	"Coastal Bend Detention Center (TX) - Jan. 9, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+350	Cover Letter		
+351	Detention Review Summary Form		
+352	"DeKalb County Detention Facility (GA) - Jan. 30, 2020"		
+	Cover Letter		
+			
+353	Cover Letter		
+354	"Houston CDF (TX) - Jan. 9, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+355	Cover Letter		
+356	Detention Review Summary Form		
+357	"Imperial Regional Detention Facility (CA) - Jan. 16, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+358	Cover Letter		
+359	Detention Review Summary Form		
+360	"Karnes County Residential Center (TX) - Jan. 21, 2020"		
+	Compliance Inspection Report		
+			
+361	Compliance Inspection Report		
+362	"Otay Mesa Detention Facility (CA) - Jan. 24, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+363	Cover Letter		
+364	Detention Review Summary Form		
+365	"Otero County Processing Center (NM) - Jan. 30, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+366	Cover Letter		
+367	Detention Review Summary Form		
+368	"Polk County Adult Detention Center (TX) - Jan. 9, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+369	Cover Letter		
+370	Detention Review Summary Form		
+371	"Port Isabel Service Processing Center (TX) - Jan. 30, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+372	Cover Letter		
+373	Detention Review Summary Form		
+374	"South Texas Family Residential Center (TX) - Jan. 7, 2020"		
+	Compliance Inspection Report		
+			
+375	Compliance Inspection Report		
+376	"Western Tennessee Detention Facility (TN) - Jan. 16, 2020"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+377	Cover Letter		
+378	Detention Review Summary Form		
+379	"Allen Parish Public Safety Complex (LA) - Dec. 5, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+380	Cover Letter		
+381	Detention Review Summary Form		
+382	"Berks County Residential Center (TX) - Dec. 17, 2019"		
+	Compliance Inspection Report		
+			
+383	Compliance Inspection Report		
+384	"Bossier Parish Corrections Center (LA) - Dec. 5, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+385	Cover Letter		
+386	Detention Review Summary Form		
+387	"Carver County Jail (MN) - Dec. 5, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+388	Cover Letter		
+389	Detention Review Summary Form		
+390	"El Paso Service Processing Center (TX) - Dec. 12, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+391	Cover Letter		
+392	Detention Review Summary Form		
+393	"Karnes County Family Residential Center (TX) - Dec. 3, 2019"		
+	Compliance Inspection Report		
+			
+394	Compliance Inspection Report		
+395	"Karnes County Residential Center (TX) - Dec. 5, 2019"		
+	Deep Dive Compliance Inspection		
+			
+396	Deep Dive Compliance Inspection		
+397	"Montgomery Processing Center (TX) - Dec. 19, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+398	Cover Letter		
+399	Detention Review Summary Form		
+400	"Platte County Detention Center (MO) - Dec. 12, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+401	Cover Letter		
+402	Detention Review Summary Form		
+403	"Robert A. Deyton Correctional Center (GA) - Dec. 5, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+404	Cover Letter		
+405	Detention Review Summary Form		
+406	"Sheriff Al Cannon Detention Center (SC) - Dec. 12, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+407	Cover Letter		
+408	Detention Review Summary Form		
+409	"Strafford County Corrections (NH) - Dec. 12, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+410	Cover Letter		
+411	Detention Review Summary Form		
+412	"Adams County Correctional Center (MS) - Nov. 21, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+413	Cover Letter		
+414	Detention Review Summary Form		
+415	"Adelanto ICE Processing Center - East (CA) - Nov. 21, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+416	Cover Letter		
+417	Detention Review Summary Form		
+418	"Adelanto ICE Processing Center West (CA) - Nov. 21, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+419	Cover Letter		
+420	Detention Review Summary Form		
+421	"Alamance County Jail (NC) - Nov. 7, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+422	Cover Letter		
+423	Detention Review Summary Form		
+424	"Aurora ICE Processing Center (CO) - Nov. 27, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+425	Cover Letter		
+426	Detention Review Summary Form		
+427	"Aurora ICE Processing Center II - Annex (CO) - Nov. 27, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+428	Cover Letter		
+429	Detention Review Summary Form		
+430	"Berks County Residential Center (TX) - Nov. 12, 2019"		
+	Compliance Inspection Report		
+			
+431	Compliance Inspection Report		
+432	"Cambria County Prison (PA) - Nov. 7, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+433	Cover Letter		
+434	Detention Review Summary Form		
+435	"Jackson Parish Correctional Center (LA) - Nov. 7, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+436	Cover Letter		
+437	Detention Review Summary Form		
+438	"Joe Corley Detention Facility (TX) - Nov. 15, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+439	Cover Letter		
+440	Detention Review Summary Form		
+441	"Karnes County Residential Center (TX) - Nov. 6, 2019"		
+	Compliance Inspection Report		
+			
+442	Compliance Inspection Report		
+443	"LaSalle Correctional Center (LA) - Nov. 15, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+444	Cover Letter		
+445	Detention Review Summary Form		
+446	"Montgomery County Jail (MO) - Nov. 7, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+447	Cover Letter		
+448	Detention Review Summary Form		
+449	"Sherburne County Jail (MN) - Nov. 15, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+450	Cover Letter		
+451	Detention Review Summary Form		
+452	"South Louisiana ICE Processing Center (LA) - Nov. 7, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+453	Cover Letter		
+454	Detention Review Summary Form		
+455	"South Texas Family Residential Center (TX) - Nov. 12, 2019"		
+	Compliance Inspection Report		
+			
+456	Compliance Inspection Report		
+457	"Yuba County Jail (CA) - Nov. 15, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+458	Cover Letter		
+459	Detention Review Summary Form		
+460	"Berks County Residential Center (PA) - Oct. 17, 2019"		
+	Compliance Inspection Report		
+			
+461	Compliance Inspection Report		
+462	"Broward Transitional Center (FL) - Oct. 31, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+463	Cover Letter		
+464	Detention Review Summary Form		
+465	"Douglas County Department of Corrections (NE) - Oct. 24, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+466	Cover Letter		
+467	Detention Review Summary Form		
+468	"El Valle Detention Facility (TX) - Oct. 24, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+469	Cover Letter		
+470	Detention Review Summary Form		
+471	"Elizabeth Contract Detention Facility (NJ) - Oct. 3, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+472	Cover Letter		
+473	Detention Review Summary Form		
+474	"Geauga County Jail (OH) - Oct. 10, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+475	Cover Letter		
+476	Detention Review Summary Form		
+477	"Kay County Detention Center (OK) - Oct. 24, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+478	Cover Letter		
+479	Detention Review Summary Form		
+480	"Limestone County Detention Center (TX) - Oct. 24, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+481	Cover Letter		
+482	Detention Review Summary Form		
+483	"Northern Oregon Correctional Facility (OR) - Oct. 31, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+484	Cover Letter		
+485	Detention Review Summary Form		
+486	"River Correctional Center (LA) - Oct. 24, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+487	Cover Letter		
+488	Detention Review Summary Form		
+489	"Richwood Correctional Center (LA) - Oct. 3, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+490	Cover Letter		
+491	Detention Review Summary Form		
+492	"Seneca County Jail (OH) - Oct. 3, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+493	Cover Letter		
+494	Detention Review Summary Form		
+495	"South Texas Family Residential Center (TX) - Oct. 31, 2019"		
+	Compliance Inspection Report		
+			
+496	Compliance Inspection Report		
+497	"Wakulla County Detention Facility (FL) - Oct. 18, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+498	Cover Letter		
+499	Detention Review Summary Form		
+500	"Winn Correctional Center (LA) - Oct. 10, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+501	Cover Letter		
+502	Detention Review Summary Form		
+503	"York County Prison (PA) - Oct. 18, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+504	Cover Letter		
+505	Detention Review Summary Form		
+506	"Berks County Residential Center (PA) - Sep. 3, 2019"		
+	Compliance Inspection Report		
+			
+507	Compliance Inspection Report		
+508	"Cass County Jail (NE) - Sep. 19, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+509	Cover Letter		
+510	Detention Review Summary Form		
+511	"Clinton County Correctional Facility (PA) - Sep. 26, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+512	Cover Letter		
+513	Detention Review Summary Form		
+514	"East Hidalgo Detention Center (TX) - Sep. 6, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+515	Cover Letter		
+516	Detention Review Summary Form		
+517	"Essex County Corrections Facility (NJ) - Sep. 26, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+518	Cover Letter		
+519	Detention Review Summary Form		
+520	"Hardin County Jail (IA) - Sep. 12, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+521	Cover Letter		
+522	Detention Review Summary Form		
+523	"Karnes County Residential Center (TX) - Sep. 25, 2019"		
+	Compliance Inspection Report		
+			
+524	Compliance Inspection Report		
+525	"LaSalle ICE Processing Center (LA) - Sep. 26, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+526	Cover Letter		
+527	Detention Review Summary Form		
+528	"Okmulgee County Jail-Moore Detention Facility (OK) - Sep. 19, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+529	Cover Letter		
+530	Detention Review Summary Form		
+531	"Shawnee County Department of Corrections - Adult Detention Center (KS) - Sep. 6, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+532	Cover Letter		
+533	Detention Review Summary Form		
+534	"T. Don Hutto Residential Center (TX) - Sep. 12, 2019"		
+	Compliance Inspection Report		
+			
+535	Compliance Inspection Report		
+536	"Val Verde Correctional Facility (TX) - Sep. 19, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+537	Cover Letter		
+538	Detention Review Summary Form		
+539	"Willacy County Regional Detention Facility (TX) - Sep. 12, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+540	Cover Letter		
+541	Detention Review Summary Form		
+542	"Catahoula Correctional Center (LA) - Aug. 22, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+543	Cover Letter		
+544	Detention Review Summary Form		
+545	"Central Arizona Florence Correctional Complex (AZ) - Aug. 29, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+546	Cover Letter		
+547	Detention Review Summary Form		
+548	"Howard County Detention Center (MD) - Aug. 29, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+549	Cover Letter		
+550	Detention Review Summary Form		
+551	"Johnson County Corrections Center (TX) - Aug. 22, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+552	Cover Letter		
+553	Detention Review Summary Form		
+554	"Karnes County Residential Center (TX) - Aug. 15, 2019"		
+	Compliance Inspection Report		
+			
+555	Compliance Inspection Report		
+556	"Monroe County Inmate Dormitory (MI) - Aug. 15, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+557	Cover Letter		
+558	Detention Review Summary Form		
+559	"Rolling Plains Detention Center (TX) - Aug. 8, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+560	Cover Letter		
+561	Detention Review Summary Form		
+562	"South Texas Family Residential Center (TX) - Aug. 19, 2019"		
+	Compliance Inspection Report		
+			
+563	Compliance Inspection Report		
+564	"Tallahatchie County Correctional Facility (MS) - Aug. 15, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+565	Cover Letter		
+566	Detention Review Summary Form		
+567	"T. Don Hutto Residential Center (TX) - Aug. 27, 2019"		
+	Compliance Inspection Report		
+			
+568	Compliance Inspection Report		
+569	"Teller County Jail (CO) - Aug. 22, 2019"		
+	Cover Letter		
+			
+570	Cover Letter		
+571	"West Texas Detention Facility (TX) - Aug. 8, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+572	Cover Letter		
+573	Detention Review Summary Form		
+574	"Worcester County Jail (MD) - Aug. 15, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+575	Cover Letter		
+576	Detention Review Summary Form		
+577	"Chase County Detention Center (KS) - Jul. 11, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+578	Cover Letter		
+579	Detention Review Summary Form		
+580	"Etowah County Jail (AL) - Jul. 18, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+581	Cover Letter		
+582	Detention Review Summary Form		
+583	"Frederick County Detention Center (MD) - Jul. 11, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+584	Cover Letter		
+585	Detention Review Summary Form		
+586	"Hall County Department of Corrections (NE) - Jul. 11, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+587	Cover Letter		
+588	Detention Review Summary Form		
+589	"Henderson Detention Center (NV) - Jul. 18, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+590	Cover Letter		
+591	Detention Review Summary Form		
+592	"Kandiyohi County Jail (MN) - Jul. 11, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+593	Cover Letter		
+594	Detention Review Summary Form		
+595	"Karnes County Residential Center (TX) - Jul. 30, 2019"		
+	Compliance Inspection Report		
+			
+596	Compliance Inspection Report		
+597	"Monroe County Jail (FL) - Aug. 1, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+598	Cover Letter		
+599	Detention Review Summary Form		
+600	"Natchitoches Parish Detention Center (LA) - Jul. 3, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+601	Cover Letter		
+602	Detention Review Summary Form		
+603	"Nevada Southern Detention Center (NV) - Jul. 25, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+604	Cover Letter		
+605	Detention Review Summary Form		
+606	"Phelps County Jail (NE) - Jul. 18, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+607	Cover Letter		
+608	Detention Review Summary Form		
+609	"Polk County Jail (IA) - Aug. 1, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+610	Cover Letter		
+611	Detention Review Summary Form		
+612	"South Texas Family Residential Center (TX) - Jul. 30, 2019"		
+	Compliance Inspection Report		
+			
+613	Compliance Inspection Report		
+614	"Berks Family Residential Center (PA) - Jun. 25, 2019"		
+	Compliance Inspection Report		
+			
+615	Compliance Inspection Report		
+616	"Folkston ICE Processing Center (GA) - Jun. 6, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+617	Cover Letter		
+618	Detention Review Summary Form		
+619	"Folkston ICE Processing Center Annex (GA) - Jun. 6, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+620	Cover Letter		
+621	Detention Review Summary Form		
+622	"Irwin County Detention Center (GA) - Jun. 13, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+623	Cover Letter		
+624	Detention Review Summary Form		
+625	"Karnes County Residential Center (TX) - Jun. 11, 2019"		
+	Compliance Inspection Report		
+			
+626	Compliance Inspection Report		
+627	"Kenosha County Detention Center (WI) - Jun. 6, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+628	Cover Letter		
+629	Detention Review Summary Form		
+630	"La Palma Correctional Center (AZ) - Jun. 27, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+631	Cover Letter		
+632	Detention Review Summary Form		
+633	"Laredo Processing Center (TX) - Jun. 6, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+634	Cover Letter		
+635	Detention Review Summary Form		
+636	"Linn County Correctional Center (IA) - Jun. 20, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+637	Cover Letter		
+638	Detention Review Summary Form		
+639	"McHenry County Adult Correctional Facility (IL) - Jun. 13, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+640	Cover Letter		
+641	Detention Review Summary Form		
+642	"Mesa Verde Detention Facility (CA) - Jun. 27, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+643	Cover Letter		
+644	Detention Review Summary Form		
+645	"Plymouth County Correctional Facility (MA) - Jun. 13, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+646	Cover Letter		
+647	Detention Review Summary Form		
+648	"St. Clair County Jail (MI) - Jun. 20, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+649	Cover Letter		
+650	Detention Review Summary Form		
+651	"South Texas Family Residential Center (TX) - Jun. 25, 2019"		
+	Compliance Inspection Report		
+			
+652	Compliance Inspection Report		
+653	"Baker County Detention Center (FL) - May 31, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+654	Cover Letter		
+655	Detention Review Summary Form		
+656	"Bristol County Jail and House of Correction (MA) - May 16, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+657	Cover Letter		
+658	Detention Review Summary Form		
+659	"Cibola County Correctional Center (NM) - May 9, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+660	Cover Letter		
+661	Detention Review Summary Form		
+662	"Clay County Jail (IN) - May 31, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+663	Cover Letter		
+664	Detention Review Summary Form		
+665	"Hudson County Corrections and Rehabilitation Center (NJ) - May 9, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+666	Cover Letter		
+667	Detention Review Summary Form		
+668	"Northwest Detention Center (WA) - May 16, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+669	Cover Letter		
+670	Detention Review Summary Form		
+671	"Stewart Detention Center (GA) - May 9, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+672	Cover Letter		
+673	Detention Review Summary Form		
+674	"Suffolk County House of Correction (MA) - May 16, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+675	Cover Letter		
+676	Detention Review Summary Form		
+677	"Buffalo (Batavia) Service Processing Center (NY) - Apr. 4, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+678	Cover Letter		
+679	Detention Review Summary Form		
+680	"Dodge County Detention Facility (WI) - Apr. 18, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+681	Cover Letter		
+682	Detention Review Summary Form		
+683	"Florence Service Processing Center (AZ) - Apr. 11, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+684	Cover Letter		
+685	Detention Review Summary Form		
+686	"Freeborn County Adult Detention Center (MN) - Apr. 18, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+687	Cover Letter		
+688	Detention Review Summary Form		
+689	"Jerome Combs Detention Center (IL) - Apr. 11, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+690	Cover Letter		
+691	Detention Review Summary Form		
+692	"Orange County Jail (NY) - Apr. 18, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+693	Cover Letter		
+694	Detention Review Summary Form		
+695	"Pike County Correctional Facility (PA) - Apr. 25, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+696	Cover Letter		
+697	Detention Review Summary Form		
+698	"Pine Prairie ICE Processing Center (LA) - Apr. 25, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+699	Cover Letter		
+700	Detention Review Summary Form		
+701	"Donald W. Wyatt Detention Facility (RI) - Apr. 11, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+702	Cover Letter		
+703	Detention Review Summary Form		
+704	"Boone County Jail (KY) - Mar. 7, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+705	Cover Letter		
+706	Detention Review Summary Form		
+707	"Calhoun County Correctional Center (MI) - Mar. 7, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+708	Cover Letter		
+709	Detention Review Summary Form		
+710	"Chippewa County Correctional Facility (MI) - Mar. 29, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+711	Cover Letter		
+712	Detention Review Summary Form		
+713	"Glades County Detention Center (FL) - Mar. 14, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+714	Cover Letter		
+715	Detention Review Summary Form		
+716	"Northeast Ohio Correctional Center (OH) - Mar. 21, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+717	Cover Letter		
+718	Detention Review Summary Form		
+719	"Pulaski County Detention Center (IL) - Mar. 14, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+720	Cover Letter		
+721	Detention Review Summary Form		
+722	"Rio Grande Detention Center (TX) - Mar. 14, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+723	Cover Letter		
+724	Detention Review Summary Form		
+725	"Tulsa County Jail (David L. Moss Criminal Justice Center) (OK) - Mar. 14, 2019"		
+	Final Recommendation		
+		See the January 2019 entry for the initial reports	
+			
+726	Final Recommendation		
+727	See the January 2019 entry for the initial reports		
+728	"Allen Parish Detention Facility (LA) - Feb. 14, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+729	Cover Letter		
+730	Detention Review Summary Form		
+731	"Bergen County Jail (NJ) - Feb. 28, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+732	Cover Letter		
+733	Detention Review Summary Form		
+734	"Brooks County Detention Center (TX) - Feb. 21, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+735	Cover Letter		
+736	Detention Review Summary Form		
+737	"Eloy Detention Center (AZ) - Feb. 7, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+738	Cover Letter		
+739	Detention Review Summary Form		
+740	"Immigration Centers of America - Farmville (VA) - Feb. 28, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+741	Cover Letter		
+742	Detention Review Summary Form		
+743	"Krome SPC (FL) - Feb. 14, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+744	Cover Letter		
+745	Detention Review Summary Form		
+746	"Morgan County Adult Detention Center (MO) - Feb. 21, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+747	Cover Letter		
+748	Detention Review Summary Form		
+749	"Prairieland Detention Center (TX) - Feb. 14, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+750	Cover Letter		
+751	Detention Review Summary Form		
+752	"South Texas Detention Complex (TX) - Feb. 28, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+753	Cover Letter		
+754	Detention Review Summary Form		
+755	"Webb County Detention Center (TX) - Feb. 7, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+756	Cover Letter		
+757	Detention Review Summary Form		
+758	"Bossier Parish Corrections Center (LA) - Jan. 29 - 31, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+759	Cover Letter		
+760	Detention Review Summary Form		
+761	"Coastal Bend Detention Facility (TX) - Jan. 10, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+762	Cover Letter		
+763	Detention Review Summary Form		
+764	"Houston Contract Detention Facility (TX) - Jan. 10, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+765	Cover Letter		
+766	Detention Review Summary Form		
+767	"IAH Secure Adult Detention Facility (Polk) (TX) - Jan. 10, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+768	Cover Letter		
+769	Detention Review Summary Form		
+770	"Imperial Regional Detention Facility (CA) - Jan. 17, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+771	Cover Letter		
+772	Detention Review Summary Form		
+773	"Otay Mesa Detention Center (CA) - Jan. 25, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+774	Cover Letter		
+775	Detention Review Summary Form		
+776	"Otero County Processing Center (NM) - Jan. 31, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+777	Cover Letter		
+778	Detention Review Summary Form		
+779	"Port Isabel Service Processing Center (TX) - Jan. 31, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+780	Cover Letter		
+781	Detention Review Summary Form		
+782	"Tulsa County Jail (David L. Moss Justice Center) (OK) - Jan. 25, 2019"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+783	Cover Letter		
+784	Detention Review Summary Form		
+785	"El Paso Service Processing Center (TX) - Dec. 13, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+786	Cover Letter		
+787	Detention Review Summary Form		
+788	"El Valle Detention Facility (TX) - Dec. 6, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+789	Cover Letter		
+790	Detention Review Summary Form		
+791	"Kandiyohi County Jail (MN) - Dec. 6, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+792	Cover Letter		
+793	Detention Review Summary Form		
+794	"Morgan County Adult Detention Center (MO) - Dec. 6, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+795	Cover Letter		
+796	Detention Review Summary Form		
+797	"Montgomery Processing Center (TX) - Dec. 20, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+798	Cover Letter		
+799	Detention Review Summary Form		
+800	"Northern Oregon Correctional Facility (OR) - Dec. 13, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+801	Cover Letter		
+802	Detention Review Summary Form		
+803	"River Correctional Center (LA) - Dec. 6, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+804	Cover Letter		
+805	Detention Review Summary Form		
+806	"Strafford County Department of Corrections (DE) - Dec. 13, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+807	Cover Letter		
+808	Detention Review Summary Form		
+809	"Wakulla County Detention Facility (FL) - Dec. 13, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+810	Cover Letter		
+811	Detention Review Summary Form		
+812	"Cache County Jail (UT) - Nov. 8, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+813	Cover Letter		
+814	Detention Review Summary Form		
+815	"Cambria County Prison (PA) - Nov. 8, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+816	Cover Letter		
+817	Detention Review Summary Form		
+818	"Sheriff Al Cannon Detention Center (SC) - Nov. 29, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+819	Cover Letter		
+820	Detention Review Summary Form		
+821	"Clinton County Correctional Facility (PA) - Nov. 8, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+822	Cover Letter		
+823	Detention Review Summary Form		
+824	"Geauga County Jail (OH) - Nov. 29, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+825	Cover Letter		
+826	Detention Review Summary Form		
+827	"Howard County Detention Center (MD) - Nov. 29, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+828	Cover Letter		
+829	Detention Review Summary Form		
+830	"Joe Corley Detention Facility (TX) - Nov. 16, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+831	Cover Letter		
+832	Detention Review Summary Form		
+833	"Sherburne County Jail (MN) - Nov. 16, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+834	Cover Letter		
+835	Detention Review Summary Form		
+836	"Theo Lacy Facility (CA) - Nov. 8, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+837	Cover Letter		
+838	Detention Review Summary Form		
+839	"Yuba County Jail (CA) - Nov. 16, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+840	Cover Letter		
+841	Detention Review Summary Form		
+842	"Adelanto ICE Processing Center-East (CA) - Oct. 11, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+843	Cover Letter		
+844	Detention Review Summary Form		
+845	"Adelanto ICE Processing Center-West (CA) - Oct. 11, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+846	Cover Letter		
+847	Detention Review Summary Form		
+848	"Clinton County Jail (NY) - Oct. 25, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+849	Cover Letter		
+850	Detention Review Summary Form		
+851	"Aurora ICE Processing Center (CO) - Oct. 4, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+852	Cover Letter		
+853	Detention Review Summary Form		
+854	"Douglas County Department of Corrections (NE) - Oct. 25, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+855	Cover Letter		
+856	Detention Review Summary Form		
+857	"Elizabeth Contract Detention Facility (NJ) - Oct. 12, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+858	Cover Letter		
+859	Detention Review Summary Form		
+860	"Marshall County Jail (IA) - Oct. 25, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+861	Cover Letter		
+862	Detention Review Summary Form		
+863	"James A. Musick Facility (CA) - Oct. 18, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+864	Cover Letter		
+865	Detention Review Summary Form		
+866	"Okmulgee County Jail - Moore Detention Facility (OK) - Oct. 4, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+867	Cover Letter		
+868	Detention Review Summary Form		
+869	"Seneca County Jail (OH) - Oct. 4, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+870	Cover Letter		
+871	Detention Review Summary Form		
+872	"York County Prison (PA) - Oct. 18, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+873	Cover Letter		
+874	Detention Review Summary Form		
+875	"Albany County Correctional Facility (NY) - Sep. 27, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+876	Cover Letter		
+877	Detention Review Summary Form		
+878	"Cass County Jail (NE) - Sep. 13, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+879	Cover Letter		
+880	Detention Review Summary Form		
+881	"Essex County Correctional Facility (NJ) - Sep. 27, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+882	Cover Letter		
+883	Detention Review Summary Form		
+884	"Hardin County Jail (IA) - Sep. 13, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+885	Cover Letter		
+886	Detention Review Summary Form		
+887	"LaSalle ICE Processing Center (LA) - Sep. 27, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+888	Cover Letter		
+889	Detention Review Summary Form		
+890	"Willacy County Regional Detention Facility (TX) - Sep. 13, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+891	Cover Letter		
+892	Detention Review Summary Form		
+893	"Central Arizona Florence Correctional Complex (AZ) - Aug. 30, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+894	Cover Letter		
+895	Detention Review Summary Form		
+896	"Johnson County Corrections Center (TX) - Aug. 23, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+897	Cover Letter		
+898	Detention Review Summary Form		
+899	"Monroe County Detention Center (FL) - Aug. 23, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+900	Cover Letter		
+901	Detention Review Summary Form		
+902	"Monroe County Inmate Dormitory (MI) - Aug. 16, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+903	Cover Letter		
+904	Detention Review Summary Form		
+905	"Polk County Jail (IA) - Aug. 2, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+906	Cover Letter		
+907	Detention Review Summary Form		
+908	"St. Clair County Jail (MI) - Aug. 9, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+909	Cover Letter		
+910	Detention Review Summary Form		
+911	"Washoe County Detention Center (NV) - Aug. 30, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+912	Cover Letter		
+913	Detention Review Summary Form		
+914	"West Texas Detention Facility (TX) - Aug. 9, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+915	Cover Letter		
+916	Detention Review Summary Form		
+917	"Worcester County Jail (MD) - Aug. 16, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+918	Cover Letter		
+919	Detention Review Summary Form		
+920	"Chase County Detention Center (KS) - Jul. 12, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+921	Cover Letter		
+922	Detention Review Summary Form		
+923	"East Hidalgo Detention Center (TX) - Jul. 26, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+924	Cover Letter		
+925	Detention Review Summary Form		
+926	"Etowah County Jail (AL) - Jul. 19, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+927	Cover Letter		
+928	Detention Review Summary Form		
+929	"Hall County Department of Corrections (NE) - Jul. 12, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+930	Cover Letter		
+931	Detention Review Summary Form		
+932	"Henderson Detention Center (NV) - Jul. 19, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+933	Cover Letter		
+934	Detention Review Summary Form		
+935	"Nevada Southern Detention Center (NV) - Jul. 26, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+936	Cover Letter		
+937	Detention Review Summary Form		
+938	"Atlanta City Detention Center (GA) - Jun. 21, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+939	Cover Letter		
+940	Detention Review Summary Form		
+941	"Baker County Detention Center (FL) - Jun. 1, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+942	Cover Letter		
+943	Detention Review Summary Form		
+944	"Clay County Jail (IN) - Jun. 1, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+945	Cover Letter		
+946	Detention Review Summary Form		
+947	"Irwin County Detention Center (GA) - Jun. 14, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+948	Cover Letter		
+949	Detention Review Summary Form		
+950	"Kenosha County Detention Center (WI) - Jun. 7, 2018"		
+	Cover Letter		
+		Detention Review Summary Form	
+			
+951	Cover Letter		
+952	Detention Review Summary Form		
