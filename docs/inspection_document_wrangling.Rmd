@@ -35,14 +35,34 @@ PDF <- pdf_text("./data/auroraAnnex_SIS_01-29-2021.pdf") %>%
   readr::read_lines()
 ```
 
+Send the PDf to the viewer
 ```{r}
 view(PDF)
 ```
 
 
+Examine portions of the file line by line
 ```{r}
+cat(PDF[139:330])
+```
+
+Find a pattern that starts the location of the table. This might be a way to extract tables when the overall structure of the file is different.
+```{r}
+the_pattern <- "Jan      Feb      Mar"
+
 
 ```
+
+```{r}
+out <- str_locate_all(PDF, the_pattern)
+data.class(out)
+```
+
+```{r}
+unlist(out)
+```
+
+
 
 
 
