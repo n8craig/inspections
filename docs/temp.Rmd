@@ -1,0 +1,110 @@
+---
+title: "Untitled"
+author: "Nathan Craig"
+date: "6/15/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r load-libraries}
+# Load necessary libraries
+library(googlesheets4)
+library(readr)
+library(tidyverse)
+library(janitor)
+library(lubridate)
+library(DT)
+```
+
+
+```{r}
+  # The line type must be set in the ggplot call
+  # then the line type values vector passed to the arg
+
+  # scale_linetype_manual(
+  #   values = lines,
+  #   labels = c(
+  #   "Detained Person on Staff w. Serious Injury",
+  #   "Detained Person on Staff w/o Serious Injury",
+  #   "Detained Person on Detained Person w. Serous Injury",
+  #   "Detained Person on Detained Person w/o Serous Injury",
+  #   "Total Assaults"),
+  #   name = "Assault Type:",
+  #   guide = guide_legend(nrow = 5)
+  #   )+
+  
+  # Setting the color
+
+  # scale_color_manual(
+  # values = c("green",
+  #             "darkgreen",
+  #             "red",
+  #             "darkred",
+  #             "black"),
+  # name = "Assault Type:"
+  # )+
+```
+
+
+```{r assault-facet, fig.height=25}
+
+# Generating a linetype vector for use in the plot
+lines <- c(
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "dotted"
+    )
+
+
+df %>%
+  
+  # Subset the df to only the used cols
+  select(id, facility, date,
+       detainee_physical_assault_on_staff_with_serious_injury:
+       detainee_on_detainee_physical_assault_fight_with_no_serious_injury
+       ) %>% 
+  
+  # Need the rowwise function to compute a row-at-a-time
+  # in the following mutate function
+  rowwise(id) %>% 
+  
+  # Create a new total assaults column
+  mutate(total_assaults = sum(c_across(
+       detainee_physical_assault_on_staff_with_serious_injury:
+       detainee_on_detainee_physical_assault_fight_with_no_serious_injury
+  ))) %>% 
+
+  # Call a range of table columns and pivot long
+  pivot_longer(.,
+               cols=  detainee_physical_assault_on_staff_with_serious_injury:total_assaults,
+               names_to = "assault_type",
+               values_to = "assault_count") %>% 
+  
+  # Calling the plot and formatting
+  ggplot(aes(x=date, y = assault_count, linetype=assault_type))+
+  geom_line(aes(color = assault_type)) +
+  
+
+  
+  
+  labs(title = "Reported Assaults")+
+  ylab("Number of Assaults")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 8),
+    legend.position = "bottom"
+    )+
+
+    # Set the legend to multiple rows
+  guides(col = guide_legend(nrow =5))+
+  
+  # Wrap
+  facet_wrap(~ facility, ncol=3)
+
+remove(lines)
+```
