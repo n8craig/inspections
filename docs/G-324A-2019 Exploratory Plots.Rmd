@@ -69,6 +69,13 @@ df_324 <- read_sheet("https://docs.google.com/spreadsheets/d/1im5VSi3bIEi13O8WQ5
                  col_types = "c") %>% 
   clean_names() %>% 
 
+  # Removing a curious whitespace character that appears
+  # in more recent facility names
+  mutate(facility = str_replace_all(facility,
+         pattern = " ",
+         replacement = " ")) %>% 
+  
+  
   # Clean up the facility names separating out inspection date and state
   # Note the use of a double escape character. This was necessary.
   separate(.,
@@ -91,6 +98,9 @@ df_324 <- read_sheet("https://docs.google.com/spreadsheets/d/1im5VSi3bIEi13O8WQ5
   relocate(date, .before = inspection_date) %>% 
   mutate_at(c(20:49), as.numeric)
 ```
+
+
+
 
 ```{r read-data-324-incident}
 # Read Google Sheet incident worksheet, convert to data frame, and wrangle
