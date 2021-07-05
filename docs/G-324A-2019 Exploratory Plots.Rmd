@@ -49,6 +49,9 @@ library(RColorBrewer)
 
 # Tables
 library(kableExtra)
+
+# Load custom function
+source("function_clean_facility_names.R", local = knitr::knit_global())
 ```
 
 # Introduction
@@ -68,27 +71,11 @@ df_324 <- read_sheet("https://docs.google.com/spreadsheets/d/1im5VSi3bIEi13O8WQ5
                  col_names = TRUE,
                  col_types = "c") %>% 
   clean_names() %>% 
-
-  # Removing a curious whitespace character that appears
-  # in more recent facility names
-  mutate(facility = str_replace_all(facility,
-         pattern = " ",
-         replacement = " ")) %>% 
   
+  # Run custom cleaning function
+  clean_facility_names() %>% 
   
-  # Clean up the facility names separating out inspection date and state
-  # Note the use of a double escape character. This was necessary.
-  separate(.,
-           col = facility,
-           into = c("facility","inspection_date"),
-           sep = "\\) - ") %>%
-  separate(.,
-           col = facility,
-           into = c("facility","state"),
-           sep = "\\(") %>% 
-
-  # Convert the character type cols to numbers
-  # type_convert() %>%
+  # df specific changes
   mutate(facility = as.factor(facility),
          state = as.factor(state),
          date = mdy(inspection_date),
@@ -99,29 +86,18 @@ df_324 <- read_sheet("https://docs.google.com/spreadsheets/d/1im5VSi3bIEi13O8WQ5
   mutate_at(c(20:49), as.numeric)
 ```
 
-
-
-
 ```{r read-data-324-incident}
 # Read Google Sheet incident worksheet, convert to data frame, and wrangle
 df_324_inc <- read_sheet("https://docs.google.com/spreadsheets/d/1im5VSi3bIEi13O8WQ56wEIXSyNEstbGMylXXgD9bAG0/edit#gid=1858227071",
                  sheet="G-324A-19-inc",
                  col_types = "c") %>% 
-  clean_names() %>% 
+  clean_names() %>%
+  
+  # Run custom cleaning function
+  clean_facility_names() %>% 
 
-  # Clean up the facility names separating out inspection date and state
-  # Note the use of a double escape character. This was necessary.
-  separate(.,
-           col = facility,
-           into = c("facility","inspection_date"),
-           sep = "\\) - ") %>%
-  separate(.,
-           col = facility,
-           into = c("facility","state"),
-           sep = "\\(") %>% 
 
-  # Convert the character type cols to numbers
-  # type_convert() %>% 
+  # df_specific changes
   unite(date, year:month) %>% 
   mutate(facility = as.factor(facility),
          state = as.factor(state),
