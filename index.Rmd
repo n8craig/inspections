@@ -10,11 +10,13 @@ output:
     df_print: paged
     code_folding: hide
     code_download: true
-bibliography: references.bib
+bibliography: [references.bib, packages.bib]
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ggplot2)
 ```
 
 # Background
@@ -36,6 +38,15 @@ Though not in compliance, the SIS and cover letter forms do provide some informa
 
 # How the work was done
 
-During the Summer of 2021, data from the SIS and inspection cover letters was compiled into a series of spreadsheets, note this work is still in progress. The impetus for the project was Nathan Craig who was interested in collating the data to examine them for trends, patterns, and anomalies. The work was performed by three students funded under a National Science Foundation grant awarded to Dr. Neil Harvey (NMSU) and Dr. Jeremy Slack (NMSU). The students who performed the work were Juan Becerra (Stanford), Avigail Turima Romo (Columbia), and Daniela Navarro Verdugo (CSSLO). The three students worked with Dr. Craig to develop a workflow for compiling individual SIS and inspection cover letters into a series of spreadsheets. These web pages, still in development, document those procedures.
+During the Summer of 2021, data from the SIS and inspection cover letters was compiled into a series of spreadsheets, note this work is still in progress. Nathan Craig developed the idea for a project to collate and organize information in SIS and inspection cover letters to examine them for trends, patterns, and anomalies. The work was performed by three students funded under a National Science Foundation grant awarded to Dr. Neil Harvey (NMSU) and Dr. Jeremy Slack (NMSU). The students who performed the work were Juan Becerra (Stanford), Avigail Turima Romo (Columbia), and Daniela Navarro Verdugo (CSSLO). The three students worked with Dr. Craig to develop a workflow for compiling individual SIS and inspection cover letters into a series of spreadsheets. These web pages, still in development, document those procedures. Much of the analysis is done in R [@R-base], `tidyverse` [@R-tidyverse], and ggplot2 [@R-ggplot2].
 
-# Reference
+# References
+
+::: {#refs}
+:::
+
+```{r package-references, echo=FALSE}
+knitr::write_bib(file = 'packages.bib')
+```
+
+

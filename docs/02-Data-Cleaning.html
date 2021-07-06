@@ -59,6 +59,28 @@ if (window.hljs) {
 
 
 
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 
 
@@ -307,7 +329,7 @@ df_inspect &lt;- read_sheet(&quot;https://docs.google.com/spreadsheets/d/1im5VSi
                  col_names = TRUE,
                  col_types = &quot;c&quot;) %&gt;% 
   clean_names()</code></pre>
-<p>Sometimes facility names are repeated. Use of the <code>dplyr</code> function <code>distinct</code> is useful for isolating issues with field names.</p>
+<p>Sometimes facility names are repeated. Use of the <code>dplyr</code> function <code>distinct</code> is useful for isolating issues with field names <span class="citation">[@R-dplyr]</span>.</p>
 <pre class="r"><code>df_inspect %&gt;% 
   distinct(facility, .keep_all = TRUE) %&gt;% 
   arrange(facility)</code></pre>
@@ -326,7 +348,7 @@ df_inspect &lt;- read_sheet(&quot;https://docs.google.com/spreadsheets/d/1im5VSi
 ## 10 144   Alamance Co~ Cover~ alamanceCoNC~ Deten~ No SIS prov~ Finis~ NMC       
 ## # ... with 364 more rows, and 3 more variables: completed_on &lt;chr&gt;,
 ## #   needs_review &lt;chr&gt;, note &lt;chr&gt;</code></pre>
-<p>The following procedures detail the main facility name cleaning operations. This block of code was converted to a custom function and written to an R file. By doing this, the entire following code block can be called with a single function, or incorporated into an analysis specific pipeline. The cleaning procedures are provided here to show the transformations, but the separate function file can be <a href="https://github.com/n8craig/inspections/blob/main/function_clean_facility_names.R">downloaded</a> directly. Heavy use is made of <code>str_replace_all</code> and <code>replace</code>.</p>
+<p>The following procedures detail the main facility name cleaning operations. This block of code was converted to a custom function and written to an R file. By doing this, the entire following code block can be called with a single function, or incorporated into an analysis specific pipeline. The cleaning procedures are provided here to show the transformations, but the separate function file can be <a href="https://github.com/n8craig/inspections/blob/main/function_clean_facility_names.R">downloaded</a> directly. Heavy use is made of the <code>dplyr</code> library <span class="citation">[@R-dplyr]</span> <code>mutate</code> function in combination with the <code>stringr</code> library <span class="citation">[@R-stringr]</span> functions <code>str_replace_all</code> and <code>replace</code> functions. All of these are part of the <code>tidyverse</code> <span class="citation">[@R-tidyverse]</span> family of libraries.</p>
 <pre class="r"><code>df_inspect &lt;- df_inspect %&gt;% 
   # Removing a curious whitespace character that appears
   # in more recent facility names
@@ -479,6 +501,12 @@ df_inspect &lt;- read_sheet(&quot;https://docs.google.com/spreadsheets/d/1im5VSi
                             pattern = &quot;^Webb County Detention Facility&quot;,
                             replacement = &quot;Webb County Detention Center&quot;),
          )</code></pre>
+</div>
+<div id="references" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> References</h1>
+<div id="refs">
+
+</div>
 </div>
 
 

@@ -35,6 +35,7 @@ library(readr)
 library(tidyverse)
 library(janitor)
 library(lubridate)
+
 ```
 
 # Cleaning Script
@@ -51,7 +52,7 @@ df_inspect <- read_sheet("https://docs.google.com/spreadsheets/d/1im5VSi3bIEi13O
   clean_names()
 ```
 
-Sometimes facility names are repeated. Use of the `dplyr` function `distinct` is useful for isolating issues with field names.
+Sometimes facility names are repeated. Use of the `dplyr` function `distinct` is useful for isolating issues with field names [@R-dplyr].
 
 ```{r message=FALSE, warning=FALSE}
 df_inspect %>% 
@@ -59,7 +60,7 @@ df_inspect %>%
   arrange(facility)
 ```
 
-The following procedures detail the main facility name cleaning operations. This block of code was converted to a custom function and written to an R file. By doing this, the entire following code block can be called with a single function, or incorporated into an analysis specific pipeline. The cleaning procedures are provided here to show the transformations, but the separate function file can be [downloaded](https://github.com/n8craig/inspections/blob/main/function_clean_facility_names.R) directly. Heavy use is made of `str_replace_all` and `replace`.
+The following procedures detail the main facility name cleaning operations. This block of code was converted to a custom function and written to an R file. By doing this, the entire following code block can be called with a single function, or incorporated into an analysis specific pipeline. The cleaning procedures are provided here to show the transformations, but the separate function file can be [downloaded](https://github.com/n8craig/inspections/blob/main/function_clean_facility_names.R) directly. Heavy use is made of the `dplyr` library [@R-dplyr] `mutate` function in combination with the `stringr` library [@R-stringr] functions `str_replace_all` and `replace` functions. All of these are part of the `tidyverse` [@R-tidyverse] family of libraries.
 
 ```{r message=FALSE, warning=FALSE}
 df_inspect <- df_inspect %>% 
@@ -214,4 +215,14 @@ df_inspect <- df_inspect %>%
                             pattern = "^Webb County Detention Facility",
                             replacement = "Webb County Detention Center"),
          )
+```
+
+
+# References
+
+::: {#refs}
+:::
+
+```{r package-references, echo=FALSE}
+knitr::write_bib(file = 'packages.bib')
 ```
