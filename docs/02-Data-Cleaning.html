@@ -289,8 +289,8 @@ $(document).ready(function () {
 <li>Krome Service Procesing Center (FL) - Feb. 13, 2020</li>
 <li>Krome SPC (FL) - Feb. 14, 2019</li>
 </ul>
-<p>Every instance is different. In one case “Special” is replaced for “Service.” In another case the word processing is misspelled “Procesing,” while in a third, the title is abbreviated. This is one example of many. In other cases facilities are sometimes named “Detention Center” rather than “Detention Facility,” etc. Assembling the data into a useful table requires standardizing the names.</p>
-<p>From early on, Craig decided to first assemble the data as reported, errors and all. From there, facility names are standardized programmatically. The primary cleaning functions are incorporated into a custom function <code>clean_facility_names()</code> and moved to a <a href="https://github.com/n8craig/inspections/blob/main/function_clean_facility_names.R">separate R file</a>. However, the lines of code that make up the transformations are displayed on this page.</p>
+<p>Every instance is different. In one case “Special” is replaced for “Service.” In another case the word processing is misspelled “Procesing,” while in a third, the title is abbreviated. This is one example of many. In other cases facilities are sometimes named “Detention Center” rather than “Detention Facility,” etc. Assembling the data into a useful table that can be sorted, filtered, and summarized requires standardizing the names.</p>
+<p>From early on, Craig decided to assemble the data as reported, errors and all, and perform standardization programmatically. Doing this facilitates reproducibility. The project’s primary cleaning functions are incorporated into a custom function <code>clean_facility_names()</code> and moved to a <a href="https://github.com/n8craig/inspections/blob/main/function_clean_facility_names.R">separate R file</a>. This allows more than 100 lines of code to be collapsed into a single function call. However, for display purposes, the lines of code that make up the transformations are detailed on this page.</p>
 <pre class="r"><code># Load necessary libraries
 library(googlesheets4)
 library(readr)
