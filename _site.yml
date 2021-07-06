@@ -10,6 +10,10 @@ navbar:
       href: 02-Data-Cleaning.html
     - text: "Preliminary Plots"
       href: 03-G-324A-2019-Exploratory-Plots.html
+    - text: Preliminary Results
+      menu:
+      - text: Assaults
+        href: 03-G-324A-2019-Exploratory-Plots.html
   right:
     - href: https://github.com/n8craig/inspections
       icon: fa fa-github

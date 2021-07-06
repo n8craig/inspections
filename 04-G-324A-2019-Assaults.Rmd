@@ -1,0 +1,198 @@
+---
+title: "Assaults"
+author: "Nathan Craig"
+date: "`r format(Sys.Date(), '%A %B %d, %Y')`"
+output:
+  bookdown::html_document2: 
+    toc: true
+    toc_float: true
+    number_sections: true
+    df_print: paged
+    code_folding: hide
+    code_download: true
+bibliography: [citations.bib, packages.bib]
+---
+
+# Assaults
+
+The ICE G-324A Significant Incident Summary sheet contains information on a number of different kinds of assaults. Specifically, there are four categories of assaults listed:
+
+-   Detained Person on Staff with Serious Injury
+-   Detained Person on Staff without Serious Injury
+-   Detained Person on Detained Person with Serious Injury
+-   Detained Person on Detained Person without Serious Injury
+
+Conspicuously absent from this list of assault types are assaults on detained persons by staff. This is deeply concerning because already initial review of inspection forms and prior news stories indicates that staff assaults on detained persons do occur. For example, at the Bristol County County Jail and House of Corrections independent investigation by the Massachusetts Office of Attorney General (MAOG) found that facility staff found a "planned and deliberate-use of force against the ICE detainees that was disproportionate to the security needs at that time and unnecessarily caused, or risked causing, harm to all involved" [@maag2020, ii]. The MOAG found that facility staff used "a flash bang grenade, pepper-ball launchers, pepper spray canisters, anti-riot shields, and canines--against detainees who had exhibited calm and nonviolent behavior for at least an hour before this operation" [@maag2020, ii]. Investigations found that staff "deployed these weapons both indiscriminately upon entry and also specifically against detainees who were not combative, assaultive, or otherwise actively resisting staff" [@maag2020, ii].
+
+While the aforementioned Bristol County Jail may be a particularly egregious instance of staff assaulting detained persons, it is not an isolated case. For example, [video evidence](https://www.youtube.com/watch?v=JP_PfOhdLuM) from the Torrance County Detention Facility in Estancia NM shows CoreCivic's private facility staff pepper spraying persons detained by ICE on hunger strike [@swetlitz2020]. Review of inspections has also revealed additional inappropriate use of force incidents. The omission of a field to record instances of staff assaulting detained persons occludes and obscures real instances of violence. As the inspections process is a detention reform designed to make a more humane system of civil incarceration, the omission of categories for logging staff physical mistreatment of detained persons raises serious questions about the inspections processes ability to record significant and documented civil and human rights violations.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Summary Tables
+
+```{r load-libraries}
+# Load necessary libraries
+
+# Reading and wrangling
+library(googlesheets4)
+library(readr)
+library(tidyverse)
+library(janitor)
+library(lubridate)
+library(DT)
+
+# Plotting
+library(ggplot2)
+library(RColorBrewer)
+
+# Tables
+library(kableExtra)
+
+# Load custom function
+source("function_clean_facility_names.R", local = knitr::knit_global())
+```
+
+```{r read-data-324-incident}
+# Read Google Sheet incident worksheet, convert to data frame, and wrangle
+df_324_inc <- read_sheet("https://docs.google.com/spreadsheets/d/1im5VSi3bIEi13O8WQ56wEIXSyNEstbGMylXXgD9bAG0/edit#gid=1858227071",
+                 sheet="G-324A-19-inc",
+                 col_types = "c") %>% 
+  clean_names() %>%
+  
+  # Run custom cleaning function
+  clean_facility_names() %>% 
+
+
+  # df_specific changes
+  unite(date, year:month) %>% 
+  mutate(facility = as.factor(facility),
+         state = as.factor(state),
+         date = ym(date)
+         ) %>% 
+  mutate_at(c(6:76), as.numeric)
+```
+
+```{r assault-df}
+df_assaults <- df_324_inc %>%
+  
+  # Subset the df to only the used cols
+  select(id, facility, date,
+       detainee_physical_assault_on_staff_with_serious_injury:
+       detainee_on_detainee_physical_assault_fight_with_no_serious_injury
+       ) %>% 
+  
+  # Need the rowwise function to compute a row-at-a-time
+  # in the following mutate function
+  rowwise(id) %>% 
+  
+  # Create a new total column
+  mutate(total_assaults = sum(c_across(
+       detainee_physical_assault_on_staff_with_serious_injury:
+       detainee_on_detainee_physical_assault_fight_with_no_serious_injury
+  ))) %>% 
+
+  # Call a range of table columns and pivot long
+  pivot_longer(.,
+               cols=  detainee_physical_assault_on_staff_with_serious_injury:total_assaults,
+               names_to = "assault_type",
+               values_to = "assault_count") %>% 
+  
+  # Remove NA Values
+  drop_na() %>% 
+  
+  # Explicitly define factor levels
+  mutate(assault_type = factor(assault_type, levels = c(
+    "detainee_physical_assault_on_staff_with_serious_injury",
+    "detainee_physical_assault_on_staff_with_no_serious_injury",
+    "detainee_on_detainee_physical_assault_fight_with_serious_injury",
+    "detainee_on_detainee_physical_assault_fight_with_no_serious_injury",
+    "total_assaults"
+  )))
+```
+
+```{r assault-summary}
+df_assaults %>% 
+  group_by(assault_type) %>% 
+  summarise(`Total Assaults by Type` = sum(assault_count)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Assaults by Type",
+        col.names = c("Assault Type", "Total Assault Type")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"))
+
+
+df_assaults %>% 
+  group_by(facility) %>% 
+  summarise(total_assaults = sum(assault_count)) %>% 
+  arrange(desc(total_assaults)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Assaults by Facility",
+        col.names = c("Facility", "Total Assaults by Facility")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  scroll_box(height = "300px")
+```
+
+## Facet Plot of Assaults by Facility
+
+The figure below is a facet plot of the assault categories present on the G-324A SIS form.
+
+```{r assault-facet, fig.height=40}
+
+# Generating a linetype vector for use in the plot
+plot_lines <- c(
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "dotted"
+    )
+
+# Use Color Brewer to set colors and modify
+# the last color to be black for totals.
+plot_colors <- brewer.pal(5, "Paired")
+plot_colors[5] <- "#000000"
+
+# Create the labels
+plot_labels <- c(
+    "Detained Person on Staff w. Serious Injury",
+    "Detained Person on Staff w/o Serious Injury",
+    "Detained Person on Detained Person w. Serous Injury",
+    "Detained Person on Detained Person w/o Serous Injury",
+    "Total Assaults")
+
+df_assaults %>% 
+  # Calling the plot and formatting
+  ggplot(aes(x=date, y = assault_count, linetype=assault_type))+
+  geom_line(aes(color = assault_type), size =.65) +
+  
+  # Set the line type
+  scale_linetype_manual(
+    values = plot_lines,
+    labels = plot_labels,
+    name = "Assault Type:",
+    guide = guide_legend(nrow = 5)
+    )+
+  
+  # Setting the color
+  scale_color_manual(
+    values = plot_colors,
+    labels = plot_labels,
+  name = "Assault Type:"
+  )+
+
+  labs(title = "Reported Assaults")+
+  ylab("Number of Assaults")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 8),
+    legend.position = "bottom"
+    )+
+
+  # Set the legend to multiple rows
+  guides(col = guide_legend(nrow =5))+
+  
+  # Wrap
+  facet_wrap(~ facility, ncol=3)
+```
+
