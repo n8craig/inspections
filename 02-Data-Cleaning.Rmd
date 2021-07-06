@@ -12,7 +12,7 @@ output:
     code_download: true
 ---
 
-# Instroduction
+# Introduction
 The primary cleaning functions are incorporated into a custom function and moved to a separate R file. However, the mechanics of the transformations are displayed on this page.
 
 ```{r setup, include=FALSE}
