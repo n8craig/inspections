@@ -12,7 +12,7 @@
 <meta name="author" content="Nathan Craig" />
 
 
-<title>Assaults</title>
+<title>Disciplinary</title>
 
 <script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -73,28 +73,6 @@ if (window.hljs) {
 }
 </style>
 
-<style type="text/css">
-/* for pandoc --citeproc since 2.11 */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
 
 
 
@@ -408,26 +386,16 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Assaults</h1>
+<h1 class="title toc-ignore">Disciplinary</h1>
 <h4 class="author">Nathan Craig</h4>
 <h4 class="date">Tuesday July 06, 2021</h4>
 
 </div>
 
 
-<div id="assaults" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Assaults</h1>
-<p>The ICE G-324A Significant Incident Summary sheet contains information on a number of different kinds of assaults. Specifically, there are four categories of assaults listed:</p>
-<ul>
-<li>Detained Person on Staff with Serious Injury</li>
-<li>Detained Person on Staff without Serious Injury</li>
-<li>Detained Person on Detained Person with Serious Injury</li>
-<li>Detained Person on Detained Person without Serious Injury</li>
-</ul>
-<p>Conspicuously absent from this list of assault types are assaults on detained persons by staff. This is deeply concerning because already initial review of inspection forms and prior news stories indicates that staff assaults on detained persons do occur. For example, at the Bristol County County Jail and House of Corrections independent investigation by the Massachusetts Office of Attorney General (MAOG) found that facility staff found a “planned and deliberate-use of force against the ICE detainees that was disproportionate to the security needs at that time and unnecessarily caused, or risked causing, harm to all involved” <span class="citation">(MA AG 2020, ii)</span>. The MOAG found that facility staff used “a flash bang grenade, pepper-ball launchers, pepper spray canisters, anti-riot shields, and canines–against detainees who had exhibited calm and nonviolent behavior for at least an hour before this operation” <span class="citation">(MA AG 2020, ii)</span>. Investigations found that staff “deployed these weapons both indiscriminately upon entry and also specifically against detainees who were not combative, assaultive, or otherwise actively resisting staff” <span class="citation">(MA AG 2020, ii)</span>.</p>
-<p>While the aforementioned Bristol County Jail may be a particularly egregious instance of staff assaulting detained persons, it is not an isolated case. For example, <a href="https://www.youtube.com/watch?v=JP_PfOhdLuM">video evidence</a> from the Torrance County Detention Facility in Estancia NM shows CoreCivic’s private facility staff pepper spraying persons detained by ICE on hunger strike <span class="citation">(Swetlitz 2020)</span>. Review of inspections has also revealed additional inappropriate use of force incidents. The omission of a field to record instances of staff assaulting detained persons occludes and obscures real instances of violence. As the inspections process is a detention reform designed to make a more humane system of civil incarceration, the omission of categories for logging staff physical mistreatment of detained persons raises serious questions about the inspections processes ability to record significant and documented civil and human rights violations.</p>
-<div id="summary-tables" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Summary Tables</h2>
+<div id="disciplinary" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Disciplinary</h1>
+<p>As a matter of law, ICE detention is not punitive it is purely administrative civil holding to ensure that individuals are present for their immigration proceedings. Despite that fact, there is a tremendous amount of punitive disciplinary measures that take place in ICE detention. Some of this information on discipline in ICE detention is logged in facility inspections. As seen in the tables below, during the current sample period there were more than 42,000 disciplinary infractions.</p>
 <pre class="r"><code># Load necessary libraries
 
 # Reading and wrangling
@@ -492,7 +460,6 @@ df_324_inc &lt;- read_sheet(&quot;https://docs.google.com/spreadsheets/d/1im5VSi
 <pre><code>##   See gargle&#39;s &quot;Non-interactive auth&quot; vignette for more details:</code></pre>
 <pre><code>##   &lt;https://gargle.r-lib.org/articles/non-interactive-auth.html&gt;</code></pre>
 <pre><code>## &gt; The googlesheets4 package is using a cached token for &#39;n8craig@gmail.com&#39;</code></pre>
-<pre><code>## Auto-refreshing stale OAuth token.</code></pre>
 <pre><code>## Reading from &quot;000inspection_forms&quot;</code></pre>
 <pre><code>## Range &quot;&#39;G-324A-19-inc&#39;&quot;</code></pre>
 <pre><code>## New names:
@@ -642,12 +609,14 @@ df_324_inc &lt;- read_sheet(&quot;https://docs.google.com/spreadsheets/d/1im5VSi
 ## Warning in mask$eval_all_mutate(quo): NAs introduced by coercion
 
 ## Warning in mask$eval_all_mutate(quo): NAs introduced by coercion</code></pre>
-<pre class="r"><code>df_assaults &lt;- df_324_inc %&gt;%
+<div id="summary-tables" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Summary Tables</h2>
+<pre class="r"><code>df_discipline &lt;- df_324_inc %&gt;%
   
   # Subset the df to only the used cols
   select(id, facility, date,
-       detainee_physical_assault_on_staff_with_serious_injury:
-       detainee_on_detainee_physical_assault_fight_with_no_serious_injury
+       disciplinary_infractions:
+       sanctions_over_60_days
        ) %&gt;% 
   
   # Need the rowwise function to compute a row-at-a-time
@@ -655,105 +624,114 @@ df_324_inc &lt;- read_sheet(&quot;https://docs.google.com/spreadsheets/d/1im5VSi
   rowwise(id) %&gt;% 
   
   # Create a new total column
-  mutate(total_assaults = sum(c_across(
-       detainee_physical_assault_on_staff_with_serious_injury:
-       detainee_on_detainee_physical_assault_fight_with_no_serious_injury
+  mutate(total_disciplinary = sum(c_across(
+       disciplinary_infractions:
+       sanctions_over_60_days
   ))) %&gt;% 
 
   # Call a range of table columns and pivot long
   pivot_longer(.,
-               cols=  detainee_physical_assault_on_staff_with_serious_injury:total_assaults,
-               names_to = &quot;assault_type&quot;,
-               values_to = &quot;assault_count&quot;) %&gt;% 
+               cols=  disciplinary_infractions:total_disciplinary,
+               names_to = &quot;disciplinary_type&quot;,
+               values_to = &quot;disciplinary_count&quot;) %&gt;%
   
-  # Remove NA Values
+  # Remove NA values
   drop_na() %&gt;% 
   
-  # Explicitly define factor levels
-  mutate(assault_type = factor(assault_type, levels = c(
-    &quot;detainee_physical_assault_on_staff_with_serious_injury&quot;,
-    &quot;detainee_physical_assault_on_staff_with_no_serious_injury&quot;,
-    &quot;detainee_on_detainee_physical_assault_fight_with_serious_injury&quot;,
-    &quot;detainee_on_detainee_physical_assault_fight_with_no_serious_injury&quot;,
-    &quot;total_assaults&quot;
+  # Explicitly set factor levels
+  mutate(disciplinary_type = factor(disciplinary_type, levels =c(
+    &quot;disciplinary_infractions&quot;,
+    &quot;disciplinary_infractions_guilty&quot;,
+    &quot;disciplinary_appeals&quot;,
+    &quot;disciplinary_appeals_found_in_favor_of_detainee&quot;,
+    &quot;sanctions_over_60_days&quot;,
+    &quot;total_disciplinary&quot;
   )))</code></pre>
-<pre class="r"><code>df_assaults %&gt;% 
-  group_by(assault_type) %&gt;% 
-  summarise(`Total Assaults by Type` = sum(assault_count)) %&gt;% 
+<pre class="r"><code>df_discipline %&gt;% 
+  group_by(disciplinary_type) %&gt;% 
+  summarise(`Total Disciplinary by Type` = sum(disciplinary_count)) %&gt;% 
   ungroup() %&gt;% 
-  kable(caption = &quot;Total Assaults by Type&quot;,
-        col.names = c(&quot;Assault Type&quot;, &quot;Total Assault Type&quot;)) %&gt;% 
+  kable(caption = &quot;Total Disciplinary by Type&quot;,
+        col.names = c(&quot;Discipline Type&quot;, &quot;Total Discipline Type&quot;)) %&gt;% 
   kable_styling(c(&quot;hover&quot;, &quot;striped&quot;, &quot;condensed&quot;, &quot;responsive&quot;))</code></pre>
 <table class="table table-hover table-striped table-condensed table-responsive" style="margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:assault-summary">Table 1.1: </span>Total Assaults by Type
+<span id="tab:unnamed-chunk-2">Table 1.1: </span>Total Disciplinary by Type
 </caption>
 <thead>
 <tr>
 <th style="text-align:left;">
-Assault Type
+Discipline Type
 </th>
 <th style="text-align:right;">
-Total Assault Type
+Total Discipline Type
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
-detainee_physical_assault_on_staff_with_serious_injury
+disciplinary_infractions
 </td>
 <td style="text-align:right;">
-13
+25089
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-detainee_physical_assault_on_staff_with_no_serious_injury
+disciplinary_infractions_guilty
 </td>
 <td style="text-align:right;">
-333
+19610
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-detainee_on_detainee_physical_assault_fight_with_serious_injury
+disciplinary_appeals
 </td>
 <td style="text-align:right;">
-126
+1234
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-detainee_on_detainee_physical_assault_fight_with_no_serious_injury
+disciplinary_appeals_found_in_favor_of_detainee
 </td>
 <td style="text-align:right;">
-2926
+295
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-total_assaults
+sanctions_over_60_days
 </td>
 <td style="text-align:right;">
-3390
+30
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+total_disciplinary
+</td>
+<td style="text-align:right;">
+45547
 </td>
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>df_assaults %&gt;% 
+<pre class="r"><code>df_discipline %&gt;% 
   group_by(facility) %&gt;% 
-  summarise(total_assaults = sum(assault_count)) %&gt;% 
-  arrange(desc(total_assaults)) %&gt;% 
+  summarise(total_disciplinary = sum(disciplinary_count)) %&gt;% 
+  arrange(desc(total_disciplinary)) %&gt;% 
   ungroup() %&gt;% 
-  kable(caption = &quot;Total Assaults by Facility&quot;,
-        col.names = c(&quot;Facility&quot;, &quot;Total Assaults by Facility&quot;)) %&gt;% 
+  kable(caption = &quot;Total Discipline by Facility&quot;,
+        col.names = c(&quot;Facility&quot;, &quot;Total Discipline by Facility&quot;)) %&gt;% 
   kable_styling(c(&quot;hover&quot;, &quot;striped&quot;, &quot;condensed&quot;, &quot;responsive&quot;)) %&gt;% 
   scroll_box(height = &quot;300px&quot;)</code></pre>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; ">
 <table class="table table-hover table-striped table-condensed table-responsive" style="margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:assault-summary">Table 1.1: </span>Total Assaults by Facility
+<span id="tab:unnamed-chunk-2">Table 1.1: </span>Total Discipline by Facility
 </caption>
 <thead>
 <tr>
@@ -761,193 +739,17 @@ total_assaults
 Facility
 </th>
 <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-Total Assaults by Facility
+Total Discipline by Facility
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
-Krome Service Processing Center
-</td>
-<td style="text-align:right;">
-470
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Adelanto ICE Processing Center - West
-</td>
-<td style="text-align:right;">
-390
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Prairieland Detention Center
-</td>
-<td style="text-align:right;">
-330
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-South Texas ICE Processing Center
-</td>
-<td style="text-align:right;">
-312
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Adelanto ICE Processing Center - East
-</td>
-<td style="text-align:right;">
-264
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Otero County Processing Center
-</td>
-<td style="text-align:right;">
-240
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Aurora ICE Processing Center
-</td>
-<td style="text-align:right;">
-222
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Aurora ICE Processing Center II - Annex
-</td>
-<td style="text-align:right;">
-222
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Stewart Detention Center
-</td>
-<td style="text-align:right;">
-218
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 Eloy Detention Center
 </td>
 <td style="text-align:right;">
-216
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Otay Mesa Detention Center
-</td>
-<td style="text-align:right;">
-200
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-El Paso Service Processing Center
-</td>
-<td style="text-align:right;">
-192
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Winn Correctional Center
-</td>
-<td style="text-align:right;">
-172
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Essex County Correctional Facility
-</td>
-<td style="text-align:right;">
-146
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Imperial Regional Detention Facility
-</td>
-<td style="text-align:right;">
-136
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-LaSalle ICE Processing Center
-</td>
-<td style="text-align:right;">
-128
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Hudson County Corrections and Rehabilitation Center
-</td>
-<td style="text-align:right;">
-118
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Immigration Centers of America - Farmville
-</td>
-<td style="text-align:right;">
-108
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-River Correctional Center
-</td>
-<td style="text-align:right;">
-106
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Caroline Detention Facility
-</td>
-<td style="text-align:right;">
-104
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Jena LaSalle Detention Facility
-</td>
-<td style="text-align:right;">
-98
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Yuba County Jail
-</td>
-<td style="text-align:right;">
-96
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Adams County Correctional Center
-</td>
-<td style="text-align:right;">
-94
+7128
 </td>
 </tr>
 <tr>
@@ -955,79 +757,15 @@ Adams County Correctional Center
 La Palma Correctional Center
 </td>
 <td style="text-align:right;">
-92
+6954
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Bergen County Jail
+Krome Service Processing Center
 </td>
 <td style="text-align:right;">
-86
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Northwest ICE Processing Center
-</td>
-<td style="text-align:right;">
-78
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Catahoula Correctional Center
-</td>
-<td style="text-align:right;">
-72
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Mesa Verde ICE Processing Facility
-</td>
-<td style="text-align:right;">
-72
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Port Isabel Service Processing Center
-</td>
-<td style="text-align:right;">
-70
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Folkston ICE Processing Center
-</td>
-<td style="text-align:right;">
-68
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Bluebonnet Detention Center
-</td>
-<td style="text-align:right;">
-64
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Montgomery Processing Center
-</td>
-<td style="text-align:right;">
-60
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Pulaski County Detention Center
-</td>
-<td style="text-align:right;">
-60
+4888
 </td>
 </tr>
 <tr>
@@ -1035,31 +773,63 @@ Pulaski County Detention Center
 Sherburne County Jail
 </td>
 <td style="text-align:right;">
-60
+4070
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Houston Contract Detention Facility
+Immigration Centers of America - Farmville
 </td>
 <td style="text-align:right;">
-58
+3808
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Pine Prairie ICE Processing Center
+Yuba County Jail
 </td>
 <td style="text-align:right;">
-58
+3712
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Baker County Detention Center
+Stewart Detention Center
 </td>
 <td style="text-align:right;">
-54
+3068
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Aurora ICE Processing Center
+</td>
+<td style="text-align:right;">
+2678
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Aurora ICE Processing Center II - Annex
+</td>
+<td style="text-align:right;">
+2678
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Otay Mesa Detention Center
+</td>
+<td style="text-align:right;">
+2504
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Winn Correctional Center
+</td>
+<td style="text-align:right;">
+2264
 </td>
 </tr>
 <tr>
@@ -1067,215 +837,103 @@ Baker County Detention Center
 Calhoun County Correctional Center
 </td>
 <td style="text-align:right;">
-54
+2098
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Limestone County Detention Center
+Montgomery Processing Center
 </td>
 <td style="text-align:right;">
-50
+2060
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Polk County Adult Detention Center
+Caroline Detention Facility
 </td>
 <td style="text-align:right;">
-50
+1954
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Irwin County Detention Center
+Bluebonnet Detention Center
 </td>
 <td style="text-align:right;">
-48
+1926
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-McHenry County Adult Correctional Facility
+Otero County Processing Center
 </td>
 <td style="text-align:right;">
-48
+1924
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Strafford County Department of Corrections
+South Texas ICE Processing Center
 </td>
 <td style="text-align:right;">
-46
+1912
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Allen Parish Public Safety Complex
+Prairieland Detention Center
 </td>
 <td style="text-align:right;">
-45
+1596
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Krome North Service Processing Center
+Bergen County Jail
 </td>
 <td style="text-align:right;">
-40
+1432
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Elizabeth Contract Detention Facility
+Essex County Correctional Facility
 </td>
 <td style="text-align:right;">
-34
+1304
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Nye County Detention Center
+Adelanto ICE Processing Center - West
 </td>
 <td style="text-align:right;">
-34
+1284
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Pike County Correctional Facility
+El Paso Service Processing Center
 </td>
 <td style="text-align:right;">
-32
+1246
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Webb County Detention Center
+Imperial Regional Detention Facility
 </td>
 <td style="text-align:right;">
-32
+1240
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-CCA Florence Correctional Center
+Jena LaSalle Detention Facility
 </td>
 <td style="text-align:right;">
-30
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Joe Corley Processing Center
-</td>
-<td style="text-align:right;">
-30
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Wakulla County Detention Facility
-</td>
-<td style="text-align:right;">
-30
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-David L. Moss Criminal Justice Center
-</td>
-<td style="text-align:right;">
-28
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Johnson County Corrections Center
-</td>
-<td style="text-align:right;">
-28
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Orange County Correctional Facility
-</td>
-<td style="text-align:right;">
-26
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Richwood Correctional Center
-</td>
-<td style="text-align:right;">
-26
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Bossier Parish Corrections Center
-</td>
-<td style="text-align:right;">
-24
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Florence Service Processing Center
-</td>
-<td style="text-align:right;">
-24
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Folkston ICE Processing Center Annex
-</td>
-<td style="text-align:right;">
-24
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Freeborn County Adult Detention Center
-</td>
-<td style="text-align:right;">
-24
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Okmulgee County Jail - Moore Detention Facility
-</td>
-<td style="text-align:right;">
-24
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Clinton County Correctional Facility
-</td>
-<td style="text-align:right;">
-22
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Jackson Parish Correctional Center
-</td>
-<td style="text-align:right;">
-22
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Rio Grande Detention Center
-</td>
-<td style="text-align:right;">
-22
+1234
 </td>
 </tr>
 <tr>
@@ -1283,31 +941,63 @@ Rio Grande Detention Center
 Bristol County Jail and House of Correction
 </td>
 <td style="text-align:right;">
-20
+1186
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Morgan County Adult Detention Center
+LaSalle ICE Processing Center
 </td>
 <td style="text-align:right;">
-20
+1176
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Plymouth County Correctional Facility
+Clinton County Correctional Facility
 </td>
 <td style="text-align:right;">
-20
+1166
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Cambria County Prison
+Northwest ICE Processing Center
 </td>
 <td style="text-align:right;">
-18
+1070
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Polk County Adult Detention Center
+</td>
+<td style="text-align:right;">
+1010
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+River Correctional Center
+</td>
+<td style="text-align:right;">
+924
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Laredo Processing Center
+</td>
+<td style="text-align:right;">
+888
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Port Isabel Service Processing Center
+</td>
+<td style="text-align:right;">
+848
 </td>
 </tr>
 <tr>
@@ -1315,15 +1005,71 @@ Cambria County Prison
 Glades County Detention Center
 </td>
 <td style="text-align:right;">
-16
+822
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Hall County Department of Corrections
+Folkston ICE Processing Center
 </td>
 <td style="text-align:right;">
-16
+814
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+McHenry County Adult Correctional Facility
+</td>
+<td style="text-align:right;">
+796
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Adams County Correctional Center
+</td>
+<td style="text-align:right;">
+756
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pulaski County Detention Center
+</td>
+<td style="text-align:right;">
+746
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Adelanto ICE Processing Center - East
+</td>
+<td style="text-align:right;">
+742
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Irwin County Detention Center
+</td>
+<td style="text-align:right;">
+680
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pine Prairie ICE Processing Center
+</td>
+<td style="text-align:right;">
+638
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Hudson County Corrections and Rehabilitation Center
+</td>
+<td style="text-align:right;">
+592
 </td>
 </tr>
 <tr>
@@ -1331,31 +1077,7 @@ Hall County Department of Corrections
 York County Prison
 </td>
 <td style="text-align:right;">
-16
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Henderson Detention Center
-</td>
-<td style="text-align:right;">
-14
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Seneca County Jail
-</td>
-<td style="text-align:right;">
-14
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Broward Transitional Center
-</td>
-<td style="text-align:right;">
-12
+586
 </td>
 </tr>
 <tr>
@@ -1363,39 +1085,31 @@ Broward Transitional Center
 Butler County Jail
 </td>
 <td style="text-align:right;">
-12
+566
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Donald W. Wyatt Detention Facility
+Pike County Correctional Facility
 </td>
 <td style="text-align:right;">
-12
+560
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Hardin County Jail
+Folkston ICE Processing Center Annex
 </td>
 <td style="text-align:right;">
-12
+502
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Torrance County Detention Facility
+David L. Moss Criminal Justice Center
 </td>
 <td style="text-align:right;">
-12
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Coastal Bend Detention Center
-</td>
-<td style="text-align:right;">
-10
+498
 </td>
 </tr>
 <tr>
@@ -1403,7 +1117,111 @@ Coastal Bend Detention Center
 Dodge County Detention Facility
 </td>
 <td style="text-align:right;">
-10
+496
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Freeborn County Adult Detention Center
+</td>
+<td style="text-align:right;">
+492
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Mesa Verde ICE Processing Facility
+</td>
+<td style="text-align:right;">
+482
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Houston Contract Detention Facility
+</td>
+<td style="text-align:right;">
+480
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Orange County Correctional Facility
+</td>
+<td style="text-align:right;">
+480
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Krome North Service Processing Center
+</td>
+<td style="text-align:right;">
+438
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Torrance County Detention Facility
+</td>
+<td style="text-align:right;">
+420
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Strafford County Department of Corrections
+</td>
+<td style="text-align:right;">
+400
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Webb County Detention Center
+</td>
+<td style="text-align:right;">
+322
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Baker County Detention Center
+</td>
+<td style="text-align:right;">
+312
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Florence Service Processing Center
+</td>
+<td style="text-align:right;">
+310
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Donald W. Wyatt Detention Facility
+</td>
+<td style="text-align:right;">
+262
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Plymouth County Correctional Facility
+</td>
+<td style="text-align:right;">
+252
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jackson Parish Correctional Center
+</td>
+<td style="text-align:right;">
+234
 </td>
 </tr>
 <tr>
@@ -1411,55 +1229,47 @@ Dodge County Detention Facility
 Eden Detention Center
 </td>
 <td style="text-align:right;">
-10
+230
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-El Valle Detention Facility
+Joe Corley Processing Center
 </td>
 <td style="text-align:right;">
-10
+214
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Howard County Detention Center
+Johnson County Corrections Center
 </td>
 <td style="text-align:right;">
-10
+204
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Boone County Jail
+CCA Florence Correctional Center
 </td>
 <td style="text-align:right;">
-8
+186
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Sheriff Al Cannon Detention Center
+Limestone County Detention Center
 </td>
 <td style="text-align:right;">
-8
+176
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Worcester County Jail
+Okmulgee County Jail - Moore Detention Facility
 </td>
 <td style="text-align:right;">
-7
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Geauga County Jail
-</td>
-<td style="text-align:right;">
-6
+176
 </td>
 </tr>
 <tr>
@@ -1467,7 +1277,31 @@ Geauga County Jail
 Jerome Combs Detention Center
 </td>
 <td style="text-align:right;">
-6
+174
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Broward Transitional Center
+</td>
+<td style="text-align:right;">
+166
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Allen Parish Public Safety Complex
+</td>
+<td style="text-align:right;">
+158
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Elizabeth Contract Detention Facility
+</td>
+<td style="text-align:right;">
+152
 </td>
 </tr>
 <tr>
@@ -1475,7 +1309,79 @@ Jerome Combs Detention Center
 Kay County Detention Center
 </td>
 <td style="text-align:right;">
-6
+144
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Henderson Detention Center
+</td>
+<td style="text-align:right;">
+136
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Hardin County Jail
+</td>
+<td style="text-align:right;">
+132
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Wakulla County Detention Facility
+</td>
+<td style="text-align:right;">
+128
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Worcester County Jail
+</td>
+<td style="text-align:right;">
+125
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+El Valle Detention Facility
+</td>
+<td style="text-align:right;">
+124
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nye County Detention Center
+</td>
+<td style="text-align:right;">
+112
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Catahoula Correctional Center
+</td>
+<td style="text-align:right;">
+88
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Geauga County Jail
+</td>
+<td style="text-align:right;">
+88
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bossier Parish Corrections Center
+</td>
+<td style="text-align:right;">
+80
 </td>
 </tr>
 <tr>
@@ -1483,7 +1389,135 @@ Kay County Detention Center
 Montgomery County Jail
 </td>
 <td style="text-align:right;">
-6
+80
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Hall County Department of Corrections
+</td>
+<td style="text-align:right;">
+66
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cambria County Prison
+</td>
+<td style="text-align:right;">
+64
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Seneca County Jail
+</td>
+<td style="text-align:right;">
+62
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Howard County Detention Center
+</td>
+<td style="text-align:right;">
+54
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rio Grande Detention Center
+</td>
+<td style="text-align:right;">
+54
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cibola County Correctional Center
+</td>
+<td style="text-align:right;">
+48
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Chippewa County Correctional Facility
+</td>
+<td style="text-align:right;">
+44
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cass County Jail
+</td>
+<td style="text-align:right;">
+40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Coastal Bend Detention Center
+</td>
+<td style="text-align:right;">
+40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Golden State Annex
+</td>
+<td style="text-align:right;">
+40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Morgan County Adult Detention Center
+</td>
+<td style="text-align:right;">
+40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Washoe County Detention Center
+</td>
+<td style="text-align:right;">
+40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Richwood Correctional Center
+</td>
+<td style="text-align:right;">
+28
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+South Louisiana ICE Processing Center
+</td>
+<td style="text-align:right;">
+28
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sheriff Al Cannon Detention Center
+</td>
+<td style="text-align:right;">
+24
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Carver County Jail
+</td>
+<td style="text-align:right;">
+22
 </td>
 </tr>
 <tr>
@@ -1491,15 +1525,79 @@ Montgomery County Jail
 Saint Clair County Jail
 </td>
 <td style="text-align:right;">
-6
+20
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Val Verde Correctional Facility
+Northern Oregon Correctional Facility
 </td>
 <td style="text-align:right;">
-6
+18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Shawnee County Department of Corrections - Adult Detention Center
+</td>
+<td style="text-align:right;">
+18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Teller County Jail
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rolling Plains Detention Center
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Christian County Jail
+</td>
+<td style="text-align:right;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Monroe County Inmate Dormitory
+</td>
+<td style="text-align:right;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+San Luis Regional Detention Center
+</td>
+<td style="text-align:right;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+T. Don Hutto Residential Center
+</td>
+<td style="text-align:right;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+West Texas Detention Facility
+</td>
+<td style="text-align:right;">
+8
 </td>
 </tr>
 <tr>
@@ -1512,87 +1610,7 @@ Clay County Jail
 </tr>
 <tr>
 <td style="text-align:left;">
-Laredo Processing Center
-</td>
-<td style="text-align:right;">
-4
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Northern Oregon Correctional Facility
-</td>
-<td style="text-align:right;">
-4
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-San Luis Regional Detention Center
-</td>
-<td style="text-align:right;">
-4
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Teller County Jail
-</td>
-<td style="text-align:right;">
-4
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Carver County Jail
-</td>
-<td style="text-align:right;">
-2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Cass County Jail
-</td>
-<td style="text-align:right;">
-2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Monroe County Inmate Dormitory
-</td>
-<td style="text-align:right;">
-2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Rolling Plains Detention Center
-</td>
-<td style="text-align:right;">
-2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Shawnee County Department of Corrections - Adult Detention Center
-</td>
-<td style="text-align:right;">
-2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-South Louisiana ICE Processing Center
-</td>
-<td style="text-align:right;">
-2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-West Texas Detention Facility
+Desert View Annex
 </td>
 <td style="text-align:right;">
 2
@@ -1608,39 +1626,15 @@ Alamance County Detention Center
 </tr>
 <tr>
 <td style="text-align:left;">
+Boone County Jail
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 Brooks County Detention Center
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Chippewa County Correctional Facility
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Christian County Jail
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Cibola County Correctional Center
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Desert View Annex
 </td>
 <td style="text-align:right;">
 0
@@ -1656,23 +1650,7 @@ Dorchester County Detention Center
 </tr>
 <tr>
 <td style="text-align:left;">
-Douglas County Department of Corrections
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 East Hidalgo Detention Center
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Golden State Annex
 </td>
 <td style="text-align:right;">
 0
@@ -1720,15 +1698,7 @@ Robert A. Deyton Detention Facility
 </tr>
 <tr>
 <td style="text-align:left;">
-T. Don Hutto Residential Center
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Washoe County Detention Center
+Val Verde Correctional Facility
 </td>
 <td style="text-align:right;">
 0
@@ -1754,11 +1724,11 @@ Willacy County Regional Detention Facility
 </table>
 </div>
 </div>
-<div id="facet-plot-of-assaults-by-facility" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Facet Plot of Assaults by Facility</h2>
-<p>The figure below is a facet plot of the assault categories present on the G-324A SIS form.</p>
+<div id="facet-plot-of-disciplinary-by-facility" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Facet Plot of Disciplinary by Facility</h2>
 <pre class="r"><code># Generating a linetype vector for use in the plot
 plot_lines &lt;- c(
+    &quot;solid&quot;,
     &quot;solid&quot;,
     &quot;solid&quot;,
     &quot;solid&quot;,
@@ -1768,39 +1738,45 @@ plot_lines &lt;- c(
 
 # Use Color Brewer to set colors and modify
 # the last color to be black for totals.
-plot_colors &lt;- brewer.pal(5, &quot;Paired&quot;)
-plot_colors[5] &lt;- &quot;#000000&quot;
+plot_colors &lt;- brewer.pal(6, &quot;Paired&quot;)
+plot_colors[6] &lt;- &quot;#000000&quot;
 
-# Create the labels
+# Create plot labels
+
 plot_labels &lt;- c(
-    &quot;Detained Person on Staff w. Serious Injury&quot;,
-    &quot;Detained Person on Staff w/o Serious Injury&quot;,
-    &quot;Detained Person on Detained Person w. Serous Injury&quot;,
-    &quot;Detained Person on Detained Person w/o Serous Injury&quot;,
-    &quot;Total Assaults&quot;)
+    &quot;Disciplinary Infractions&quot;,
+    &quot;Disciplinary Infractions - Guilty&quot;,
+    &quot;Disciplinary Appeals&quot;,
+    &quot;Disciplinary Appeals in Favor of Detainee&quot;,
+    &quot;Sanctions Over 60 Days&quot;,
+    &quot;Total Disciplinary&quot;)
 
-df_assaults %&gt;% 
-  # Calling the plot and formatting
-  ggplot(aes(x=date, y = assault_count, linetype=assault_type))+
-  geom_line(aes(color = assault_type), size =.65) +
+
+df_discipline %&gt;% 
   
-  # Set the line type
+  # Calling the plot and formatting
+  ggplot(aes(x=date,
+             y = disciplinary_count,
+             linetype = disciplinary_type))+
+  geom_line(aes(color = disciplinary_type), size = .65) +
+  
+  # Set the linetype
   scale_linetype_manual(
     values = plot_lines,
     labels = plot_labels,
-    name = &quot;Assault Type:&quot;,
-    guide = guide_legend(nrow = 5)
+    name = &quot;Disciplinary Type:&quot;,
+    guide = guide_legend(nrow = 6)
     )+
   
   # Setting the color
   scale_color_manual(
-    values = plot_colors,
-    labels = plot_labels,
-  name = &quot;Assault Type:&quot;
+  values = plot_colors,
+  labels = plot_labels,
+  name = &quot;Disciplinary Type:&quot;
   )+
 
-  labs(title = &quot;Reported Assaults&quot;)+
-  ylab(&quot;Number of Assaults&quot;)+
+  labs(title = &quot;Disciplinary&quot;)+
+  ylab(&quot;Number of Disciplinary Infractions&quot;)+
   xlab(&quot;Date&quot;)+
   theme(
     strip.text = element_text(size = 8),
@@ -1808,23 +1784,15 @@ df_assaults %&gt;%
     )+
 
   # Set the legend to multiple rows
-  guides(col = guide_legend(nrow =5))+
+  guides(col = guide_legend(nrow =6))+
   
   # Wrap
   facet_wrap(~ facility, ncol=3)</code></pre>
-<p><img src="04-G-324A-2019-Assaults_files/figure-html/assault-facet-1.png" width="672" /></p>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-maag2020" class="csl-entry">
-MA AG. 2020. <span>“Investigation into the Events of May 1, 2020 at the c. Carlos Carreiro Immigration Detention Center, Unit b, Bristol County Sheriff<span>’</span>s Office.”</span> Boston, MA. <a href="https://www.mass.gov/doc/ago-report-into-bcso-response-to-may-1-disturbance/download">https://www.mass.gov/doc/ago-report-into-bcso-response-to-may-1-disturbance/download</a>.
-</div>
-<div id="ref-swetlitz2020" class="csl-entry">
-Swetlitz, Ike. 2020. <span>“’Suddenly They Started Gassing Us’: Cuban Migrants Tell of Shocking Attack at ICE Prison.”</span> <a href="https://www.theguardian.com/us-news/2020/jul/02/cuban-migrants-detention-ice-facility-new-mexico">https://www.theguardian.com/us-news/2020/jul/02/cuban-migrants-detention-ice-facility-new-mexico</a>.
-</div>
-</div>
+<p><img src="05-G-324A-2019-Disciplinary_files/figure-html/disciplinary-facet-1.png" width="672" /></p>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkFzc2F1bHRzIg0KYXV0aG9yOiAiTmF0aGFuIENyYWlnIg0KZGF0ZTogImByIGZvcm1hdChTeXMuRGF0ZSgpLCAnJUEgJUIgJWQsICVZJylgIg0Kb3V0cHV0Og0KICBib29rZG93bjo6aHRtbF9kb2N1bWVudDI6IA0KICAgIHRvYzogdHJ1ZQ0KICAgIHRvY19mbG9hdDogdHJ1ZQ0KICAgIG51bWJlcl9zZWN0aW9uczogdHJ1ZQ0KICAgIGRmX3ByaW50OiBwYWdlZA0KICAgIGNvZGVfZm9sZGluZzogaGlkZQ0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCmJpYmxpb2dyYXBoeTogW2NpdGF0aW9ucy5iaWIsIHBhY2thZ2VzLmJpYl0NCi0tLQ0KDQojIEFzc2F1bHRzDQoNClRoZSBJQ0UgRy0zMjRBIFNpZ25pZmljYW50IEluY2lkZW50IFN1bW1hcnkgc2hlZXQgY29udGFpbnMgaW5mb3JtYXRpb24gb24gYSBudW1iZXIgb2YgZGlmZmVyZW50IGtpbmRzIG9mIGFzc2F1bHRzLiBTcGVjaWZpY2FsbHksIHRoZXJlIGFyZSBmb3VyIGNhdGVnb3JpZXMgb2YgYXNzYXVsdHMgbGlzdGVkOg0KDQotICAgRGV0YWluZWQgUGVyc29uIG9uIFN0YWZmIHdpdGggU2VyaW91cyBJbmp1cnkNCi0gICBEZXRhaW5lZCBQZXJzb24gb24gU3RhZmYgd2l0aG91dCBTZXJpb3VzIEluanVyeQ0KLSAgIERldGFpbmVkIFBlcnNvbiBvbiBEZXRhaW5lZCBQZXJzb24gd2l0aCBTZXJpb3VzIEluanVyeQ0KLSAgIERldGFpbmVkIFBlcnNvbiBvbiBEZXRhaW5lZCBQZXJzb24gd2l0aG91dCBTZXJpb3VzIEluanVyeQ0KDQpDb25zcGljdW91c2x5IGFic2VudCBmcm9tIHRoaXMgbGlzdCBvZiBhc3NhdWx0IHR5cGVzIGFyZSBhc3NhdWx0cyBvbiBkZXRhaW5lZCBwZXJzb25zIGJ5IHN0YWZmLiBUaGlzIGlzIGRlZXBseSBjb25jZXJuaW5nIGJlY2F1c2UgYWxyZWFkeSBpbml0aWFsIHJldmlldyBvZiBpbnNwZWN0aW9uIGZvcm1zIGFuZCBwcmlvciBuZXdzIHN0b3JpZXMgaW5kaWNhdGVzIHRoYXQgc3RhZmYgYXNzYXVsdHMgb24gZGV0YWluZWQgcGVyc29ucyBkbyBvY2N1ci4gRm9yIGV4YW1wbGUsIGF0IHRoZSBCcmlzdG9sIENvdW50eSBDb3VudHkgSmFpbCBhbmQgSG91c2Ugb2YgQ29ycmVjdGlvbnMgaW5kZXBlbmRlbnQgaW52ZXN0aWdhdGlvbiBieSB0aGUgTWFzc2FjaHVzZXR0cyBPZmZpY2Ugb2YgQXR0b3JuZXkgR2VuZXJhbCAoTUFPRykgZm91bmQgdGhhdCBmYWNpbGl0eSBzdGFmZiBmb3VuZCBhICJwbGFubmVkIGFuZCBkZWxpYmVyYXRlLXVzZSBvZiBmb3JjZSBhZ2FpbnN0IHRoZSBJQ0UgZGV0YWluZWVzIHRoYXQgd2FzIGRpc3Byb3BvcnRpb25hdGUgdG8gdGhlIHNlY3VyaXR5IG5lZWRzIGF0IHRoYXQgdGltZSBhbmQgdW5uZWNlc3NhcmlseSBjYXVzZWQsIG9yIHJpc2tlZCBjYXVzaW5nLCBoYXJtIHRvIGFsbCBpbnZvbHZlZCIgW0BtYWFnMjAyMCwgaWldLiBUaGUgTU9BRyBmb3VuZCB0aGF0IGZhY2lsaXR5IHN0YWZmIHVzZWQgImEgZmxhc2ggYmFuZyBncmVuYWRlLCBwZXBwZXItYmFsbCBsYXVuY2hlcnMsIHBlcHBlciBzcHJheSBjYW5pc3RlcnMsIGFudGktcmlvdCBzaGllbGRzLCBhbmQgY2FuaW5lcy0tYWdhaW5zdCBkZXRhaW5lZXMgd2hvIGhhZCBleGhpYml0ZWQgY2FsbSBhbmQgbm9udmlvbGVudCBiZWhhdmlvciBmb3IgYXQgbGVhc3QgYW4gaG91ciBiZWZvcmUgdGhpcyBvcGVyYXRpb24iIFtAbWFhZzIwMjAsIGlpXS4gSW52ZXN0aWdhdGlvbnMgZm91bmQgdGhhdCBzdGFmZiAiZGVwbG95ZWQgdGhlc2Ugd2VhcG9ucyBib3RoIGluZGlzY3JpbWluYXRlbHkgdXBvbiBlbnRyeSBhbmQgYWxzbyBzcGVjaWZpY2FsbHkgYWdhaW5zdCBkZXRhaW5lZXMgd2hvIHdlcmUgbm90IGNvbWJhdGl2ZSwgYXNzYXVsdGl2ZSwgb3Igb3RoZXJ3aXNlIGFjdGl2ZWx5IHJlc2lzdGluZyBzdGFmZiIgW0BtYWFnMjAyMCwgaWldLg0KDQpXaGlsZSB0aGUgYWZvcmVtZW50aW9uZWQgQnJpc3RvbCBDb3VudHkgSmFpbCBtYXkgYmUgYSBwYXJ0aWN1bGFybHkgZWdyZWdpb3VzIGluc3RhbmNlIG9mIHN0YWZmIGFzc2F1bHRpbmcgZGV0YWluZWQgcGVyc29ucywgaXQgaXMgbm90IGFuIGlzb2xhdGVkIGNhc2UuIEZvciBleGFtcGxlLCBbdmlkZW8gZXZpZGVuY2VdKGh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9SlBfUGZPaGRMdU0pIGZyb20gdGhlIFRvcnJhbmNlIENvdW50eSBEZXRlbnRpb24gRmFjaWxpdHkgaW4gRXN0YW5jaWEgTk0gc2hvd3MgQ29yZUNpdmljJ3MgcHJpdmF0ZSBmYWNpbGl0eSBzdGFmZiBwZXBwZXIgc3ByYXlpbmcgcGVyc29ucyBkZXRhaW5lZCBieSBJQ0Ugb24gaHVuZ2VyIHN0cmlrZSBbQHN3ZXRsaXR6MjAyMF0uIFJldmlldyBvZiBpbnNwZWN0aW9ucyBoYXMgYWxzbyByZXZlYWxlZCBhZGRpdGlvbmFsIGluYXBwcm9wcmlhdGUgdXNlIG9mIGZvcmNlIGluY2lkZW50cy4gVGhlIG9taXNzaW9uIG9mIGEgZmllbGQgdG8gcmVjb3JkIGluc3RhbmNlcyBvZiBzdGFmZiBhc3NhdWx0aW5nIGRldGFpbmVkIHBlcnNvbnMgb2NjbHVkZXMgYW5kIG9ic2N1cmVzIHJlYWwgaW5zdGFuY2VzIG9mIHZpb2xlbmNlLiBBcyB0aGUgaW5zcGVjdGlvbnMgcHJvY2VzcyBpcyBhIGRldGVudGlvbiByZWZvcm0gZGVzaWduZWQgdG8gbWFrZSBhIG1vcmUgaHVtYW5lIHN5c3RlbSBvZiBjaXZpbCBpbmNhcmNlcmF0aW9uLCB0aGUgb21pc3Npb24gb2YgY2F0ZWdvcmllcyBmb3IgbG9nZ2luZyBzdGFmZiBwaHlzaWNhbCBtaXN0cmVhdG1lbnQgb2YgZGV0YWluZWQgcGVyc29ucyByYWlzZXMgc2VyaW91cyBxdWVzdGlvbnMgYWJvdXQgdGhlIGluc3BlY3Rpb25zIHByb2Nlc3NlcyBhYmlsaXR5IHRvIHJlY29yZCBzaWduaWZpY2FudCBhbmQgZG9jdW1lbnRlZCBjaXZpbCBhbmQgaHVtYW4gcmlnaHRzIHZpb2xhdGlvbnMuDQoNCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQ0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQ0KYGBgDQoNCiMjIFN1bW1hcnkgVGFibGVzDQoNCmBgYHtyIGxvYWQtbGlicmFyaWVzfQ0KIyBMb2FkIG5lY2Vzc2FyeSBsaWJyYXJpZXMNCg0KIyBSZWFkaW5nIGFuZCB3cmFuZ2xpbmcNCmxpYnJhcnkoZ29vZ2xlc2hlZXRzNCkNCmxpYnJhcnkocmVhZHIpDQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoamFuaXRvcikNCmxpYnJhcnkobHVicmlkYXRlKQ0KbGlicmFyeShEVCkNCg0KIyBQbG90dGluZw0KbGlicmFyeShnZ3Bsb3QyKQ0KbGlicmFyeShSQ29sb3JCcmV3ZXIpDQoNCiMgVGFibGVzDQpsaWJyYXJ5KGthYmxlRXh0cmEpDQoNCiMgTG9hZCBjdXN0b20gZnVuY3Rpb24NCnNvdXJjZSgiZnVuY3Rpb25fY2xlYW5fZmFjaWxpdHlfbmFtZXMuUiIsIGxvY2FsID0ga25pdHI6OmtuaXRfZ2xvYmFsKCkpDQpgYGANCg0KYGBge3IgcmVhZC1kYXRhLTMyNC1pbmNpZGVudH0NCiMgUmVhZCBHb29nbGUgU2hlZXQgaW5jaWRlbnQgd29ya3NoZWV0LCBjb252ZXJ0IHRvIGRhdGEgZnJhbWUsIGFuZCB3cmFuZ2xlDQpkZl8zMjRfaW5jIDwtIHJlYWRfc2hlZXQoImh0dHBzOi8vZG9jcy5nb29nbGUuY29tL3NwcmVhZHNoZWV0cy9kLzFpbTVWU2kzYklFaTEzTzhXUTU2d0VJWFN5TkVzdGJHTXlsWFhnRDliQUcwL2VkaXQjZ2lkPTE4NTgyMjcwNzEiLA0KICAgICAgICAgICAgICAgICBzaGVldD0iRy0zMjRBLTE5LWluYyIsDQogICAgICAgICAgICAgICAgIGNvbF90eXBlcyA9ICJjIikgJT4lIA0KICBjbGVhbl9uYW1lcygpICU+JQ0KICANCiAgIyBSdW4gY3VzdG9tIGNsZWFuaW5nIGZ1bmN0aW9uDQogIGNsZWFuX2ZhY2lsaXR5X25hbWVzKCkgJT4lIA0KDQoNCiAgIyBkZl9zcGVjaWZpYyBjaGFuZ2VzDQogIHVuaXRlKGRhdGUsIHllYXI6bW9udGgpICU+JSANCiAgbXV0YXRlKGZhY2lsaXR5ID0gYXMuZmFjdG9yKGZhY2lsaXR5KSwNCiAgICAgICAgIHN0YXRlID0gYXMuZmFjdG9yKHN0YXRlKSwNCiAgICAgICAgIGRhdGUgPSB5bShkYXRlKQ0KICAgICAgICAgKSAlPiUgDQogIG11dGF0ZV9hdChjKDY6NzYpLCBhcy5udW1lcmljKQ0KYGBgDQoNCmBgYHtyIGFzc2F1bHQtZGZ9DQpkZl9hc3NhdWx0cyA8LSBkZl8zMjRfaW5jICU+JQ0KICANCiAgIyBTdWJzZXQgdGhlIGRmIHRvIG9ubHkgdGhlIHVzZWQgY29scw0KICBzZWxlY3QoaWQsIGZhY2lsaXR5LCBkYXRlLA0KICAgICAgIGRldGFpbmVlX3BoeXNpY2FsX2Fzc2F1bHRfb25fc3RhZmZfd2l0aF9zZXJpb3VzX2luanVyeToNCiAgICAgICBkZXRhaW5lZV9vbl9kZXRhaW5lZV9waHlzaWNhbF9hc3NhdWx0X2ZpZ2h0X3dpdGhfbm9fc2VyaW91c19pbmp1cnkNCiAgICAgICApICU+JSANCiAgDQogICMgTmVlZCB0aGUgcm93d2lzZSBmdW5jdGlvbiB0byBjb21wdXRlIGEgcm93LWF0LWEtdGltZQ0KICAjIGluIHRoZSBmb2xsb3dpbmcgbXV0YXRlIGZ1bmN0aW9uDQogIHJvd3dpc2UoaWQpICU+JSANCiAgDQogICMgQ3JlYXRlIGEgbmV3IHRvdGFsIGNvbHVtbg0KICBtdXRhdGUodG90YWxfYXNzYXVsdHMgPSBzdW0oY19hY3Jvc3MoDQogICAgICAgZGV0YWluZWVfcGh5c2ljYWxfYXNzYXVsdF9vbl9zdGFmZl93aXRoX3NlcmlvdXNfaW5qdXJ5Og0KICAgICAgIGRldGFpbmVlX29uX2RldGFpbmVlX3BoeXNpY2FsX2Fzc2F1bHRfZmlnaHRfd2l0aF9ub19zZXJpb3VzX2luanVyeQ0KICApKSkgJT4lIA0KDQogICMgQ2FsbCBhIHJhbmdlIG9mIHRhYmxlIGNvbHVtbnMgYW5kIHBpdm90IGxvbmcNCiAgcGl2b3RfbG9uZ2VyKC4sDQogICAgICAgICAgICAgICBjb2xzPSAgZGV0YWluZWVfcGh5c2ljYWxfYXNzYXVsdF9vbl9zdGFmZl93aXRoX3NlcmlvdXNfaW5qdXJ5OnRvdGFsX2Fzc2F1bHRzLA0KICAgICAgICAgICAgICAgbmFtZXNfdG8gPSAiYXNzYXVsdF90eXBlIiwNCiAgICAgICAgICAgICAgIHZhbHVlc190byA9ICJhc3NhdWx0X2NvdW50IikgJT4lIA0KICANCiAgIyBSZW1vdmUgTkEgVmFsdWVzDQogIGRyb3BfbmEoKSAlPiUgDQogIA0KICAjIEV4cGxpY2l0bHkgZGVmaW5lIGZhY3RvciBsZXZlbHMNCiAgbXV0YXRlKGFzc2F1bHRfdHlwZSA9IGZhY3Rvcihhc3NhdWx0X3R5cGUsIGxldmVscyA9IGMoDQogICAgImRldGFpbmVlX3BoeXNpY2FsX2Fzc2F1bHRfb25fc3RhZmZfd2l0aF9zZXJpb3VzX2luanVyeSIsDQogICAgImRldGFpbmVlX3BoeXNpY2FsX2Fzc2F1bHRfb25fc3RhZmZfd2l0aF9ub19zZXJpb3VzX2luanVyeSIsDQogICAgImRldGFpbmVlX29uX2RldGFpbmVlX3BoeXNpY2FsX2Fzc2F1bHRfZmlnaHRfd2l0aF9zZXJpb3VzX2luanVyeSIsDQogICAgImRldGFpbmVlX29uX2RldGFpbmVlX3BoeXNpY2FsX2Fzc2F1bHRfZmlnaHRfd2l0aF9ub19zZXJpb3VzX2luanVyeSIsDQogICAgInRvdGFsX2Fzc2F1bHRzIg0KICApKSkNCmBgYA0KDQpgYGB7ciBhc3NhdWx0LXN1bW1hcnl9DQpkZl9hc3NhdWx0cyAlPiUgDQogIGdyb3VwX2J5KGFzc2F1bHRfdHlwZSkgJT4lIA0KICBzdW1tYXJpc2UoYFRvdGFsIEFzc2F1bHRzIGJ5IFR5cGVgID0gc3VtKGFzc2F1bHRfY291bnQpKSAlPiUgDQogIHVuZ3JvdXAoKSAlPiUgDQogIGthYmxlKGNhcHRpb24gPSAiVG90YWwgQXNzYXVsdHMgYnkgVHlwZSIsDQogICAgICAgIGNvbC5uYW1lcyA9IGMoIkFzc2F1bHQgVHlwZSIsICJUb3RhbCBBc3NhdWx0IFR5cGUiKSkgJT4lIA0KICBrYWJsZV9zdHlsaW5nKGMoImhvdmVyIiwgInN0cmlwZWQiLCAiY29uZGVuc2VkIiwgInJlc3BvbnNpdmUiKSkNCg0KDQpkZl9hc3NhdWx0cyAlPiUgDQogIGdyb3VwX2J5KGZhY2lsaXR5KSAlPiUgDQogIHN1bW1hcmlzZSh0b3RhbF9hc3NhdWx0cyA9IHN1bShhc3NhdWx0X2NvdW50KSkgJT4lIA0KICBhcnJhbmdlKGRlc2ModG90YWxfYXNzYXVsdHMpKSAlPiUgDQogIHVuZ3JvdXAoKSAlPiUgDQogIGthYmxlKGNhcHRpb24gPSAiVG90YWwgQXNzYXVsdHMgYnkgRmFjaWxpdHkiLA0KICAgICAgICBjb2wubmFtZXMgPSBjKCJGYWNpbGl0eSIsICJUb3RhbCBBc3NhdWx0cyBieSBGYWNpbGl0eSIpKSAlPiUgDQogIGthYmxlX3N0eWxpbmcoYygiaG92ZXIiLCAic3RyaXBlZCIsICJjb25kZW5zZWQiLCAicmVzcG9uc2l2ZSIpKSAlPiUgDQogIHNjcm9sbF9ib3goaGVpZ2h0ID0gIjMwMHB4IikNCmBgYA0KDQojIyBGYWNldCBQbG90IG9mIEFzc2F1bHRzIGJ5IEZhY2lsaXR5DQoNClRoZSBmaWd1cmUgYmVsb3cgaXMgYSBmYWNldCBwbG90IG9mIHRoZSBhc3NhdWx0IGNhdGVnb3JpZXMgcHJlc2VudCBvbiB0aGUgRy0zMjRBIFNJUyBmb3JtLg0KDQpgYGB7ciBhc3NhdWx0LWZhY2V0LCBmaWcuaGVpZ2h0PTQwfQ0KDQojIEdlbmVyYXRpbmcgYSBsaW5ldHlwZSB2ZWN0b3IgZm9yIHVzZSBpbiB0aGUgcGxvdA0KcGxvdF9saW5lcyA8LSBjKA0KICAgICJzb2xpZCIsDQogICAgInNvbGlkIiwNCiAgICAic29saWQiLA0KICAgICJzb2xpZCIsDQogICAgImRvdHRlZCINCiAgICApDQoNCiMgVXNlIENvbG9yIEJyZXdlciB0byBzZXQgY29sb3JzIGFuZCBtb2RpZnkNCiMgdGhlIGxhc3QgY29sb3IgdG8gYmUgYmxhY2sgZm9yIHRvdGFscy4NCnBsb3RfY29sb3JzIDwtIGJyZXdlci5wYWwoNSwgIlBhaXJlZCIpDQpwbG90X2NvbG9yc1s1XSA8LSAiIzAwMDAwMCINCg0KIyBDcmVhdGUgdGhlIGxhYmVscw0KcGxvdF9sYWJlbHMgPC0gYygNCiAgICAiRGV0YWluZWQgUGVyc29uIG9uIFN0YWZmIHcuIFNlcmlvdXMgSW5qdXJ5IiwNCiAgICAiRGV0YWluZWQgUGVyc29uIG9uIFN0YWZmIHcvbyBTZXJpb3VzIEluanVyeSIsDQogICAgIkRldGFpbmVkIFBlcnNvbiBvbiBEZXRhaW5lZCBQZXJzb24gdy4gU2Vyb3VzIEluanVyeSIsDQogICAgIkRldGFpbmVkIFBlcnNvbiBvbiBEZXRhaW5lZCBQZXJzb24gdy9vIFNlcm91cyBJbmp1cnkiLA0KICAgICJUb3RhbCBBc3NhdWx0cyIpDQoNCmRmX2Fzc2F1bHRzICU+JSANCiAgIyBDYWxsaW5nIHRoZSBwbG90IGFuZCBmb3JtYXR0aW5nDQogIGdncGxvdChhZXMoeD1kYXRlLCB5ID0gYXNzYXVsdF9jb3VudCwgbGluZXR5cGU9YXNzYXVsdF90eXBlKSkrDQogIGdlb21fbGluZShhZXMoY29sb3IgPSBhc3NhdWx0X3R5cGUpLCBzaXplID0uNjUpICsNCiAgDQogICMgU2V0IHRoZSBsaW5lIHR5cGUNCiAgc2NhbGVfbGluZXR5cGVfbWFudWFsKA0KICAgIHZhbHVlcyA9IHBsb3RfbGluZXMsDQogICAgbGFiZWxzID0gcGxvdF9sYWJlbHMsDQogICAgbmFtZSA9ICJBc3NhdWx0IFR5cGU6IiwNCiAgICBndWlkZSA9IGd1aWRlX2xlZ2VuZChucm93ID0gNSkNCiAgICApKw0KICANCiAgIyBTZXR0aW5nIHRoZSBjb2xvcg0KICBzY2FsZV9jb2xvcl9tYW51YWwoDQogICAgdmFsdWVzID0gcGxvdF9jb2xvcnMsDQogICAgbGFiZWxzID0gcGxvdF9sYWJlbHMsDQogIG5hbWUgPSAiQXNzYXVsdCBUeXBlOiINCiAgKSsNCg0KICBsYWJzKHRpdGxlID0gIlJlcG9ydGVkIEFzc2F1bHRzIikrDQogIHlsYWIoIk51bWJlciBvZiBBc3NhdWx0cyIpKw0KICB4bGFiKCJEYXRlIikrDQogIHRoZW1lKA0KICAgIHN0cmlwLnRleHQgPSBlbGVtZW50X3RleHQoc2l6ZSA9IDgpLA0KICAgIGxlZ2VuZC5wb3NpdGlvbiA9ICJib3R0b20iDQogICAgKSsNCg0KICAjIFNldCB0aGUgbGVnZW5kIHRvIG11bHRpcGxlIHJvd3MNCiAgZ3VpZGVzKGNvbCA9IGd1aWRlX2xlZ2VuZChucm93ID01KSkrDQogIA0KICAjIFdyYXANCiAgZmFjZXRfd3JhcCh+IGZhY2lsaXR5LCBuY29sPTMpDQpgYGANCg0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkRpc2NpcGxpbmFyeSINCmF1dGhvcjogIk5hdGhhbiBDcmFpZyINCmRhdGU6ICJgciBmb3JtYXQoU3lzLkRhdGUoKSwgJyVBICVCICVkLCAlWScpYCINCm91dHB1dDoNCiAgYm9va2Rvd246Omh0bWxfZG9jdW1lbnQyOiANCiAgICB0b2M6IHRydWUNCiAgICB0b2NfZmxvYXQ6IHRydWUNCiAgICBudW1iZXJfc2VjdGlvbnM6IHRydWUNCiAgICBkZl9wcmludDogcGFnZWQNCiAgICBjb2RlX2ZvbGRpbmc6IGhpZGUNCiAgICBjb2RlX2Rvd25sb2FkOiB0cnVlDQpiaWJsaW9ncmFwaHk6IFtjaXRhdGlvbnMuYmliLCBwYWNrYWdlcy5iaWJdDQotLS0NCg0KIyBEaXNjaXBsaW5hcnkNCg0KQXMgYSBtYXR0ZXIgb2YgbGF3LCBJQ0UgZGV0ZW50aW9uIGlzIG5vdCBwdW5pdGl2ZSBpdCBpcyBwdXJlbHkgYWRtaW5pc3RyYXRpdmUgY2l2aWwgaG9sZGluZyB0byBlbnN1cmUgdGhhdCBpbmRpdmlkdWFscyBhcmUgcHJlc2VudCBmb3IgdGhlaXIgaW1taWdyYXRpb24gcHJvY2VlZGluZ3MuIERlc3BpdGUgdGhhdCBmYWN0LCB0aGVyZSBpcyBhIHRyZW1lbmRvdXMgYW1vdW50IG9mIHB1bml0aXZlIGRpc2NpcGxpbmFyeSBtZWFzdXJlcyB0aGF0IHRha2UgcGxhY2UgaW4gSUNFIGRldGVudGlvbi4gU29tZSBvZiB0aGlzIGluZm9ybWF0aW9uIG9uIGRpc2NpcGxpbmUgaW4gSUNFIGRldGVudGlvbiBpcyBsb2dnZWQgaW4gZmFjaWxpdHkgaW5zcGVjdGlvbnMuIEFzIHNlZW4gaW4gdGhlIHRhYmxlcyBiZWxvdywgZHVyaW5nIHRoZSBjdXJyZW50IHNhbXBsZSBwZXJpb2QgdGhlcmUgd2VyZSBtb3JlIHRoYW4gNDIsMDAwIGRpc2NpcGxpbmFyeSBpbmZyYWN0aW9ucy4NCg0KYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9DQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpDQpgYGANCg0KDQpgYGB7ciBsb2FkLWxpYnJhcmllc30NCiMgTG9hZCBuZWNlc3NhcnkgbGlicmFyaWVzDQoNCiMgUmVhZGluZyBhbmQgd3JhbmdsaW5nDQpsaWJyYXJ5KGdvb2dsZXNoZWV0czQpDQpsaWJyYXJ5KHJlYWRyKQ0KbGlicmFyeSh0aWR5dmVyc2UpDQpsaWJyYXJ5KGphbml0b3IpDQpsaWJyYXJ5KGx1YnJpZGF0ZSkNCmxpYnJhcnkoRFQpDQoNCiMgUGxvdHRpbmcNCmxpYnJhcnkoZ2dwbG90MikNCmxpYnJhcnkoUkNvbG9yQnJld2VyKQ0KDQojIFRhYmxlcw0KbGlicmFyeShrYWJsZUV4dHJhKQ0KDQojIExvYWQgY3VzdG9tIGZ1bmN0aW9uDQpzb3VyY2UoImZ1bmN0aW9uX2NsZWFuX2ZhY2lsaXR5X25hbWVzLlIiLCBsb2NhbCA9IGtuaXRyOjprbml0X2dsb2JhbCgpKQ0KYGBgDQoNCmBgYHtyIHJlYWQtZGF0YS0zMjQtaW5jaWRlbnR9DQojIFJlYWQgR29vZ2xlIFNoZWV0IGluY2lkZW50IHdvcmtzaGVldCwgY29udmVydCB0byBkYXRhIGZyYW1lLCBhbmQgd3JhbmdsZQ0KZGZfMzI0X2luYyA8LSByZWFkX3NoZWV0KCJodHRwczovL2RvY3MuZ29vZ2xlLmNvbS9zcHJlYWRzaGVldHMvZC8xaW01VlNpM2JJRWkxM084V1E1NndFSVhTeU5Fc3RiR015bFhYZ0Q5YkFHMC9lZGl0I2dpZD0xODU4MjI3MDcxIiwNCiAgICAgICAgICAgICAgICAgc2hlZXQ9IkctMzI0QS0xOS1pbmMiLA0KICAgICAgICAgICAgICAgICBjb2xfdHlwZXMgPSAiYyIpICU+JSANCiAgY2xlYW5fbmFtZXMoKSAlPiUNCiAgDQogICMgUnVuIGN1c3RvbSBjbGVhbmluZyBmdW5jdGlvbg0KICBjbGVhbl9mYWNpbGl0eV9uYW1lcygpICU+JSANCg0KDQogICMgZGZfc3BlY2lmaWMgY2hhbmdlcw0KICB1bml0ZShkYXRlLCB5ZWFyOm1vbnRoKSAlPiUgDQogIG11dGF0ZShmYWNpbGl0eSA9IGFzLmZhY3RvcihmYWNpbGl0eSksDQogICAgICAgICBzdGF0ZSA9IGFzLmZhY3RvcihzdGF0ZSksDQogICAgICAgICBkYXRlID0geW0oZGF0ZSkNCiAgICAgICAgICkgJT4lIA0KICBtdXRhdGVfYXQoYyg2Ojc2KSwgYXMubnVtZXJpYykNCmBgYA0KDQojIyBTdW1tYXJ5IFRhYmxlcw0KDQpgYGB7cn0NCmRmX2Rpc2NpcGxpbmUgPC0gZGZfMzI0X2luYyAlPiUNCiAgDQogICMgU3Vic2V0IHRoZSBkZiB0byBvbmx5IHRoZSB1c2VkIGNvbHMNCiAgc2VsZWN0KGlkLCBmYWNpbGl0eSwgZGF0ZSwNCiAgICAgICBkaXNjaXBsaW5hcnlfaW5mcmFjdGlvbnM6DQogICAgICAgc2FuY3Rpb25zX292ZXJfNjBfZGF5cw0KICAgICAgICkgJT4lIA0KICANCiAgIyBOZWVkIHRoZSByb3d3aXNlIGZ1bmN0aW9uIHRvIGNvbXB1dGUgYSByb3ctYXQtYS10aW1lDQogICMgaW4gdGhlIGZvbGxvd2luZyBtdXRhdGUgZnVuY3Rpb24NCiAgcm93d2lzZShpZCkgJT4lIA0KICANCiAgIyBDcmVhdGUgYSBuZXcgdG90YWwgY29sdW1uDQogIG11dGF0ZSh0b3RhbF9kaXNjaXBsaW5hcnkgPSBzdW0oY19hY3Jvc3MoDQogICAgICAgZGlzY2lwbGluYXJ5X2luZnJhY3Rpb25zOg0KICAgICAgIHNhbmN0aW9uc19vdmVyXzYwX2RheXMNCiAgKSkpICU+JSANCg0KICAjIENhbGwgYSByYW5nZSBvZiB0YWJsZSBjb2x1bW5zIGFuZCBwaXZvdCBsb25nDQogIHBpdm90X2xvbmdlciguLA0KICAgICAgICAgICAgICAgY29scz0gIGRpc2NpcGxpbmFyeV9pbmZyYWN0aW9uczp0b3RhbF9kaXNjaXBsaW5hcnksDQogICAgICAgICAgICAgICBuYW1lc190byA9ICJkaXNjaXBsaW5hcnlfdHlwZSIsDQogICAgICAgICAgICAgICB2YWx1ZXNfdG8gPSAiZGlzY2lwbGluYXJ5X2NvdW50IikgJT4lDQogIA0KICAjIFJlbW92ZSBOQSB2YWx1ZXMNCiAgZHJvcF9uYSgpICU+JSANCiAgDQogICMgRXhwbGljaXRseSBzZXQgZmFjdG9yIGxldmVscw0KICBtdXRhdGUoZGlzY2lwbGluYXJ5X3R5cGUgPSBmYWN0b3IoZGlzY2lwbGluYXJ5X3R5cGUsIGxldmVscyA9YygNCiAgICAiZGlzY2lwbGluYXJ5X2luZnJhY3Rpb25zIiwNCiAgICAiZGlzY2lwbGluYXJ5X2luZnJhY3Rpb25zX2d1aWx0eSIsDQogICAgImRpc2NpcGxpbmFyeV9hcHBlYWxzIiwNCiAgICAiZGlzY2lwbGluYXJ5X2FwcGVhbHNfZm91bmRfaW5fZmF2b3Jfb2ZfZGV0YWluZWUiLA0KICAgICJzYW5jdGlvbnNfb3Zlcl82MF9kYXlzIiwNCiAgICAidG90YWxfZGlzY2lwbGluYXJ5Ig0KICApKSkNCmBgYA0KDQpgYGB7cn0NCmRmX2Rpc2NpcGxpbmUgJT4lIA0KICBncm91cF9ieShkaXNjaXBsaW5hcnlfdHlwZSkgJT4lIA0KICBzdW1tYXJpc2UoYFRvdGFsIERpc2NpcGxpbmFyeSBieSBUeXBlYCA9IHN1bShkaXNjaXBsaW5hcnlfY291bnQpKSAlPiUgDQogIHVuZ3JvdXAoKSAlPiUgDQogIGthYmxlKGNhcHRpb24gPSAiVG90YWwgRGlzY2lwbGluYXJ5IGJ5IFR5cGUiLA0KICAgICAgICBjb2wubmFtZXMgPSBjKCJEaXNjaXBsaW5lIFR5cGUiLCAiVG90YWwgRGlzY2lwbGluZSBUeXBlIikpICU+JSANCiAga2FibGVfc3R5bGluZyhjKCJob3ZlciIsICJzdHJpcGVkIiwgImNvbmRlbnNlZCIsICJyZXNwb25zaXZlIikpDQoNCg0KZGZfZGlzY2lwbGluZSAlPiUgDQogIGdyb3VwX2J5KGZhY2lsaXR5KSAlPiUgDQogIHN1bW1hcmlzZSh0b3RhbF9kaXNjaXBsaW5hcnkgPSBzdW0oZGlzY2lwbGluYXJ5X2NvdW50KSkgJT4lIA0KICBhcnJhbmdlKGRlc2ModG90YWxfZGlzY2lwbGluYXJ5KSkgJT4lIA0KICB1bmdyb3VwKCkgJT4lIA0KICBrYWJsZShjYXB0aW9uID0gIlRvdGFsIERpc2NpcGxpbmUgYnkgRmFjaWxpdHkiLA0KICAgICAgICBjb2wubmFtZXMgPSBjKCJGYWNpbGl0eSIsICJUb3RhbCBEaXNjaXBsaW5lIGJ5IEZhY2lsaXR5IikpICU+JSANCiAga2FibGVfc3R5bGluZyhjKCJob3ZlciIsICJzdHJpcGVkIiwgImNvbmRlbnNlZCIsICJyZXNwb25zaXZlIikpICU+JSANCiAgc2Nyb2xsX2JveChoZWlnaHQgPSAiMzAwcHgiKQ0KYGBgDQoNCiMjIEZhY2V0IFBsb3Qgb2YgRGlzY2lwbGluYXJ5IGJ5IEZhY2lsaXR5DQoNCmBgYHtyIGRpc2NpcGxpbmFyeS1mYWNldCwgZmlnLmhlaWdodD00MH0NCiMgR2VuZXJhdGluZyBhIGxpbmV0eXBlIHZlY3RvciBmb3IgdXNlIGluIHRoZSBwbG90DQpwbG90X2xpbmVzIDwtIGMoDQogICAgInNvbGlkIiwNCiAgICAic29saWQiLA0KICAgICJzb2xpZCIsDQogICAgInNvbGlkIiwNCiAgICAic29saWQiLA0KICAgICJkb3R0ZWQiDQogICAgKQ0KDQojIFVzZSBDb2xvciBCcmV3ZXIgdG8gc2V0IGNvbG9ycyBhbmQgbW9kaWZ5DQojIHRoZSBsYXN0IGNvbG9yIHRvIGJlIGJsYWNrIGZvciB0b3RhbHMuDQpwbG90X2NvbG9ycyA8LSBicmV3ZXIucGFsKDYsICJQYWlyZWQiKQ0KcGxvdF9jb2xvcnNbNl0gPC0gIiMwMDAwMDAiDQoNCiMgQ3JlYXRlIHBsb3QgbGFiZWxzDQoNCnBsb3RfbGFiZWxzIDwtIGMoDQogICAgIkRpc2NpcGxpbmFyeSBJbmZyYWN0aW9ucyIsDQogICAgIkRpc2NpcGxpbmFyeSBJbmZyYWN0aW9ucyAtIEd1aWx0eSIsDQogICAgIkRpc2NpcGxpbmFyeSBBcHBlYWxzIiwNCiAgICAiRGlzY2lwbGluYXJ5IEFwcGVhbHMgaW4gRmF2b3Igb2YgRGV0YWluZWUiLA0KICAgICJTYW5jdGlvbnMgT3ZlciA2MCBEYXlzIiwNCiAgICAiVG90YWwgRGlzY2lwbGluYXJ5IikNCg0KDQpkZl9kaXNjaXBsaW5lICU+JSANCiAgDQogICMgQ2FsbGluZyB0aGUgcGxvdCBhbmQgZm9ybWF0dGluZw0KICBnZ3Bsb3QoYWVzKHg9ZGF0ZSwNCiAgICAgICAgICAgICB5ID0gZGlzY2lwbGluYXJ5X2NvdW50LA0KICAgICAgICAgICAgIGxpbmV0eXBlID0gZGlzY2lwbGluYXJ5X3R5cGUpKSsNCiAgZ2VvbV9saW5lKGFlcyhjb2xvciA9IGRpc2NpcGxpbmFyeV90eXBlKSwgc2l6ZSA9IC42NSkgKw0KICANCiAgIyBTZXQgdGhlIGxpbmV0eXBlDQogIHNjYWxlX2xpbmV0eXBlX21hbnVhbCgNCiAgICB2YWx1ZXMgPSBwbG90X2xpbmVzLA0KICAgIGxhYmVscyA9IHBsb3RfbGFiZWxzLA0KICAgIG5hbWUgPSAiRGlzY2lwbGluYXJ5IFR5cGU6IiwNCiAgICBndWlkZSA9IGd1aWRlX2xlZ2VuZChucm93ID0gNikNCiAgICApKw0KICANCiAgIyBTZXR0aW5nIHRoZSBjb2xvcg0KICBzY2FsZV9jb2xvcl9tYW51YWwoDQogIHZhbHVlcyA9IHBsb3RfY29sb3JzLA0KICBsYWJlbHMgPSBwbG90X2xhYmVscywNCiAgbmFtZSA9ICJEaXNjaXBsaW5hcnkgVHlwZToiDQogICkrDQoNCiAgbGFicyh0aXRsZSA9ICJEaXNjaXBsaW5hcnkiKSsNCiAgeWxhYigiTnVtYmVyIG9mIERpc2NpcGxpbmFyeSBJbmZyYWN0aW9ucyIpKw0KICB4bGFiKCJEYXRlIikrDQogIHRoZW1lKA0KICAgIHN0cmlwLnRleHQgPSBlbGVtZW50X3RleHQoc2l6ZSA9IDgpLA0KICAgIGxlZ2VuZC5wb3NpdGlvbiA9ICJib3R0b20iDQogICAgKSsNCg0KICAjIFNldCB0aGUgbGVnZW5kIHRvIG11bHRpcGxlIHJvd3MNCiAgZ3VpZGVzKGNvbCA9IGd1aWRlX2xlZ2VuZChucm93ID02KSkrDQogIA0KICAjIFdyYXANCiAgZmFjZXRfd3JhcCh+IGZhY2lsaXR5LCBuY29sPTMpDQpgYGANCg==</div>
 
 
 </div>
@@ -1862,7 +1830,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("04-G-324A-2019-Assaults.Rmd");
+  window.initializeSourceEmbed("05-G-324A-2019-Disciplinary.Rmd");
   window.initializeCodeFolding("hide" === "show");
 });
 </script>

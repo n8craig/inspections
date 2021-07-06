@@ -1,0 +1,264 @@
+---
+title: "Solitary"
+author: "Nathan Craig"
+date: "`r format(Sys.Date(), '%A %B %d, %Y')`"
+output:
+  bookdown::html_document2: 
+    toc: true
+    toc_float: true
+    number_sections: true
+    df_print: paged
+    code_folding: hide
+    code_download: true
+bibliography: [citations.bib, packages.bib]
+---
+# Solitary
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r load-libraries}
+# Load necessary libraries
+
+# Reading and wrangling
+library(googlesheets4)
+library(readr)
+library(tidyverse)
+library(janitor)
+library(lubridate)
+library(DT)
+
+# Plotting
+library(ggplot2)
+library(RColorBrewer)
+
+# Tables
+library(kableExtra)
+
+# Load custom function
+source("function_clean_facility_names.R", local = knitr::knit_global())
+```
+
+
+```{r read-data-324}
+# Read in Sheet G-324A-19
+df_324 <- read_sheet("https://docs.google.com/spreadsheets/d/1im5VSi3bIEi13O8WQ56wEIXSyNEstbGMylXXgD9bAG0/edit#gid=1858227071",
+                 sheet="G-324A-19",
+                 col_names = TRUE,
+                 col_types = "c") %>% 
+  clean_names() %>% 
+  
+  # Run custom cleaning function
+  clean_facility_names() %>% 
+  
+  # df specific changes
+  mutate(facility = as.factor(facility),
+         state = as.factor(state),
+         date = mdy(inspection_date),
+         current_inspection_date_from = mdy(current_inspection_date_from),
+         current_inspection_date_to = mdy(current_inspection_date_to)
+         ) %>% 
+  relocate(date, .before = inspection_date) %>% 
+  mutate_at(c(20:49), as.numeric)
+```
+
+
+```{r read-data-324-incident}
+# Read Google Sheet incident worksheet, convert to data frame, and wrangle
+df_324_inc <- read_sheet("https://docs.google.com/spreadsheets/d/1im5VSi3bIEi13O8WQ56wEIXSyNEstbGMylXXgD9bAG0/edit#gid=1858227071",
+                 sheet="G-324A-19-inc",
+                 col_types = "c") %>% 
+  clean_names() %>%
+  
+  # Run custom cleaning function
+  clean_facility_names() %>% 
+
+
+  # df_specific changes
+  unite(date, year:month) %>% 
+  mutate(facility = as.factor(facility),
+         state = as.factor(state),
+         date = ym(date)
+         ) %>% 
+  mutate_at(c(6:76), as.numeric)
+```
+
+
+## Summary Tables
+
+Of the present 163 inspections reviewed so far, there are more than 34,000 instances of solitary. That is roughly 208 instances of solitary per inspection.
+
+```{r}
+df_solitary <- df_324_inc %>%
+  
+  # Select a subset of columns to work with
+  select(id,
+         facility,
+         date,
+         detainees_placed_in_administrative_segregation:
+           detainees_placed_in_segregation_for_mental_health_reasons) %>% 
+  
+  # Need the rowwise function to compute a row-at-a-time
+  # in the following mutate function
+  rowwise(id) %>% 
+  
+  # Create new total column
+  mutate(total_segregation = sum(c_across(detainees_placed_in_administrative_segregation:
+                 detainees_placed_in_segregation_for_mental_health_reasons))) %>% 
+  
+  # Tidy
+  pivot_longer(.,
+               cols= detainees_placed_in_administrative_segregation:
+                 total_segregation,
+               names_to = "segregation_type",
+               values_to = "segregation_count") %>% 
+  
+  # Remove NA
+  drop_na() %>% 
+  
+  # Explicitly set factor levels
+  mutate(segregation_type = factor(segregation_type, levels = c(
+    "detainees_placed_in_administrative_segregation",
+    "detainees_placed_in_disciplinary_segregation",
+    "detainees_placed_in_segregation_for_medical_reasons",
+    "detainees_placed_in_segregation_for_mental_health_reasons",
+    "total_segregation"
+  )))
+```
+
+```{r}
+df_solitary %>% 
+  group_by(segregation_type) %>% 
+  summarise(`Total Solitary by Type` = sum(segregation_count)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Solitary by Type",
+        col.names = c("Solitary Type", "Total Solitary Type")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"))
+
+
+df_solitary %>% 
+  group_by(facility) %>% 
+  summarise(total_segregation = sum(segregation_count)) %>% 
+  arrange(desc(total_segregation)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Solitary by Facility",
+        col.names = c("Facility", "Total Solitary by Facility")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  scroll_box(height = "300px")
+```
+
+## Facet Plots of Solitary by Facility
+
+```{r solitary-facet, fig.height=40}
+# Generating a linetype vector for use in the plot
+plot_lines <- c(
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "dotted"
+    )
+
+# Use Color Brewer to set colors and modify
+# the last color to be black for totals.
+plot_colors <- brewer.pal(5, "Paired")
+plot_colors[5] <- "#000000"
+
+# Create plot labels
+plot_labels <- c(
+    "Administrative",
+    "Disciplinary",
+    "Medical",
+    "Mental Health",
+    "Total")
+
+df_solitary %>% 
+
+# Calling the plot and formatting
+  ggplot(aes(x=date,
+             y = segregation_count,
+             linetype = segregation_type))+
+  geom_line(aes(color = segregation_type), size = .65) +
+  
+  # Set the color
+  scale_color_manual(
+  values = plot_colors,
+  name = "Solitary Type:",
+  labels = plot_labels)+
+  
+  # Set the linetype
+  scale_linetype_manual(
+    values = plot_lines,
+      name = "Solitary Type:",
+    labels = plot_labels)+
+  
+  
+  labs(title = "Reported Use of Solitary")+
+  ylab("Number of Individuals Palced in Solitary")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 8),
+    legend.position = "bottom"
+    )+
+    facet_wrap(~ facility, ncol=3)
+```
+
+## Solitary Over 60 Days
+
+```{r solitary-60-facet}
+
+# Use Color Brewer to set colors and modify
+# the last color to be black for totals.
+plot_colors <- brewer.pal(5, "Paired")
+plot_colors[5] <- "#000000"
+
+# Call the dataframe and select cols
+df_324 %>% 
+  select(id,
+         facility,
+         state,
+         date,
+         fac_operator,
+         admin_seg_60_ice,
+         disc_seg_60_ice) %>% 
+  drop_na() %>% 
+  
+  # Need the rowwise function to compute a row-at-a-time
+  # in the following mutate function
+  rowwise(id) %>% 
+  
+  # Generate total col
+  mutate(total_seg_60 = sum(c_across(
+       admin_seg_60_ice:
+       disc_seg_60_ice
+  ))) %>%
+  
+  # Make tidy and filter
+  pivot_longer(cols = admin_seg_60_ice:disc_seg_60_ice,
+               names_to = "segregation_60_type",
+               values_to = "segregation_60_count") %>%
+  filter(segregation_60_type %in% c("admin_seg_60_ice", "disc_seg_60_ice")&
+           segregation_60_count > 0) %>%
+  
+  # Initiate the plot and sort by sum
+  ggplot(aes(x = segregation_60_count,
+             y=reorder(fac_operator, segregation_60_count, sum),
+             fill=segregation_60_type))+
+  geom_bar(stat = "identity")+
+  
+  # Set the color fill
+  scale_fill_brewer(type = "qual",
+                    palette = "Paired",
+                    name = "Segregation > 60 Type",
+                    labels = c("Administrative",
+                               "Disciplinary"))+
+  labs(title= "Segregation > 60 Days by Facility Operator",
+        x = "Segregation > 60 Days Count",
+        y = "Facility Operator")+
+  theme(legend.position = "bottom")
+```
+
+

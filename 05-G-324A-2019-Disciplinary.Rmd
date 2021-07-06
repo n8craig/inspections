@@ -1,0 +1,194 @@
+---
+title: "Disciplinary"
+author: "Nathan Craig"
+date: "`r format(Sys.Date(), '%A %B %d, %Y')`"
+output:
+  bookdown::html_document2: 
+    toc: true
+    toc_float: true
+    number_sections: true
+    df_print: paged
+    code_folding: hide
+    code_download: true
+bibliography: [citations.bib, packages.bib]
+---
+
+# Disciplinary
+
+As a matter of law, ICE detention is not punitive it is purely administrative civil holding to ensure that individuals are present for their immigration proceedings. Despite that fact, there is a tremendous amount of punitive disciplinary measures that take place in ICE detention. Some of this information on discipline in ICE detention is logged in facility inspections. As seen in the tables below, during the current sample period there were more than 42,000 disciplinary infractions.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r load-libraries}
+# Load necessary libraries
+
+# Reading and wrangling
+library(googlesheets4)
+library(readr)
+library(tidyverse)
+library(janitor)
+library(lubridate)
+library(DT)
+
+# Plotting
+library(ggplot2)
+library(RColorBrewer)
+
+# Tables
+library(kableExtra)
+
+# Load custom function
+source("function_clean_facility_names.R", local = knitr::knit_global())
+```
+
+```{r read-data-324-incident}
+# Read Google Sheet incident worksheet, convert to data frame, and wrangle
+df_324_inc <- read_sheet("https://docs.google.com/spreadsheets/d/1im5VSi3bIEi13O8WQ56wEIXSyNEstbGMylXXgD9bAG0/edit#gid=1858227071",
+                 sheet="G-324A-19-inc",
+                 col_types = "c") %>% 
+  clean_names() %>%
+  
+  # Run custom cleaning function
+  clean_facility_names() %>% 
+
+
+  # df_specific changes
+  unite(date, year:month) %>% 
+  mutate(facility = as.factor(facility),
+         state = as.factor(state),
+         date = ym(date)
+         ) %>% 
+  mutate_at(c(6:76), as.numeric)
+```
+
+## Summary Tables
+
+```{r}
+df_discipline <- df_324_inc %>%
+  
+  # Subset the df to only the used cols
+  select(id, facility, date,
+       disciplinary_infractions:
+       sanctions_over_60_days
+       ) %>% 
+  
+  # Need the rowwise function to compute a row-at-a-time
+  # in the following mutate function
+  rowwise(id) %>% 
+  
+  # Create a new total column
+  mutate(total_disciplinary = sum(c_across(
+       disciplinary_infractions:
+       sanctions_over_60_days
+  ))) %>% 
+
+  # Call a range of table columns and pivot long
+  pivot_longer(.,
+               cols=  disciplinary_infractions:total_disciplinary,
+               names_to = "disciplinary_type",
+               values_to = "disciplinary_count") %>%
+  
+  # Remove NA values
+  drop_na() %>% 
+  
+  # Explicitly set factor levels
+  mutate(disciplinary_type = factor(disciplinary_type, levels =c(
+    "disciplinary_infractions",
+    "disciplinary_infractions_guilty",
+    "disciplinary_appeals",
+    "disciplinary_appeals_found_in_favor_of_detainee",
+    "sanctions_over_60_days",
+    "total_disciplinary"
+  )))
+```
+
+```{r}
+df_discipline %>% 
+  group_by(disciplinary_type) %>% 
+  summarise(`Total Disciplinary by Type` = sum(disciplinary_count)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Disciplinary by Type",
+        col.names = c("Discipline Type", "Total Discipline Type")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"))
+
+
+df_discipline %>% 
+  group_by(facility) %>% 
+  summarise(total_disciplinary = sum(disciplinary_count)) %>% 
+  arrange(desc(total_disciplinary)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Discipline by Facility",
+        col.names = c("Facility", "Total Discipline by Facility")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  scroll_box(height = "300px")
+```
+
+## Facet Plot of Disciplinary by Facility
+
+```{r disciplinary-facet, fig.height=40}
+# Generating a linetype vector for use in the plot
+plot_lines <- c(
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "dotted"
+    )
+
+# Use Color Brewer to set colors and modify
+# the last color to be black for totals.
+plot_colors <- brewer.pal(6, "Paired")
+plot_colors[6] <- "#000000"
+
+# Create plot labels
+
+plot_labels <- c(
+    "Disciplinary Infractions",
+    "Disciplinary Infractions - Guilty",
+    "Disciplinary Appeals",
+    "Disciplinary Appeals in Favor of Detainee",
+    "Sanctions Over 60 Days",
+    "Total Disciplinary")
+
+
+df_discipline %>% 
+  
+  # Calling the plot and formatting
+  ggplot(aes(x=date,
+             y = disciplinary_count,
+             linetype = disciplinary_type))+
+  geom_line(aes(color = disciplinary_type), size = .65) +
+  
+  # Set the linetype
+  scale_linetype_manual(
+    values = plot_lines,
+    labels = plot_labels,
+    name = "Disciplinary Type:",
+    guide = guide_legend(nrow = 6)
+    )+
+  
+  # Setting the color
+  scale_color_manual(
+  values = plot_colors,
+  labels = plot_labels,
+  name = "Disciplinary Type:"
+  )+
+
+  labs(title = "Disciplinary")+
+  ylab("Number of Disciplinary Infractions")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 8),
+    legend.position = "bottom"
+    )+
+
+  # Set the legend to multiple rows
+  guides(col = guide_legend(nrow =6))+
+  
+  # Wrap
+  facet_wrap(~ facility, ncol=3)
+```

@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Nathan Craig" />
+
+
+<title>Use-of-Force</title>
+
+<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">ICE Inspection Review</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fas fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="02-Data-Cleaning.html">Clean Data</a>
+</li>
+<li>
+  <a href="03-G-324A-2019-Exploratory-Plots.html">Preliminary Plots</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Preliminary Results
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="03-G-324A-2019-Exploratory-Plots.html">Assaults</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/n8craig/inspections">
+    <span class="fa fa fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Use-of-Force</h1>
+<h4 class="author">Nathan Craig</h4>
+<h4 class="date">Tuesday July 06, 2021</h4>
+
+</div>
+
+
+<div id="use-of-force" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Use of Force</h1>
+<pre class="r"><code># Load necessary libraries
+
+# Reading and wrangling
+library(googlesheets4)
+library(readr)
+library(tidyverse)
+library(janitor)
+library(lubridate)
+library(DT)
+
+# Plotting
+library(ggplot2)
+library(RColorBrewer)
+
+# Tables
+library(kableExtra)
+
+# Load custom function
+source(&quot;function_clean_facility_names.R&quot;, local = knitr::knit_global())</code></pre>
+<pre class="r"><code># Read Google Sheet incident worksheet, convert to data frame, and wrangle
+df_324_inc &lt;- read_sheet(&quot;https://docs.google.com/spreadsheets/d/1im5VSi3bIEi13O8WQ56wEIXSyNEstbGMylXXgD9bAG0/edit#gid=1858227071&quot;,
+                 sheet=&quot;G-324A-19-inc&quot;,
+                 col_types = &quot;c&quot;) %&gt;% 
+  clean_names() %&gt;%
+  
+  # Run custom cleaning function
+  clean_facility_names() %&gt;% 
+
+
+  # df_specific changes
+  unite(date, year:month) %&gt;% 
+  mutate(facility = as.factor(facility),
+         state = as.factor(state),
+         date = ym(date)
+         ) %&gt;% 
+  mutate_at(c(6:76), as.numeric)</code></pre>
+<div id="summary-tables" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Summary Tables</h2>
+<pre class="r"><code>df_force &lt;- df_324_inc %&gt;%
+  
+  # Subset the df to only the used cols
+  select(id, facility, date,
+       immediate_use_of_force_incidents:
+       strip_searches
+       ) %&gt;% 
+  
+  # Need the rowwise function to compute a row-at-a-time
+  # in the following mutate function
+  rowwise(id) %&gt;% 
+  
+  # Create a new total column
+  mutate(total_use_of_force = sum(c_across(
+       immediate_use_of_force_incidents:
+       strip_searches
+  ))) %&gt;% 
+
+  # Call a range of table columns and pivot long
+  pivot_longer(.,
+               cols=  immediate_use_of_force_incidents:total_use_of_force,
+               names_to = &quot;use_of_force_type&quot;,
+               values_to = &quot;use_of_force_count&quot;) %&gt;%
+  
+  # Remove NA values
+  drop_na() %&gt;% 
+  
+  # Explicitly define factors
+  mutate(use_of_force_type = factor(use_of_force_type, levels = c(
+    &quot;immediate_use_of_force_incidents&quot;,
+    &quot;calculated_use_of_force_incidents&quot;,
+    &quot;uses_of_force_with_chemical_agents&quot;,
+    &quot;incidents_where_non_lethal_weapons_were_used&quot;,
+    &quot;number_of_times_4_5_point_restraints_were_used&quot;,
+    &quot;use_of_force_with_serious_injury&quot;,
+    &quot;strip_searches&quot;,
+    &quot;total_use_of_force&quot;
+  )))</code></pre>
+<pre class="r"><code>df_force %&gt;% 
+  group_by(use_of_force_type) %&gt;% 
+  summarise(`Total Use of Force by Type` = sum(use_of_force_count)) %&gt;% 
+  ungroup() %&gt;% 
+  kable(caption = &quot;Total Use of Force by Type&quot;,
+        col.names = c(&quot;Use of Force Type&quot;, &quot;Total Use of Force Type&quot;)) %&gt;% 
+  kable_styling(c(&quot;hover&quot;, &quot;striped&quot;, &quot;condensed&quot;, &quot;responsive&quot;))</code></pre>
+<table class="table table-hover table-striped table-condensed table-responsive" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-2">Table 1.1: </span>Total Use of Force by Type
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Use of Force Type
+</th>
+<th style="text-align:right;">
+Total Use of Force Type
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+immediate_use_of_force_incidents
+</td>
+<td style="text-align:right;">
+1184
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+calculated_use_of_force_incidents
+</td>
+<td style="text-align:right;">
+325
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+uses_of_force_with_chemical_agents
+</td>
+<td style="text-align:right;">
+362
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+incidents_where_non_lethal_weapons_were_used
+</td>
+<td style="text-align:right;">
+18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+number_of_times_4_5_point_restraints_were_used
+</td>
+<td style="text-align:right;">
+97
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+use_of_force_with_serious_injury
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+strip_searches
+</td>
+<td style="text-align:right;">
+20629
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+total_use_of_force
+</td>
+<td style="text-align:right;">
+19170
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>df_force %&gt;% 
+  group_by(facility) %&gt;% 
+  summarise(total_use_of_force = sum(use_of_force_count)) %&gt;% 
+  arrange(desc(total_use_of_force)) %&gt;% 
+  ungroup() %&gt;% 
+  kable(caption = &quot;Total Use of Force by Facility&quot;,
+        col.names = c(&quot;Facility&quot;, &quot;Total Use of Force by Facility&quot;)) %&gt;% 
+  kable_styling(c(&quot;hover&quot;, &quot;striped&quot;, &quot;condensed&quot;, &quot;responsive&quot;)) %&gt;% 
+  scroll_box(height = &quot;300px&quot;)</code></pre>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; ">
+<table class="table table-hover table-striped table-condensed table-responsive" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-2">Table 1.1: </span>Total Use of Force by Facility
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Facility
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Total Use of Force by Facility
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Immigration Centers of America - Farmville
+</td>
+<td style="text-align:right;">
+10782
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+La Palma Correctional Center
+</td>
+<td style="text-align:right;">
+6022
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sheriff Al Cannon Detention Center
+</td>
+<td style="text-align:right;">
+4854
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Worcester County Jail
+</td>
+<td style="text-align:right;">
+3348
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Essex County Correctional Facility
+</td>
+<td style="text-align:right;">
+2620
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Hudson County Corrections and Rehabilitation Center
+</td>
+<td style="text-align:right;">
+2294
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+York County Prison
+</td>
+<td style="text-align:right;">
+2017
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cambria County Prison
+</td>
+<td style="text-align:right;">
+1500
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pike County Correctional Facility
+</td>
+<td style="text-align:right;">
+1120
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Hall County Department of Corrections
+</td>
+<td style="text-align:right;">
+916
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Teller County Jail
+</td>
+<td style="text-align:right;">
+876
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Northern Oregon Correctional Facility
+</td>
+<td style="text-align:right;">
+862
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Eloy Detention Center
+</td>
+<td style="text-align:right;">
+496
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bergen County Jail
+</td>
+<td style="text-align:right;">
+294
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Calhoun County Correctional Center
+</td>
+<td style="text-align:right;">
+282
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+South Texas ICE Processing Center
+</td>
+<td style="text-align:right;">
+254
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Port Isabel Service Processing Center
+</td>
+<td style="text-align:right;">
+234
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Stewart Detention Center
+</td>
+<td style="text-align:right;">
+174
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Adelanto ICE Processing Center - West
+</td>
+<td style="text-align:right;">
+164
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sherburne County Jail
+</td>
+<td style="text-align:right;">
+150
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Northwest ICE Processing Center
+</td>
+<td style="text-align:right;">
+138
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bristol County Jail and House of Correction
+</td>
+<td style="text-align:right;">
+130
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Glades County Detention Center
+</td>
+<td style="text-align:right;">
+126
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Folkston ICE Processing Center
+</td>
+<td style="text-align:right;">
+122
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Otay Mesa Detention Center
+</td>
+<td style="text-align:right;">
+120
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Montgomery Processing Center
+</td>
+<td style="text-align:right;">
+116
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LaSalle ICE Processing Center
+</td>
+<td style="text-align:right;">
+112
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Baker County Detention Center
+</td>
+<td style="text-align:right;">
+92
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Krome Service Processing Center
+</td>
+<td style="text-align:right;">
+80
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Aurora ICE Processing Center
+</td>
+<td style="text-align:right;">
+66
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Aurora ICE Processing Center II - Annex
+</td>
+<td style="text-align:right;">
+66
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+El Paso Service Processing Center
+</td>
+<td style="text-align:right;">
+66
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jena LaSalle Detention Facility
+</td>
+<td style="text-align:right;">
+66
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+River Correctional Center
+</td>
+<td style="text-align:right;">
+66
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Mesa Verde ICE Processing Facility
+</td>
+<td style="text-align:right;">
+60
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pine Prairie ICE Processing Center
+</td>
+<td style="text-align:right;">
+56
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Donald W. Wyatt Detention Facility
+</td>
+<td style="text-align:right;">
+54
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Wakulla County Detention Facility
+</td>
+<td style="text-align:right;">
+54
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+McHenry County Adult Correctional Facility
+</td>
+<td style="text-align:right;">
+46
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Irwin County Detention Center
+</td>
+<td style="text-align:right;">
+42
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pulaski County Detention Center
+</td>
+<td style="text-align:right;">
+42
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Limestone County Detention Center
+</td>
+<td style="text-align:right;">
+40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Prairieland Detention Center
+</td>
+<td style="text-align:right;">
+40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Imperial Regional Detention Facility
+</td>
+<td style="text-align:right;">
+38
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Winn Correctional Center
+</td>
+<td style="text-align:right;">
+36
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Strafford County Department of Corrections
+</td>
+<td style="text-align:right;">
+33
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bluebonnet Detention Center
+</td>
+<td style="text-align:right;">
+32
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Caroline Detention Facility
+</td>
+<td style="text-align:right;">
+32
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Johnson County Corrections Center
+</td>
+<td style="text-align:right;">
+28
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Adelanto ICE Processing Center - East
+</td>
+<td style="text-align:right;">
+26
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jackson Parish Correctional Center
+</td>
+<td style="text-align:right;">
+26
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Boone County Jail
+</td>
+<td style="text-align:right;">
+24
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Houston Contract Detention Facility
+</td>
+<td style="text-align:right;">
+24
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Okmulgee County Jail - Moore Detention Facility
+</td>
+<td style="text-align:right;">
+24
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Morrow County Correctional Facility
+</td>
+<td style="text-align:right;">
+22
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Catahoula Correctional Center
+</td>
+<td style="text-align:right;">
+20
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Polk County Adult Detention Center
+</td>
+<td style="text-align:right;">
+20
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Dodge County Detention Facility
+</td>
+<td style="text-align:right;">
+18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Orange County Correctional Facility
+</td>
+<td style="text-align:right;">
+18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Otero County Processing Center
+</td>
+<td style="text-align:right;">
+18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Yuba County Jail
+</td>
+<td style="text-align:right;">
+18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CCA Florence Correctional Center
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Plymouth County Correctional Facility
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Shawnee County Department of Corrections - Adult Detention Center
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Torrance County Detention Facility
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Butler County Jail
+</td>
+<td style="text-align:right;">
+14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Adams County Correctional Center
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+David L. Moss Criminal Justice Center
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Eden Detention Center
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Elizabeth Contract Detention Facility
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Joe Corley Processing Center
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Webb County Detention Center
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bossier Parish Corrections Center
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Freeborn County Adult Detention Center
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Krome North Service Processing Center
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Broward Transitional Center
+</td>
+<td style="text-align:right;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Clinton County Correctional Facility
+</td>
+<td style="text-align:right;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nye County Detention Center
+</td>
+<td style="text-align:right;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rio Grande Detention Center
+</td>
+<td style="text-align:right;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Clay County Jail
+</td>
+<td style="text-align:right;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Richwood Correctional Center
+</td>
+<td style="text-align:right;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Val Verde Correctional Facility
+</td>
+<td style="text-align:right;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Florence Service Processing Center
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Folkston ICE Processing Center Annex
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Hardin County Jail
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Henderson Detention Center
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Morgan County Adult Detention Center
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Seneca County Jail
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+South Louisiana ICE Processing Center
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Allen Parish Public Safety Complex
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+El Valle Detention Facility
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Geauga County Jail
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Howard County Detention Center
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kay County Detention Center
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rolling Plains Detention Center
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cass County Jail
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Alamance County Detention Center
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brooks County Detention Center
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Carver County Jail
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Chippewa County Correctional Facility
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Christian County Jail
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cibola County Correctional Center
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Coastal Bend Detention Center
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Desert View Annex
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Dorchester County Detention Center
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Douglas County Department of Corrections
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+East Hidalgo Detention Center
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Golden State Annex
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jerome Combs Detention Center
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Laredo Processing Center
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LaSalle Correctional Center
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LaSalle County Regional Detention Center
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Monroe County Inmate Dormitory
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Montgomery County Jail
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Platte County Detention Center
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Robert A. Deyton Detention Facility
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Saint Clair County Jail
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+San Luis Regional Detention Center
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+T. Don Hutto Residential Center
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Washoe County Detention Center
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+West Texas Detention Facility
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Western Tennessee Detention Facility
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Willacy County Regional Detention Facility
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="facet-plot-of-use-of-force-by-facility" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Facet Plot of Use of Force by Facility</h2>
+<pre class="r"><code># Generating a linetype vector for use in the plot
+plot_lines &lt;- c(
+    &quot;solid&quot;,
+    &quot;solid&quot;,
+    &quot;solid&quot;,
+    &quot;solid&quot;,
+    &quot;solid&quot;,
+    &quot;solid&quot;,
+    &quot;solid&quot;,
+    &quot;dotted&quot;
+    )
+
+# Use Color Brewer to set colors and modify
+# the last color to be black for totals.
+plot_colors &lt;- brewer.pal(8, &quot;Paired&quot;)
+plot_colors[8] &lt;- &quot;#000000&quot;
+
+# Create plot labels
+plot_labels &lt;- c(
+    &quot;Immediate Use of Force Incidents&quot;,
+    &quot;Calculated Use of Force Incidents&quot;,
+    &quot;Uses of Force with Chemical Agents&quot;,
+    &quot;Incidents Where Non-Lethal Weapons Were Used&quot;,
+    &quot;Times 4/5 Point Restraints Used&quot;,
+    &quot;Use of Force With Serious Injury&quot;,
+    &quot;Strip Searches&quot;,
+    &quot;Total Disciplinary&quot;)
+
+df_force %&gt;% 
+  
+  # Calling the plot and formatting
+  ggplot(aes(x=date, y = use_of_force_count, linetype=use_of_force_type))+
+  geom_line(aes(color = use_of_force_type), size = .65) +
+  
+  # setting the linetype
+  scale_linetype_manual(
+    values = plot_lines,
+    labels = plot_labels,
+    name = &quot;Use of Force Type:&quot;,
+    guide = guide_legend(nrow = 8)
+    )+
+  
+  # Setting the color
+  scale_color_manual(
+  values = plot_colors,
+  labels = plot_labels,
+  name = &quot;Use of Force Type:&quot;,
+  )+
+
+  labs(title = &quot;Disciplinary&quot;)+
+  ylab(&quot;Number of Disciplinary Infractions&quot;)+
+  xlab(&quot;Date&quot;)+
+  theme(
+    strip.text = element_text(size = 8),
+    legend.position = &quot;bottom&quot;
+    )+
+
+    # Set the legend to multiple rows
+  guides(col = guide_legend(nrow =8))+
+  
+  # Wrap
+  facet_wrap(~ facility, ncol=3)</code></pre>
+<p><img src="07-G-324A-2019-Use-of-Force_files/figure-html/use-force-facet-1.png" width="672" /></p>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlVzZS1vZi1Gb3JjZSINCmF1dGhvcjogIk5hdGhhbiBDcmFpZyINCmRhdGU6ICJgciBmb3JtYXQoU3lzLkRhdGUoKSwgJyVBICVCICVkLCAlWScpYCINCm91dHB1dDoNCiAgYm9va2Rvd246Omh0bWxfZG9jdW1lbnQyOiANCiAgICB0b2M6IHRydWUNCiAgICB0b2NfZmxvYXQ6IHRydWUNCiAgICBudW1iZXJfc2VjdGlvbnM6IHRydWUNCiAgICBkZl9wcmludDogcGFnZWQNCiAgICBjb2RlX2ZvbGRpbmc6IGhpZGUNCiAgICBjb2RlX2Rvd25sb2FkOiB0cnVlDQpiaWJsaW9ncmFwaHk6IFtjaXRhdGlvbnMuYmliLCBwYWNrYWdlcy5iaWJdDQotLS0NCg0KIyBVc2Ugb2YgRm9yY2UNCg0KDQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0NCmtuaXRyOjpvcHRzX2NodW5rJHNldCgNCgllY2hvID0gVFJVRSwNCgltZXNzYWdlID0gRkFMU0UsDQoJd2FybmluZyA9IEZBTFNFDQopDQpgYGANCg0KYGBge3IgbG9hZC1saWJyYXJpZXN9DQojIExvYWQgbmVjZXNzYXJ5IGxpYnJhcmllcw0KDQojIFJlYWRpbmcgYW5kIHdyYW5nbGluZw0KbGlicmFyeShnb29nbGVzaGVldHM0KQ0KbGlicmFyeShyZWFkcikNCmxpYnJhcnkodGlkeXZlcnNlKQ0KbGlicmFyeShqYW5pdG9yKQ0KbGlicmFyeShsdWJyaWRhdGUpDQpsaWJyYXJ5KERUKQ0KDQojIFBsb3R0aW5nDQpsaWJyYXJ5KGdncGxvdDIpDQpsaWJyYXJ5KFJDb2xvckJyZXdlcikNCg0KIyBUYWJsZXMNCmxpYnJhcnkoa2FibGVFeHRyYSkNCg0KIyBMb2FkIGN1c3RvbSBmdW5jdGlvbg0Kc291cmNlKCJmdW5jdGlvbl9jbGVhbl9mYWNpbGl0eV9uYW1lcy5SIiwgbG9jYWwgPSBrbml0cjo6a25pdF9nbG9iYWwoKSkNCmBgYA0KDQpgYGB7ciByZWFkLWRhdGEtMzI0LWluY2lkZW50fQ0KIyBSZWFkIEdvb2dsZSBTaGVldCBpbmNpZGVudCB3b3Jrc2hlZXQsIGNvbnZlcnQgdG8gZGF0YSBmcmFtZSwgYW5kIHdyYW5nbGUNCmRmXzMyNF9pbmMgPC0gcmVhZF9zaGVldCgiaHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vc3ByZWFkc2hlZXRzL2QvMWltNVZTaTNiSUVpMTNPOFdRNTZ3RUlYU3lORXN0YkdNeWxYWGdEOWJBRzAvZWRpdCNnaWQ9MTg1ODIyNzA3MSIsDQogICAgICAgICAgICAgICAgIHNoZWV0PSJHLTMyNEEtMTktaW5jIiwNCiAgICAgICAgICAgICAgICAgY29sX3R5cGVzID0gImMiKSAlPiUgDQogIGNsZWFuX25hbWVzKCkgJT4lDQogIA0KICAjIFJ1biBjdXN0b20gY2xlYW5pbmcgZnVuY3Rpb24NCiAgY2xlYW5fZmFjaWxpdHlfbmFtZXMoKSAlPiUgDQoNCg0KICAjIGRmX3NwZWNpZmljIGNoYW5nZXMNCiAgdW5pdGUoZGF0ZSwgeWVhcjptb250aCkgJT4lIA0KICBtdXRhdGUoZmFjaWxpdHkgPSBhcy5mYWN0b3IoZmFjaWxpdHkpLA0KICAgICAgICAgc3RhdGUgPSBhcy5mYWN0b3Ioc3RhdGUpLA0KICAgICAgICAgZGF0ZSA9IHltKGRhdGUpDQogICAgICAgICApICU+JSANCiAgbXV0YXRlX2F0KGMoNjo3NiksIGFzLm51bWVyaWMpDQpgYGANCg0KDQojIyBTdW1tYXJ5IFRhYmxlcw0KDQpgYGB7cn0NCmRmX2ZvcmNlIDwtIGRmXzMyNF9pbmMgJT4lDQogIA0KICAjIFN1YnNldCB0aGUgZGYgdG8gb25seSB0aGUgdXNlZCBjb2xzDQogIHNlbGVjdChpZCwgZmFjaWxpdHksIGRhdGUsDQogICAgICAgaW1tZWRpYXRlX3VzZV9vZl9mb3JjZV9pbmNpZGVudHM6DQogICAgICAgc3RyaXBfc2VhcmNoZXMNCiAgICAgICApICU+JSANCiAgDQogICMgTmVlZCB0aGUgcm93d2lzZSBmdW5jdGlvbiB0byBjb21wdXRlIGEgcm93LWF0LWEtdGltZQ0KICAjIGluIHRoZSBmb2xsb3dpbmcgbXV0YXRlIGZ1bmN0aW9uDQogIHJvd3dpc2UoaWQpICU+JSANCiAgDQogICMgQ3JlYXRlIGEgbmV3IHRvdGFsIGNvbHVtbg0KICBtdXRhdGUodG90YWxfdXNlX29mX2ZvcmNlID0gc3VtKGNfYWNyb3NzKA0KICAgICAgIGltbWVkaWF0ZV91c2Vfb2ZfZm9yY2VfaW5jaWRlbnRzOg0KICAgICAgIHN0cmlwX3NlYXJjaGVzDQogICkpKSAlPiUgDQoNCiAgIyBDYWxsIGEgcmFuZ2Ugb2YgdGFibGUgY29sdW1ucyBhbmQgcGl2b3QgbG9uZw0KICBwaXZvdF9sb25nZXIoLiwNCiAgICAgICAgICAgICAgIGNvbHM9ICBpbW1lZGlhdGVfdXNlX29mX2ZvcmNlX2luY2lkZW50czp0b3RhbF91c2Vfb2ZfZm9yY2UsDQogICAgICAgICAgICAgICBuYW1lc190byA9ICJ1c2Vfb2ZfZm9yY2VfdHlwZSIsDQogICAgICAgICAgICAgICB2YWx1ZXNfdG8gPSAidXNlX29mX2ZvcmNlX2NvdW50IikgJT4lDQogIA0KICAjIFJlbW92ZSBOQSB2YWx1ZXMNCiAgZHJvcF9uYSgpICU+JSANCiAgDQogICMgRXhwbGljaXRseSBkZWZpbmUgZmFjdG9ycw0KICBtdXRhdGUodXNlX29mX2ZvcmNlX3R5cGUgPSBmYWN0b3IodXNlX29mX2ZvcmNlX3R5cGUsIGxldmVscyA9IGMoDQogICAgImltbWVkaWF0ZV91c2Vfb2ZfZm9yY2VfaW5jaWRlbnRzIiwNCiAgICAiY2FsY3VsYXRlZF91c2Vfb2ZfZm9yY2VfaW5jaWRlbnRzIiwNCiAgICAidXNlc19vZl9mb3JjZV93aXRoX2NoZW1pY2FsX2FnZW50cyIsDQogICAgImluY2lkZW50c193aGVyZV9ub25fbGV0aGFsX3dlYXBvbnNfd2VyZV91c2VkIiwNCiAgICAibnVtYmVyX29mX3RpbWVzXzRfNV9wb2ludF9yZXN0cmFpbnRzX3dlcmVfdXNlZCIsDQogICAgInVzZV9vZl9mb3JjZV93aXRoX3NlcmlvdXNfaW5qdXJ5IiwNCiAgICAic3RyaXBfc2VhcmNoZXMiLA0KICAgICJ0b3RhbF91c2Vfb2ZfZm9yY2UiDQogICkpKQ0KYGBgDQoNCmBgYHtyfQ0KZGZfZm9yY2UgJT4lIA0KICBncm91cF9ieSh1c2Vfb2ZfZm9yY2VfdHlwZSkgJT4lIA0KICBzdW1tYXJpc2UoYFRvdGFsIFVzZSBvZiBGb3JjZSBieSBUeXBlYCA9IHN1bSh1c2Vfb2ZfZm9yY2VfY291bnQpKSAlPiUgDQogIHVuZ3JvdXAoKSAlPiUgDQogIGthYmxlKGNhcHRpb24gPSAiVG90YWwgVXNlIG9mIEZvcmNlIGJ5IFR5cGUiLA0KICAgICAgICBjb2wubmFtZXMgPSBjKCJVc2Ugb2YgRm9yY2UgVHlwZSIsICJUb3RhbCBVc2Ugb2YgRm9yY2UgVHlwZSIpKSAlPiUgDQogIGthYmxlX3N0eWxpbmcoYygiaG92ZXIiLCAic3RyaXBlZCIsICJjb25kZW5zZWQiLCAicmVzcG9uc2l2ZSIpKQ0KDQoNCmRmX2ZvcmNlICU+JSANCiAgZ3JvdXBfYnkoZmFjaWxpdHkpICU+JSANCiAgc3VtbWFyaXNlKHRvdGFsX3VzZV9vZl9mb3JjZSA9IHN1bSh1c2Vfb2ZfZm9yY2VfY291bnQpKSAlPiUgDQogIGFycmFuZ2UoZGVzYyh0b3RhbF91c2Vfb2ZfZm9yY2UpKSAlPiUgDQogIHVuZ3JvdXAoKSAlPiUgDQogIGthYmxlKGNhcHRpb24gPSAiVG90YWwgVXNlIG9mIEZvcmNlIGJ5IEZhY2lsaXR5IiwNCiAgICAgICAgY29sLm5hbWVzID0gYygiRmFjaWxpdHkiLCAiVG90YWwgVXNlIG9mIEZvcmNlIGJ5IEZhY2lsaXR5IikpICU+JSANCiAga2FibGVfc3R5bGluZyhjKCJob3ZlciIsICJzdHJpcGVkIiwgImNvbmRlbnNlZCIsICJyZXNwb25zaXZlIikpICU+JSANCiAgc2Nyb2xsX2JveChoZWlnaHQgPSAiMzAwcHgiKQ0KYGBgDQoNCiMjIEZhY2V0IFBsb3Qgb2YgVXNlIG9mIEZvcmNlIGJ5IEZhY2lsaXR5DQoNCmBgYHtyIHVzZS1mb3JjZS1mYWNldCwgZmlnLmhlaWdodD00MH0NCiMgR2VuZXJhdGluZyBhIGxpbmV0eXBlIHZlY3RvciBmb3IgdXNlIGluIHRoZSBwbG90DQpwbG90X2xpbmVzIDwtIGMoDQogICAgInNvbGlkIiwNCiAgICAic29saWQiLA0KICAgICJzb2xpZCIsDQogICAgInNvbGlkIiwNCiAgICAic29saWQiLA0KICAgICJzb2xpZCIsDQogICAgInNvbGlkIiwNCiAgICAiZG90dGVkIg0KICAgICkNCg0KIyBVc2UgQ29sb3IgQnJld2VyIHRvIHNldCBjb2xvcnMgYW5kIG1vZGlmeQ0KIyB0aGUgbGFzdCBjb2xvciB0byBiZSBibGFjayBmb3IgdG90YWxzLg0KcGxvdF9jb2xvcnMgPC0gYnJld2VyLnBhbCg4LCAiUGFpcmVkIikNCnBsb3RfY29sb3JzWzhdIDwtICIjMDAwMDAwIg0KDQojIENyZWF0ZSBwbG90IGxhYmVscw0KcGxvdF9sYWJlbHMgPC0gYygNCiAgICAiSW1tZWRpYXRlIFVzZSBvZiBGb3JjZSBJbmNpZGVudHMiLA0KICAgICJDYWxjdWxhdGVkIFVzZSBvZiBGb3JjZSBJbmNpZGVudHMiLA0KICAgICJVc2VzIG9mIEZvcmNlIHdpdGggQ2hlbWljYWwgQWdlbnRzIiwNCiAgICAiSW5jaWRlbnRzIFdoZXJlIE5vbi1MZXRoYWwgV2VhcG9ucyBXZXJlIFVzZWQiLA0KICAgICJUaW1lcyA0LzUgUG9pbnQgUmVzdHJhaW50cyBVc2VkIiwNCiAgICAiVXNlIG9mIEZvcmNlIFdpdGggU2VyaW91cyBJbmp1cnkiLA0KICAgICJTdHJpcCBTZWFyY2hlcyIsDQogICAgIlRvdGFsIERpc2NpcGxpbmFyeSIpDQoNCmRmX2ZvcmNlICU+JSANCiAgDQogICMgQ2FsbGluZyB0aGUgcGxvdCBhbmQgZm9ybWF0dGluZw0KICBnZ3Bsb3QoYWVzKHg9ZGF0ZSwgeSA9IHVzZV9vZl9mb3JjZV9jb3VudCwgbGluZXR5cGU9dXNlX29mX2ZvcmNlX3R5cGUpKSsNCiAgZ2VvbV9saW5lKGFlcyhjb2xvciA9IHVzZV9vZl9mb3JjZV90eXBlKSwgc2l6ZSA9IC42NSkgKw0KICANCiAgIyBzZXR0aW5nIHRoZSBsaW5ldHlwZQ0KICBzY2FsZV9saW5ldHlwZV9tYW51YWwoDQogICAgdmFsdWVzID0gcGxvdF9saW5lcywNCiAgICBsYWJlbHMgPSBwbG90X2xhYmVscywNCiAgICBuYW1lID0gIlVzZSBvZiBGb3JjZSBUeXBlOiIsDQogICAgZ3VpZGUgPSBndWlkZV9sZWdlbmQobnJvdyA9IDgpDQogICAgKSsNCiAgDQogICMgU2V0dGluZyB0aGUgY29sb3INCiAgc2NhbGVfY29sb3JfbWFudWFsKA0KICB2YWx1ZXMgPSBwbG90X2NvbG9ycywNCiAgbGFiZWxzID0gcGxvdF9sYWJlbHMsDQogIG5hbWUgPSAiVXNlIG9mIEZvcmNlIFR5cGU6IiwNCiAgKSsNCg0KICBsYWJzKHRpdGxlID0gIkRpc2NpcGxpbmFyeSIpKw0KICB5bGFiKCJOdW1iZXIgb2YgRGlzY2lwbGluYXJ5IEluZnJhY3Rpb25zIikrDQogIHhsYWIoIkRhdGUiKSsNCiAgdGhlbWUoDQogICAgc3RyaXAudGV4dCA9IGVsZW1lbnRfdGV4dChzaXplID0gOCksDQogICAgbGVnZW5kLnBvc2l0aW9uID0gImJvdHRvbSINCiAgICApKw0KDQogICAgIyBTZXQgdGhlIGxlZ2VuZCB0byBtdWx0aXBsZSByb3dzDQogIGd1aWRlcyhjb2wgPSBndWlkZV9sZWdlbmQobnJvdyA9OCkpKw0KICANCiAgIyBXcmFwDQogIGZhY2V0X3dyYXAofiBmYWNpbGl0eSwgbmNvbD0zKQ0KYGBgDQo=</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("07-G-324A-2019-Use-of-Force.Rmd");
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
