@@ -7,9 +7,9 @@ navbar:
       href: index.html
       icon: fa-home
     - text: "Clean Data"
-      href: ./docs/analysis/02-Data-Cleaning.html
+      href: /docs/analysis/02-Data-Cleaning.html
     - text: "Preliminary Plots"
-      href: ./docs/analysis/03-G-324A-2019-Exploratory-Plots.html
+      href: /docs/analysis/03-G-324A-2019-Exploratory-Plots.html
   right:
     - href: https://github.com/n8craig/inspections
       icon: fa fa-github
