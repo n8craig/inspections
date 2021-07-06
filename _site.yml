@@ -1,4 +1,4 @@
-name: "NMSU Grades"
+name: "Inspections"
 output_dir: "docs"
 navbar:
   title: "ICE Inspection Review"
@@ -8,10 +8,10 @@ navbar:
       icon: fa-home
     - text: "Clean Data"
       href: 02-Data-Cleaning.html
-    - text: "Preliminary Plots"
-      href: 03-G-324A-2019-Exploratory-Plots.html
     - text: Preliminary Results
       menu:
+      - text: General Preliminary Results
+        href: 03-G-324A-2019-Exploratory-Plots.html
       - text: Assaults
         href: 04-G-324A-2019-Assaults.html
       - text: Disciplinary
