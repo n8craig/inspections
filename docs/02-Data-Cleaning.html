@@ -281,41 +281,31 @@ $(document).ready(function () {
 </div>
 
 
+<div id="instroduction" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Instroduction</h1>
+<p>The primary cleaning functions are incorporated into a custom function and moved to a separate R file. However, the mechanics of the transformations are displayed on this page.</p>
 <pre class="r"><code># Load necessary libraries
-
-# Reading and wrangling
 library(googlesheets4)
 library(readr)
-library(tidyverse)</code></pre>
-<pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --</code></pre>
-<pre><code>## v ggplot2 3.3.4     v dplyr   1.0.6
-## v tibble  3.1.1     v stringr 1.4.0
-## v tidyr   1.1.3     v forcats 0.5.1
-## v purrr   0.3.4</code></pre>
-<pre><code>## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>library(janitor)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;janitor&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     chisq.test, fisher.test</code></pre>
-<pre class="r"><code>library(lubridate)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;lubridate&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     date, intersect, setdiff, union</code></pre>
-<div id="cleaning-script" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Cleaning Script</h1>
-<p>This is moved to a separate file. However, it is shown here to get a sense of what is involved.</p>
-<pre class="r"><code>df_inspect &lt;- read_sheet(&quot;https://docs.google.com/spreadsheets/d/1im5VSi3bIEi13O8WQ56wEIXSyNEstbGMylXXgD9bAG0/edit#gid=1858227071&quot;,
+library(tidyverse)
+library(janitor)
+library(lubridate)</code></pre>
+</div>
+<div id="cleaning-script" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Cleaning Script</h1>
+<p>First load the file and then clean the names. These operations were moved to a separate file. However, it is shown here to get a sense of what is involved.</p>
+<pre class="r"><code># Read in the sheet
+df_inspect &lt;- read_sheet(&quot;https://docs.google.com/spreadsheets/d/1im5VSi3bIEi13O8WQ56wEIXSyNEstbGMylXXgD9bAG0/edit#gid=1858227071&quot;,
                  sheet=&quot;Inspections&quot;,
                  col_names = TRUE,
                  col_types = &quot;c&quot;) %&gt;% 
-  clean_names() %&gt;% 
-
+  clean_names()</code></pre>
+<p>The following code is useful for isolating issues in the field names.</p>
+<pre class="r"><code>df_inspect %&gt;% 
+  distinct(facility, .keep_all = TRUE) %&gt;% 
+  arrange(facility)</code></pre>
+<p>Here the following procedures were converted to a custom function and written to an R file. The procedures are illustrated here to show the transformations.</p>
+<pre class="r"><code>df_inspect &lt;- df_inspect %&gt;% 
   # Removing a curious whitespace character that appears
   # in more recent facility names
   mutate(facility = str_replace_all(facility,
@@ -329,42 +319,9 @@ library(tidyverse)</code></pre>
   separate(.,
            col = facility,
            into = c(&quot;facility&quot;,&quot;state&quot;),
-           sep = &quot;\\(&quot;)</code></pre>
-<pre><code>## &gt; Using an auto-discovered, cached token</code></pre>
-<pre><code>##   To suppress this message, modify your code or options to clearly consent to
-##   the use of a cached token</code></pre>
-<pre><code>##   See gargle&#39;s &quot;Non-interactive auth&quot; vignette for more details:</code></pre>
-<pre><code>##   &lt;https://gargle.r-lib.org/articles/non-interactive-auth.html&gt;</code></pre>
-<pre><code>## &gt; The googlesheets4 package is using a cached token for &#39;n8craig@gmail.com&#39;</code></pre>
-<pre><code>## Auto-refreshing stale OAuth token.</code></pre>
-<pre><code>## Reading from &quot;000inspection_forms&quot;</code></pre>
-<pre><code>## Range &quot;&#39;Inspections&#39;&quot;</code></pre>
-<pre><code>## New names:
-## * FileName -&gt; FileName...4
-## * FileName -&gt; FileName...6</code></pre>
-<pre><code>## Warning: Expected 2 pieces. Additional pieces discarded in 1 rows [4].</code></pre>
-<pre><code>## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [354].</code></pre>
-<pre><code>## Warning: Expected 2 pieces. Additional pieces discarded in 5 rows [5, 235, 251,
-## 265, 270].</code></pre>
-<pre class="r"><code>df_inspect %&gt;% 
-  distinct(facility, .keep_all = TRUE) %&gt;% 
-  arrange(facility)</code></pre>
-<pre><code>## # A tibble: 195 x 13
-##    id    facility   state inspection_date cr    file_name_4  dr     file_name_6 
-##    &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt;       
-##  1 25    &quot;Adams Co~ MS    Dec. 3, 2020    Cove~ adamsCoCorr~ Deten~ adamsCoCorr~
-##  2 290   &quot;Adelanto~ CA    Oct. 11, 2018   Cove~ adelantoEas~ Deten~ adelantoEas~
-##  3 291   &quot;Adelanto~ CA    Oct. 11, 2018   Cove~ adelantoWes~ Deten~ adelantoWes~
-##  4 43    &quot;Adelanto~ CA    Nov. 20, 2020   Cove~ adelantoEas~ Deten~ adelantoEas~
-##  5 44    &quot;Adelanto~ CA    Nov. 18, 2020   Cove~ adelantoWes~ Deten~ adelantoWes~
-##  6 12    &quot;Alamance~ NC    Jan. 8, 2021    Cove~ alamanceCoJ~ Deten~ alamanceCoJ~
-##  7 144   &quot;Alamance~ NC    Nov. 7, 2019    Cove~ alamanceCoN~ Deten~ No SIS prov~
-##  8 301   &quot;Albany C~ NY    Sep. 27, 2018   Cove~ albanyCount~ Deten~ albanyCount~
-##  9 252   &quot;Allen Pa~ LA    Feb. 14, 2019   Cove~ allenParish~ Deten~ allenParish~
-## 10 26    &quot;Allen Pa~ LA    Dec. 9, 2020    Cove~ allenParish~ Deten~ allenParish~
-## # ... with 185 more rows, and 5 more variables: status &lt;chr&gt;, entered_by &lt;chr&gt;,
-## #   completed_on &lt;chr&gt;, needs_review &lt;chr&gt;, note &lt;chr&gt;</code></pre>
-<pre class="r"><code>df_inspect &lt;- df_inspect %&gt;% 
+           sep = &quot;\\(&quot;) %&gt;% 
+
+  # Deal with issues in the file names, state, and inspection date
   mutate(facility = str_trim(facility, side = &quot;both&quot;),
          state = str_trim(state, side = &quot;both&quot;),
          facility = str_replace_all(facility,
@@ -420,7 +377,9 @@ library(tidyverse)</code></pre>
                             pattern = &quot;^Immigration Centers of America$&quot;,
                             replacement = &quot;Immigration Centers of America - Farmville&quot;),
          state = replace(state, state ==&quot;ICA&quot;, &quot;VA&quot;),
-         inspection_date = replace(inspection_date, inspection_date == &quot;Farmville Detention Center (FDC) (VA&quot;, &quot;Feb. 24, 2021&quot;),
+         inspection_date = replace(inspection_date,
+                                   inspection_date == &quot;Farmville Detention Center (FDC) (VA&quot;,
+                                   &quot;Feb. 24, 2021&quot;),
          # This one picks a value in the facility col and changes a value in the state col
          state = replace(state, facility == &quot;Immigration Centers of America - Farmville&quot;,
                          &quot;VA&quot;),
