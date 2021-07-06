@@ -1,5 +1,5 @@
 name: "NMSU Grades"
-output_dir: "site"
+output_dir: "docs"
 navbar:
   title: "ICE Inspection Review"
   left:
