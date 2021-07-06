@@ -9,5 +9,4 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Index
-This is the index to a presently work in progress site. Trying to figure out how to properly link the menus up to the pages.
+During the Summer of 2021, data from ICE facility inspections was compiled into a series of spreadsheets. The impetus for the project was Nathan Craig who was interested in collating the data to examine them for trends, patterns, and anomalies. The work was performed by three students funded under a National Science Foundation grant awarded to Dr. Neil Harvey (NMSU) and Dr. Jeremy Slack (NMSU). The students who performed the work were Juan Becerra (Stanford), Avigail Turima Romo (Columbia), and Daniela Navarro Verdugo (CSSLO). The three students worked with Nathan Craig (NMSU and AVID) to develop a workflow for compiling individual report significant incident summary forms and inspection cover letters into a series of spreadsheets.
