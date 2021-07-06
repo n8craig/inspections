@@ -10,4 +10,4 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Index
-This is the index
+This is the index to a presently work in progress site. Trying to figure out how to properly link the menus up to the pages.
