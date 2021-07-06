@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Nathan Craig" />
+
+
+<title>02 Data Cleaning</title>
+
+<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">02 Data Cleaning</h1>
+<h4 class="author">Nathan Craig</h4>
+<h4 class="date">6/25/2021</h4>
+
+</div>
+
+
+<pre class="r"><code># Load necessary libraries
+
+# Reading and wrangling
+library(googlesheets4)
+library(readr)
+library(tidyverse)</code></pre>
+<pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --</code></pre>
+<pre><code>## v ggplot2 3.3.4     v dplyr   1.0.6
+## v tibble  3.1.1     v stringr 1.4.0
+## v tidyr   1.1.3     v forcats 0.5.1
+## v purrr   0.3.4</code></pre>
+<pre><code>## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(janitor)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;janitor&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     chisq.test, fisher.test</code></pre>
+<pre class="r"><code>library(lubridate)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;lubridate&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     date, intersect, setdiff, union</code></pre>
+<div id="cleaning-script" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Cleaning Script</h1>
+<p>This is moved to a separate file. However, it is shown here to get a sense of what is involved.</p>
+<pre class="r"><code>df_inspect &lt;- read_sheet(&quot;https://docs.google.com/spreadsheets/d/1im5VSi3bIEi13O8WQ56wEIXSyNEstbGMylXXgD9bAG0/edit#gid=1858227071&quot;,
+                 sheet=&quot;Inspections&quot;,
+                 col_names = TRUE,
+                 col_types = &quot;c&quot;) %&gt;% 
+  clean_names() %&gt;% 
+
+  # Removing a curious whitespace character that appears
+  # in more recent facility names
+  mutate(facility = str_replace_all(facility,
+         pattern = &quot; &quot;,
+         replacement = &quot; &quot;)) %&gt;% 
+  
+  separate(.,
+           col = facility,
+           into = c(&quot;facility&quot;,&quot;inspection_date&quot;),
+           sep = &quot;\\) - &quot;) %&gt;%
+  separate(.,
+           col = facility,
+           into = c(&quot;facility&quot;,&quot;state&quot;),
+           sep = &quot;\\(&quot;)</code></pre>
+<pre><code>## &gt; Using an auto-discovered, cached token</code></pre>
+<pre><code>##   To suppress this message, modify your code or options to clearly consent to
+##   the use of a cached token</code></pre>
+<pre><code>##   See gargle&#39;s &quot;Non-interactive auth&quot; vignette for more details:</code></pre>
+<pre><code>##   &lt;https://gargle.r-lib.org/articles/non-interactive-auth.html&gt;</code></pre>
+<pre><code>## &gt; The googlesheets4 package is using a cached token for &#39;n8craig@gmail.com&#39;</code></pre>
+<pre><code>## Reading from &quot;000inspection_forms&quot;</code></pre>
+<pre><code>## Range &quot;&#39;Inspections&#39;&quot;</code></pre>
+<pre><code>## New names:
+## * FileName -&gt; FileName...4
+## * FileName -&gt; FileName...6</code></pre>
+<pre><code>## Warning: Expected 2 pieces. Additional pieces discarded in 1 rows [4].</code></pre>
+<pre><code>## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [354].</code></pre>
+<pre><code>## Warning: Expected 2 pieces. Additional pieces discarded in 5 rows [5, 235, 251,
+## 265, 270].</code></pre>
+<pre class="r"><code>df_inspect %&gt;% 
+  distinct(facility, .keep_all = TRUE) %&gt;% 
+  arrange(facility)</code></pre>
+<pre><code>## # A tibble: 195 x 13
+##    id    facility   state inspection_date cr    file_name_4  dr     file_name_6 
+##    &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt;       
+##  1 25    &quot;Adams Co~ MS    Dec. 3, 2020    Cove~ adamsCoCorr~ Deten~ adamsCoCorr~
+##  2 290   &quot;Adelanto~ CA    Oct. 11, 2018   Cove~ adelantoEas~ Deten~ adelantoEas~
+##  3 291   &quot;Adelanto~ CA    Oct. 11, 2018   Cove~ adelantoWes~ Deten~ adelantoWes~
+##  4 43    &quot;Adelanto~ CA    Nov. 20, 2020   Cove~ adelantoEas~ Deten~ adelantoEas~
+##  5 44    &quot;Adelanto~ CA    Nov. 18, 2020   Cove~ adelantoWes~ Deten~ adelantoWes~
+##  6 12    &quot;Alamance~ NC    Jan. 8, 2021    Cove~ alamanceCoJ~ Deten~ alamanceCoJ~
+##  7 144   &quot;Alamance~ NC    Nov. 7, 2019    Cove~ alamanceCoN~ Deten~ No SIS prov~
+##  8 301   &quot;Albany C~ NY    Sep. 27, 2018   Cove~ albanyCount~ Deten~ albanyCount~
+##  9 252   &quot;Allen Pa~ LA    Feb. 14, 2019   Cove~ allenParish~ Deten~ allenParish~
+## 10 26    &quot;Allen Pa~ LA    Dec. 9, 2020    Cove~ allenParish~ Deten~ allenParish~
+## # ... with 185 more rows, and 5 more variables: status &lt;chr&gt;, entered_by &lt;chr&gt;,
+## #   completed_on &lt;chr&gt;, needs_review &lt;chr&gt;, note &lt;chr&gt;</code></pre>
+<pre class="r"><code>df_inspect &lt;- df_inspect %&gt;% 
+  mutate(facility = str_trim(facility, side = &quot;both&quot;),
+         state = str_trim(state, side = &quot;both&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Adelanto ICE Processing Center-East&quot;,
+                            replacement = &quot;Adelanto ICE Processing Center - East&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Adelanto ICE Processing Center-West&quot;,
+                            replacement = &quot;Adelanto ICE Processing Center - West&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Allen Parish Detention Facility&quot;,
+                            replacement = &quot;Allen Parish Public Safety Complex&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Berks County Residential Center&quot;,
+                            replacement = &quot;Berks Family Residential Center&quot;),
+         inspection_date = replace(inspection_date, inspection_date==&quot;Jan. 29 - 31, 2019&quot;, &quot;Jan. 31, 2019&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Bristol County Jail$&quot;,
+                            replacement = &quot;Bristol County Jail and House of Correction&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Buffalo$&quot;,
+                            replacement = &quot;Buffalo Batavia Service Processing Center&quot;),
+         state = replace(state, state == &quot;Batavia) Service Processing Center&quot;, &quot;NY&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Calhoun County Jail&quot;,
+                            replacement = &quot;Calhoun County Correctional Center&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Clay County Justice Center&quot;,
+                            replacement = &quot;Clay County Jail&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Coastal Bend Detention Facility&quot;,
+                            replacement = &quot;Coastal Bend Detention Center&quot;),
+         state = replace(state, state == &quot;David L. Moss Criminal Justice Center)&quot;, &quot;OK&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Dodge County Detention Center&quot;,
+                            replacement = &quot;Dodge County Detention Facility&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Donald W. Wyatt Detention Center&quot;,
+                            replacement = &quot;Donald W. Wyatt Detention Facility&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Essex County Corrections Facility&quot;,
+                            replacement = &quot;Essex County Correctional Facility&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Farmville Detention Center$&quot;,
+                            replacement = &quot;Immigration Centers of America - Farmville&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Florence SPC&quot;,
+                            replacement = &quot;Florence Service Processing Center&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Houston CDF&quot;,
+                            replacement = &quot;Houston Contract Detention Facility&quot;),
+         state = replace(state, state == &quot;Polk)&quot;, &quot;TX&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Immigration Centers of America$&quot;,
+                            replacement = &quot;Immigration Centers of America - Farmville&quot;),
+         state = replace(state, state ==&quot;ICA&quot;, &quot;VA&quot;),
+         inspection_date = replace(inspection_date, inspection_date == &quot;Farmville Detention Center (FDC) (VA&quot;, &quot;Feb. 24, 2021&quot;),
+         # This one picks a value in the facility col and changes a value in the state col
+         state = replace(state, facility == &quot;Immigration Centers of America - Farmville&quot;,
+                         &quot;VA&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Joe Corley Detention Facility&quot;,
+                            replacement = &quot;Joe Corley Processing Center&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Karnes County Residential Center&quot;,
+                            replacement = &quot;Karnes County Family Residential Center&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Krome SPC&quot;,
+                            replacement = &quot;Krome Service Procesing Center&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Krome Special Processing Center&quot;,
+                            replacement = &quot;Krome Service Procesing Center&quot;),
+         state = replace(state, state ==&quot;SPC)&quot;, &quot;FL&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Mesa Verde Detention Facility&quot;,
+                            replacement = &quot;Mesa Verde ICE Processing Facility&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Northwest Contract Detention Center&quot;,
+                            replacement = &quot;Northwest ICE Processing Center&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Northwest Detention Center&quot;,
+                            replacement = &quot;Northwest ICE Processing Center&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Okmulgee County Jail-Moore Detention Facility&quot;,
+                            replacement = &quot;Okmulgee County Jail - Moore Detention Facility&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Orange County Jail&quot;,
+                            replacement = &quot;Orange County Correctional Facility&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Otay Mesa Detention Facility&quot;,
+                            replacement = &quot;Otay Mesa Detention Center&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Prarieland Detention Center&quot;,
+                            replacement = &quot;Prairieland Detention Center&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Richwood Correcrtional Center&quot;,
+                            replacement = &quot;Richwood Correctional Center&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Rio Grande Processing Center&quot;,
+                            replacement = &quot;Rio Grande Detention Center&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Robert A. Deyton Correctional Center&quot;,
+                            replacement = &quot;Robert A. Deyton Detention Facility&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Robert A. Deyton Detention Center&quot;,
+                            replacement = &quot;Robert A. Deyton Detention Facility&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^South Texas Detention Complex&quot;,
+                            replacement = &quot;South Texas ICE Processing Center&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^South Texas Processing Center&quot;,
+                            replacement = &quot;South Texas ICE Processing Center&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Strafford County Corrections&quot;,
+                            replacement = &quot;Strafford County Department of Corrections&quot;),
+         inspection_date = replace(inspection_date, state ==&quot;CO)- Mar. 31, 2021&quot;, &quot;Mar. 31, 2021&quot;),
+         state = replace(state, state == &quot;CO)- Mar. 31, 2021&quot;, &quot;CO&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^T. Don Hutto Detention Center$&quot;,
+                            replacement = &quot;T. Don Hutto Residential Center&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;Tulsa County Jail - David L. Moss Criminal Jutice Center&quot;,
+                            replacement = &quot;David L. Moss Criminal Justice Center&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Tulsa County Jail$&quot;,
+                            replacement = &quot;David L. Moss Criminal Justice Center&quot;),
+         state = replace(state, state == &quot;David L. Moss Justice Center)&quot;, &quot;OK&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Washoe County Detention Centerr&quot;,
+                            replacement = &quot;Washoe County Detention Center&quot;),
+         facility = str_replace_all(facility,
+                            pattern = &quot;^Webb County Detention Facility&quot;,
+                            replacement = &quot;Webb County Detention Center&quot;),
+         )</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
