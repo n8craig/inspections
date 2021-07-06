@@ -59,6 +59,28 @@ if (window.hljs) {
 
 
 
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 
 
@@ -276,12 +298,38 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Home</h1>
 <h4 class="author">Nathan Craig</h4>
-<h4 class="date">7/5/2021</h4>
+<h4 class="date">Tuesday July 06, 2021</h4>
 
 </div>
 
 
-<p>During the Summer of 2021, data from ICE facility inspections was compiled into a series of spreadsheets. The impetus for the project was Nathan Craig who was interested in collating the data to examine them for trends, patterns, and anomalies. The work was performed by three students funded under a National Science Foundation grant awarded to Dr. Neil Harvey (NMSU) and Dr. Jeremy Slack (NMSU). The students who performed the work were Juan Becerra (Stanford), Avigail Turima Romo (Columbia), and Daniela Navarro Verdugo (CSSLO). The three students worked with Nathan Craig (NMSU and AVID) to develop a workflow for compiling individual report significant incident summary forms and inspection cover letters into a series of spreadsheets.</p>
+<div id="background" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Background</h1>
+<p>This project involves putting into order and performing preliminary analysis of inspections related data released by Immigration and Customs Enforcement (ICE). In 2018, Congressional appropriations stipulated that “ICE is directed to make public all final detention facility inspection reports within 60 days of inspection” <span class="citation">(<span>“Department of Homeland Security Appropriations Bill, 2018”</span> 2017, 33)</span>. As of July, 2021 ICE is not complying with this standing directive from Congress.</p>
+<p>In 2018, ICE established a “<a href="https://www.ice.gov/detain/facility-inspections">Facilities Inspection</a>” web page and began releasing documents back to May of that year. The website states that “ICE is posting all facility inspection reports submitted by the third-party contractor. The reports are posted below in chronological order within 60 days of inspection.” For each “inspection report” ICE supplies two documents:</p>
+<ul>
+<li>a G-324A form known as a Significant Incident Summary (SIS) and,</li>
+<li>a cover letter by the inspections contractor The Nakamoto Group.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></li>
+</ul>
+<p>Both versions of the G-324A form state that “the following information <u>must be completed</u> prior to the scheduled review dates” (underline in original) and that “[t]his form should be filled out by the facility prior to the start of any inspection.”</p>
+<p>Congress directed ICE to release “all final detention facility reports.” ICE claims to post “all facility inspection reports,” but instead ICE is posting SIS forms that must be filled out before inspectors even arrive at the facility. Facility inspection reports regularly run in excess of 150 pages. There are examples of complete inspections obtained by National Immigrant Justice Center (NIJC) through FOIA. Outside of those earlier FOIA requests, which required lengthy litigation by the NIJC to force compliance, ICE has released no inspection reports and is not complying with a Congressional mandate.</p>
+<p>Though not in compliance, the SIS and cover letter forms do provide some information to the public. Unfortunately, data are siloed in individual pdf documents, many of which lack OCR, and presented in tables that are not commensurate with comparative analysis. This project seeks to retrieve data from these documents, clean and organize that information into a usable form, and supply it along with some preliminary analysis to the public.</p>
+</div>
+<div id="how-the-work-was-done" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> How the work was done</h1>
+<p>During the Summer of 2021, data from the SIS and inspection cover letters was compiled into a series of spreadsheets, note this work is still in progress. The impetus for the project was Nathan Craig who was interested in collating the data to examine them for trends, patterns, and anomalies. The work was performed by three students funded under a National Science Foundation grant awarded to Dr. Neil Harvey (NMSU) and Dr. Jeremy Slack (NMSU). The students who performed the work were Juan Becerra (Stanford), Avigail Turima Romo (Columbia), and Daniela Navarro Verdugo (CSSLO). The three students worked with Dr. Craig to develop a workflow for compiling individual SIS and inspection cover letters into a series of spreadsheets. These web pages, still in development, document those procedures.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-departme2017" class="csl-entry">
+<span>“Department of Homeland Security Appropriations Bill, 2018.”</span> 2017. <a href="https://www.congress.gov/congressional-report/115th-congress/house-report/239/1">https://www.congress.gov/congressional-report/115th-congress/house-report/239/1</a>.
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>The SIS form G-324 is generally 4-9 pages depending on the version. On the new longer forms, one page is always nearly completely redacted, and two pages are boilerplate definitions. Therefore, both forms contain fewer than 5 pages of information.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
 
 
 

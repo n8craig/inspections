@@ -12,7 +12,7 @@
 <meta name="author" content="Nathan Craig" />
 
 
-<title>02 Data Cleaning</title>
+<title>Data Cleaning</title>
 
 <script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -274,16 +274,23 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">02 Data Cleaning</h1>
+<h1 class="title toc-ignore">Data Cleaning</h1>
 <h4 class="author">Nathan Craig</h4>
-<h4 class="date">6/25/2021</h4>
+<h4 class="date">Tuesday July 06, 2021</h4>
 
 </div>
 
 
 <div id="introduction" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
-<p>The primary cleaning functions are incorporated into a custom function and moved to a separate R file. However, the mechanics of the transformations are displayed on this page.</p>
+<p>Anyone familiar working with ICE data knows that the agency is notorious for releasing dirty data filled with pesky errors. For example, consider the Krome Service Processing Center, the very first immigration processing center established in the 1980’s after the closure of Ellis Island in 1954. Of all the facilities the agency should name consistently, Krome the very first detention center of the contemporary system, one would expect ICE to get right. However, the facility inspections page lists the following names for the Krome Service Processing Center:</p>
+<ul>
+<li>Krome Special Processing Center (SPC) (FL) - Feb. 10, 2021</li>
+<li>Krome Service Procesing Center (FL) - Feb. 13, 2020</li>
+<li>Krome SPC (FL) - Feb. 14, 2019</li>
+</ul>
+<p>Every instance is different. In one case “Special” is replaced for “Service.” In another case the word processing is misspelled “Procesing,” while in a third, the title is abbreviated. This is one example of many. In other cases facilities are sometimes named “Detention Center” rather than “Detention Facility,” etc. Assembling the data into a useful table requires standardizing the names.</p>
+<p>From early on, Craig decided to first assemble the data as reported, errors and all. From there, facility names are standardized programmatically. The primary cleaning functions are incorporated into a custom function <code>clean_facility_names()</code> and moved to a <a href="https://github.com/n8craig/inspections/blob/main/function_clean_facility_names.R">separate R file</a>. However, the lines of code that make up the transformations are displayed on this page.</p>
 <pre class="r"><code># Load necessary libraries
 library(googlesheets4)
 library(readr)
@@ -293,18 +300,33 @@ library(lubridate)</code></pre>
 </div>
 <div id="cleaning-script" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Cleaning Script</h1>
-<p>First load the file and then clean the names. These operations were moved to a separate file. However, it is shown here to get a sense of what is involved.</p>
+<p>During the time that the students were assembling data, we worked out of a Google Sheet as this permitted each of us to have simultaneous access to the data. For preliminary analysis, a data frame is constructed by reading from the sheet.</p>
 <pre class="r"><code># Read in the sheet
 df_inspect &lt;- read_sheet(&quot;https://docs.google.com/spreadsheets/d/1im5VSi3bIEi13O8WQ56wEIXSyNEstbGMylXXgD9bAG0/edit#gid=1858227071&quot;,
                  sheet=&quot;Inspections&quot;,
                  col_names = TRUE,
                  col_types = &quot;c&quot;) %&gt;% 
   clean_names()</code></pre>
-<p>The following code is useful for isolating issues in the field names.</p>
+<p>Sometimes facility names are repeated. Use of the <code>dplyr</code> function <code>distinct</code> is useful for isolating issues with field names.</p>
 <pre class="r"><code>df_inspect %&gt;% 
   distinct(facility, .keep_all = TRUE) %&gt;% 
   arrange(facility)</code></pre>
-<p>Here the following procedures were converted to a custom function and written to an R file. The procedures are illustrated here to show the transformations.</p>
+<pre><code>## # A tibble: 374 x 11
+##    id    facility     cr     file_name_4   dr     file_name_6  status entered_by
+##    &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt;     
+##  1 25    Adams Count~ Cover~ adamsCoCorrC~ Deten~ adamsCoCorr~ Finis~ NMC       
+##  2 141   Adams Count~ Cover~ adamsCoMS_SI~ Deten~ adamsCoMS_C~ Finis~ NMC       
+##  3 290   Adelanto IC~ Cover~ adelantoEast~ Deten~ adelantoEas~ Finis~ NMC       
+##  4 291   Adelanto IC~ Cover~ adelantoWest~ Deten~ adelantoWes~ Start~ ATR       
+##  5 43    Adelanto IC~ Cover~ adelantoEast~ Deten~ adelantoEas~ Finis~ NMC       
+##  6 142   Adelanto IC~ Cover~ adelantoEast~ Deten~ adelantoEas~ Finis~ NMC       
+##  7 44    Adelanto IC~ Cover~ adelantoWest~ Deten~ adelantoWes~ Finis~ ATR       
+##  8 143   Adelanto IC~ Cover~ adelantoWest~ Deten~ adelantoWes~ Finis~ KB        
+##  9 12    Alamance Co~ Cover~ alamanceCoJa~ Deten~ alamanceCoJ~ Finis~ ATR       
+## 10 144   Alamance Co~ Cover~ alamanceCoNC~ Deten~ No SIS prov~ Finis~ NMC       
+## # ... with 364 more rows, and 3 more variables: completed_on &lt;chr&gt;,
+## #   needs_review &lt;chr&gt;, note &lt;chr&gt;</code></pre>
+<p>The following procedures detail the main facility name cleaning operations. This block of code was converted to a custom function and written to an R file. By doing this, the entire following code block can be called with a single function, or incorporated into an analysis specific pipeline. The cleaning procedures are provided here to show the transformations, but the separate function file can be <a href="https://github.com/n8craig/inspections/blob/main/function_clean_facility_names.R">downloaded</a> directly. Heavy use is made of <code>str_replace_all</code> and <code>replace</code>.</p>
 <pre class="r"><code>df_inspect &lt;- df_inspect %&gt;% 
   # Removing a curious whitespace character that appears
   # in more recent facility names
