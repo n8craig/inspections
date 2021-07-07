@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>ICE Inspection Review</title>
+  <title>Section 9 Cause of Death | ICE Inspection Review</title>
   <meta name="description" content="This is a document in progress that involves organizing inspection materials released on the ICE website" />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="ICE Inspection Review" />
+  <meta property="og:title" content="Section 9 Cause of Death | ICE Inspection Review" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="ICE Inspection Review" />
+  <meta name="twitter:title" content="Section 9 Cause of Death | ICE Inspection Review" />
   
   <meta name="twitter:description" content="This is a document in progress that involves organizing inspection materials released on the ICE website" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="data-cleaning.html"/>
+<link rel="prev" href="medical.html"/>
+<link rel="next" href="observations-while-assembling-data.html"/>
 <script src="libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -248,70 +248,22 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">ICE Inspection Review</h1>
-<p class="author"><em>Nathan Craig</em></p>
-<p class="date" style="margin-top: 1.5em;"><em>Wednesday July 07, 2021</em></p>
-</div>
-<div id="background" class="section level1 unnumbered">
-<h1>Background</h1>
-<p><img src="images/inspection_cover_page.jpg" width="60%" style="float:right; padding:10px" /></p>
-<p>This project involves collating, cleaning, performing preliminary analysis of, and supplying to the public inspections related data released by Immigration and Customs Enforcement (ICE). In 2018, Congressional appropriations stipulated that “ICE is directed to make public all final detention facility inspection reports within 60 days of inspection” <span class="citation">(<a href="#ref-departme2017" role="doc-biblioref"><span>“Department of Homeland Security Appropriations Bill, 2018”</span> 2017, 33</a>)</span>. As of July, 2021 ICE is not complying with this standing directive from Congress.</p>
-<p>In 2018, ICE established a “<a href="https://www.ice.gov/detain/facility-inspections">Facilities Inspection</a>” web page and began releasing documents back to May of that year.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> The website states that “ICE is posting all facility inspection reports submitted by the third-party contractor. The reports are posted below in chronological order within 60 days of inspection.” For each “inspection report” ICE supplies two documents:</p>
-<ul>
-<li>a G-324A form known as a Significant Incident Summary (SIS) and,</li>
-<li>a cover letter by the inspections contractor The Nakamoto Group.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></li>
-</ul>
-<p>There are two major versions of the G324A form, one revised in 2007/2008 and another revised in 2019. Both versions of the G-324A form state that “the following information <u>must be completed</u> prior to the scheduled review dates” (underline in original) and that “[t]his form should be filled out by the facility prior to the start of any inspection.”</p>
-<div class="figure">
-<img src="images/atlantaCityDetentionCenter_SIS_06_21_2018.jpg" alt="" />
-<p class="caption">Pre-2019 Form G324-A SIS showing instructions</p>
-</div>
-<div class="figure">
-<img src="images/MOROWOH21-MorrowCoCorrFac-SIS.jpg" alt="" />
-<p class="caption">Post-2019 Form G324-A SIS showing instructions</p>
-</div>
-<p>Congress directed ICE to release “all final detention facility reports.” ICE claims to post “all facility inspection reports,” but instead <em>ICE is posting SIS forms that must be filled out before inspectors even arrive at the facility</em>. Full facility inspection reports regularly run in excess of 150 pages. There are examples of complete inspections obtained by National Immigrant Justice Center (<a href="https://immigrantjustice.org/research-items/report-lives-peril-how-ineffective-inspections-make-ice-complicit-detention-center">NIJC</a>) through FOIA <span class="citation">(<a href="#ref-nijc2015" role="doc-biblioref">NIJC 2015</a>)</span>. Outside of those earlier FOIA requests, which required lengthy litigation by the NIJC to force compliance, ICE has released no full inspection reports and is not complying with an unambiguous Congressional mandate to do so.</p>
-<p>Though not in compliance, the SIS and cover letter forms do provide some information to the public. Unfortunately, data are siloed in individual pdf documents and presented in tables that are not commensurate with comparative analysis. To make matters worse, as of February 2021, ICE under the Biden administration began releasing un OCR’d bit-mapped versions of the SIS forms. Previously, these forms were released as full text pdfs. The decision by ICE to do this to SIS forms makes it that much harder to use the data that are released.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> <em>This project seeks to retrieve data from these documents, clean and organize that information into a usable form, and supply it along with some preliminary analysis to the public.</em></p>
-<div id="how-the-work-was-done" class="section level2 unnumbered">
-<h2>How the work was done</h2>
-<p>During the Summer of 2021, data from the SIS and inspection cover letters was compiled into a series of spreadsheets, note this work is still in progress. Nathan Craig developed the idea for a project to collate and organize information in SIS and inspection cover letters to examine them for trends, patterns, and anomalies. The work was performed by three students funded under a National Science Foundation grant awarded to Dr. Neil Harvey (NMSU) and Dr. Jeremy Slack (NMSU). The students who performed the work were Juan Becerra (Stanford), Avigail Turima Romo (Columbia), and Daniela Navarro Verdugo (CSSLO). The three students worked with Dr. Craig to develop a workflow for compiling individual SIS and inspection cover letters into a series of spreadsheets. These web pages, still in development, document those procedures. Much of the analysis is done in R <span class="citation">(<a href="#ref-R-base" role="doc-biblioref">R Core Team 2021</a>)</span>, <code>tidyverse</code> <span class="citation">(<a href="#ref-R-tidyverse" role="doc-biblioref">Wickham 2021</a>)</span>, and ggplot2 <span class="citation">(<a href="#ref-R-ggplot2" role="doc-biblioref">Wickham, Chang, et al. 2021</a>)</span>.</p>
+<div id="cause-of-death" class="section level1" number="9">
+<h1><span class="header-section-number">Section 9</span> Cause of Death</h1>
+<div id="suicide-as-cause-of-death" class="section level2" number="9.1">
+<h2><span class="header-section-number">9.1</span> Suicide as Cause of Death</h2>
+<p>Bar plot of ICE and non-ICE deaths by suicide plotted by facility as of 2021-07-07.</p>
+<p><img src="ICE-Inspection-Review_files/figure-html/suicide-cod-plot-1.png" width="672" /></p>
 
 </div>
-</div>
-<h3>References</h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-departme2017" class="csl-entry">
-<span>“Department of Homeland Security Appropriations Bill, 2018.”</span> 2017. <a href="https://www.congress.gov/congressional-report/115th-congress/house-report/239/1">https://www.congress.gov/congressional-report/115th-congress/house-report/239/1</a>.
-</div>
-<div id="ref-nijc2015" class="csl-entry">
-NIJC. 2015. <span>“Lives in Peril: How Ineffective Inspections Make ICE Complicit in Immigration Detention Abuse.”</span> Washington D. C. <a href="http://immigrantjustice.org/lives-peril-how-ineffective-inspections-make-ice-complicit-detention-center-abuse-0">http://immigrantjustice.org/lives-peril-how-ineffective-inspections-make-ice-complicit-detention-center-abuse-0</a>.
-</div>
-<div id="ref-R-base" class="csl-entry">
-R Core Team. 2021. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
-</div>
-<div id="ref-R-tidyverse" class="csl-entry">
-———. 2021. <em>Tidyverse: Easily Install and Load the Tidyverse</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>.
-</div>
-<div id="ref-R-ggplot2" class="csl-entry">
-Wickham, Hadley, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, and Dewey Dunnington. 2021. <em>Ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics</em>. <a href="https://CRAN.R-project.org/package=ggplot2">https://CRAN.R-project.org/package=ggplot2</a>.
-</div>
-</div>
-<div class="footnotes">
-<hr />
-<ol start="1">
-<li id="fn1"><p>The look of the page was modified under the Biden administration but the contents are functionally identical to the page created under the Trump administration.<a href="index.html#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>The SIS form G-324 is generally 4-9 pages depending on the version. On the new longer forms, one page is always nearly completely redacted, and two pages are boilerplate definitions. Therefore, both forms contain fewer than 5 pages of information.<a href="index.html#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p>Under ICE Acting Director Tae Johnson, DHS Secretary Alejandro Mayorkas, and ultimately President Joe Biden.<a href="index.html#fnref3" class="footnote-back">↩︎</a></p></li>
-</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="data-cleaning.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="medical.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="observations-while-assembling-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -343,7 +295,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/n8craig/inspections/edit/master/index.Rmd",
+"link": "https://github.com/n8craig/inspections/edit/master/10-G-324A-2019-Cause-of-Death.Rmd",
 "text": "Suggest and edit"
 },
 "history": {
@@ -351,10 +303,10 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/n8craig/inspections/blob/master/index.Rmd",
+"link": "https://github.com/n8craig/inspections/blob/master/10-G-324A-2019-Cause-of-Death.Rmd",
 "text": null
 },
-"download": ["https://github.com/n8craig/inspections/raw/master/index.Rmd"],
+"download": ["https://github.com/n8craig/inspections/raw/master/10-G-324A-2019-Cause-of-Death.Rmd"],
 "toc": {
 "collapse": "section"
 }

@@ -1,30 +1,14 @@
----
-title: "Use-of-Force"
-author: "Nathan Craig"
-date: "`r format(Sys.Date(), '%A %B %d, %Y')`"
-output:
-  bookdown::html_document2: 
-    toc: true
-    toc_float: true
-    number_sections: true
-    df_print: paged
-    code_folding: hide
-    code_download: true
-bibliography: [citations.bib, packages.bib]
----
-
 # Use of Force
 
-
-```{r setup, include=FALSE}
+```{r setup-7, include=FALSE}
 knitr::opts_chunk$set(
-	echo = TRUE,
+	echo = FALSE,
 	message = FALSE,
 	warning = FALSE
 )
 ```
 
-```{r load-libraries}
+```{r load-libraries-7}
 # Load necessary libraries
 
 # Reading and wrangling
@@ -46,7 +30,7 @@ library(kableExtra)
 source("function_clean_facility_names.R", local = knitr::knit_global())
 ```
 
-```{r read-data-324-incident}
+```{r read-data-324-incident-7}
 # Read Google Sheet incident worksheet, convert to data frame, and wrangle
 df_324_inc <- read_sheet("https://docs.google.com/spreadsheets/d/1im5VSi3bIEi13O8WQ56wEIXSyNEstbGMylXXgD9bAG0/edit#gid=1858227071",
                  sheet="G-324A-19-inc",

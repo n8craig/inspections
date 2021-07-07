@@ -1,0 +1,84 @@
+# Cause of Death
+
+```{r setup-10, include=FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+```{r load-libraries-10}
+# Load necessary libraries
+
+# Reading and wrangling
+library(googlesheets4)
+library(readr)
+library(tidyverse)
+library(janitor)
+library(lubridate)
+library(DT)
+
+# Plotting
+library(ggplot2)
+library(RColorBrewer)
+
+# Tables
+library(kableExtra)
+
+# Load custom function
+source("function_clean_facility_names.R", local = knitr::knit_global())
+```
+
+```{r read-data-324-10}
+# Read in Sheet G-324A-19
+df_324 <- read_sheet("https://docs.google.com/spreadsheets/d/1im5VSi3bIEi13O8WQ56wEIXSyNEstbGMylXXgD9bAG0/edit#gid=1858227071",
+                 sheet="G-324A-19",
+                 col_names = TRUE,
+                 col_types = "c") %>% 
+  clean_names() %>% 
+  
+  # Run custom cleaning function
+  clean_facility_names() %>% 
+  
+  # df specific changes
+  mutate(facility = as.factor(facility),
+         state = as.factor(state),
+         date = mdy(inspection_date),
+         current_inspection_date_from = mdy(current_inspection_date_from),
+         current_inspection_date_to = mdy(current_inspection_date_to)
+         ) %>% 
+  relocate(date, .before = inspection_date) %>% 
+  mutate_at(c(20:49), as.numeric)
+```
+
+
+## Suicide as Cause of Death
+
+Bar plot of ICE and non-ICE deaths by suicide plotted by facility as of `r Sys.Date()`.
+
+```{r suicide-cod-plot}
+df_324 %>% 
+  select(id,
+         facility,
+         state,
+         date,
+         fac_operator,
+         cod_suicide_ice,
+         cod_suicide_not_ice) %>% 
+  drop_na() %>% 
+  filter(cod_suicide_ice>0|cod_suicide_not_ice >0) %>% 
+  mutate(cod_suicide_total = cod_suicide_ice + cod_suicide_not_ice) %>% 
+  
+  # Here one could call datatable() or kable()
+  # to get a list of the facilities and count
+  
+  # Initiate the plot
+  ggplot(aes(x=cod_suicide_total, y=facility))+
+  geom_boxplot()+
+  scale_x_continuous(breaks = c(1,2))+
+  labs(title = "Cause of Death Suicide",
+       subtitle = "Includes ICE and non-ICE Deaths by Suicide")+
+  xlab("COD Suicide Total")+
+  ylab("Facility")
+```
