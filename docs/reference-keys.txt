@@ -48,3 +48,9 @@ suicide-as-cause-of-death
 observations-while-assembling-data
 may-2021
 may-2021-1
+tab:unnamed-chunk-2
+tab:unnamed-chunk-4
+tab:unnamed-chunk-6
+tab:unnamed-chunk-9
+tab:unnamed-chunk-11
+tab:unnamed-chunk-7

@@ -61,7 +61,7 @@ df_sex_alleg <- df_324_inc %>%
   # Subset the df to only the used cols
   select(id, facility, date,
        sexual_abuse_allegations_detainee_on_detainee:
-       sexual_abuse_allegations_detainee_on_staff_contractor_volunteer_29
+       sexual_abuse_allegations_detainee_on_staff_contractor_volunteer
        ) %>% 
   
   # Need the rowwise function to compute a row-at-a-time
@@ -71,7 +71,7 @@ df_sex_alleg <- df_324_inc %>%
   # Create a new total column
   mutate(total_sexual_abuse_allegations = sum(c_across(
        sexual_abuse_allegations_detainee_on_detainee:
-       sexual_abuse_allegations_detainee_on_staff_contractor_volunteer_29
+       sexual_abuse_allegations_detainee_on_staff_contractor_volunteer
   ))) %>% 
 
   # Call a range of table columns and pivot long
@@ -88,8 +88,8 @@ df_sex_alleg <- df_324_inc %>%
     "sexual_abuse_allegations_detainee_on_detainee",
     "sexual_abuse_allegations_inmate_on_detainee",
     "sexual_abuse_allegations_detainee_on_inmate",
+    "sexual_abuse_allegations_staff_contractor_volunteer_on_detainee",
     "sexual_abuse_allegations_detainee_on_staff_contractor_volunteer",
-    "sexual_abuse_allegations_detainee_on_staff_contractor_volunteer_29",
     "total_sexual_abuse_allegations"
   )))
 ```
@@ -184,8 +184,8 @@ df_sex_alleg_sub <- df_324_inc %>%
   
   # Subset the df to only the used cols
   select(id, facility, date,
-       sexual_abuse_allegations_detainee_on_detainee_2:
-       sexual_abuse_allegations_detainee_on_staff_contractor_volunteer_34
+       sexual_abuse_allegations_substantiated_detainee_on_detainee:
+       sexual_abuse_allegations_substantiated_detainee_on_staff_contractor_volunteer
        ) %>% 
   
   # Need the rowwise function to compute a row-at-a-time
@@ -193,14 +193,14 @@ df_sex_alleg_sub <- df_324_inc %>%
   rowwise(id) %>% 
   
   # Create a new total column
-  mutate(total_sexual_abuse_allegations = sum(c_across(
-       sexual_abuse_allegations_detainee_on_detainee_2:
-       sexual_abuse_allegations_detainee_on_staff_contractor_volunteer_34
+  mutate(total_sexual_abuse_allegations_substantiated = sum(c_across(
+       sexual_abuse_allegations_substantiated_detainee_on_detainee:
+       sexual_abuse_allegations_substantiated_detainee_on_staff_contractor_volunteer
   ))) %>% 
 
   # Call a range of table columns and pivot long
   pivot_longer(.,
-               cols=  sexual_abuse_allegations_detainee_on_detainee_2:total_sexual_abuse_allegations,
+               cols=  sexual_abuse_allegations_substantiated_detainee_on_detainee:total_sexual_abuse_allegations_substantiated,
                names_to = "sexual_abuse_substantiated_type",
                values_to = "sexual_abuse_substantiated_count") %>%
   
@@ -209,12 +209,12 @@ df_sex_alleg_sub <- df_324_inc %>%
   
   # Explicitly set factor levels
   mutate(sexual_abuse_substantiated_type= factor(sexual_abuse_substantiated_type, levels =c(
-    "sexual_abuse_allegations_detainee_on_detainee_2",
-    "sexual_abuse_allegations_inmate_on_detainee_2",
-    "sexual_abuse_allegations_detainee_on_inmate_2",
-    "sexual_abuse_allegations_staff_contractor_volunteer_on_detainee",
-    "sexual_abuse_allegations_detainee_on_staff_contractor_volunteer_34",
-    "total_sexual_abuse_allegations"
+    "sexual_abuse_allegations_substantiated_detainee_on_detainee",
+    "sexual_abuse_allegations_substantiated_inmate_on_detainee",
+    "sexual_abuse_allegations_substantiated_detainee_on_inmate",
+    "sexual_abuse_allegations_substantiated_staff_contractor_volunteer_on_detainee",
+    "sexual_abuse_allegations_substantiated_detainee_on_staff_contractor_volunteer",
+    "total_sexual_abuse_allegations_substantiated"
   )))
 ```
 
