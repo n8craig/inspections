@@ -1,18 +1,20 @@
 book_filename: "ICE Inspection Review"
-delete_merged_file: true
+delete_merged_file: false
+before_chapter_script: "scripts/book_startup.R"
+after_chapter_script: "scripts/book_after.R"
 rmd_files:
   - index.Rmd
-  - 02-Data-Cleaning.Rmd
-  - 03-G-324A-2019-Exploratory-Plots.Rmd
-  - 04-G-324A-2019-Assaults.Rmd
-  - 05-G-324A-2019-Disciplinary.Rmd
-  - 06-G-324A-2019-Solitary.Rmd
-  - 07-G-324A-2019-Use-of-Force.Rmd
-  - 08-G-324A-2019-Sexual-Abuse-Assault.Rmd
-  - 09-G-324A-2019-Medical.Rmd
-  - 10-G-324A-2019-Cause-of-Death.Rmd
-  - 11-G-324A-2019-Observations-in-Progress.Rmd
-  - 99-References.Rmd
+  - Ch-Recommended-Rating.Rmd
+  - Ch-324A-2019-Assaults.Rmd
+  - Ch-324A-2019-Disciplinary.Rmd
+  - Ch-324A-2019-Solitary.Rmd
+  - Ch-324A-2019-Use-of-Force.Rmd
+  - Ch-324A-2019-Sexual-Abuse-Assault.Rmd
+  - Ch-324A-2019-Medical.Rmd
+  - Ch-324A-2019-Cause-of-Death.Rmd
+  - Ch-References.Rmd
+  - Ch-Appendix.Rmd
+
 output_dir: docs
 edit: https://github.com/n8craig/inspections/edit/master/%s
 view: https://github.com/n8craig/inspections/blob/master/%s

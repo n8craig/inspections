@@ -1,0 +1,169 @@
+# Use of Force
+
+```{r setup-7, include=FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+options(scipen=999)
+```
+
+```{r load-libraries-7, message=FALSE}
+# Plotting
+library(ggplot2)
+library(RColorBrewer)
+
+# Tables
+library(kableExtra)
+
+load("data/data.RData")
+```
+
+## Summary Tables
+
+```{r use-of-force-annual-table}
+df_force %>%
+  mutate(inspection = str_c(facility, " - ", inspection_date), .before = facility) %>%
+  filter(., use_of_force_type == "total_use_of_force") %>% 
+  group_by(inspection) %>%
+  summarise(total = sum(use_of_force_count)) %>% 
+   
+  select(inspection, total) %>% 
+  arrange(desc(total)) %>% 
+
+  kable(caption = "Total Use of Force Per Inspection by Facility",
+        col.names = c("Inspection", "Total Use of Force")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  scroll_box(height = "300px")
+```
+
+```{r use-of-force-no-ss-annual-table}
+df_force %>%
+  mutate(inspection = str_c(facility, " - ",
+                            inspection_date)) %>%
+  filter(!use_of_force_type %in% c("total_use_of_force", "strip_searches")) %>% 
+  group_by(inspection) %>%
+  summarise(total = sum(use_of_force_count)) %>% 
+   
+  select(inspection, total) %>% 
+  arrange(desc(total)) %>% 
+
+  kable(caption = "Use of Force Excluding Strip Searches Per Inspection by Facility",
+        col.names = c("Inspection", "Use of Force Excluding Strip Searches")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  scroll_box(height = "300px")
+```
+
+```{r use-force-annual-bar, fig.height=6, fig.cap="Facilities with >20 total Use of Force incidents by annual inspection"}
+df_force %>% 
+  mutate(id = as.numeric(id)) %>% 
+  filter(., use_of_force_type == "total_use_of_force") %>% 
+  group_by(id, facility, inspection_date) %>%
+  summarise(total = sum(use_of_force_count)) %>% 
+  mutate(inspection = str_c(facility, " - ", inspection_date), .after = id) %>% 
+  select(inspection, facility, total) %>% 
+  filter(total>20) %>% 
+  ggplot(aes(x = total, y = reorder(facility, -total, sum)))+
+  geom_bar(stat = "identity")+
+  labs(title = "Inspections where > 20 Use of Force Incidents\nWere Reported for the Year.")+
+  xlab("Use of Force Incidents Reported for Year")+
+  ylab("Facility")
+  
+  
+  
+
+```
+
+## Under Reporting Use of Force Incidents {#under-reporting-use-of-force-incidents}
+
+There are few opportunities for independent evaluation of use of force incidents in ICE detention facilities. However, in at least some circumstances use of force incidents are inaccurately documented and under reported. For example, in some instances strip searches are tallied in total use of force summaries and in other cases they are not.
+
+The Bristol County Jail is one noteworthy instance where use of force incidents received independent evaluation. On May 2, 2020 Massachusetts news outlets reported on a major incident that occurred at the Bristol County House of Correction the previous day when detained persons expressed concern about the potential for COVID-19 infection from the facility's medical wing [@dooling2020]. The Bristol County Sheriff claimed that people refused to go to the medical unit for testing, and those detained reported being attacked with pepper spray and dogs. Nakamoto Group Inspectors visited the facility between November 16-18, 2020 and reviewed it under PBNDS 2008 [@ice2020]. The inspectors received a G-324 SIS which reported use of force incidents (Figure \@ref(fig:bristol-2020-sis)). For May, the sheet lists 1 Immediate Use of Force Incident, 1 Use of Force with Chemical Agents, 1 Incident where Non-Lethal Weapons were Used, and 3 Strip Searches. The sheet lists no Use of Force with Serious Injury. Nakamoto Group inspectors found that the facility met all 39 standards and had only three deficient components: Key and Lock Control, Special Management Unit, and Suicide Prevention and Intervention. The Nakamoto inspection letter made no mention of use of force incidents.
+
+```{r bristol-2020-sis, out.width = "100%", fig.cap="Cropped from Bristol County Jail SIS Form G-324 [@ice2020, 4]."}
+knitr::include_graphics('./images/bristol_sis_crop.png')
+```
+
+The Massachusetts Attorney General's Office (MA AG) independently investigated the major incident that occurred on May 1, 2020 [@maag2020a]. The MA AG's factual findings [@maag2020a, 24-41] identifies:
+
+-   2 instances involving immediate use of force;
+-   1 immediate use of force incident with a chemical agent;
+-   1 calculated use of force incident that involved 16 officers armed with pepper spray, flash bang grenades, riot shields, shotguns with bean bag rounds, pepper ball launchers, battering rams, multiple K9 teams; and another 12 person restraint team.
+
+The Calculated Use of Force Incident unfolded over the course of more than an hour and involved the deployment of flash bang grenades; firing more than 30 rounds of pepper balls, several of which directly hit individuals; numerous instances involving K-9 use of force, and multiple "hands on" use of force instances. Additionally, the MA GA found multiple cases where individuals suffered serious injuries as the result of the use of force:
+
+-   1 individual experienced cardiac arrest
+-   1 individual with a history of chronic obstructive pulmonary disease (COPD) suffered respiratory distress
+-   1 individual experienced respiratory distress resulting in critically low oxygen levels
+
+The MA GA concluded that "a series of institutional failures and poor decisions" culminated in a "planned and deliberate--use of force against the ICE B detainees that was disproportionate to the security needs at that time and unnecessarily caused, or risked causing, harm to all involved"[@maag2020a, ii]. The MA GA found that facility staff used "a flash bang grenade, pepper-ball launchers, pepper spray canisters, anti-riot shields, and canines---against detainees who had exhibited calm and nonviolent behavior for at least an hour before this operation"[@maag2020a, ii].
+
+The details of the May 1, 2020 Use of Force incident do not come to light in either SIS form or the Nakamoto Group inspection cover letter. The SIS form inaccurately characterizes the multiple Use of Force incidents entailed in the event, fails to report what is clearly a Calculated Use of Force, and does not report multiple Use of Force Incidents with Serious Injury that resulted from from the extensive use of pepper spray. The Nakamoto cover letter states that, "the detainees felt safe in the facility and registered no substantive com-plaints about any aspect of their detention except for their exposure to the COVID-19 risk in the facility." Inspectors wrote that "[t]here were no areas of concern or significant observations noted during the inspection" but noted that the "inspection was conducted remotely, and inspectors were unable to personally observe practices and procedures with-in the facility" and that the "inspection team relied upon photographs and/or videos to validate the observation of many standards."
+
+## Facet Plot of Use of Force by Facility
+
+```{r use-force-facet, fig.height=40}
+# Generating a linetype vector for use in the plot
+plot_lines <- c(
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "dotted"
+    )
+
+# Use Color Brewer to set colors and modify
+# the last color to be black for totals.
+plot_colors <- brewer.pal(8, "Paired")
+plot_colors[8] <- "#000000"
+
+# Create plot labels
+plot_labels <- c(
+    "Immediate Use of Force Incidents",
+    "Calculated Use of Force Incidents",
+    "Uses of Force with Chemical Agents",
+    "Incidents Where Non-Lethal Weapons Were Used",
+    "Times 4/5 Point Restraints Used",
+    "Use of Force With Serious Injury",
+    "Strip Searches",
+    "Total Disciplinary")
+
+df_force %>% 
+  
+  # Calling the plot and formatting
+  ggplot(aes(x=date, y = use_of_force_count, linetype=use_of_force_type))+
+  geom_line(aes(color = use_of_force_type), size = .65) +
+  
+  # setting the linetype
+  scale_linetype_manual(
+    values = plot_lines,
+    labels = plot_labels,
+    name = "Use of Force Type:",
+    guide = guide_legend(nrow = 8)
+    )+
+  
+  # Setting the color
+  scale_color_manual(
+  values = plot_colors,
+  labels = plot_labels,
+  name = "Use of Force Type:",
+  )+
+
+  labs(title = "Disciplinary")+
+  ylab("Number of Disciplinary Infractions")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 8),
+    legend.position = "bottom"
+    )+
+
+    # Set the legend to multiple rows
+  guides(col = guide_legend(nrow =8))+
+  
+  # Wrap
+  facet_wrap(~ facility, ncol=3)
+```

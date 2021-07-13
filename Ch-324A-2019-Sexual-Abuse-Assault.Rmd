@@ -1,0 +1,192 @@
+# Sexual Abuse and Assault
+
+```{r setup-8, include=FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+options(scipen=999)
+```
+
+```{r load-libraries-8, message=FALSE}
+# Plotting
+library(ggplot2)
+library(RColorBrewer)
+
+# Tables
+library(kableExtra)
+
+load("data/data.RData")
+```
+
+## Allegations
+
+### Summary Tables
+
+```{r sexual-abuse-allegation-summary}
+df_sex_alleg %>% 
+  group_by(sexual_abuse_allegations_type) %>% 
+  summarise(`Sexual Abuse and Assault Allegations by Type` = sum(sexual_abuse_allegations_count, na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Sexual Abuse and Assault Allegations by Type",
+        col.names = c("Allegation Type", "Total Allegation Type")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"))
+
+
+df_sex_alleg %>% 
+  group_by(facility) %>% 
+  summarise(total_sexual_abuse_allegations = sum(sexual_abuse_allegations_count, na.rm = TRUE)) %>% 
+  arrange(desc(total_sexual_abuse_allegations)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Sexual Abuse and Assault Allegations by Facility",
+        col.names = c("Facility", "Total Allegations by Facility")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  scroll_box(height = "300px")
+```
+
+### Facet Plot of Sexual Abuse and Assault Allegations by Facility
+
+```{r sexual-abuse-allegation-facet, fig.height=40}
+# Generating a linetype vector for use in the plot
+plot_lines <- c(
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "dotted"
+    )
+
+# Use Color Brewer to set colors and modify
+# the last color to be black for totals.
+plot_colors <- brewer.pal(6, "Paired")
+plot_colors[6] <- "#000000"
+
+# Create plot labels
+plot_labels <- c(
+    "Sexual Abuse Allegations - Detainee on Detainee",
+    "Sexual Abuse Allegations - Inmate on Detainee",
+    "Sexual Abuse Allegations - Detainee on Inmate",
+    "Sexual Abuse Allegations - Staff/Contractor/Volunteer on Detainee",
+    "Number of Sexual Abuse Allegations - Detainee on Staff/Contractor/Volunteer",
+    "Total Sexual Abuse Allegations")
+
+df_sex_alleg %>% 
+  # Calling the plot and formatting
+  ggplot(aes(x=date, y = sexual_abuse_allegations_count, linetype=sexual_abuse_allegations_type))+
+  geom_line(aes(color = sexual_abuse_allegations_type),size=.65) +
+  
+  # Set the linetype
+  scale_linetype_manual(
+    values = plot_lines,
+    labels = plot_labels,
+    name = "Sexual Abuse Allegation Type:",
+    guide = guide_legend(nrow = 6)
+    )+
+  
+  # Set the color
+  scale_color_manual(values = plot_colors,
+                     labels = plot_labels,
+                     name = "Sexual Abuse Allegation Type:")+
+
+  labs(title = "Sexual Abuse Allegations")+
+  ylab("Number of Allegations")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 8),
+    legend.position = "bottom"
+    )+
+
+    # Set the legend to multiple rows
+  guides(col = guide_legend(nrow =8))+
+  
+  # Wrap
+  facet_wrap(~ facility, ncol=3)
+```
+
+## Substantiated Allegations
+
+### Summary Tables
+
+```{r sexual-abuse-substantiated-summary}
+df_sex_alleg_sub %>% 
+  group_by(sexual_abuse_substantiated_type) %>% 
+  summarise(`Sexual Abuse and Assault Allegations Substantiated by Type` = sum(sexual_abuse_substantiated_count, na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Substantiated Sexual Abuse and Assault Allegations by Type",
+        col.names = c("Substantiated Allegation Type", "Total Substantiated Allegation Type")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"))
+
+
+df_sex_alleg_sub %>% 
+  group_by(facility) %>% 
+  summarise(total_sexual_abuse_substantiated = sum(sexual_abuse_substantiated_count, na.rm = TRUE)) %>% 
+  arrange(desc(total_sexual_abuse_substantiated)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Substantiated Sexual Abuse and Assault Allegations by Facility",
+        col.names = c("Facility", "Total Substantiated Allegations by Facility")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  scroll_box(height = "300px")
+```
+
+### Facet Plot of Substantiated Sexual Abuse and Assault Allegations
+
+```{r sexual-abuse-substantiated-facet, fig.height=40}
+# Generating a linetype vector for use in the plot
+plot_lines <- c(
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "dotted"
+    )
+
+# Use Color Brewer to set colors and modify
+# the last color to be black for totals.
+plot_colors <- brewer.pal(6, "Paired")
+plot_colors[6] <- "#000000"
+
+# Create the labels
+plot_labels <- c(
+    "Sexual Abuse Allegations - Detainee on Detainee",
+    "Sexual Abuse Allegations - Inmate on Detainee",
+    "Sexual Abuse Allegations - Detainee on Inmate",
+    "Sexual Abuse Allegations - Staff/Contractor/Volunteer on Detainee",
+    "Number of Sexual Abuse Allegations - Detainee on Staff/Contractor/Volunteer",
+    "Total Sexual Abuse Allegations")
+
+df_sex_alleg_sub %>% 
+  
+  # Calling the plot and formatting
+  ggplot(aes(x=date, y = sexual_abuse_substantiated_count, linetype=sexual_abuse_substantiated_type))+
+  geom_line(aes(color = sexual_abuse_substantiated_type),size=.65) +
+  
+  # Set the linetype
+  scale_linetype_manual(
+    values = plot_lines,
+    labels = plot_labels,
+    name = "Sexual Abuse Allegation Type:",
+    guide = guide_legend(nrow = 6)
+    )+
+  
+  # Set the color
+  scale_color_manual(values = plot_colors,
+                     labels = plot_labels,
+                     name = "Sexual Abuse Allegation Type:")+
+
+  labs(title = "Sexual Abuse Allegations Substantiated")+
+  ylab("Number of Allegations")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 8),
+    legend.position = "bottom"
+    )+
+
+  # Set the legend to multiple rows
+  guides(col = guide_legend(nrow =8))+
+  
+  # Wrap
+  facet_wrap(~ facility, ncol=3)
+```

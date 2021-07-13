@@ -1,0 +1,278 @@
+# (APPENDIX) Appendix {-}
+
+#  Appendix A: Reading in SIS Forms {-}
+
+```{r setup-appendix, include=FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+options(scipen=999)
+```
+
+```{r load-libraries-appendix, message=FALSE, warning=FALSE}
+# Plotting
+library(ggplot2)
+library(RColorBrewer)
+
+# Tables
+library(kableExtra)
+
+load("data/data.RData")
+```
+
+The code for this report is specific to data logged in the G-324A-19 form and the incident summaries portion of that form. The incident summary portion of this form is probably the most complex data structure in the project and also contains the largest volume of quantitative information. Therefore, it seemed like a good place to start with an initial proof of concept.
+
+At the outset, there were issues reading in the Google Sheet. Several of the numeric columns read into R as lists which was undesirable. In the Google Sheet, Craig set the columns to `plain text` rather than `auto` and the data are read into R as character columns. This seemed to resolve the issue for a time, and it was possible to use the `type_convert()` function from the `readr` library [@R-readr] to convert these columns to numbers. The `col_types` argument of the `read_sheet` function of the `googlesheets4` library [@R-googlesheets4] was used to explicitly set the column types to character. After applying the `clean_facility_names` custom function, additional transformations like converting facility to a factor are applied.
+
+There were some issues using `lubridate` [@R-lubridate] to wrangle the month and year fields to a proper date. Craig was not able to discern the cause of the issue. However, changing the month format on the incident sheet from abbreviated to fully written out months solved the issue. Those changes were made in the master Google Sheet and the data were called using the `googlesheets4` library.
+
+At present `r inspect_n` SIS and inspection cover letter combinations out of approximately 300 inspections are complete. The completed inspections range in time from `r inspect_earliest` to `r inspect_latest`. Students are now working on older SIS forms which are structured differently. The preliminary EDA in this document is restricted to the more current SIS forms which were first used in May 2019.
+
+## Summary Tables
+
+Summary tables help to provide an overview of how many instances occur within particular category of data or how frequent a particular issue is recorded at a given facility. Summary tables are generated using a combination of `group_by` with `summarize` with the results piped to `kable` and `kableExtra`. This produces results similar to a "pivot table" from Excel.
+
+## Facet Plots
+
+Facet plots partition each portion of a plot into a matrix of panels. These plots are produced for several categories of data where each panel represents a facility for a given variable reported in the SIS form. Within each category, columns are pivoted longer and plotted by date. Graphing is done using the `ggplot2` library [@R-ggplot2] with the `facet_wrap` function to provide a means to compare multiple facilities simultaneously. Such a plot can help identify trends and guide more specific questions.
+
+# Appendix B: Data Cleaning {-}
+
+Anyone familiar working with ICE data knows that the agency is notorious for releasing dirty data filled with pesky errors. For example, consider the Krome Service Processing Center, the very first immigration processing center established in the 1980's after the closure of Ellis Island in 1954. Of all the facilities the agency should name consistently, Krome the very first detention center of the contemporary system, one would expect ICE to get right. However, the facility inspections page lists the following names for the Krome Service Processing Center:
+
+-   Krome Special Processing Center (SPC) (FL) - Feb. 10, 2021
+-   Krome Service Procesing Center (FL) - Feb. 13, 2020
+-   Krome SPC (FL) - Feb. 14, 2019
+
+Every instance is different. In one case "Special" is replaced for "Service." In another case the word processing is misspelled "Procesing," while in a third, the title is abbreviated. This is one example of many. In other cases facilities are sometimes named "Detention Center" rather than "Detention Facility," etc. Assembling the data into a useful table that can be sorted, filtered, and summarized requires standardizing the names.
+
+From early on, Craig decided to assemble the data as reported, errors and all, and perform standardization programmatically. Doing this facilitates reproducibility. The project's primary cleaning functions are incorporated into a custom function `clean_facility_names()` and moved to a [separate R file](https://github.com/n8craig/inspections/blob/main/function_clean_facility_names.R). This allows more than 100 lines of code to be collapsed into a single function call. However, for display purposes, the lines of code that make up the transformations are detailed on this page.
+
+```{r message=FALSE, warning=FALSE}
+# Load necessary libraries
+library(googlesheets4)
+library(readr)
+library(tidyverse)
+library(janitor)
+library(lubridate)
+library(kableExtra)
+load("data/data.RData")
+```
+
+## Cleaning Script
+
+During the time that the students were assembling data, we worked out of a Google Sheet as this permitted each of us to have simultaneous access to the data. For preliminary analysis, a data frame is constructed by reading from the sheet.
+
+```{r message=FALSE, warning=FALSE, echo=TRUE}
+
+# Read in the sheet
+df_inspect <- read_sheet("https://docs.google.com/spreadsheets/d/1im5VSi3bIEi13O8WQ56wEIXSyNEstbGMylXXgD9bAG0/edit#gid=1858227071",
+                 sheet="Inspections",
+                 col_names = TRUE,
+                 col_types = "c") %>% 
+  clean_names()
+```
+
+Sometimes facility names are repeated. Use of the `dplyr` function `distinct` is useful for isolating issues with field names [@R-dplyr].
+
+```{r df-inspect-before, message=FALSE, warning=FALSE, echo=FALSE}
+df_inspect %>% 
+  select(id, facility) %>% 
+  distinct(facility, .keep_all = TRUE) %>% 
+  arrange(facility) %>% 
+  
+  # Do some styling to the table
+  kable(caption = "Facility Names Before Cleaning",
+        col.names = c("ID", "Facility")) %>% 
+  kable_paper(bootstrap_options = c(
+    "stripped",
+    "hover",
+    "condensed",
+    "responsive"
+  )) %>% 
+  scroll_box(height="400px")
+```
+
+The following procedures detail the main facility name cleaning operations. This block of code was converted to a custom function and written to an R file. By doing this, the entire following code block can be called with a single function, or incorporated into an analysis specific pipeline. The cleaning procedures are provided here to show the transformations, but the separate function file can be [downloaded](https://github.com/n8craig/inspections/blob/main/function_clean_facility_names.R) directly. Heavy use is made of the `dplyr` library [@R-dplyr] `mutate` function in combination with the `stringr` library [@R-stringr] functions `str_replace_all` and `replace` functions. All of these are part of the `tidyverse` [@R-tidyverse] family of libraries.
+
+```{r df-clean-names, message=FALSE, warning=FALSE, echo=TRUE}
+df_inspect <- df_inspect %>% 
+  # Removing a curious whitespace character that appears
+  # in more recent facility names
+  mutate(facility = str_replace_all(facility,
+         pattern = " ",
+         replacement = " ")) %>% 
+  
+  separate(.,
+           col = facility,
+           into = c("facility","inspection_date"),
+           sep = "\\) - ") %>%
+  separate(.,
+           col = facility,
+           into = c("facility","state"),
+           sep = "\\(") %>% 
+
+  # Deal with issues in the file names, state, and inspection date
+  mutate(facility = str_trim(facility, side = "both"),
+         state = str_trim(state, side = "both"),
+         facility = str_replace_all(facility,
+                            pattern = "^Adelanto ICE Processing Center-East",
+                            replacement = "Adelanto ICE Processing Center - East"),
+         facility = str_replace_all(facility,
+                            pattern = "^Adelanto ICE Processing Center-West",
+                            replacement = "Adelanto ICE Processing Center - West"),
+         facility = str_replace_all(facility,
+                            pattern = "^Allen Parish Detention Facility",
+                            replacement = "Allen Parish Public Safety Complex"),
+         facility = str_replace_all(facility,
+                            pattern = "^Berks County Residential Center",
+                            replacement = "Berks Family Residential Center"),
+         inspection_date = replace(inspection_date, inspection_date=="Jan. 29 - 31, 2019", "Jan. 31, 2019"),
+         facility = str_replace_all(facility,
+                            pattern = "^Bristol County Jail$",
+                            replacement = "Bristol County Jail and House of Correction"),
+         facility = str_replace_all(facility,
+                            pattern = "^Buffalo$",
+                            replacement = "Buffalo Batavia Service Processing Center"),
+         state = replace(state, state == "Batavia) Service Processing Center", "NY"),
+         facility = str_replace_all(facility,
+                            pattern = "^Calhoun County Jail",
+                            replacement = "Calhoun County Correctional Center"),
+         facility = str_replace_all(facility,
+                            pattern = "^Clay County Justice Center",
+                            replacement = "Clay County Jail"),
+         facility = str_replace_all(facility,
+                            pattern = "^Coastal Bend Detention Facility",
+                            replacement = "Coastal Bend Detention Center"),
+         state = replace(state, state == "David L. Moss Criminal Justice Center)", "OK"),
+         facility = str_replace_all(facility,
+                            pattern = "^Dodge County Detention Center",
+                            replacement = "Dodge County Detention Facility"),
+         facility = str_replace_all(facility,
+                            pattern = "^Donald W. Wyatt Detention Center",
+                            replacement = "Donald W. Wyatt Detention Facility"),
+         facility = str_replace_all(facility,
+                            pattern = "^Essex County Corrections Facility",
+                            replacement = "Essex County Correctional Facility"),
+         facility = str_replace_all(facility,
+                            pattern = "^Farmville Detention Center$",
+                            replacement = "Immigration Centers of America - Farmville"),
+         facility = str_replace_all(facility,
+                            pattern = "^Florence SPC",
+                            replacement = "Florence Service Processing Center"),
+         facility = str_replace_all(facility,
+                            pattern = "^Houston CDF",
+                            replacement = "Houston Contract Detention Facility"),
+         state = replace(state, state == "Polk)", "TX"),
+         facility = str_replace_all(facility,
+                            pattern = "^Immigration Centers of America$",
+                            replacement = "Immigration Centers of America - Farmville"),
+         state = replace(state, state =="ICA", "VA"),
+         inspection_date = replace(inspection_date,
+                                   inspection_date == "Farmville Detention Center (FDC) (VA",
+                                   "Feb. 24, 2021"),
+         # This one picks a value in the facility col and changes a value in the state col
+         state = replace(state, facility == "Immigration Centers of America - Farmville",
+                         "VA"),
+         facility = str_replace_all(facility,
+                            pattern = "^Joe Corley Detention Facility",
+                            replacement = "Joe Corley Processing Center"),
+         facility = str_replace_all(facility,
+                            pattern = "^Karnes County Residential Center",
+                            replacement = "Karnes County Family Residential Center"),
+         facility = str_replace_all(facility,
+                            pattern = "^Krome SPC",
+                            replacement = "Krome Service Procesing Center"),
+         facility = str_replace_all(facility,
+                            pattern = "^Krome Special Processing Center",
+                            replacement = "Krome Service Procesing Center"),
+         state = replace(state, state =="SPC)", "FL"),
+         facility = str_replace_all(facility,
+                            pattern = "^Mesa Verde Detention Facility",
+                            replacement = "Mesa Verde ICE Processing Facility"),
+         facility = str_replace_all(facility,
+                            pattern = "^Northwest Contract Detention Center",
+                            replacement = "Northwest ICE Processing Center"),
+         facility = str_replace_all(facility,
+                            pattern = "^Northwest Detention Center",
+                            replacement = "Northwest ICE Processing Center"),
+         facility = str_replace_all(facility,
+                            pattern = "^Okmulgee County Jail-Moore Detention Facility",
+                            replacement = "Okmulgee County Jail - Moore Detention Facility"),
+         facility = str_replace_all(facility,
+                            pattern = "^Orange County Jail",
+                            replacement = "Orange County Correctional Facility"),
+         facility = str_replace_all(facility,
+                            pattern = "^Otay Mesa Detention Facility",
+                            replacement = "Otay Mesa Detention Center"),
+         facility = str_replace_all(facility,
+                            pattern = "^Prarieland Detention Center",
+                            replacement = "Prairieland Detention Center"),
+         facility = str_replace_all(facility,
+                            pattern = "^Richwood Correcrtional Center",
+                            replacement = "Richwood Correctional Center"),
+         facility = str_replace_all(facility,
+                            pattern = "^Rio Grande Processing Center",
+                            replacement = "Rio Grande Detention Center"),
+         facility = str_replace_all(facility,
+                            pattern = "^Robert A. Deyton Correctional Center",
+                            replacement = "Robert A. Deyton Detention Facility"),
+         facility = str_replace_all(facility,
+                            pattern = "^Robert A. Deyton Detention Center",
+                            replacement = "Robert A. Deyton Detention Facility"),
+         facility = str_replace_all(facility,
+                            pattern = "^South Texas Detention Complex",
+                            replacement = "South Texas ICE Processing Center"),
+         facility = str_replace_all(facility,
+                            pattern = "^South Texas Processing Center",
+                            replacement = "South Texas ICE Processing Center"),
+         facility = str_replace_all(facility,
+                            pattern = "^Strafford County Corrections",
+                            replacement = "Strafford County Department of Corrections"),
+         inspection_date = replace(inspection_date, state =="CO)- Mar. 31, 2021", "Mar. 31, 2021"),
+         state = replace(state, state == "CO)- Mar. 31, 2021", "CO"),
+         facility = str_replace_all(facility,
+                            pattern = "^T. Don Hutto Detention Center$",
+                            replacement = "T. Don Hutto Residential Center"),
+         facility = str_replace_all(facility,
+                            pattern = "Tulsa County Jail - David L. Moss Criminal Jutice Center",
+                            replacement = "David L. Moss Criminal Justice Center"),
+         facility = str_replace_all(facility,
+                            pattern = "^Tulsa County Jail$",
+                            replacement = "David L. Moss Criminal Justice Center"),
+         state = replace(state, state == "David L. Moss Justice Center)", "OK"),
+         facility = str_replace_all(facility,
+                            pattern = "^Washoe County Detention Centerr",
+                            replacement = "Washoe County Detention Center"),
+         facility = str_replace_all(facility,
+                            pattern = "^Webb County Detention Facility",
+                            replacement = "Webb County Detention Center"),
+         )
+```
+
+
+```{r df-inspect-after}
+df_inspect %>% 
+  select(id, facility) %>% 
+  distinct(facility, .keep_all = TRUE) %>% 
+  arrange(facility) %>% 
+  
+  # Do some styling to the table
+  kable(caption = "Facility Names After Cleaning",
+        col.names = c("ID", "Facility")) %>% 
+  kable_paper(bootstrap_options = c(
+    "stripped",
+    "hover",
+    "condensed",
+    "responsive"
+  )) %>% 
+  scroll_box(height="400px")
+```
+
+
+```{r package-references-appendix, echo=FALSE}
+knitr::write_bib(file = 'packages.bib')
+```
+

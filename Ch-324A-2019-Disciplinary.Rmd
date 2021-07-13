@@ -1,0 +1,111 @@
+# Disciplinary
+
+```{r setup-5, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+options(scipen=999)
+```
+
+
+```{r load-libraries-5, message=FALSE}
+# Plotting
+library(ggplot2)
+library(RColorBrewer)
+
+# Tables
+library(kableExtra)
+
+load("data/data.RData")
+```
+
+As a matter of law, ICE detention is not punitive it is purely administrative civil holding to ensure that individuals are present for their immigration proceedings. Despite that fact, there is a tremendous amount of punitive disciplinary measures that take place in ICE detention. Some of this information on discipline in ICE detention is logged in facility inspections. As seen in the tables below, during the current sample period there were more than 42,000 disciplinary infractions.
+
+
+## Summary Tables
+
+```{r}
+df_discipline %>% 
+  group_by(disciplinary_type) %>% 
+  summarise(`Total Disciplinary by Type` = sum(disciplinary_count, na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Disciplinary by Type",
+        col.names = c("Discipline Type", "Total Discipline Type")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"))
+
+
+df_discipline %>% 
+  group_by(facility) %>% 
+  summarise(total_disciplinary = sum(disciplinary_count, na.rm = TRUE)) %>% 
+  arrange(desc(total_disciplinary)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Discipline by Facility",
+        col.names = c("Facility", "Total Discipline by Facility")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  scroll_box(height = "300px")
+```
+
+## Facet Plot of Disciplinary by Facility
+
+```{r disciplinary-facet, fig.height=40}
+# Generating a linetype vector for use in the plot
+plot_lines <- c(
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "dotted"
+    )
+
+# Use Color Brewer to set colors and modify
+# the last color to be black for totals.
+plot_colors <- brewer.pal(6, "Paired")
+plot_colors[6] <- "#000000"
+
+# Create plot labels
+
+plot_labels <- c(
+    "Disciplinary Infractions",
+    "Disciplinary Infractions - Guilty",
+    "Disciplinary Appeals",
+    "Disciplinary Appeals in Favor of Detainee",
+    "Sanctions Over 60 Days",
+    "Total Disciplinary")
+
+
+df_discipline %>% 
+  
+  # Calling the plot and formatting
+  ggplot(aes(x=date,
+             y = disciplinary_count,
+             linetype = disciplinary_type))+
+  geom_line(aes(color = disciplinary_type), size = .65) +
+  
+  # Set the linetype
+  scale_linetype_manual(
+    values = plot_lines,
+    labels = plot_labels,
+    name = "Disciplinary Type:",
+    guide = guide_legend(nrow = 6)
+    )+
+  
+  # Setting the color
+  scale_color_manual(
+  values = plot_colors,
+  labels = plot_labels,
+  name = "Disciplinary Type:"
+  )+
+
+  labs(title = "Disciplinary")+
+  ylab("Number of Disciplinary Infractions")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 8),
+    legend.position = "bottom"
+    )+
+
+  # Set the legend to multiple rows
+  guides(col = guide_legend(nrow =6))+
+  
+  # Wrap
+  facet_wrap(~ facility, ncol=3)
+```

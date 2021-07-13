@@ -1,0 +1,156 @@
+# Solitary
+
+```{r setup-6, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+options(scipen=999)
+```
+
+
+```{r load-libraries-6, message=FALSE}
+# Plotting
+library(ggplot2)
+library(RColorBrewer)
+
+# Tables
+library(kableExtra)
+
+load("data/data.RData")
+```
+
+## Summary Tables
+
+Of the present 163 inspections reviewed so far, there are more than 34,000 instances of solitary. That is roughly 208 instances of solitary per inspection.
+
+```{r solitary-summary}
+df_solitary %>% 
+  group_by(segregation_type) %>% 
+  summarise(`Total Solitary by Type` = sum(segregation_count, na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Solitary by Type",
+        col.names = c("Solitary Type", "Total Solitary Type")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"))
+
+
+df_solitary %>% 
+  group_by(facility) %>% 
+  summarise(total_segregation = sum(segregation_count, na.rm = TRUE)) %>% 
+  arrange(desc(total_segregation)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Solitary by Facility",
+        col.names = c("Facility", "Total Solitary by Facility")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  scroll_box(height = "300px")
+```
+
+## Facet Plots of Solitary by Facility
+
+```{r solitary-facet, fig.height=40}
+# Generating a linetype vector for use in the plot
+plot_lines <- c(
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "dotted"
+    )
+
+# Use Color Brewer to set colors and modify
+# the last color to be black for totals.
+plot_colors <- brewer.pal(5, "Paired")
+plot_colors[5] <- "#000000"
+
+# Create plot labels
+plot_labels <- c(
+    "Administrative",
+    "Disciplinary",
+    "Medical",
+    "Mental Health",
+    "Total")
+
+df_solitary %>% 
+
+# Calling the plot and formatting
+  ggplot(aes(x=date,
+             y = segregation_count,
+             linetype = segregation_type))+
+  geom_line(aes(color = segregation_type), size = .65) +
+  
+  # Set the color
+  scale_color_manual(
+  values = plot_colors,
+  name = "Solitary Type:",
+  labels = plot_labels)+
+  
+  # Set the linetype
+  scale_linetype_manual(
+    values = plot_lines,
+      name = "Solitary Type:",
+    labels = plot_labels)+
+  
+  
+  labs(title = "Reported Use of Solitary")+
+  ylab("Number of Individuals Palced in Solitary")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 8),
+    legend.position = "bottom"
+    )+
+    facet_wrap(~ facility, ncol=3)
+```
+
+## Solitary Over 60 Days
+
+```{r solitary-60-facet}
+
+# Use Color Brewer to set colors and modify
+# the last color to be black for totals.
+plot_colors <- brewer.pal(5, "Paired")
+plot_colors[5] <- "#000000"
+
+# Call the dataframe and select cols
+df_324 %>% 
+  select(id,
+         facility,
+         state,
+         date,
+         fac_operator,
+         admin_seg_60_ice,
+         disc_seg_60_ice) %>% 
+  drop_na() %>% 
+  
+  # Need the rowwise function to compute a row-at-a-time
+  # in the following mutate function
+  rowwise(id) %>% 
+  
+  # Generate total col
+  mutate(total_seg_60 = sum(c_across(
+       admin_seg_60_ice:
+       disc_seg_60_ice
+  ), na.rm = TRUE)) %>%
+  
+  # Make tidy and filter
+  pivot_longer(cols = admin_seg_60_ice:disc_seg_60_ice,
+               names_to = "segregation_60_type",
+               values_to = "segregation_60_count") %>%
+  filter(segregation_60_type %in% c("admin_seg_60_ice", "disc_seg_60_ice")&
+           segregation_60_count > 0) %>%
+  
+  # Initiate the plot and sort by sum
+  ggplot(aes(x = segregation_60_count,
+             y=reorder(fac_operator, segregation_60_count, sum),
+             fill=segregation_60_type))+
+  geom_bar(stat = "identity")+
+  
+  # Set the color fill
+  scale_fill_brewer(type = "qual",
+                    palette = "Paired",
+                    name = "Segregation > 60 Type",
+                    labels = c("Administrative",
+                               "Disciplinary"))+
+  labs(title= "Segregation > 60 Days by Facility Operator",
+        x = "Segregation > 60 Days Count",
+        y = "Facility Operator")+
+  theme(legend.position = "bottom")
+```
+
+

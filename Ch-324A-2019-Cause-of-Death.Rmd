@@ -1,0 +1,105 @@
+# Cause of Death
+
+```{r setup-10, include=FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+
+options(scipen=999)
+```
+
+```{r load-libraries-10}
+library(stringr)
+library(janitor)
+
+# Plotting
+library(ggplot2)
+library(RColorBrewer)
+
+# Tables
+library(kableExtra)
+
+load("data/data.RData")
+# # Read data
+# source("function_load_324.R", local = knitr::knit_global())
+```
+
+```{r}
+df_cod <- df_324 %>% 
+  select(id,
+         facility,
+         state,
+         fac_operator,
+         cod_natural_ice:cod_other_not_ice) %>% 
+  pivot_longer(., cod_natural_ice:cod_other_not_ice, names_to = "cod_type", values_to = "cod_count")
+```
+
+
+```{r}
+df_cod %>% 
+  group_by(cod_type) %>% 
+  summarise(total = sum(cod_count, na.rm = TRUE)) %>% 
+  arrange(desc(total)) %>% 
+  ungroup() %>% 
+  adorn_totals("row") %>% 
+  kable(caption = "COD Totals by Category") %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"))
+
+```
+
+
+```{r}
+df_cod %>% 
+  filter(!str_detect(cod_type, "not_ice")) %>% 
+  group_by(cod_type) %>% 
+  summarise(total = sum(cod_count, na.rm = TRUE)) %>% 
+  arrange(desc(total)) %>% 
+  ungroup() %>% 
+  adorn_totals("row") %>% 
+  kable(caption = "COD Totals by Category") %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"))
+```
+
+
+
+```{r}
+df_cod %>% 
+  filter(!str_detect(cod_type, "not_ice"),
+         cod_count>0) %>% 
+  group_by(facility) %>% ungroup()
+```
+
+
+
+## Suicide as Cause of Death
+
+Bar plot of ICE and non-ICE deaths by suicide plotted by facility as of `r Sys.Date()`.
+
+```{r suicide-cod-plot}
+ 
+df_324 %>%
+  select(id,
+         facility,
+         state,
+         date,
+         fac_operator,
+         cod_suicide_ice,
+         cod_suicide_not_ice) %>%
+  drop_na() %>%
+  filter(cod_suicide_ice>0|cod_suicide_not_ice >0) %>% 
+  mutate(cod_suicide_total = cod_suicide_ice + cod_suicide_not_ice) %>% 
+  
+  # Here one could call datatable() or kable()
+  # to get a list of the facilities and count
+  
+  # Initiate the plot
+  ggplot(aes(x=cod_suicide_total, y=facility))+
+  geom_boxplot()+
+  scale_x_continuous(breaks = c(1,2))+
+  labs(title = "Cause of Death Suicide",
+       subtitle = "Includes ICE and non-ICE Deaths by Suicide")+
+  xlab("COD Suicide Total")+
+  ylab("Facility")
+```

@@ -1,0 +1,47 @@
+# Facility Inspection Ratings
+
+```{r}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+options(scipen=999)
+```
+
+```{r}
+library(tidyverse)
+library(kableExtra)
+
+load("data/data.RData")
+```
+
+All adult facility inspections listed on the ICE website were inspected by The Nakamoto Group. There are two major sets of standards and several versions of each. The two major sets of standards are the Performance Based National Detention Standards (PBNDS) for dedicated facilities and the National Detention Standards for non-dedicated facilities. PBNDS has two versions: PBNDS 2008 and PBNDS 2011 with revisions in 2016. NDS also has two versions: NDS 2000 and NDS 2019.
+
+Between `r format(inspect_earliest, format= "%B %e, %Y")` and `r format(inspect_latest, format= "%B %e, %Y")` `r inspect_proc_n` facilities were inspected. Of these, `r pbnds_perc`% (n=`r pbnds`) were inspected under some version of PBNDS and `r nds_perc`% (n=`r nds`) were inspected under some version of NDS (Table \@ref(tab:summary-standards)).
+
+Among the `r inspect_proc_n` inspections reviewed, `r pass_perc`% (n=`r pass`) received a rating of either "Meets Standards" or "Acceptable" while `r no_pass_perc`% (n=`r no_pass`) were recommended "Does Not Meet Standards" or "Deficient" (Table \@ref(tab:summary-recommended-rating)).
+
+```{r summary-standards}
+df_standards %>% 
+ 
+  kable(caption = "Summary of Inspections by Type of Standard",
+        col.names = c("Rating", "Count", "%")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"))
+```
+
+```{r summary-recommended-rating}
+
+df_rating %>% 
+  kable(caption = "Facility Inspection Recommended Rating",
+        col.names = c("Rating", "Count", "%")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"))
+```
+
+```{r}
+df_324 %>% 
+  select(facility, fac_operator) %>% 
+  group_by(facility, fac_operator) %>% 
+  summarise(operator_count = length(fac_operator)) %>% 
+  arrange(desc(operator_count))
+```

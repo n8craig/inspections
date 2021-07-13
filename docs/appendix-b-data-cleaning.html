@@ -1,0 +1,4866 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Appendix B: Data Cleaning | ICE Inspection Review</title>
+  <meta name="description" content="This is a document in progress that involves organizing inspection materials released on the ICE website" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Appendix B: Data Cleaning | ICE Inspection Review" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a document in progress that involves organizing inspection materials released on the ICE website" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Appendix B: Data Cleaning | ICE Inspection Review" />
+  
+  <meta name="twitter:description" content="This is a document in progress that involves organizing inspection materials released on the ICE website" />
+  
+
+<meta name="author" content="Nathan Craig" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="appendix-a-reading-in-sis-forms.html"/>
+
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">ICE Inspection Review</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#what-we-found"><i class="fa fa-check"></i><b>1.1</b> What We Found</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#assaults"><i class="fa fa-check"></i><b>1.1.1</b> Assaults</a></li>
+<li class="chapter" data-level="1.1.2" data-path="index.html"><a href="index.html#disciplinary"><i class="fa fa-check"></i><b>1.1.2</b> Disciplinary</a></li>
+<li class="chapter" data-level="1.1.3" data-path="index.html"><a href="index.html#solitary"><i class="fa fa-check"></i><b>1.1.3</b> Solitary</a></li>
+<li class="chapter" data-level="1.1.4" data-path="index.html"><a href="index.html#use-of-force"><i class="fa fa-check"></i><b>1.1.4</b> Use of Force</a></li>
+<li class="chapter" data-level="1.1.5" data-path="index.html"><a href="index.html#sexual-abuse-and-assault"><i class="fa fa-check"></i><b>1.1.5</b> Sexual Abuse and Assault</a></li>
+<li class="chapter" data-level="1.1.6" data-path="index.html"><a href="index.html#medical-observation"><i class="fa fa-check"></i><b>1.1.6</b> Medical Observation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#note-regarding-inspections"><i class="fa fa-check"></i><b>1.2</b> Note Regarding Inspections</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#how-the-work-was-done"><i class="fa fa-check"></i><b>1.3</b> How the work was done</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#inspections-by-facility"><i class="fa fa-check"></i><b>1.4</b> Inspections by Facility</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="facility-inspection-ratings.html"><a href="facility-inspection-ratings.html"><i class="fa fa-check"></i><b>2</b> Facility Inspection Ratings</a></li>
+<li class="chapter" data-level="3" data-path="assaults-1.html"><a href="assaults-1.html"><i class="fa fa-check"></i><b>3</b> Assaults</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="assaults-1.html"><a href="assaults-1.html#summary-tables"><i class="fa fa-check"></i><b>3.1</b> Summary Tables</a></li>
+<li class="chapter" data-level="3.2" data-path="assaults-1.html"><a href="assaults-1.html#facet-plot-of-assaults-by-facility"><i class="fa fa-check"></i><b>3.2</b> Facet Plot of Assaults by Facility</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="disciplinary-1.html"><a href="disciplinary-1.html"><i class="fa fa-check"></i><b>4</b> Disciplinary</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="disciplinary-1.html"><a href="disciplinary-1.html#summary-tables-1"><i class="fa fa-check"></i><b>4.1</b> Summary Tables</a></li>
+<li class="chapter" data-level="4.2" data-path="disciplinary-1.html"><a href="disciplinary-1.html#facet-plot-of-disciplinary-by-facility"><i class="fa fa-check"></i><b>4.2</b> Facet Plot of Disciplinary by Facility</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="solitary-1.html"><a href="solitary-1.html"><i class="fa fa-check"></i><b>5</b> Solitary</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="solitary-1.html"><a href="solitary-1.html#summary-tables-2"><i class="fa fa-check"></i><b>5.1</b> Summary Tables</a></li>
+<li class="chapter" data-level="5.2" data-path="solitary-1.html"><a href="solitary-1.html#facet-plots-of-solitary-by-facility"><i class="fa fa-check"></i><b>5.2</b> Facet Plots of Solitary by Facility</a></li>
+<li class="chapter" data-level="5.3" data-path="solitary-1.html"><a href="solitary-1.html#solitary-over-60-days"><i class="fa fa-check"></i><b>5.3</b> Solitary Over 60 Days</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="use-of-force-1.html"><a href="use-of-force-1.html"><i class="fa fa-check"></i><b>6</b> Use of Force</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="use-of-force-1.html"><a href="use-of-force-1.html#summary-tables-3"><i class="fa fa-check"></i><b>6.1</b> Summary Tables</a></li>
+<li class="chapter" data-level="6.2" data-path="use-of-force-1.html"><a href="use-of-force-1.html#under-reporting-use-of-force-incidents"><i class="fa fa-check"></i><b>6.2</b> Under Reporting Use of Force Incidents</a></li>
+<li class="chapter" data-level="6.3" data-path="use-of-force-1.html"><a href="use-of-force-1.html#facet-plot-of-use-of-force-by-facility"><i class="fa fa-check"></i><b>6.3</b> Facet Plot of Use of Force by Facility</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="sexual-abuse-and-assault-1.html"><a href="sexual-abuse-and-assault-1.html"><i class="fa fa-check"></i><b>7</b> Sexual Abuse and Assault</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="sexual-abuse-and-assault-1.html"><a href="sexual-abuse-and-assault-1.html#allegations"><i class="fa fa-check"></i><b>7.1</b> Allegations</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="sexual-abuse-and-assault-1.html"><a href="sexual-abuse-and-assault-1.html#summary-tables-4"><i class="fa fa-check"></i><b>7.1.1</b> Summary Tables</a></li>
+<li class="chapter" data-level="7.1.2" data-path="sexual-abuse-and-assault-1.html"><a href="sexual-abuse-and-assault-1.html#facet-plot-of-sexual-abuse-and-assault-allegations-by-facility"><i class="fa fa-check"></i><b>7.1.2</b> Facet Plot of Sexual Abuse and Assault Allegations by Facility</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="sexual-abuse-and-assault-1.html"><a href="sexual-abuse-and-assault-1.html#substantiated-allegations"><i class="fa fa-check"></i><b>7.2</b> Substantiated Allegations</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="sexual-abuse-and-assault-1.html"><a href="sexual-abuse-and-assault-1.html#summary-tables-5"><i class="fa fa-check"></i><b>7.2.1</b> Summary Tables</a></li>
+<li class="chapter" data-level="7.2.2" data-path="sexual-abuse-and-assault-1.html"><a href="sexual-abuse-and-assault-1.html#facet-plot-of-substantiated-sexual-abuse-and-assault-allegations"><i class="fa fa-check"></i><b>7.2.2</b> Facet Plot of Substantiated Sexual Abuse and Assault Allegations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="medical.html"><a href="medical.html"><i class="fa fa-check"></i><b>8</b> Medical</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="medical.html"><a href="medical.html#medical-observation-1"><i class="fa fa-check"></i><b>8.1</b> Medical Observation</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="medical.html"><a href="medical.html#summary-tables-6"><i class="fa fa-check"></i><b>8.1.1</b> Summary Tables</a></li>
+<li class="chapter" data-level="8.1.2" data-path="medical.html"><a href="medical.html#facet-plot-of-medical-mental-observation-by-facility"><i class="fa fa-check"></i><b>8.1.2</b> Facet Plot of Medical Mental Observation by Facility</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="medical.html"><a href="medical.html#infections-disease"><i class="fa fa-check"></i><b>8.2</b> Infections Disease</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="medical.html"><a href="medical.html#summary-table"><i class="fa fa-check"></i><b>8.2.1</b> Summary Table</a></li>
+<li class="chapter" data-level="8.2.2" data-path="medical.html"><a href="medical.html#facet-plot-of-infectious-disease-by-facility"><i class="fa fa-check"></i><b>8.2.2</b> Facet Plot of Infectious Disease by Facility</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="medical.html"><a href="medical.html#medical-and-mental-health-referrals"><i class="fa fa-check"></i><b>8.3</b> Medical and Mental Health Referrals</a></li>
+<li class="chapter" data-level="8.4" data-path="medical.html"><a href="medical.html#sick-call-requests-and-encounters"><i class="fa fa-check"></i><b>8.4</b> Sick Call Requests and Encounters</a></li>
+<li class="chapter" data-level="8.5" data-path="medical.html"><a href="medical.html#suicide-attempts-and-watches"><i class="fa fa-check"></i><b>8.5</b> Suicide Attempts and Watches</a></li>
+<li class="chapter" data-level="8.6" data-path="medical.html"><a href="medical.html#hunger-strikes"><i class="fa fa-check"></i><b>8.6</b> Hunger Strikes</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="cause-of-death.html"><a href="cause-of-death.html"><i class="fa fa-check"></i><b>9</b> Cause of Death</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="cause-of-death.html"><a href="cause-of-death.html#suicide-as-cause-of-death"><i class="fa fa-check"></i><b>9.1</b> Suicide as Cause of Death</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="" data-path="appendix-a-reading-in-sis-forms.html"><a href="appendix-a-reading-in-sis-forms.html"><i class="fa fa-check"></i>Appendix A: Reading in SIS Forms</a>
+<ul>
+<li class="chapter" data-level="2" data-path="appendix-a-reading-in-sis-forms.html"><a href="appendix-a-reading-in-sis-forms.html#summary-tables-7"><i class="fa fa-check"></i><b>2</b> Summary Tables</a></li>
+<li class="chapter" data-level="3" data-path="appendix-a-reading-in-sis-forms.html"><a href="appendix-a-reading-in-sis-forms.html#facet-plots"><i class="fa fa-check"></i><b>3</b> Facet Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="appendix-b-data-cleaning.html"><a href="appendix-b-data-cleaning.html"><i class="fa fa-check"></i>Appendix B: Data Cleaning</a>
+<ul>
+<li class="chapter" data-level="4" data-path="appendix-b-data-cleaning.html"><a href="appendix-b-data-cleaning.html#cleaning-script"><i class="fa fa-check"></i><b>4</b> Cleaning Script</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">ICE Inspection Review</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="appendix-b-data-cleaning" class="section level1 unnumbered">
+<h1>Appendix B: Data Cleaning</h1>
+<p>Anyone familiar working with ICE data knows that the agency is notorious for releasing dirty data filled with pesky errors. For example, consider the Krome Service Processing Center, the very first immigration processing center established in the 1980’s after the closure of Ellis Island in 1954. Of all the facilities the agency should name consistently, Krome the very first detention center of the contemporary system, one would expect ICE to get right. However, the facility inspections page lists the following names for the Krome Service Processing Center:</p>
+<ul>
+<li>Krome Special Processing Center (SPC) (FL) - Feb. 10, 2021</li>
+<li>Krome Service Procesing Center (FL) - Feb. 13, 2020</li>
+<li>Krome SPC (FL) - Feb. 14, 2019</li>
+</ul>
+<p>Every instance is different. In one case “Special” is replaced for “Service.” In another case the word processing is misspelled “Procesing,” while in a third, the title is abbreviated. This is one example of many. In other cases facilities are sometimes named “Detention Center” rather than “Detention Facility,” etc. Assembling the data into a useful table that can be sorted, filtered, and summarized requires standardizing the names.</p>
+<p>From early on, Craig decided to assemble the data as reported, errors and all, and perform standardization programmatically. Doing this facilitates reproducibility. The project’s primary cleaning functions are incorporated into a custom function <code>clean_facility_names()</code> and moved to a <a href="https://github.com/n8craig/inspections/blob/main/function_clean_facility_names.R">separate R file</a>. This allows more than 100 lines of code to be collapsed into a single function call. However, for display purposes, the lines of code that make up the transformations are detailed on this page.</p>
+<div id="cleaning-script" class="section level2" number="9.4">
+<h2><span class="header-section-number">4</span> Cleaning Script</h2>
+<p>During the time that the students were assembling data, we worked out of a Google Sheet as this permitted each of us to have simultaneous access to the data. For preliminary analysis, a data frame is constructed by reading from the sheet.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="appendix-b-data-cleaning.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in the sheet</span></span>
+<span id="cb3-2"><a href="appendix-b-data-cleaning.html#cb3-2" aria-hidden="true" tabindex="-1"></a>df_inspect <span class="ot">&lt;-</span> <span class="fu">read_sheet</span>(<span class="st">&quot;https://docs.google.com/spreadsheets/d/1im5VSi3bIEi13O8WQ56wEIXSyNEstbGMylXXgD9bAG0/edit#gid=1858227071&quot;</span>,</span>
+<span id="cb3-3"><a href="appendix-b-data-cleaning.html#cb3-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">sheet=</span><span class="st">&quot;Inspections&quot;</span>,</span>
+<span id="cb3-4"><a href="appendix-b-data-cleaning.html#cb3-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">col_names =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb3-5"><a href="appendix-b-data-cleaning.html#cb3-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">col_types =</span> <span class="st">&quot;c&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-6"><a href="appendix-b-data-cleaning.html#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span></code></pre></div>
+<p>Sometimes facility names are repeated. Use of the <code>dplyr</code> function <code>distinct</code> is useful for isolating issues with field names <span class="citation">(<a href="#ref-R-dplyr" role="doc-biblioref">Wickham, François, et al. 2021</a>)</span>.</p>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; ">
+<table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:df-inspect-before">Table 9.3: </span>Facility Names Before Cleaning
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+ID
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Facility
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+25
+</td>
+<td style="text-align:left;">
+Adams County Correctional Center (MS) - Dec. 3, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+141
+</td>
+<td style="text-align:left;">
+Adams County Correctional Center (MS) - Nov. 21, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+290
+</td>
+<td style="text-align:left;">
+Adelanto ICE Processing Center-East (CA) - Oct. 11, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+291
+</td>
+<td style="text-align:left;">
+Adelanto ICE Processing Center-West (CA) - Oct. 11, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+43
+</td>
+<td style="text-align:left;">
+Adelanto ICE Processing Center - East (CA) - Nov. 20, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+142
+</td>
+<td style="text-align:left;">
+Adelanto ICE Processing Center - East (CA) - Nov. 21, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+44
+</td>
+<td style="text-align:left;">
+Adelanto ICE Processing Center - West (CA) - Nov. 18, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+143
+</td>
+<td style="text-align:left;">
+Adelanto ICE Processing Center - West (CA) - Nov. 21, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+12
+</td>
+<td style="text-align:left;">
+Alamance County Detention Center (NC) - Jan. 8, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+144
+</td>
+<td style="text-align:left;">
+Alamance County Jail (NC) - Nov. 7, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+301
+</td>
+<td style="text-align:left;">
+Albany County Correctional Facility (NY) - Sep. 27, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+252
+</td>
+<td style="text-align:left;">
+Allen Parish Detention Facility (LA) - Feb. 14, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+129
+</td>
+<td style="text-align:left;">
+Allen Parish Public Safety Complex (LA) - Dec. 5, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+26
+</td>
+<td style="text-align:left;">
+Allen Parish Public Safety Complex (LA) - Dec. 9, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+322
+</td>
+<td style="text-align:left;">
+Atlanta City Detention Center (GA) - Jun. 21, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+14
+</td>
+<td style="text-align:left;">
+Aurora ICE Processing Center (CO) - Jan. 27, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+145
+</td>
+<td style="text-align:left;">
+Aurora ICE Processing Center (CO) - Nov. 27, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+293
+</td>
+<td style="text-align:left;">
+Aurora ICE Processing Center (CO) - Oct. 4, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+13
+</td>
+<td style="text-align:left;">
+Aurora ICE Processing Center II - Annex (CO) - Jan. 29, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+146
+</td>
+<td style="text-align:left;">
+Aurora ICE Processing Center II - Annex (CO) - Nov. 27, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+323
+</td>
+<td style="text-align:left;">
+Baker County Detention Center (FL) - Jun. 1, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+365
+</td>
+<td style="text-align:left;">
+Baker County Detention Center (FL) - May 20, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+227
+</td>
+<td style="text-align:left;">
+Baker County Detention Center (FL) - May 31, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+45
+</td>
+<td style="text-align:left;">
+Baker County Detention Center (FL) - Nov. 5, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+Bergen County Jail (NJ) - Feb. 24, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+107
+</td>
+<td style="text-align:left;">
+Bergen County Jail (NJ) - Feb. 27, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+253
+</td>
+<td style="text-align:left;">
+Bergen County Jail (NJ) - Feb. 28, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+158
+</td>
+<td style="text-align:left;">
+Berks County Residential Center (PA) - Oct. 17, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+174
+</td>
+<td style="text-align:left;">
+Berks County Residential Center (PA) - Sep. 3, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+130
+</td>
+<td style="text-align:left;">
+Berks County Residential Center (TX) - Dec. 17, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+147
+</td>
+<td style="text-align:left;">
+Berks County Residential Center (TX) - Nov. 12, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+213
+</td>
+<td style="text-align:left;">
+Berks Family Residential Center (PA) - Jun. 25, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+60
+</td>
+<td style="text-align:left;">
+Bluebonnet Detention Center (TX) - Oct. 23, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+342
+</td>
+<td style="text-align:left;">
+Boone County Jail (KY) - Mar. 3, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:left;">
+Boone County Jail (KY) - Mar. 5, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+244
+</td>
+<td style="text-align:left;">
+Boone County Jail (KY) - Mar. 7, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+131
+</td>
+<td style="text-align:left;">
+Bossier Parish Corrections Center (LA) - Dec. 5, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+262
+</td>
+<td style="text-align:left;">
+Bossier Parish Corrections Center (LA) - Jan. 29 - 31, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+366
+</td>
+<td style="text-align:left;">
+Bristol County Jail (MA) - May 13, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+332
+</td>
+<td style="text-align:left;">
+Bristol County Jail and House of Correction (MA) - May 10, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+228
+</td>
+<td style="text-align:left;">
+Bristol County Jail and House of Correction (MA) - May 16, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+46
+</td>
+<td style="text-align:left;">
+Bristol County Jail and House of Correction (MA) - Nov. 18, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+254
+</td>
+<td style="text-align:left;">
+Brooks County Detention Center (TX) - Feb. 21, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+108
+</td>
+<td style="text-align:left;">
+Brooks County Detention Center (TX) - Feb. 21, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+159
+</td>
+<td style="text-align:left;">
+Broward Transitional Center (FL) - Oct. 31, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+86
+</td>
+<td style="text-align:left;">
+Broward Transitional Center (FL) - Sep. 24, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+235
+</td>
+<td style="text-align:left;">
+Buffalo (Batavia) Service Processing Center (NY) - Apr. 4, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+15
+</td>
+<td style="text-align:left;">
+Butler County Jail (OH) - Jan. 21, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+280
+</td>
+<td style="text-align:left;">
+Cache County Jail (UT) - Nov. 8, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+333
+</td>
+<td style="text-align:left;">
+Caldwell County Detention Center (MO) - May 24, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+101
+</td>
+<td style="text-align:left;">
+Calhoun County Correctional Center (MI) - Mar. 5, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+245
+</td>
+<td style="text-align:left;">
+Calhoun County Correctional Center (MI) - Mar. 7, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+343
+</td>
+<td style="text-align:left;">
+Calhoun County Jail (MI) - Mar. 3, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+148
+</td>
+<td style="text-align:left;">
+Cambria County Prison (PA) - Nov. 7, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+281
+</td>
+<td style="text-align:left;">
+Cambria County Prison (PA) - Nov. 8, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+364
+</td>
+<td style="text-align:left;">
+Caroline Detention Facility (VA) - Apr. 28, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+87
+</td>
+<td style="text-align:left;">
+Caroline Detention Facility (VA) - Sep. 17, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+132
+</td>
+<td style="text-align:left;">
+Carver County Jail (MN) - Dec. 5, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+302
+</td>
+<td style="text-align:left;">
+Cass County Jail (NE) - Sep. 13, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+175
+</td>
+<td style="text-align:left;">
+Cass County Jail (NE) - Sep. 19, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+187
+</td>
+<td style="text-align:left;">
+Catahoula Correctional Center (LA) - Aug. 22, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+61
+</td>
+<td style="text-align:left;">
+Catahoula Correctional Center (LA) - Nov. 9, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+47
+</td>
+<td style="text-align:left;">
+CCA Florence Correctional Center (AZ) - Nov. 6, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+188
+</td>
+<td style="text-align:left;">
+Central Arizona Florence Correctional Complex (AZ) - Aug. 29, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+307
+</td>
+<td style="text-align:left;">
+Central Arizona Florence Correctional Complex (AZ) - Aug. 30, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+16
+</td>
+<td style="text-align:left;">
+Chase County Detention Center (KS) - Jan. 27, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:left;">
+Chase County Detention Center (KS) - Jul. 11, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+316
+</td>
+<td style="text-align:left;">
+Chase County Detention Center (KS) - Jul. 12, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+344
+</td>
+<td style="text-align:left;">
+Chippewa County Correctional Facility (MI) - Mar. 24, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+246
+</td>
+<td style="text-align:left;">
+Chippewa County Correctional Facility (MI) - Mar. 29, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+17
+</td>
+<td style="text-align:left;">
+Christian County Jail (MO) - Jan. 13, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+334
+</td>
+<td style="text-align:left;">
+Christian County Jail (MO) - May 24, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+27
+</td>
+<td style="text-align:left;">
+Cibola County Correctional Center (NM) - Dec. 3, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+335
+</td>
+<td style="text-align:left;">
+Cibola County Correctional Center (NM) - May 10, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+367
+</td>
+<td style="text-align:left;">
+Cibola County Correctional Center (NM) - May 6, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+229
+</td>
+<td style="text-align:left;">
+Cibola County Correctional Center (NM) - May 9, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+324
+</td>
+<td style="text-align:left;">
+Clay County Jail (IN) - Jun. 1, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+230
+</td>
+<td style="text-align:left;">
+Clay County Jail (IN) - May 31, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+368
+</td>
+<td style="text-align:left;">
+Clay County Justice Center (IN) - May 20, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+62
+</td>
+<td style="text-align:left;">
+Clay County Justice Center (IN) - Oct. 15, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+48
+</td>
+<td style="text-align:left;">
+Clinton County Correctional Facility (PA) - Nov. 25, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+283
+</td>
+<td style="text-align:left;">
+Clinton County Correctional Facility (PA) - Nov. 8, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+176
+</td>
+<td style="text-align:left;">
+Clinton County Correctional Facility (PA) - Sep. 26, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+292
+</td>
+<td style="text-align:left;">
+Clinton County Jail (NY) - Oct. 25, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+118
+</td>
+<td style="text-align:left;">
+Coastal Bend Detention Center (TX) - Jan. 9, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+263
+</td>
+<td style="text-align:left;">
+Coastal Bend Detention Facility (TX) - Jan. 10, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+345
+</td>
+<td style="text-align:left;">
+David L. Moss Criminal Justice Center (OK) - Mar. 12, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+119
+</td>
+<td style="text-align:left;">
+DeKalb County Detention Facility (GA) - Jan. 30, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+346
+</td>
+<td style="text-align:left;">
+Desert View Annex (CA) - Mar. 24, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+63
+</td>
+<td style="text-align:left;">
+Desert View Annex (CA) - Oct. 29, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+359
+</td>
+<td style="text-align:left;">
+Dodge County Detention Center (WI) - Apr. 16, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+236
+</td>
+<td style="text-align:left;">
+Dodge County Detention Facility (WI) - Apr. 18, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+64
+</td>
+<td style="text-align:left;">
+Dodge County Detention Facility (AK) - Oct. 29, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+49
+</td>
+<td style="text-align:left;">
+Donald W. Wyatt Detention Center (RI) - Nov. 18, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+243
+</td>
+<td style="text-align:left;">
+Donald W. Wyatt Detention Facility (RI) - Apr. 11, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+356
+</td>
+<td style="text-align:left;">
+Donald W. Wyatt Detention Facility (RI) - Apr. 8, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+102
+</td>
+<td style="text-align:left;">
+Dorchester County Detention Center (MD) - Mar. 19, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+347
+</td>
+<td style="text-align:left;">
+Dorchester County Detention Center (MD) - Mar. 24, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+348
+</td>
+<td style="text-align:left;">
+Dorchester County Detention Center (SC) - Mar. 17, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+160
+</td>
+<td style="text-align:left;">
+Douglas County Department of Corrections (NE) - Oct. 24, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+294
+</td>
+<td style="text-align:left;">
+Douglas County Department of Corrections (NE) - Oct. 25, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+317
+</td>
+<td style="text-align:left;">
+East Hidalgo Detention Center (TX) - Jul. 26, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+65
+</td>
+<td style="text-align:left;">
+East Hidalgo Detention Center (TX) - Oct. 3, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+177
+</td>
+<td style="text-align:left;">
+East Hidalgo Detention Center (TX) - Sep. 6, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+28
+</td>
+<td style="text-align:left;">
+Eden Detention Center (TX) - Dec. 3, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+133
+</td>
+<td style="text-align:left;">
+El Paso Service Processing Center (TX) - Dec. 12, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+271
+</td>
+<td style="text-align:left;">
+El Paso Service Processing Center (TX) - Dec. 13, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+29
+</td>
+<td style="text-align:left;">
+El Paso Service Processing Center (TX) - Dec. 3, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+30
+</td>
+<td style="text-align:left;">
+El Valle Detention Facility (TX) - Dec. 10, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+272
+</td>
+<td style="text-align:left;">
+El Valle Detention Facility (TX) - Dec. 6, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+161
+</td>
+<td style="text-align:left;">
+El Valle Detention Facility (TX) - Oct. 24, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+295
+</td>
+<td style="text-align:left;">
+Elizabeth Contract Detention Facility (NJ) - Oct. 12, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+162
+</td>
+<td style="text-align:left;">
+Elizabeth Contract Detention Facility (NJ) - Oct. 3, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+88
+</td>
+<td style="text-align:left;">
+Elizabeth Contract Detention Facility (NJ) - Sep. 17, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+Eloy Detention Center (AZ) - Feb. 5, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+109
+</td>
+<td style="text-align:left;">
+Eloy Detention Center (AZ) - Feb. 6, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+255
+</td>
+<td style="text-align:left;">
+Eloy Detention Center (AZ) - Feb. 7, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+303
+</td>
+<td style="text-align:left;">
+Essex County Correctional Facility (NJ) - Sep. 27, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+66
+</td>
+<td style="text-align:left;">
+Essex County Correctional Facility (NJ) - Oct. 9, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+178
+</td>
+<td style="text-align:left;">
+Essex County Corrections Facility (NJ) - Sep. 26, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+201
+</td>
+<td style="text-align:left;">
+Etowah County Jail (AL) - Jul. 18, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+318
+</td>
+<td style="text-align:left;">
+Etowah County Jail (AL) - Jul. 19, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+67
+</td>
+<td style="text-align:left;">
+Etowah County Jail (AL) - Oct. 23, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+110
+</td>
+<td style="text-align:left;">
+Farmville Detention Center (CA) - Feb. 27, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+237
+</td>
+<td style="text-align:left;">
+Florence Service Processing Center (AZ) - Apr. 11, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+357
+</td>
+<td style="text-align:left;">
+Florence Service Processing Center (AZ) - Apr. 8, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+50
+</td>
+<td style="text-align:left;">
+Florence SPC (AZ) - Nov. 4, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+214
+</td>
+<td style="text-align:left;">
+Folkston ICE Processing Center (GA) - Jun. 6, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+215
+</td>
+<td style="text-align:left;">
+Folkston ICE Processing Center Annex (GA) - Jun. 6, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+68
+</td>
+<td style="text-align:left;">
+Folkston ICE Processing Center Annex (GA) - Oct. 9, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+69
+</td>
+<td style="text-align:left;">
+Folkston ICE Processing Center (GA) - Oct. 7, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+202
+</td>
+<td style="text-align:left;">
+Frederick County Detention Center (MD) - Jul. 11, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+360
+</td>
+<td style="text-align:left;">
+Freeborn County Adult Detention Center (MN) - Apr. 16, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+238
+</td>
+<td style="text-align:left;">
+Freeborn County Adult Detention Center (MN) - Apr. 18, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+89
+</td>
+<td style="text-align:left;">
+Freeborn County Adult Detention Center (MN) - Sep. 10, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+31
+</td>
+<td style="text-align:left;">
+Geauga County Jail (OH) - Dec. 10, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+284
+</td>
+<td style="text-align:left;">
+Geauga County Jail (OH) - Nov. 29, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+163
+</td>
+<td style="text-align:left;">
+Geauga County Jail (OH) - Oct. 10, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+Glades County Detention Center (FL) - Feb. 24, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+247
+</td>
+<td style="text-align:left;">
+Glades County Detention Center (FL) - Mar. 14, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+103
+</td>
+<td style="text-align:left;">
+Glades County Detention Center (FL) - Mar. 5, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+349
+</td>
+<td style="text-align:left;">
+Golden State Annex (CA) - Mar. 17, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+70
+</td>
+<td style="text-align:left;">
+Golden State Annex (CA) - Oct. 16, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+336
+</td>
+<td style="text-align:left;">
+Grand Forks County Correctional Facility (ND) - May 17, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+203
+</td>
+<td style="text-align:left;">
+Hall County Department of Corrections (NE) - Jul. 11, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+319
+</td>
+<td style="text-align:left;">
+Hall County Department of Corrections (NE) - Jul. 12, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+90
+</td>
+<td style="text-align:left;">
+Hall County Department of Corrections (NE) - Sep. 17, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+51
+</td>
+<td style="text-align:left;">
+Hardin County Jail (IA) - Nov. 11, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+179
+</td>
+<td style="text-align:left;">
+Hardin County Jail (IA) - Sep. 12, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+304
+</td>
+<td style="text-align:left;">
+Hardin County Jail (IA) - Sep. 13, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+204
+</td>
+<td style="text-align:left;">
+Henderson Detention Center (NV) - Jul. 18, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+320
+</td>
+<td style="text-align:left;">
+Henderson Detention Center (NV) - Jul. 19, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+52
+</td>
+<td style="text-align:left;">
+Henderson Detention Center (NV) - Nov. 20, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+120
+</td>
+<td style="text-align:left;">
+Houston CDF (TX) - Jan. 9, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+264
+</td>
+<td style="text-align:left;">
+Houston Contract Detention Facility (TX) - Jan. 10, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+18
+</td>
+<td style="text-align:left;">
+Houston Contract Detention Facility (TX) - Jan. 6, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+189
+</td>
+<td style="text-align:left;">
+Howard County Detention Center (MD) - Aug. 29, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+32
+</td>
+<td style="text-align:left;">
+Howard County Detention Center (MD) - Dec. 9, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+285
+</td>
+<td style="text-align:left;">
+Howard County Detention Center (MD) - Nov. 29, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+369
+</td>
+<td style="text-align:left;">
+Hudson County Corrections and Rehabilitation Center (NJ) - May 6, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+231
+</td>
+<td style="text-align:left;">
+Hudson County Corrections and Rehabilitation Center (NJ) - May 9, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+71
+</td>
+<td style="text-align:left;">
+Hudson County Corrections and Rehabilitation Center (NJ) - Oct. 7, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+265
+</td>
+<td style="text-align:left;">
+IAH Secure Adult Detention Facility (Polk) (TX) - Jan. 10, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+256
+</td>
+<td style="text-align:left;">
+Immigration Centers of America - Farmville (VA) - Feb. 28, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+Immigration Centers of America (ICA) - Farmville Detention Center (FDC) (VA) - Feb. 24, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+19
+</td>
+<td style="text-align:left;">
+Imperial Regional Detention Facility (CA) - Jan. 13, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+121
+</td>
+<td style="text-align:left;">
+Imperial Regional Detention Facility (CA) - Jan. 16, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+266
+</td>
+<td style="text-align:left;">
+Imperial Regional Detention Facility (CA) - Jan. 17, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+216
+</td>
+<td style="text-align:left;">
+Irwin County Detention Center (GA) - Jun. 13, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+325
+</td>
+<td style="text-align:left;">
+Irwin County Detention Center (GA) - Jun. 14, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+91
+</td>
+<td style="text-align:left;">
+Irwin County Detention Center (GA) - Sep. 25, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+53
+</td>
+<td style="text-align:left;">
+Jackson Parish Correctional Center (LA) - Nov. 20, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+149
+</td>
+<td style="text-align:left;">
+Jackson Parish Correctional Center (LA) - Nov. 7, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+297
+</td>
+<td style="text-align:left;">
+James A. Musick Facility (CA) - Oct. 18, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+72
+</td>
+<td style="text-align:left;">
+Jena LaSalle Detention Facility (LA) - Oct. 7, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+239
+</td>
+<td style="text-align:left;">
+Jerome Combs Detention Center (IL) - Apr. 11, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+355
+</td>
+<td style="text-align:left;">
+Jerome Combs Detention Center (IL) - Apr. 7, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+54
+</td>
+<td style="text-align:left;">
+Jerome Combs Detention Center (IL) - Nov. 25, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+150
+</td>
+<td style="text-align:left;">
+Joe Corley Detention Facility (TX) - Nov. 15, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+286
+</td>
+<td style="text-align:left;">
+Joe Corley Detention Facility (TX) - Nov. 16, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+33
+</td>
+<td style="text-align:left;">
+Joe Corley Processing Center (TX) - Dec. 18, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+190
+</td>
+<td style="text-align:left;">
+Johnson County Corrections Center (TX) - Aug. 22, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+308
+</td>
+<td style="text-align:left;">
+Johnson County Corrections Center (TX) - Aug. 23, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+92
+</td>
+<td style="text-align:left;">
+Johnson County Corrections Center (TX) - Sep. 17, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+273
+</td>
+<td style="text-align:left;">
+Kandiyohi County Jail (MN) - Dec. 6, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+205
+</td>
+<td style="text-align:left;">
+Kandiyohi County Jail (MN) - Jul. 11, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+134
+</td>
+<td style="text-align:left;">
+Karnes County Family Residential Center (TX) - Dec. 3, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+191
+</td>
+<td style="text-align:left;">
+Karnes County Residential Center (TX) - Aug. 15, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+135
+</td>
+<td style="text-align:left;">
+Karnes County Residential Center (TX) - Dec. 5, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+111
+</td>
+<td style="text-align:left;">
+Karnes County Residential Center (TX) - Feb. 25, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+122
+</td>
+<td style="text-align:left;">
+Karnes County Residential Center (TX) - Jan. 21, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+206
+</td>
+<td style="text-align:left;">
+Karnes County Residential Center (TX) - Jul. 30, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+217
+</td>
+<td style="text-align:left;">
+Karnes County Residential Center (TX) - Jun. 11, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+151
+</td>
+<td style="text-align:left;">
+Karnes County Residential Center (TX) - Nov. 6, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+180
+</td>
+<td style="text-align:left;">
+Karnes County Residential Center (TX) - Sep. 25, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+164
+</td>
+<td style="text-align:left;">
+Kay County Detention Center (OK) - Oct. 24, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+73
+</td>
+<td style="text-align:left;">
+Kay County Detention Center (OK) - Oct. 15, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+218
+</td>
+<td style="text-align:left;">
+Kenosha County Detention Center (WI) - Jun. 6, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+326
+</td>
+<td style="text-align:left;">
+Kenosha County Detention Center (WI) - Jun. 7, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+370
+</td>
+<td style="text-align:left;">
+Krome North Service Processing Center (FL) - May 13, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+112
+</td>
+<td style="text-align:left;">
+Krome Service Procesing Center (FL) - Feb. 13, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+257
+</td>
+<td style="text-align:left;">
+Krome SPC (FL) - Feb. 14, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:left;">
+Krome Special Processing Center (SPC) (FL) - Feb. 10, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+219
+</td>
+<td style="text-align:left;">
+La Palma Correctional Center (AZ) - Jun. 27, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+55
+</td>
+<td style="text-align:left;">
+La Palma Correctional Center (AZ) - Nov. 5, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+220
+</td>
+<td style="text-align:left;">
+Laredo Processing Center (TX) - Jun. 6, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+327
+</td>
+<td style="text-align:left;">
+Laredo Processing Center (TX) - Jun. 7, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+371
+</td>
+<td style="text-align:left;">
+Laredo Processing Center (TX) - May 27, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+74
+</td>
+<td style="text-align:left;">
+Laredo Processing Center (TX) - Oct. 23, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+152
+</td>
+<td style="text-align:left;">
+LaSalle Correctional Center (LA) - Nov. 15, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+75
+</td>
+<td style="text-align:left;">
+LaSalle County Regional Detention Center (TX) - Oct. 21, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+181
+</td>
+<td style="text-align:left;">
+LaSalle ICE Processing Center (LA) - Sep. 26, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+305
+</td>
+<td style="text-align:left;">
+LaSalle ICE Processing Center (LA) - Sep. 27, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+93
+</td>
+<td style="text-align:left;">
+Limestone County Detention Center (TX) - Oct. 1, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+165
+</td>
+<td style="text-align:left;">
+Limestone County Detention Center (TX) - Oct. 24, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+221
+</td>
+<td style="text-align:left;">
+Linn County Correctional Center (IA) - Jun. 20, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+296
+</td>
+<td style="text-align:left;">
+Marshall County Jail (IA) - Oct. 25, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+222
+</td>
+<td style="text-align:left;">
+McHenry County Adult Correctional Facility (IL) - Jun. 13, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+328
+</td>
+<td style="text-align:left;">
+McHenry County Adult Correctional Facility (IL) - Jun. 14, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+94
+</td>
+<td style="text-align:left;">
+McHenry County Adult Correctional Facility (IL) - Oct. 1, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+223
+</td>
+<td style="text-align:left;">
+Mesa Verde Detention Facility (CA) - Jun. 27, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+329
+</td>
+<td style="text-align:left;">
+Mesa Verde Detention Facility (CA) - Jun. 28, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+76
+</td>
+<td style="text-align:left;">
+Mesa Verde ICE Processing Facility (CA) - Oct. 14, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+309
+</td>
+<td style="text-align:left;">
+Monroe County Detention Center (FL) - Aug. 23, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+192
+</td>
+<td style="text-align:left;">
+Monroe County Inmate Dormitory (MI) - Aug. 15, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+310
+</td>
+<td style="text-align:left;">
+Monroe County Inmate Dormitory (MI) - Aug. 16, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+34
+</td>
+<td style="text-align:left;">
+Monroe County Inmate Dormitory (MI) - Dec. 30, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+207
+</td>
+<td style="text-align:left;">
+Monroe County Jail (FL) - Aug. 1, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+153
+</td>
+<td style="text-align:left;">
+Montgomery County Jail (MO) - Nov. 7, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+35
+</td>
+<td style="text-align:left;">
+Montgomery Processing Center (TX) - Dec. 16, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+136
+</td>
+<td style="text-align:left;">
+Montgomery Processing Center (TX) - Dec. 19, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+275
+</td>
+<td style="text-align:left;">
+Montgomery Processing Center (TX) - Dec. 20, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+274
+</td>
+<td style="text-align:left;">
+Morgan County Adult Detention Center (MO) - Dec. 6, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+258
+</td>
+<td style="text-align:left;">
+Morgan County Adult Detention Center (MO) - Feb. 21, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+56
+</td>
+<td style="text-align:left;">
+Morgan County Adult Detention Center (MO) - Nov. 11, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+Morrow County Correctional Facility (OH) - Feb. 10, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+208
+</td>
+<td style="text-align:left;">
+Natchitoches Parish Detention Center (LA) - Jul. 3, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+209
+</td>
+<td style="text-align:left;">
+Nevada Southern Detention Center (NV) - Jul. 25, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+321
+</td>
+<td style="text-align:left;">
+Nevada Southern Detention Center (NV) - Jul. 26, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+337
+</td>
+<td style="text-align:left;">
+Nobles County Jail (MN) - May 24, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+248
+</td>
+<td style="text-align:left;">
+Northeast Ohio Correctional Center (OH) - Mar. 21, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+276
+</td>
+<td style="text-align:left;">
+Northern Oregon Correctional Facility (OR) - Dec. 13, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+166
+</td>
+<td style="text-align:left;">
+Northern Oregon Correctional Facility (OR) - Oct. 31, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+36
+</td>
+<td style="text-align:left;">
+Northwest Contract Detention Center (WA) - Dec. 17, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+232
+</td>
+<td style="text-align:left;">
+Northwest Detention Center (WA) - May 16, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+372
+</td>
+<td style="text-align:left;">
+Northwest ICE Processing Center (WA) - May 13, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+373
+</td>
+<td style="text-align:left;">
+Nye County Detention Center (NV) - May 20, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+57
+</td>
+<td style="text-align:left;">
+Nye County Detention Center (NV) - Nov. 4, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+182
+</td>
+<td style="text-align:left;">
+Okmulgee County Jail-Moore Detention Facility (OK) - Sep. 19, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+95
+</td>
+<td style="text-align:left;">
+Okmulgee County Jail - Moore Detention Facility (OK) - Oct. 1, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+298
+</td>
+<td style="text-align:left;">
+Okmulgee County Jail - Moore Detention Facility (OK) - Oct. 4, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+358
+</td>
+<td style="text-align:left;">
+Orange County Correctional Facility (NY) - Apr. 14, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+240
+</td>
+<td style="text-align:left;">
+Orange County Jail (NY) - Apr. 18, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+77
+</td>
+<td style="text-align:left;">
+Orange County Jail (NY) - Oct. 30, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+267
+</td>
+<td style="text-align:left;">
+Otay Mesa Detention Center (CA) - Jan. 25, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+7
+</td>
+<td style="text-align:left;">
+Otay Mesa Detention Facility (CA) - Feb. 3, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+123
+</td>
+<td style="text-align:left;">
+Otay Mesa Detention Facility (CA) - Jan. 24, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+20
+</td>
+<td style="text-align:left;">
+Otero County Processing Center (NM) - Jan. 29, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+124
+</td>
+<td style="text-align:left;">
+Otero County Processing Center (NM) - Jan. 30, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+268
+</td>
+<td style="text-align:left;">
+Otero County Processing Center (NM) - Jan. 31, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+210
+</td>
+<td style="text-align:left;">
+Phelps County Jail (NE) - Jul. 18, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+361
+</td>
+<td style="text-align:left;">
+Pike County Correctional Facility (PA) - Apr. 21, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+241
+</td>
+<td style="text-align:left;">
+Pike County Correctional Facility (PA) - Apr. 25, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+78
+</td>
+<td style="text-align:left;">
+Pike County Correctional Facility (PA) - Oct. 28, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+362
+</td>
+<td style="text-align:left;">
+Pine Prairie ICE Processing Center (LA) - Apr. 21, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+242
+</td>
+<td style="text-align:left;">
+Pine Prairie ICE Processing Center (LA) - Apr. 25, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+58
+</td>
+<td style="text-align:left;">
+Pine Prairie ICE Processing Center (LA) - Nov. 5, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+137
+</td>
+<td style="text-align:left;">
+Platte County Detention Center (MO) - Dec. 12, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+37
+</td>
+<td style="text-align:left;">
+Plymouth County Correctional Facility (MA) - Dec. 30, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+224
+</td>
+<td style="text-align:left;">
+Plymouth County Correctional Facility (MA) - Jun. 13, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+330
+</td>
+<td style="text-align:left;">
+Plymouth County Correctional Facility (MA) - Jun. 14, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+21
+</td>
+<td style="text-align:left;">
+Polk County Adult Detention Center (TX) - Jan. 6, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+125
+</td>
+<td style="text-align:left;">
+Polk County Adult Detention Center (TX) - Jan. 9, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+211
+</td>
+<td style="text-align:left;">
+Polk County Jail (IA) - Aug. 1, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+311
+</td>
+<td style="text-align:left;">
+Polk County Jail (IA) - Aug. 2, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+22
+</td>
+<td style="text-align:left;">
+Port Isabel Service Processing Center (TX) - Jan. 27, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+126
+</td>
+<td style="text-align:left;">
+Port Isabel Service Processing Center (TX) - Jan. 30, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+269
+</td>
+<td style="text-align:left;">
+Port Isabel Service Processing Center (TX) - Jan. 31, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+113
+</td>
+<td style="text-align:left;">
+Prairieland Detention Center (TX) - Feb. 13, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+259
+</td>
+<td style="text-align:left;">
+Prairieland Detention Center (TX) - Feb. 14, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+8
+</td>
+<td style="text-align:left;">
+Prarieland Detention Center (TX) - Feb. 10, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+350
+</td>
+<td style="text-align:left;">
+Pulaski County Detention Center (IL) - Mar. 10, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+104
+</td>
+<td style="text-align:left;">
+Pulaski County Detention Center (IL) - Mar. 12, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+249
+</td>
+<td style="text-align:left;">
+Pulaski County Detention Center (IL) - Mar. 14, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+79
+</td>
+<td style="text-align:left;">
+Richwood Correcrtional Center (LA) - Oct. 21, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+168
+</td>
+<td style="text-align:left;">
+Richwood Correctional Center (LA) - Oct. 3, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+250
+</td>
+<td style="text-align:left;">
+Rio Grande Detention Center (TX) - Mar. 14, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+351
+</td>
+<td style="text-align:left;">
+Rio Grande Processing Center (TX) - Mar. 10, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+105
+</td>
+<td style="text-align:left;">
+Rio Grande Processing Center (TX) - Mar. 12, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+277
+</td>
+<td style="text-align:left;">
+River Correctional Center (LA) - Dec. 6, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+106
+</td>
+<td style="text-align:left;">
+River Correctional Center (LA) - Mar. 12, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+352
+</td>
+<td style="text-align:left;">
+River Correctional Center (LA) - Mar. 17, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+167
+</td>
+<td style="text-align:left;">
+River Correctional Center (LA) - Oct. 24, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+138
+</td>
+<td style="text-align:left;">
+Robert A. Deyton Correctional Center (GA) - Dec. 5, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+38
+</td>
+<td style="text-align:left;">
+Robert A. Deyton Detention Center (GA) - Dec. 17, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+193
+</td>
+<td style="text-align:left;">
+Rolling Plains Detention Center (TX) - Aug. 8, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+80
+</td>
+<td style="text-align:left;">
+Rolling Plains Detention Center (TX) - Oct. 21, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+96
+</td>
+<td style="text-align:left;">
+Saint Clair County Jail (MI) - Oct. 1, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+363
+</td>
+<td style="text-align:left;">
+San Luis Regional Detention Center (AZ) - Apr. 28, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+341
+</td>
+<td style="text-align:left;">
+San Luis Regional Detention Center (AZ) - May 3, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+59
+</td>
+<td style="text-align:left;">
+San Luis Regional Detention Center (AZ) - Nov. 25, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+23
+</td>
+<td style="text-align:left;">
+Seneca County Jail (OH) - Jan. 13, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+169
+</td>
+<td style="text-align:left;">
+Seneca County Jail (OH) - Oct. 3, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+299
+</td>
+<td style="text-align:left;">
+Seneca County Jail (OH) - Oct. 4, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+183
+</td>
+<td style="text-align:left;">
+Shawnee County Department of Corrections - Adult Detention Center (KS) - Sep. 6, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+24
+</td>
+<td style="text-align:left;">
+Sherburne County Jail (MN) - Jan. 21, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+154
+</td>
+<td style="text-align:left;">
+Sherburne County Jail (MN) - Nov. 15, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+287
+</td>
+<td style="text-align:left;">
+Sherburne County Jail (MN) - Nov. 16, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+139
+</td>
+<td style="text-align:left;">
+Sheriff Al Cannon Detention Center (SC) - Dec. 12, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+282
+</td>
+<td style="text-align:left;">
+Sheriff Al Cannon Detention Center (SC) - Nov. 29, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+39
+</td>
+<td style="text-align:left;">
+South Louisiana ICE Processing Center (LA) - Dec. 11, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+155
+</td>
+<td style="text-align:left;">
+South Louisiana ICE Processing Center (LA) - Nov. 7, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+260
+</td>
+<td style="text-align:left;">
+South Texas Detention Complex (TX) - Feb. 28, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+194
+</td>
+<td style="text-align:left;">
+South Texas Family Residential Center (TX) - Aug. 19, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+114
+</td>
+<td style="text-align:left;">
+South Texas Family Residential Center (TX) - Feb. 12, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+127
+</td>
+<td style="text-align:left;">
+South Texas Family Residential Center (TX) - Jan. 7, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+212
+</td>
+<td style="text-align:left;">
+South Texas Family Residential Center (TX) - Jul. 30, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+226
+</td>
+<td style="text-align:left;">
+South Texas Family Residential Center (TX) - Jun. 25, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+156
+</td>
+<td style="text-align:left;">
+South Texas Family Residential Center (TX) - Nov. 12, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+170
+</td>
+<td style="text-align:left;">
+South Texas Family Residential Center (TX) - Oct. 31, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+115
+</td>
+<td style="text-align:left;">
+South Texas ICE Processing Center (TX) - Feb. 27, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9
+</td>
+<td style="text-align:left;">
+South Texas Processing Center (TX) - Feb. 26, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+312
+</td>
+<td style="text-align:left;">
+St. Clair County Jail (MI) - Aug. 9, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+225
+</td>
+<td style="text-align:left;">
+St. Clair County Jail (MI) - Jun. 20, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+338
+</td>
+<td style="text-align:left;">
+Stewart Detention Center (GA) - May 3, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+374
+</td>
+<td style="text-align:left;">
+Stewart Detention Center (GA) - May 6, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+233
+</td>
+<td style="text-align:left;">
+Stewart Detention Center (GA) - May 9, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+97
+</td>
+<td style="text-align:left;">
+Stewart Detention Center (GA) - Sep. 24, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+40
+</td>
+<td style="text-align:left;">
+Strafford County Corrections (NH) - Dec. 10, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+140
+</td>
+<td style="text-align:left;">
+Strafford County Corrections (NH) - Dec. 12, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+278
+</td>
+<td style="text-align:left;">
+Strafford County Department of Corrections (DE) - Dec. 13, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+234
+</td>
+<td style="text-align:left;">
+Suffolk County House of Correction (MA) - May 16, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+339
+</td>
+<td style="text-align:left;">
+Suffolk County House of Correction (MA) - May 3, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+353
+</td>
+<td style="text-align:left;">
+T. Don Hutto Detention Center (TX) - Mar. 31, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+184
+</td>
+<td style="text-align:left;">
+T. Don Hutto Residential Center (TX) - Sep. 12, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+196
+</td>
+<td style="text-align:left;">
+T. Don Hutto Residential Center (TX) - Aug. 27, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+195
+</td>
+<td style="text-align:left;">
+Tallahatchie County Correctional Facility (MS) - Aug. 15, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+354
+</td>
+<td style="text-align:left;">
+Teller County Jail (CO)- Mar. 31, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+197
+</td>
+<td style="text-align:left;">
+Teller County Jail (CO) - Aug. 22, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+81
+</td>
+<td style="text-align:left;">
+Teller County Jail (CO) - Oct. 29, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+288
+</td>
+<td style="text-align:left;">
+Theo Lacy Facility (CA) - Nov. 8, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+98
+</td>
+<td style="text-align:left;">
+Torrance County Detention Facility (NM) - Oct. 1, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+116
+</td>
+<td style="text-align:left;">
+Tulsa County Jail - David L. Moss Criminal Jutice Center (OK) - Feb. 21, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+251
+</td>
+<td style="text-align:left;">
+Tulsa County Jail (David L. Moss Criminal Justice Center) (OK) - Mar. 14, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+270
+</td>
+<td style="text-align:left;">
+Tulsa County Jail (David L. Moss Justice Center) (OK) - Jan. 25, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+331
+</td>
+<td style="text-align:left;">
+Tulsa County Jail (OK) - Jun. 1, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+185
+</td>
+<td style="text-align:left;">
+Val Verde Correctional Facility (TX) - Sep. 19, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+340
+</td>
+<td style="text-align:left;">
+Virginia Peninsula Regional Jail (VA) - May 17, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+279
+</td>
+<td style="text-align:left;">
+Wakulla County Detention Facility (FL) - Dec. 13, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+171
+</td>
+<td style="text-align:left;">
+Wakulla County Detention Facility (FL) - Oct. 18, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+82
+</td>
+<td style="text-align:left;">
+Wakulla County Detention Facility (FL) - Oct. 8, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+313
+</td>
+<td style="text-align:left;">
+Washoe County Detention Center (NV) - Aug. 30, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+83
+</td>
+<td style="text-align:left;">
+Washoe County Detention Centerr (NV) - Oct. 15, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10
+</td>
+<td style="text-align:left;">
+Webb County Detention Center (TX) - Feb. 3, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+261
+</td>
+<td style="text-align:left;">
+Webb County Detention Center (TX) - Feb. 7, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+117
+</td>
+<td style="text-align:left;">
+Webb County Detention Facility (TX) - Feb. 6, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+198
+</td>
+<td style="text-align:left;">
+West Texas Detention Facility (TX) - Aug. 8, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+314
+</td>
+<td style="text-align:left;">
+West Texas Detention Facility (TX) - Aug. 9, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+99
+</td>
+<td style="text-align:left;">
+West Texas Detention Facility (TX) - Sep. 29, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+128
+</td>
+<td style="text-align:left;">
+Western Tennessee Detention Facility (TN) - Jan. 16, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+186
+</td>
+<td style="text-align:left;">
+Willacy County Regional Detention Facility (TX) - Sep. 12, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+306
+</td>
+<td style="text-align:left;">
+Willacy County Regional Detention Facility (TX) - Sep. 13, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+84
+</td>
+<td style="text-align:left;">
+Willacy County Regional Detention Facility (TX) - Oct. 7, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+172
+</td>
+<td style="text-align:left;">
+Winn Correctional Center (LA) - Oct. 10, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+85
+</td>
+<td style="text-align:left;">
+Winn Correctional Center (LA) - Oct. 19, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+199
+</td>
+<td style="text-align:left;">
+Worcester County Jail (MD) - Aug. 15, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+315
+</td>
+<td style="text-align:left;">
+Worcester County Jail (MD) - Aug. 16, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+11
+</td>
+<td style="text-align:left;">
+Worcester County Jail (MD) - Feb. 3, 2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41
+</td>
+<td style="text-align:left;">
+York County Prison (PA) - Dec. 11, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:left;">
+York County Prison (PA) - Oct. 18, 2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+173
+</td>
+<td style="text-align:left;">
+York County Prison (PA) - Oct. 18, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+42
+</td>
+<td style="text-align:left;">
+Yuba County Jail (CA) - Dec. 30, 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+157
+</td>
+<td style="text-align:left;">
+Yuba County Jail (CA) - Nov. 15, 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+289
+</td>
+<td style="text-align:left;">
+Yuba County Jail (CA) - Nov. 16, 2018
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The following procedures detail the main facility name cleaning operations. This block of code was converted to a custom function and written to an R file. By doing this, the entire following code block can be called with a single function, or incorporated into an analysis specific pipeline. The cleaning procedures are provided here to show the transformations, but the separate function file can be <a href="https://github.com/n8craig/inspections/blob/main/function_clean_facility_names.R">downloaded</a> directly. Heavy use is made of the <code>dplyr</code> library <span class="citation">(<a href="#ref-R-dplyr" role="doc-biblioref">Wickham, François, et al. 2021</a>)</span> <code>mutate</code> function in combination with the <code>stringr</code> library <span class="citation">(<a href="#ref-R-stringr" role="doc-biblioref">Wickham 2019</a>)</span> functions <code>str_replace_all</code> and <code>replace</code> functions. All of these are part of the <code>tidyverse</code> <span class="citation">(<a href="#ref-R-tidyverse" role="doc-biblioref">Wickham 2021</a>)</span> family of libraries.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="appendix-b-data-cleaning.html#cb4-1" aria-hidden="true" tabindex="-1"></a>df_inspect <span class="ot">&lt;-</span> df_inspect <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="appendix-b-data-cleaning.html#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Removing a curious whitespace character that appears</span></span>
+<span id="cb4-3"><a href="appendix-b-data-cleaning.html#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># in more recent facility names</span></span>
+<span id="cb4-4"><a href="appendix-b-data-cleaning.html#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-5"><a href="appendix-b-data-cleaning.html#cb4-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">pattern =</span> <span class="st">&quot; &quot;</span>,</span>
+<span id="cb4-6"><a href="appendix-b-data-cleaning.html#cb4-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">replacement =</span> <span class="st">&quot; &quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-7"><a href="appendix-b-data-cleaning.html#cb4-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-8"><a href="appendix-b-data-cleaning.html#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(.,</span>
+<span id="cb4-9"><a href="appendix-b-data-cleaning.html#cb4-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">col =</span> facility,</span>
+<span id="cb4-10"><a href="appendix-b-data-cleaning.html#cb4-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;facility&quot;</span>,<span class="st">&quot;inspection_date&quot;</span>),</span>
+<span id="cb4-11"><a href="appendix-b-data-cleaning.html#cb4-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">) - &quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-12"><a href="appendix-b-data-cleaning.html#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(.,</span>
+<span id="cb4-13"><a href="appendix-b-data-cleaning.html#cb4-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">col =</span> facility,</span>
+<span id="cb4-14"><a href="appendix-b-data-cleaning.html#cb4-14" aria-hidden="true" tabindex="-1"></a>           <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;facility&quot;</span>,<span class="st">&quot;state&quot;</span>),</span>
+<span id="cb4-15"><a href="appendix-b-data-cleaning.html#cb4-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">(&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-16"><a href="appendix-b-data-cleaning.html#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="appendix-b-data-cleaning.html#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Deal with issues in the file names, state, and inspection date</span></span>
+<span id="cb4-18"><a href="appendix-b-data-cleaning.html#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">facility =</span> <span class="fu">str_trim</span>(facility, <span class="at">side =</span> <span class="st">&quot;both&quot;</span>),</span>
+<span id="cb4-19"><a href="appendix-b-data-cleaning.html#cb4-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">state =</span> <span class="fu">str_trim</span>(state, <span class="at">side =</span> <span class="st">&quot;both&quot;</span>),</span>
+<span id="cb4-20"><a href="appendix-b-data-cleaning.html#cb4-20" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-21"><a href="appendix-b-data-cleaning.html#cb4-21" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Adelanto ICE Processing Center-East&quot;</span>,</span>
+<span id="cb4-22"><a href="appendix-b-data-cleaning.html#cb4-22" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Adelanto ICE Processing Center - East&quot;</span>),</span>
+<span id="cb4-23"><a href="appendix-b-data-cleaning.html#cb4-23" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-24"><a href="appendix-b-data-cleaning.html#cb4-24" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Adelanto ICE Processing Center-West&quot;</span>,</span>
+<span id="cb4-25"><a href="appendix-b-data-cleaning.html#cb4-25" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Adelanto ICE Processing Center - West&quot;</span>),</span>
+<span id="cb4-26"><a href="appendix-b-data-cleaning.html#cb4-26" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-27"><a href="appendix-b-data-cleaning.html#cb4-27" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Allen Parish Detention Facility&quot;</span>,</span>
+<span id="cb4-28"><a href="appendix-b-data-cleaning.html#cb4-28" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Allen Parish Public Safety Complex&quot;</span>),</span>
+<span id="cb4-29"><a href="appendix-b-data-cleaning.html#cb4-29" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-30"><a href="appendix-b-data-cleaning.html#cb4-30" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Berks County Residential Center&quot;</span>,</span>
+<span id="cb4-31"><a href="appendix-b-data-cleaning.html#cb4-31" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Berks Family Residential Center&quot;</span>),</span>
+<span id="cb4-32"><a href="appendix-b-data-cleaning.html#cb4-32" aria-hidden="true" tabindex="-1"></a>         <span class="at">inspection_date =</span> <span class="fu">replace</span>(inspection_date, inspection_date<span class="sc">==</span><span class="st">&quot;Jan. 29 - 31, 2019&quot;</span>, <span class="st">&quot;Jan. 31, 2019&quot;</span>),</span>
+<span id="cb4-33"><a href="appendix-b-data-cleaning.html#cb4-33" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-34"><a href="appendix-b-data-cleaning.html#cb4-34" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Bristol County Jail$&quot;</span>,</span>
+<span id="cb4-35"><a href="appendix-b-data-cleaning.html#cb4-35" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Bristol County Jail and House of Correction&quot;</span>),</span>
+<span id="cb4-36"><a href="appendix-b-data-cleaning.html#cb4-36" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-37"><a href="appendix-b-data-cleaning.html#cb4-37" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Buffalo$&quot;</span>,</span>
+<span id="cb4-38"><a href="appendix-b-data-cleaning.html#cb4-38" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Buffalo Batavia Service Processing Center&quot;</span>),</span>
+<span id="cb4-39"><a href="appendix-b-data-cleaning.html#cb4-39" aria-hidden="true" tabindex="-1"></a>         <span class="at">state =</span> <span class="fu">replace</span>(state, state <span class="sc">==</span> <span class="st">&quot;Batavia) Service Processing Center&quot;</span>, <span class="st">&quot;NY&quot;</span>),</span>
+<span id="cb4-40"><a href="appendix-b-data-cleaning.html#cb4-40" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-41"><a href="appendix-b-data-cleaning.html#cb4-41" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Calhoun County Jail&quot;</span>,</span>
+<span id="cb4-42"><a href="appendix-b-data-cleaning.html#cb4-42" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Calhoun County Correctional Center&quot;</span>),</span>
+<span id="cb4-43"><a href="appendix-b-data-cleaning.html#cb4-43" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-44"><a href="appendix-b-data-cleaning.html#cb4-44" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Clay County Justice Center&quot;</span>,</span>
+<span id="cb4-45"><a href="appendix-b-data-cleaning.html#cb4-45" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Clay County Jail&quot;</span>),</span>
+<span id="cb4-46"><a href="appendix-b-data-cleaning.html#cb4-46" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-47"><a href="appendix-b-data-cleaning.html#cb4-47" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Coastal Bend Detention Facility&quot;</span>,</span>
+<span id="cb4-48"><a href="appendix-b-data-cleaning.html#cb4-48" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Coastal Bend Detention Center&quot;</span>),</span>
+<span id="cb4-49"><a href="appendix-b-data-cleaning.html#cb4-49" aria-hidden="true" tabindex="-1"></a>         <span class="at">state =</span> <span class="fu">replace</span>(state, state <span class="sc">==</span> <span class="st">&quot;David L. Moss Criminal Justice Center)&quot;</span>, <span class="st">&quot;OK&quot;</span>),</span>
+<span id="cb4-50"><a href="appendix-b-data-cleaning.html#cb4-50" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-51"><a href="appendix-b-data-cleaning.html#cb4-51" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Dodge County Detention Center&quot;</span>,</span>
+<span id="cb4-52"><a href="appendix-b-data-cleaning.html#cb4-52" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Dodge County Detention Facility&quot;</span>),</span>
+<span id="cb4-53"><a href="appendix-b-data-cleaning.html#cb4-53" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-54"><a href="appendix-b-data-cleaning.html#cb4-54" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Donald W. Wyatt Detention Center&quot;</span>,</span>
+<span id="cb4-55"><a href="appendix-b-data-cleaning.html#cb4-55" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Donald W. Wyatt Detention Facility&quot;</span>),</span>
+<span id="cb4-56"><a href="appendix-b-data-cleaning.html#cb4-56" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-57"><a href="appendix-b-data-cleaning.html#cb4-57" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Essex County Corrections Facility&quot;</span>,</span>
+<span id="cb4-58"><a href="appendix-b-data-cleaning.html#cb4-58" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Essex County Correctional Facility&quot;</span>),</span>
+<span id="cb4-59"><a href="appendix-b-data-cleaning.html#cb4-59" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-60"><a href="appendix-b-data-cleaning.html#cb4-60" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Farmville Detention Center$&quot;</span>,</span>
+<span id="cb4-61"><a href="appendix-b-data-cleaning.html#cb4-61" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Immigration Centers of America - Farmville&quot;</span>),</span>
+<span id="cb4-62"><a href="appendix-b-data-cleaning.html#cb4-62" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-63"><a href="appendix-b-data-cleaning.html#cb4-63" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Florence SPC&quot;</span>,</span>
+<span id="cb4-64"><a href="appendix-b-data-cleaning.html#cb4-64" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Florence Service Processing Center&quot;</span>),</span>
+<span id="cb4-65"><a href="appendix-b-data-cleaning.html#cb4-65" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-66"><a href="appendix-b-data-cleaning.html#cb4-66" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Houston CDF&quot;</span>,</span>
+<span id="cb4-67"><a href="appendix-b-data-cleaning.html#cb4-67" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Houston Contract Detention Facility&quot;</span>),</span>
+<span id="cb4-68"><a href="appendix-b-data-cleaning.html#cb4-68" aria-hidden="true" tabindex="-1"></a>         <span class="at">state =</span> <span class="fu">replace</span>(state, state <span class="sc">==</span> <span class="st">&quot;Polk)&quot;</span>, <span class="st">&quot;TX&quot;</span>),</span>
+<span id="cb4-69"><a href="appendix-b-data-cleaning.html#cb4-69" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-70"><a href="appendix-b-data-cleaning.html#cb4-70" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Immigration Centers of America$&quot;</span>,</span>
+<span id="cb4-71"><a href="appendix-b-data-cleaning.html#cb4-71" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Immigration Centers of America - Farmville&quot;</span>),</span>
+<span id="cb4-72"><a href="appendix-b-data-cleaning.html#cb4-72" aria-hidden="true" tabindex="-1"></a>         <span class="at">state =</span> <span class="fu">replace</span>(state, state <span class="sc">==</span><span class="st">&quot;ICA&quot;</span>, <span class="st">&quot;VA&quot;</span>),</span>
+<span id="cb4-73"><a href="appendix-b-data-cleaning.html#cb4-73" aria-hidden="true" tabindex="-1"></a>         <span class="at">inspection_date =</span> <span class="fu">replace</span>(inspection_date,</span>
+<span id="cb4-74"><a href="appendix-b-data-cleaning.html#cb4-74" aria-hidden="true" tabindex="-1"></a>                                   inspection_date <span class="sc">==</span> <span class="st">&quot;Farmville Detention Center (FDC) (VA&quot;</span>,</span>
+<span id="cb4-75"><a href="appendix-b-data-cleaning.html#cb4-75" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&quot;Feb. 24, 2021&quot;</span>),</span>
+<span id="cb4-76"><a href="appendix-b-data-cleaning.html#cb4-76" aria-hidden="true" tabindex="-1"></a>         <span class="co"># This one picks a value in the facility col and changes a value in the state col</span></span>
+<span id="cb4-77"><a href="appendix-b-data-cleaning.html#cb4-77" aria-hidden="true" tabindex="-1"></a>         <span class="at">state =</span> <span class="fu">replace</span>(state, facility <span class="sc">==</span> <span class="st">&quot;Immigration Centers of America - Farmville&quot;</span>,</span>
+<span id="cb4-78"><a href="appendix-b-data-cleaning.html#cb4-78" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;VA&quot;</span>),</span>
+<span id="cb4-79"><a href="appendix-b-data-cleaning.html#cb4-79" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-80"><a href="appendix-b-data-cleaning.html#cb4-80" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Joe Corley Detention Facility&quot;</span>,</span>
+<span id="cb4-81"><a href="appendix-b-data-cleaning.html#cb4-81" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Joe Corley Processing Center&quot;</span>),</span>
+<span id="cb4-82"><a href="appendix-b-data-cleaning.html#cb4-82" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-83"><a href="appendix-b-data-cleaning.html#cb4-83" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Karnes County Residential Center&quot;</span>,</span>
+<span id="cb4-84"><a href="appendix-b-data-cleaning.html#cb4-84" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Karnes County Family Residential Center&quot;</span>),</span>
+<span id="cb4-85"><a href="appendix-b-data-cleaning.html#cb4-85" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-86"><a href="appendix-b-data-cleaning.html#cb4-86" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Krome SPC&quot;</span>,</span>
+<span id="cb4-87"><a href="appendix-b-data-cleaning.html#cb4-87" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Krome Service Procesing Center&quot;</span>),</span>
+<span id="cb4-88"><a href="appendix-b-data-cleaning.html#cb4-88" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-89"><a href="appendix-b-data-cleaning.html#cb4-89" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Krome Special Processing Center&quot;</span>,</span>
+<span id="cb4-90"><a href="appendix-b-data-cleaning.html#cb4-90" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Krome Service Procesing Center&quot;</span>),</span>
+<span id="cb4-91"><a href="appendix-b-data-cleaning.html#cb4-91" aria-hidden="true" tabindex="-1"></a>         <span class="at">state =</span> <span class="fu">replace</span>(state, state <span class="sc">==</span><span class="st">&quot;SPC)&quot;</span>, <span class="st">&quot;FL&quot;</span>),</span>
+<span id="cb4-92"><a href="appendix-b-data-cleaning.html#cb4-92" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-93"><a href="appendix-b-data-cleaning.html#cb4-93" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Mesa Verde Detention Facility&quot;</span>,</span>
+<span id="cb4-94"><a href="appendix-b-data-cleaning.html#cb4-94" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Mesa Verde ICE Processing Facility&quot;</span>),</span>
+<span id="cb4-95"><a href="appendix-b-data-cleaning.html#cb4-95" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-96"><a href="appendix-b-data-cleaning.html#cb4-96" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Northwest Contract Detention Center&quot;</span>,</span>
+<span id="cb4-97"><a href="appendix-b-data-cleaning.html#cb4-97" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Northwest ICE Processing Center&quot;</span>),</span>
+<span id="cb4-98"><a href="appendix-b-data-cleaning.html#cb4-98" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-99"><a href="appendix-b-data-cleaning.html#cb4-99" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Northwest Detention Center&quot;</span>,</span>
+<span id="cb4-100"><a href="appendix-b-data-cleaning.html#cb4-100" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Northwest ICE Processing Center&quot;</span>),</span>
+<span id="cb4-101"><a href="appendix-b-data-cleaning.html#cb4-101" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-102"><a href="appendix-b-data-cleaning.html#cb4-102" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Okmulgee County Jail-Moore Detention Facility&quot;</span>,</span>
+<span id="cb4-103"><a href="appendix-b-data-cleaning.html#cb4-103" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Okmulgee County Jail - Moore Detention Facility&quot;</span>),</span>
+<span id="cb4-104"><a href="appendix-b-data-cleaning.html#cb4-104" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-105"><a href="appendix-b-data-cleaning.html#cb4-105" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Orange County Jail&quot;</span>,</span>
+<span id="cb4-106"><a href="appendix-b-data-cleaning.html#cb4-106" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Orange County Correctional Facility&quot;</span>),</span>
+<span id="cb4-107"><a href="appendix-b-data-cleaning.html#cb4-107" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-108"><a href="appendix-b-data-cleaning.html#cb4-108" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Otay Mesa Detention Facility&quot;</span>,</span>
+<span id="cb4-109"><a href="appendix-b-data-cleaning.html#cb4-109" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Otay Mesa Detention Center&quot;</span>),</span>
+<span id="cb4-110"><a href="appendix-b-data-cleaning.html#cb4-110" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-111"><a href="appendix-b-data-cleaning.html#cb4-111" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Prarieland Detention Center&quot;</span>,</span>
+<span id="cb4-112"><a href="appendix-b-data-cleaning.html#cb4-112" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Prairieland Detention Center&quot;</span>),</span>
+<span id="cb4-113"><a href="appendix-b-data-cleaning.html#cb4-113" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-114"><a href="appendix-b-data-cleaning.html#cb4-114" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Richwood Correcrtional Center&quot;</span>,</span>
+<span id="cb4-115"><a href="appendix-b-data-cleaning.html#cb4-115" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Richwood Correctional Center&quot;</span>),</span>
+<span id="cb4-116"><a href="appendix-b-data-cleaning.html#cb4-116" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-117"><a href="appendix-b-data-cleaning.html#cb4-117" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Rio Grande Processing Center&quot;</span>,</span>
+<span id="cb4-118"><a href="appendix-b-data-cleaning.html#cb4-118" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Rio Grande Detention Center&quot;</span>),</span>
+<span id="cb4-119"><a href="appendix-b-data-cleaning.html#cb4-119" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-120"><a href="appendix-b-data-cleaning.html#cb4-120" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Robert A. Deyton Correctional Center&quot;</span>,</span>
+<span id="cb4-121"><a href="appendix-b-data-cleaning.html#cb4-121" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Robert A. Deyton Detention Facility&quot;</span>),</span>
+<span id="cb4-122"><a href="appendix-b-data-cleaning.html#cb4-122" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-123"><a href="appendix-b-data-cleaning.html#cb4-123" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Robert A. Deyton Detention Center&quot;</span>,</span>
+<span id="cb4-124"><a href="appendix-b-data-cleaning.html#cb4-124" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Robert A. Deyton Detention Facility&quot;</span>),</span>
+<span id="cb4-125"><a href="appendix-b-data-cleaning.html#cb4-125" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-126"><a href="appendix-b-data-cleaning.html#cb4-126" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^South Texas Detention Complex&quot;</span>,</span>
+<span id="cb4-127"><a href="appendix-b-data-cleaning.html#cb4-127" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;South Texas ICE Processing Center&quot;</span>),</span>
+<span id="cb4-128"><a href="appendix-b-data-cleaning.html#cb4-128" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-129"><a href="appendix-b-data-cleaning.html#cb4-129" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^South Texas Processing Center&quot;</span>,</span>
+<span id="cb4-130"><a href="appendix-b-data-cleaning.html#cb4-130" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;South Texas ICE Processing Center&quot;</span>),</span>
+<span id="cb4-131"><a href="appendix-b-data-cleaning.html#cb4-131" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-132"><a href="appendix-b-data-cleaning.html#cb4-132" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Strafford County Corrections&quot;</span>,</span>
+<span id="cb4-133"><a href="appendix-b-data-cleaning.html#cb4-133" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Strafford County Department of Corrections&quot;</span>),</span>
+<span id="cb4-134"><a href="appendix-b-data-cleaning.html#cb4-134" aria-hidden="true" tabindex="-1"></a>         <span class="at">inspection_date =</span> <span class="fu">replace</span>(inspection_date, state <span class="sc">==</span><span class="st">&quot;CO)- Mar. 31, 2021&quot;</span>, <span class="st">&quot;Mar. 31, 2021&quot;</span>),</span>
+<span id="cb4-135"><a href="appendix-b-data-cleaning.html#cb4-135" aria-hidden="true" tabindex="-1"></a>         <span class="at">state =</span> <span class="fu">replace</span>(state, state <span class="sc">==</span> <span class="st">&quot;CO)- Mar. 31, 2021&quot;</span>, <span class="st">&quot;CO&quot;</span>),</span>
+<span id="cb4-136"><a href="appendix-b-data-cleaning.html#cb4-136" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-137"><a href="appendix-b-data-cleaning.html#cb4-137" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^T. Don Hutto Detention Center$&quot;</span>,</span>
+<span id="cb4-138"><a href="appendix-b-data-cleaning.html#cb4-138" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;T. Don Hutto Residential Center&quot;</span>),</span>
+<span id="cb4-139"><a href="appendix-b-data-cleaning.html#cb4-139" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-140"><a href="appendix-b-data-cleaning.html#cb4-140" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;Tulsa County Jail - David L. Moss Criminal Jutice Center&quot;</span>,</span>
+<span id="cb4-141"><a href="appendix-b-data-cleaning.html#cb4-141" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;David L. Moss Criminal Justice Center&quot;</span>),</span>
+<span id="cb4-142"><a href="appendix-b-data-cleaning.html#cb4-142" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-143"><a href="appendix-b-data-cleaning.html#cb4-143" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Tulsa County Jail$&quot;</span>,</span>
+<span id="cb4-144"><a href="appendix-b-data-cleaning.html#cb4-144" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;David L. Moss Criminal Justice Center&quot;</span>),</span>
+<span id="cb4-145"><a href="appendix-b-data-cleaning.html#cb4-145" aria-hidden="true" tabindex="-1"></a>         <span class="at">state =</span> <span class="fu">replace</span>(state, state <span class="sc">==</span> <span class="st">&quot;David L. Moss Justice Center)&quot;</span>, <span class="st">&quot;OK&quot;</span>),</span>
+<span id="cb4-146"><a href="appendix-b-data-cleaning.html#cb4-146" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-147"><a href="appendix-b-data-cleaning.html#cb4-147" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Washoe County Detention Centerr&quot;</span>,</span>
+<span id="cb4-148"><a href="appendix-b-data-cleaning.html#cb4-148" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Washoe County Detention Center&quot;</span>),</span>
+<span id="cb4-149"><a href="appendix-b-data-cleaning.html#cb4-149" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
+<span id="cb4-150"><a href="appendix-b-data-cleaning.html#cb4-150" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Webb County Detention Facility&quot;</span>,</span>
+<span id="cb4-151"><a href="appendix-b-data-cleaning.html#cb4-151" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Webb County Detention Center&quot;</span>),</span>
+<span id="cb4-152"><a href="appendix-b-data-cleaning.html#cb4-152" aria-hidden="true" tabindex="-1"></a>         )</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; ">
+<table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:df-inspect-after">Table 9.4: </span>Facility Names After Cleaning
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+ID
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Facility
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+25
+</td>
+<td style="text-align:left;">
+Adams County Correctional Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+43
+</td>
+<td style="text-align:left;">
+Adelanto ICE Processing Center - East
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+44
+</td>
+<td style="text-align:left;">
+Adelanto ICE Processing Center - West
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+12
+</td>
+<td style="text-align:left;">
+Alamance County Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+144
+</td>
+<td style="text-align:left;">
+Alamance County Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+301
+</td>
+<td style="text-align:left;">
+Albany County Correctional Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+26
+</td>
+<td style="text-align:left;">
+Allen Parish Public Safety Complex
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+322
+</td>
+<td style="text-align:left;">
+Atlanta City Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+14
+</td>
+<td style="text-align:left;">
+Aurora ICE Processing Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+13
+</td>
+<td style="text-align:left;">
+Aurora ICE Processing Center II - Annex
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+45
+</td>
+<td style="text-align:left;">
+Baker County Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+Bergen County Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+130
+</td>
+<td style="text-align:left;">
+Berks Family Residential Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+60
+</td>
+<td style="text-align:left;">
+Bluebonnet Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:left;">
+Boone County Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+131
+</td>
+<td style="text-align:left;">
+Bossier Parish Corrections Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+46
+</td>
+<td style="text-align:left;">
+Bristol County Jail and House of Correction
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+108
+</td>
+<td style="text-align:left;">
+Brooks County Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+86
+</td>
+<td style="text-align:left;">
+Broward Transitional Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+235
+</td>
+<td style="text-align:left;">
+Buffalo Batavia Service Processing Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+15
+</td>
+<td style="text-align:left;">
+Butler County Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+280
+</td>
+<td style="text-align:left;">
+Cache County Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+333
+</td>
+<td style="text-align:left;">
+Caldwell County Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+101
+</td>
+<td style="text-align:left;">
+Calhoun County Correctional Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+148
+</td>
+<td style="text-align:left;">
+Cambria County Prison
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+87
+</td>
+<td style="text-align:left;">
+Caroline Detention Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+132
+</td>
+<td style="text-align:left;">
+Carver County Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+175
+</td>
+<td style="text-align:left;">
+Cass County Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+61
+</td>
+<td style="text-align:left;">
+Catahoula Correctional Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+47
+</td>
+<td style="text-align:left;">
+CCA Florence Correctional Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+188
+</td>
+<td style="text-align:left;">
+Central Arizona Florence Correctional Complex
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+16
+</td>
+<td style="text-align:left;">
+Chase County Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+246
+</td>
+<td style="text-align:left;">
+Chippewa County Correctional Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+17
+</td>
+<td style="text-align:left;">
+Christian County Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+27
+</td>
+<td style="text-align:left;">
+Cibola County Correctional Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+62
+</td>
+<td style="text-align:left;">
+Clay County Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+48
+</td>
+<td style="text-align:left;">
+Clinton County Correctional Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+292
+</td>
+<td style="text-align:left;">
+Clinton County Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+118
+</td>
+<td style="text-align:left;">
+Coastal Bend Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+116
+</td>
+<td style="text-align:left;">
+David L. Moss Criminal Justice Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+119
+</td>
+<td style="text-align:left;">
+DeKalb County Detention Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+63
+</td>
+<td style="text-align:left;">
+Desert View Annex
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+64
+</td>
+<td style="text-align:left;">
+Dodge County Detention Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+49
+</td>
+<td style="text-align:left;">
+Donald W. Wyatt Detention Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+102
+</td>
+<td style="text-align:left;">
+Dorchester County Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+160
+</td>
+<td style="text-align:left;">
+Douglas County Department of Corrections
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+65
+</td>
+<td style="text-align:left;">
+East Hidalgo Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+28
+</td>
+<td style="text-align:left;">
+Eden Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+29
+</td>
+<td style="text-align:left;">
+El Paso Service Processing Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+30
+</td>
+<td style="text-align:left;">
+El Valle Detention Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+88
+</td>
+<td style="text-align:left;">
+Elizabeth Contract Detention Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+Eloy Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+66
+</td>
+<td style="text-align:left;">
+Essex County Correctional Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+67
+</td>
+<td style="text-align:left;">
+Etowah County Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+50
+</td>
+<td style="text-align:left;">
+Florence Service Processing Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+69
+</td>
+<td style="text-align:left;">
+Folkston ICE Processing Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+68
+</td>
+<td style="text-align:left;">
+Folkston ICE Processing Center Annex
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+202
+</td>
+<td style="text-align:left;">
+Frederick County Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+89
+</td>
+<td style="text-align:left;">
+Freeborn County Adult Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+31
+</td>
+<td style="text-align:left;">
+Geauga County Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+Glades County Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+70
+</td>
+<td style="text-align:left;">
+Golden State Annex
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+336
+</td>
+<td style="text-align:left;">
+Grand Forks County Correctional Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+90
+</td>
+<td style="text-align:left;">
+Hall County Department of Corrections
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+51
+</td>
+<td style="text-align:left;">
+Hardin County Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+52
+</td>
+<td style="text-align:left;">
+Henderson Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+18
+</td>
+<td style="text-align:left;">
+Houston Contract Detention Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+32
+</td>
+<td style="text-align:left;">
+Howard County Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+71
+</td>
+<td style="text-align:left;">
+Hudson County Corrections and Rehabilitation Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+265
+</td>
+<td style="text-align:left;">
+IAH Secure Adult Detention Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+Immigration Centers of America - Farmville
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+19
+</td>
+<td style="text-align:left;">
+Imperial Regional Detention Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+91
+</td>
+<td style="text-align:left;">
+Irwin County Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+53
+</td>
+<td style="text-align:left;">
+Jackson Parish Correctional Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+297
+</td>
+<td style="text-align:left;">
+James A. Musick Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+72
+</td>
+<td style="text-align:left;">
+Jena LaSalle Detention Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+54
+</td>
+<td style="text-align:left;">
+Jerome Combs Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+33
+</td>
+<td style="text-align:left;">
+Joe Corley Processing Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+92
+</td>
+<td style="text-align:left;">
+Johnson County Corrections Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+205
+</td>
+<td style="text-align:left;">
+Kandiyohi County Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+111
+</td>
+<td style="text-align:left;">
+Karnes County Family Residential Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+73
+</td>
+<td style="text-align:left;">
+Kay County Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+218
+</td>
+<td style="text-align:left;">
+Kenosha County Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+370
+</td>
+<td style="text-align:left;">
+Krome North Service Processing Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:left;">
+Krome Service Procesing Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+55
+</td>
+<td style="text-align:left;">
+La Palma Correctional Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+74
+</td>
+<td style="text-align:left;">
+Laredo Processing Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+152
+</td>
+<td style="text-align:left;">
+LaSalle Correctional Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+75
+</td>
+<td style="text-align:left;">
+LaSalle County Regional Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+181
+</td>
+<td style="text-align:left;">
+LaSalle ICE Processing Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+93
+</td>
+<td style="text-align:left;">
+Limestone County Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+221
+</td>
+<td style="text-align:left;">
+Linn County Correctional Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+296
+</td>
+<td style="text-align:left;">
+Marshall County Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+94
+</td>
+<td style="text-align:left;">
+McHenry County Adult Correctional Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+76
+</td>
+<td style="text-align:left;">
+Mesa Verde ICE Processing Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+309
+</td>
+<td style="text-align:left;">
+Monroe County Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+34
+</td>
+<td style="text-align:left;">
+Monroe County Inmate Dormitory
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+207
+</td>
+<td style="text-align:left;">
+Monroe County Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+153
+</td>
+<td style="text-align:left;">
+Montgomery County Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+35
+</td>
+<td style="text-align:left;">
+Montgomery Processing Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+56
+</td>
+<td style="text-align:left;">
+Morgan County Adult Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+Morrow County Correctional Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+208
+</td>
+<td style="text-align:left;">
+Natchitoches Parish Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+209
+</td>
+<td style="text-align:left;">
+Nevada Southern Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+337
+</td>
+<td style="text-align:left;">
+Nobles County Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+248
+</td>
+<td style="text-align:left;">
+Northeast Ohio Correctional Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+166
+</td>
+<td style="text-align:left;">
+Northern Oregon Correctional Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+36
+</td>
+<td style="text-align:left;">
+Northwest ICE Processing Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+57
+</td>
+<td style="text-align:left;">
+Nye County Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+95
+</td>
+<td style="text-align:left;">
+Okmulgee County Jail - Moore Detention Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+77
+</td>
+<td style="text-align:left;">
+Orange County Correctional Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+7
+</td>
+<td style="text-align:left;">
+Otay Mesa Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+20
+</td>
+<td style="text-align:left;">
+Otero County Processing Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+210
+</td>
+<td style="text-align:left;">
+Phelps County Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+78
+</td>
+<td style="text-align:left;">
+Pike County Correctional Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+58
+</td>
+<td style="text-align:left;">
+Pine Prairie ICE Processing Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+137
+</td>
+<td style="text-align:left;">
+Platte County Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+37
+</td>
+<td style="text-align:left;">
+Plymouth County Correctional Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+21
+</td>
+<td style="text-align:left;">
+Polk County Adult Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+211
+</td>
+<td style="text-align:left;">
+Polk County Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+22
+</td>
+<td style="text-align:left;">
+Port Isabel Service Processing Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+8
+</td>
+<td style="text-align:left;">
+Prairieland Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+104
+</td>
+<td style="text-align:left;">
+Pulaski County Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+79
+</td>
+<td style="text-align:left;">
+Richwood Correctional Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+105
+</td>
+<td style="text-align:left;">
+Rio Grande Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+106
+</td>
+<td style="text-align:left;">
+River Correctional Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+38
+</td>
+<td style="text-align:left;">
+Robert A. Deyton Detention Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+80
+</td>
+<td style="text-align:left;">
+Rolling Plains Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+96
+</td>
+<td style="text-align:left;">
+Saint Clair County Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+59
+</td>
+<td style="text-align:left;">
+San Luis Regional Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+23
+</td>
+<td style="text-align:left;">
+Seneca County Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+183
+</td>
+<td style="text-align:left;">
+Shawnee County Department of Corrections - Adult Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+24
+</td>
+<td style="text-align:left;">
+Sherburne County Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+139
+</td>
+<td style="text-align:left;">
+Sheriff Al Cannon Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+39
+</td>
+<td style="text-align:left;">
+South Louisiana ICE Processing Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+114
+</td>
+<td style="text-align:left;">
+South Texas Family Residential Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9
+</td>
+<td style="text-align:left;">
+South Texas ICE Processing Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+225
+</td>
+<td style="text-align:left;">
+St. Clair County Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+97
+</td>
+<td style="text-align:left;">
+Stewart Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+40
+</td>
+<td style="text-align:left;">
+Strafford County Department of Corrections
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+234
+</td>
+<td style="text-align:left;">
+Suffolk County House of Correction
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+184
+</td>
+<td style="text-align:left;">
+T. Don Hutto Residential Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+195
+</td>
+<td style="text-align:left;">
+Tallahatchie County Correctional Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+81
+</td>
+<td style="text-align:left;">
+Teller County Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+288
+</td>
+<td style="text-align:left;">
+Theo Lacy Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+98
+</td>
+<td style="text-align:left;">
+Torrance County Detention Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+185
+</td>
+<td style="text-align:left;">
+Val Verde Correctional Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+340
+</td>
+<td style="text-align:left;">
+Virginia Peninsula Regional Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+82
+</td>
+<td style="text-align:left;">
+Wakulla County Detention Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+83
+</td>
+<td style="text-align:left;">
+Washoe County Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10
+</td>
+<td style="text-align:left;">
+Webb County Detention Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+99
+</td>
+<td style="text-align:left;">
+West Texas Detention Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+128
+</td>
+<td style="text-align:left;">
+Western Tennessee Detention Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+84
+</td>
+<td style="text-align:left;">
+Willacy County Regional Detention Facility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+85
+</td>
+<td style="text-align:left;">
+Winn Correctional Center
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+11
+</td>
+<td style="text-align:left;">
+Worcester County Jail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41
+</td>
+<td style="text-align:left;">
+York County Prison
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+42
+</td>
+<td style="text-align:left;">
+Yuba County Jail
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div class="csl-entry">
+Bryan, Jennifer. 2021. <em>Googlesheets4: Access Google Sheets Using the Sheets API V4</em>. <a href="https://github.com/tidyverse/googlesheets4">https://github.com/tidyverse/googlesheets4</a>.
+</div>
+<div class="csl-entry">
+<span>“Department of Homeland Security Appropriations Bill, 2018.”</span> 2017. <a href="https://www.congress.gov/congressional-report/115th-congress/house-report/239/1">https://www.congress.gov/congressional-report/115th-congress/house-report/239/1</a>.
+</div>
+<div class="csl-entry">
+Dooling, Shannon. 2020. <span>“ICE Detainees Hospitalized, Sheriff Reports ’Extensive Damage’ After Coronavirus-Based Incident in Bristol County Jail.”</span> <a href="https://www.wbur.org/news/2020/05/01/coronavirus-ice-detainees-massachusetts-detention">https://www.wbur.org/news/2020/05/01/coronavirus-ice-detainees-massachusetts-detention</a>.
+</div>
+<div class="csl-entry">
+ICE, and The Nakamoto Group. 2020. <span>“Bristol County Jail and House of Correction (MA) Inspection, May 18, 2020.”</span> Washington D. C. <a href="https://www.ice.gov/doclib/facilityInspections/bristolCoJail_CL_11-18-2020.pdf; https://www.ice.gov/doclib/facilityInspections/bristolCoJail_SIS_11-18-2020.pdf">https://www.ice.gov/doclib/facilityInspections/bristolCoJail_CL_11-18-2020.pdf; https://www.ice.gov/doclib/facilityInspections/bristolCoJail_SIS_11-18-2020.pdf</a>.
+</div>
+<div class="csl-entry">
+MA AG. 2020a. <span>“Investigation into the Events of May 1, 2020 at the c. Carlos Carreiro Immigration Detention Center, Unit b, Bristol County Sheriff<span>’</span>s Office.”</span> Boston, MA. <a href="https://www.mass.gov/doc/ago-report-into-bcso-response-to-may-1-disturbance/download">https://www.mass.gov/doc/ago-report-into-bcso-response-to-may-1-disturbance/download</a>.
+</div>
+<div class="csl-entry">
+———. 2020b. <span>“Investigation into the Events of May 1, 2020 at the c. Carlos Carreiro Immigration Detention Center, Unit b, Bristol County Sheriff<span>’</span>s Office.”</span> Boston, MA. <a href="https://www.mass.gov/doc/ago-report-into-bcso-response-to-may-1-disturbance/download">https://www.mass.gov/doc/ago-report-into-bcso-response-to-may-1-disturbance/download</a>.
+</div>
+<div class="csl-entry">
+NIJC. 2015. <span>“Lives in Peril: How Ineffective Inspections Make ICE Complicit in Immigration Detention Abuse.”</span> Washington D. C. <a href="http://immigrantjustice.org/lives-peril-how-ineffective-inspections-make-ice-complicit-detention-center-abuse-0">http://immigrantjustice.org/lives-peril-how-ineffective-inspections-make-ice-complicit-detention-center-abuse-0</a>.
+</div>
+<div class="csl-entry">
+R Core Team. 2021. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+<div class="csl-entry">
+Spinu, Vitalie, Garrett Grolemund, and Hadley Wickham. 2021. <em>Lubridate: Make Dealing with Dates a Little Easier</em>. <a href="https://CRAN.R-project.org/package=lubridate">https://CRAN.R-project.org/package=lubridate</a>.
+</div>
+<div class="csl-entry">
+Stodden, Victoria, Friedrich Leisch, and Roger D. Peng, eds. 2014. <em>Implementing Reproducible Research</em>. The r Series. Boca Raton: CRC Press, Taylor &amp; Francis Group.
+</div>
+<div class="csl-entry">
+Swetlitz, Ike. 2020. <span>“’Suddenly They Started Gassing Us’: Cuban Migrants Tell of Shocking Attack at ICE Prison.”</span> <a href="https://www.theguardian.com/us-news/2020/jul/02/cuban-migrants-detention-ice-facility-new-mexico">https://www.theguardian.com/us-news/2020/jul/02/cuban-migrants-detention-ice-facility-new-mexico</a>.
+</div>
+<div class="csl-entry">
+Wickham, Hadley. 2019. <em>Stringr: Simple, Consistent Wrappers for Common String Operations</em>. <a href="https://CRAN.R-project.org/package=stringr">https://CRAN.R-project.org/package=stringr</a>.
+</div>
+<div class="csl-entry">
+———. 2021. <em>Tidyverse: Easily Install and Load the Tidyverse</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>.
+</div>
+<div class="csl-entry">
+Wickham, Hadley, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, and Dewey Dunnington. 2021. <em>Ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics</em>. <a href="https://CRAN.R-project.org/package=ggplot2">https://CRAN.R-project.org/package=ggplot2</a>.
+</div>
+<div class="csl-entry">
+Wickham, Hadley, Romain François, Lionel Henry, and Kirill Müller. 2021. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>.
+</div>
+<div class="csl-entry">
+Wickham, Hadley, and Jim Hester. 2020. <em>Readr: Read Rectangular Text Data</em>. <a href="https://CRAN.R-project.org/package=readr">https://CRAN.R-project.org/package=readr</a>.
+</div>
+<div class="csl-entry">
+Yu, Bin, and Karl Kumbier. 2020. <span>“Veridical Data Science.”</span> <em>Proceedings of the National Academy of Sciences</em> 117 (8): 3920–29. <a href="https://doi.org/10.1073/pnas.1901326117">https://doi.org/10.1073/pnas.1901326117</a>.
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-R-stringr" class="csl-entry">
+Wickham, Hadley. 2019. <em>Stringr: Simple, Consistent Wrappers for Common String Operations</em>. <a href="https://CRAN.R-project.org/package=stringr">https://CRAN.R-project.org/package=stringr</a>.
+</div>
+<div id="ref-R-tidyverse" class="csl-entry">
+———. 2021. <em>Tidyverse: Easily Install and Load the Tidyverse</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>.
+</div>
+<div id="ref-R-dplyr" class="csl-entry">
+Wickham, Hadley, Romain François, Lionel Henry, and Kirill Müller. 2021. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="appendix-a-reading-in-sis-forms.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/n8craig/inspections/edit/master/Ch-Appendix.Rmd",
+"text": "Suggest an edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/n8craig/inspections/blob/master/Ch-Appendix.Rmd",
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+},
+"code_download": true
+});
+});
+</script>
+
+</body>
+
+</html>

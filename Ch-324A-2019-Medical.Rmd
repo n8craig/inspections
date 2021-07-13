@@ -1,0 +1,465 @@
+# Medical
+
+```{r setup-9, include=FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+options(scipen=999)
+```
+
+```{r load-libraries-9, message=FALSE}
+# Plotting
+library(ggplot2)
+library(RColorBrewer)
+
+# Tables
+library(kableExtra)
+
+load("data/data.RData")
+```
+
+## Medical Observation
+
+### Summary Tables
+
+```{r medical-observation-summary}
+df_observation %>% 
+  group_by(medical_mental_observation_type) %>% 
+  summarise(`Total Observation by Type` = sum(medical_mental_observation_count, na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Medical/Mental Observation by Type",
+        col.names = c("Type", "Total")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"))
+
+df_observation %>% 
+  group_by(facility) %>% 
+  summarise(total_observation = sum(medical_mental_observation_count, na.rm = TRUE)) %>% 
+  arrange(desc(total_observation)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Medical/Mental Observations by Facility",
+        col.names = c("Facility", "Total")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  scroll_box(height = "300px")
+```
+
+### Facet Plot of Medical Mental Observation by Facility
+
+```{r medical-mental-observation-facet, fig.height=40}
+# Generating a linetype vector for use in the plot
+plot_lines <- c(
+    "solid",
+    "solid",
+    "dotted"
+    )
+
+# Use Color Brewer to set colors
+plot_colors <- brewer.pal(3, "Paired")
+plot_colors[3] <- "#000000"
+
+# Create plot labels
+plot_labels <- c(
+    "Detainees in Medical Observation",
+    "Detainees in Mental Health Observation",
+    "Total Individuals in Medical or Mental Health Observation")
+
+df_observation %>% 
+
+  # Calling the plot and formatting
+  ggplot(aes(x=date, y = medical_mental_observation_count, linetype=medical_mental_observation_type))+
+  geom_line(aes(color = medical_mental_observation_type),size=.65) +
+  
+  # Set the linetype
+  scale_linetype_manual(
+    values = plot_lines,
+    labels = plot_labels,
+    name = "Observation Type:",
+    guide = guide_legend(nrow = 3)
+    )+
+  
+  # Set the color
+  scale_color_manual(values = plot_colors,
+                     labels = plot_labels,
+                     name = "Observation Type:",)+
+
+  labs(title = "Medical and Mental Health Observation")+
+  ylab("Number of Individuals in Observation")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 8),
+    legend.position = "bottom"
+    )+
+
+  # Set the legend to multiple rows
+  guides(col = guide_legend(nrow =3))+
+  
+  # Wrap
+  facet_wrap(~ facility, ncol=3)
+  
+```
+
+## Infections Disease
+
+### Summary Table
+
+```{r infectious-disease-summary}
+
+df_infectious %>% 
+  group_by(infectious_disease_type) %>% 
+  summarise(`Total by Type` = sum(infectious_disease_count, na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total by Type",
+        col.names = c("Type", "Total")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"))
+
+df_infectious %>% 
+  group_by(facility) %>% 
+  summarise(total_infectious = sum(infectious_disease_count, na.rm = TRUE)) %>% 
+  arrange(desc(total_infectious)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total by Facility",
+        col.names = c("Facility", "Total")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  scroll_box(height = "300px")
+
+
+```
+
+### Facet Plot of Infectious Disease by Facility
+
+```{r infectious-disease-facet, fig.height=40}
+# Generating a linetype vector for use in the plot
+plot_lines <- c(
+    "solid",
+    "solid"
+    )
+
+# Use Color Brewer to set colors
+plot_colors <- brewer.pal(2, "Paired")
+
+# Create plot labels
+plot_labels <- c(
+    "Infectious Disease Reported",
+    "Infectious Disease Confirmed")
+
+df_infectious %>% 
+  
+  # Calling the plot and formatting
+  ggplot(aes(x=date, y = infectious_disease_count, linetype=infectious_disease_type))+
+  geom_line(aes(color = infectious_disease_type),size=.65) +
+  
+  # Set the linetype
+  scale_linetype_manual(
+    values = plot_lines,
+    labels = plot_labels,
+    name = "Category:",
+    guide = guide_legend(nrow = 2)
+    )+
+  
+  # Set the color
+  scale_color_manual(values = plot_colors,
+    labels = plot_labels,
+    name = "Category:")+
+
+  labs(title = "Infectious Diseases Reported and Confirmed")+
+  ylab("Count")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 8),
+    legend.position = "bottom"
+    )+
+
+  # Set the legend to multiple rows
+  guides(col = guide_legend(nrow =3))+
+  
+  # Wrap
+  facet_wrap(~ facility, ncol=3)
+```
+
+## Medical and Mental Health Referrals
+
+```{r referrals-summary}
+df_referrals %>% 
+  group_by(referral_type) %>% 
+  summarise(`Total Referral by Type` = sum(referral_count, na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Referrals by Type",
+        col.names = c("Type", "Total")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"))
+
+df_referrals %>% 
+  group_by(facility) %>% 
+  summarise(total_referral = sum(referral_count, na.rm = TRUE)) %>% 
+  arrange(desc(total_referral)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Referrals by Facility",
+        col.names = c("Facility", "Total")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  scroll_box(height = "300px")
+```
+
+```{r referrals-facet, fig.height=40}
+# Generating a linetype vector for use in the plot
+plot_lines <- c(
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "dotted"
+    )
+
+# Use Color Brewer to set colors
+plot_colors <- brewer.pal(5, "Paired")
+plot_colors[5] <- "#000000"
+
+# Create plot labels
+plot_labels <- c(
+    "Outside Medical Referrals",
+    "Detainees Transported to Off-Site Hospitals for Emergency Reasons",
+    "Admissions to Off-Site Hospitals for Medical Reasons",
+    "Admissions to Off-Site Hospitals for Mental Health Reasons",
+    "Total Referrals")
+
+df_referrals %>% 
+  # Calling the plot and formatting
+  ggplot(aes(x=date, y = referral_count, linetype=referral_type))+
+  geom_line(aes(color = referral_type),size=.65) +
+  
+  # Set the linetype
+  scale_linetype_manual(
+    values = plot_lines,
+    labels = plot_labels,
+    name = "Referral Type:",
+    guide = guide_legend(nrow = 5)
+    )+
+  
+  # Set the color
+  scale_color_manual(values = plot_colors,
+    labels = plot_labels,
+    name = "Referral Type:")+
+
+  labs(title = "Medical and Mental Health Referrals")+
+  ylab("Number of Referrals")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 8),
+    legend.position = "bottom"
+    )+
+
+  # Set the legend to multiple rows
+  guides(col = guide_legend(nrow =5))+
+  
+  # Wrap
+  facet_wrap(~ facility, ncol=3)
+```
+
+## Sick Call Requests and Encounters
+
+```{r sick-calls-summary}
+df_sick_call %>% 
+  group_by(sick_call_type) %>% 
+  summarise(`Total Sick Call by Type` = sum(sick_call_count, na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Sick Call by Type",
+        col.names = c("Type", "Total")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"))
+
+df_sick_call %>% 
+  group_by(facility) %>% 
+  summarise(total_sick_call = sum(sick_call_count, na.rm = TRUE)) %>% 
+  arrange(desc(total_sick_call)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Sick Call Requests/Encounters by Facility",
+        col.names = c("Facility", "Total")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  scroll_box(height = "300px")
+```
+
+```{r sick-calls-plot, fig.height=40}
+# Generating a linetype vector for use in the plot
+plot_lines <- c(
+    "solid",
+    "solid",
+    "dotted"
+    )
+
+# Use Color Brewer to set colors
+plot_colors <- brewer.pal(3, "Paired")
+plot_colors[3] <- "#000000"
+
+# Create labels
+plot_labels <- c(
+    "Sick Call Requests",
+    "Sick Call Encounters",
+    "Total Sick Calls")
+
+df_324_inc %>%
+  
+  # Subset the df to only the used cols
+  select(id, facility, date,
+       sick_call_requests:
+       sick_call_encounters
+       ) %>% 
+  
+  # Need the rowwise function to compute a row-at-a-time
+  # in the following mutate function
+  rowwise(id) %>% 
+  
+  # Create a new total column
+  mutate(total_sick_calls = sum(c_across(
+       sick_call_requests:
+       sick_call_encounters
+  ), na.rm = TRUE)) %>% 
+
+  # Call a range of table columns and pivot long
+  pivot_longer(.,
+               cols=  sick_call_requests:total_sick_calls,
+               names_to = "sick_call_type",
+               values_to = "sick_call_count") %>%
+  
+  # Remove NA values
+  drop_na() %>% 
+  
+  # Explicitly define factor levels
+  mutate(sick_call_type = factor(sick_call_type, levels = c(
+    "sick_call_requests",
+    "sick_call_encounters",
+    "total_sick_calls"
+  ))) %>% 
+  
+  # Calling the plot and formatting
+  ggplot(aes(x=date, y = sick_call_count, linetype=sick_call_type))+
+  geom_line(aes(color = sick_call_type),size=.65) +
+  
+  # Set the linetype
+  scale_linetype_manual(
+    values = plot_lines,
+    labels = plot_labels,
+    name = "Sick Call Type:",
+    guide = guide_legend(nrow = 3)
+    )+
+  
+  # Set the color
+  scale_color_manual(values = plot_colors,
+    labels = plot_labels,
+    name = "Sick Call Type:")+
+
+  labs(title = "Sick Calls")+
+  ylab("Number of Sick Calls")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 8),
+    legend.position = "bottom"
+    )+
+
+  # Set the legend to multiple rows
+  guides(col = guide_legend(nrow =3))+
+  
+  # Wrap
+  facet_wrap(~ facility, ncol=3)
+```
+
+## Suicide Attempts and Watches
+
+The following shows Suicide Attempts and Suicide Watches based on the status of the data as of `r Sys.Date()`. The numbers are subject to change.
+
+```{r suicide-summary}
+df_suicide %>% 
+  group_by(suicide_type) %>% 
+  summarise(`Total Suicide Attempt or Watch by Type` = sum(suicide_count, na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Suicide Attempt or Watch by Type",
+        col.names = c("Type", "Total")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"))
+
+df_suicide %>% 
+  group_by(facility) %>% 
+  summarise(total = sum(suicide_count, na.rm = TRUE)) %>% 
+  arrange(desc(total)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Suicide Attempt or Watch by Facility",
+        col.names = c("Facility", "Total")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  scroll_box(height = "300px")
+```
+
+```{r suicide-facet, fig.height=40}
+
+# Use Color Brewer to set colors and modify
+# the last color to be black for totals.
+plot_colors <- brewer.pal(2, "Paired")
+
+# Create plot labels
+plot_labels <- c(
+      "Suicide Attempts or Self Harm",
+      "Suicide Watches/Constant Watch/Mental Health Observation")
+
+# Calling the plot and formatting
+df_suicide %>% 
+  ggplot(aes(x=date, y = suicide_count))+
+  geom_line(aes(color=suicide_type), size = .65) +
+  
+  # Set the color
+  scale_color_manual(
+    values = plot_colors,
+    labels = plot_labels,
+    name = "Type:"
+    )+
+  
+  labs(title = "Suicide Attempts and Watches")+
+  ylab("Number of Attempts or Watches")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 5),
+    legend.position = "bottom"
+    )+
+  # Set the legend to multiple rows
+  guides(col = guide_legend(nrow =5))+
+  
+  # Wrap
+  facet_wrap(~ facility, ncol = 3)
+```
+
+## Hunger Strikes
+
+There were `r hunger_strike_sum` at `r hunger_strike_facility_n` facilities, Table \@ref(tab:hunger-strike-summary) provides a breakdown of hunger strikes by facility and Figure \@ref(fig:hunger-strike-facet) is a facet plot of hunger strikes by facility.
+
+```{r hunger-strike-summary}
+df_hunger_strike %>%
+  group_by(facility) %>% 
+  summarise(total_hunger_strike = sum(hunger_strikes, na.rm = TRUE)) %>% 
+  arrange(desc(total_hunger_strike)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Hunger Strikes by Facility",
+        col.names = c("Facility", "Total Hunger Strikes")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  scroll_box(height = "300px")
+```
+
+```{r hunger-strike-facet, fig.height=40, fig.cap="Facet plot of hunger strikes per month by facility."}
+# Use Color Brewer to set colors and modify
+# the last color to be black for totals.
+plot_colors <- brewer.pal(2, "Paired")
+
+df_hunger_strike %>% 
+  
+  # Calling the plot and formatting
+  ggplot(aes(x=date, y = hunger_strikes))+
+  geom_line(size = .65) +
+  
+
+  labs(title = "Hunger Strikes")+
+  ylab("Number of Hunger Strikes")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 5),
+    legend.position = "bottom"
+    )+
+  
+  # Set the legend to multiple rows
+  guides(col = guide_legend(nrow =5))+
+  
+  # Wrap
+  facet_wrap(~ facility, ncol = 3)
+```
