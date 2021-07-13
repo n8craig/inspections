@@ -60,7 +60,7 @@ The ICE G-324A Significant Incident Summary is organized around the following ca
 ### Use of Force
 
 -   There were `r use_force_sum` use of force incidents.
--   Though facilities did not consistently report strip searches as use of force incidents, strip searches constituted `r use_force_strip_search_perc`% (n=`r use_force_strip_search_sum`) of the use of force incidents.
+-   Strip searches constituted `r use_force_strip_search_perc`% (n=`r use_force_strip_search_sum`) of the use of force incidents.
 -   There were `r use_force_chemical_agents_sum` use of force incidents involving chemical agents, making up `r use_force_chemical_agents_perc` of the use of force incidents.
 -   There is reason to believe that use of force incidents are significantly under reported (Section \@ref(under-reporting-use-of-force-incidents)).
 
