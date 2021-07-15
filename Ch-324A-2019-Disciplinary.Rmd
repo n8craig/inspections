@@ -5,7 +5,6 @@ knitr::opts_chunk$set(echo = FALSE)
 options(scipen=999)
 ```
 
-
 ```{r load-libraries-5, message=FALSE}
 # Plotting
 library(ggplot2)
@@ -17,12 +16,30 @@ library(kableExtra)
 load("data/data.RData")
 ```
 
-As a matter of law, ICE detention is not punitive it is purely administrative civil holding to ensure that individuals are present for their immigration proceedings. Despite that fact, there is a tremendous amount of punitive disciplinary measures that take place in ICE detention. Some of this information on discipline in ICE detention is logged in facility inspections. As seen in the tables below, during the current sample period there were more than 42,000 disciplinary infractions.
-
-
-## Summary Tables
-
 ```{r}
+df_discipline_sum <- df_discipline %>% 
+  group_by(facility) %>% 
+  filter(disciplinary_type == "total_disciplinary") %>% 
+  summarise(total_disciplinary_facility = sum(disciplinary_count, na.rm = TRUE)) %>% 
+  arrange(desc(total_disciplinary_facility)) %>% 
+  ungroup
+
+df_discipline_sum <- left_join(df_discipline_sum, df_facility_n_inspect) %>% 
+  mutate(total_disciplinary_by_inspection = round(total_disciplinary_facility / n_inspections, digits = 0)) %>% 
+  relocate(fac_operator:n_inspections, .after= facility)
+
+m_discipline_fac_by_insp <- mean(df_discipline_sum$total_disciplinary_by_inspection)
+sd_discipline_fac_by_insp <- sd(df_discipline_sum$total_disciplinary_by_inspection)
+outlier_discipline_fac_by_insp <- m_discipline_fac_by_insp + 2*sd_discipline_fac_by_insp
+```
+
+As a matter of law, ICE detention is not punitive it is purely administrative civil holding to ensure that individuals are present for their immigration proceedings (REFF). Despite that fact, there is a tremendous amount of punitive disciplinary actions that occur in ICE detention facilities. Some of this information on discipline in ICE detention is logged in facility inspections.
+
+During the `r inspect_sample_interval` covering the period between `r format(inspect_earliest, format= "%B %e, %Y")` and `r format(inspect_latest, format= "%B %e, %Y")`, there were `r disciplinary_sum` disciplinary infractions issued by facility operators (Table \@ref(tab:total-disciplinary-type)). There were an average of `r round(m_discipline_fac_by_insp, digits = 2)` (SD = `r round(sd_discipline_fac_by_insp, digits = 2)`) disciplinary infractions per facility by inspection (Table \@ref(tab:disciplinary-by-facility)).
+
+Four facilities have significantly greater than average number of disciplinary infractions per inspection (Figures \@ref(fig:histogram-disciplinary-by-inspection) and \@ref(fig:disciplinary-greater-than-average-facility)). Of the facilities with greater than average number of disciplinary infractions issued per inspection two are managed by CoreCivic, one is managed by Immigration Centers of America, and one is managed by ICE.
+
+```{r total-disciplinary-type}
 df_discipline %>% 
   group_by(disciplinary_type) %>% 
   summarise(`Total Disciplinary by Type` = sum(disciplinary_count, na.rm = TRUE)) %>% 
@@ -30,17 +47,44 @@ df_discipline %>%
   kable(caption = "Total Disciplinary by Type",
         col.names = c("Discipline Type", "Total Discipline Type")) %>% 
   kable_styling(c("hover", "striped", "condensed", "responsive"))
+```
 
+```{r disciplinary-by-facility}
+color.me <- which(df_discipline_sum$total_disciplinary_by_inspection > outlier_discipline_fac_by_insp)
 
 df_discipline %>% 
   group_by(facility) %>% 
   summarise(total_disciplinary = sum(disciplinary_count, na.rm = TRUE)) %>% 
   arrange(desc(total_disciplinary)) %>% 
   ungroup() %>% 
-  kable(caption = "Total Discipline by Facility",
+  kable(caption = "Total discipline by facility, with facilities having significnatly greater than average number of disciplinary infractions issued per inspection shown in bold.",
         col.names = c("Facility", "Total Discipline by Facility")) %>% 
   kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  row_spec(color.me, bold = TRUE) %>% 
   scroll_box(height = "300px")
+  
+```
+
+```{r histogram-disciplinary-by-inspection, fig.cap="Histogram of disciplinary infractions issued by inspection highlighting facilities that have significantly higher than average number of disciplinary infractions issued per inspection."}
+df_discipline_sum %>% 
+  ggplot(aes(x = total_disciplinary_by_inspection, fill = facility))+
+  geom_histogram()+
+  gghighlight(max(total_disciplinary_by_inspection) > outlier_discipline_fac_by_insp, use_direct_label = FALSE)+
+  labs(title = "Histogram disciplinary infractions issued by inspection",
+       subtitle = "Facilities with significantly higher than average number of disciplinary infractions per inspection highlighted.",
+       fill = "Facility")+
+  xlab("Disciplinary by Inspection")+
+  ylab("Number of Facilities")
+```
+
+```{r disciplinary-greater-than-average-facility, fig.cap="Facilities in the sample with greater than average number of disciplinary infractions issued per inspection."}
+df_discipline_sum %>% 
+  filter(total_disciplinary_by_inspection > outlier_discipline_fac_by_insp) %>% 
+  ggplot(aes(x = total_disciplinary_by_inspection, y=reorder(facility, -total_disciplinary_by_inspection, sum)))+
+  geom_bar(stat="identity")+
+
+  xlab("Disciplinary Infractions by Inspection")+
+  ylab("Facility")
 ```
 
 ## Facet Plot of Disciplinary by Facility

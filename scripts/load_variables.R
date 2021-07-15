@@ -1,4 +1,5 @@
 library(tidyverse)
+library(lubridate)
 
 
 # Inspections -------------------------------------------------------------
@@ -6,8 +7,12 @@ inspect_n <- df_inspect %>% nrow()
 inspect_proc_n <- nrow(df_324)
 inspect_earliest <- min(df_324$date, na.rm = TRUE)
 inspect_latest <- max(df_324$date, na.rm = TRUE)
+inspect_sample_interval <- round(interval(inspect_earliest, inspect_latest) / months(1), digits =2)
 
-facility_n <- df_inspect %>% 
+
+
+# Inspections Variables
+facility_n <- df_324 %>% 
   distinct(facility) %>% arrange(facility) %>% nrow()
 
 # Standards ---------------------------------------------------------------
@@ -20,7 +25,7 @@ df_standards <- df_324 %>%
   arrange(desc(count_by_standard)) %>% 
   ungroup()
 
-
+# Standards variables
 nds <- pull(df_standards[2,2] + df_standards[3,2] + df_standards[5,2])
 nds_perc <- pull(df_standards[2,3] + df_standards[3,3] + df_standards[5,3])
 pbnds <- pull(df_standards[1,2] + df_standards[4,2])
@@ -36,16 +41,7 @@ df_rating <- df_324 %>%
   arrange(desc(count_by_rating)) %>% 
   ungroup()
 
-
-df_rating <- df_324 %>% 
-  select(facility, recommended_rating) %>% 
-  group_by(recommended_rating) %>% 
-  summarise(count_by_rating = length(recommended_rating),
-            percent_count = round((count_by_rating/inspect_proc_n)*100, digits = 2)
-  ) %>% 
-  arrange(desc(count_by_rating)) %>% 
-  ungroup()
-
+# Rating variables
 pass <- pull(df_rating[1,2]+df_rating[2,2])
 pass_perc <- pull(df_rating[1,3]+df_rating[2,3])
 
@@ -59,11 +55,13 @@ assault_sum <- aggregate(assault_count~assault_type, df_assaults, sum)[5,2]
 
 # Disciplinary ------------------------------------------------------------
 disciplinary_sum <- aggregate(disciplinary_count~disciplinary_type, df_discipline, sum)[6,2]
+
 disciplinary_guilty_sum <- aggregate(disciplinary_count~disciplinary_type, df_discipline, sum)[2,2]
 disciplinary_guilty_perc <- round(disciplinary_guilty_sum/disciplinary_sum*100, digits = 2)
 
 disciplinary_appeal <- aggregate(disciplinary_count~disciplinary_type, df_discipline, sum)[3,2]
 disciplinary_in_favor_detained_sum <- aggregate(disciplinary_count~disciplinary_type, df_discipline, sum)[4,2]
+
 disciplinary_60_days <- aggregate(disciplinary_count~disciplinary_type, df_discipline, sum)[5,2]
 # Solitary ----------------------------------------------------------------
 segregation_sum <- aggregate(segregation_count~segregation_type, df_solitary, sum)[5,2]

@@ -12,8 +12,8 @@ rmd_files:
   - Ch-324A-2019-Sexual-Abuse-Assault.Rmd
   - Ch-324A-2019-Medical.Rmd
   - Ch-324A-2019-Cause-of-Death.Rmd
-  - Ch-References.Rmd
   - Ch-Appendix.Rmd
+  - Ch-References.Rmd
 
 output_dir: docs
 edit: https://github.com/n8craig/inspections/edit/master/%s

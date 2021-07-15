@@ -86,11 +86,15 @@ In 2018, ICE established a "[Facilities Inspection](https://www.ice.gov/detain/f
 
 [^index-2]: The SIS form G-324 is generally 4-9 pages depending on the version. On the new longer forms, one page is always nearly completely redacted, and two pages are boilerplate definitions. Therefore, both forms contain fewer than 5 pages of information.
 
-There are two major versions of the G324A form, one revised in 2007/2008 and another revised in 2019. Both versions of the G-324A form state that "the following information [must be completed]{.ul} prior to the scheduled review dates" (underline in original) and that "[t]his form should be filled out by the facility prior to the start of any inspection."
+There are two major versions of the G324A form, one revised in 2007/2008 (Figure \@ref(fig:pre2019-sis)) and another revised in 2019 (Figure \@ref(fig:post2019-sis)). Both versions of the G-324A form state that "the following information [must be completed]{.ul} prior to the scheduled review dates" (underline in original) and that "[t]his form should be filled out by the facility prior to the start of any inspection."
 
-![Pre-2019 Form G324-A SIS showing instructions](images/atlantaCityDetentionCenter_SIS_06_21_2018.jpg)
+```{r pre2019-sis, out.width = "100%", fig.cap="Pre-2019 Form G 324-A SIS showing instructions."}
+knitr::include_graphics('images/atlantaCityDetentionCenter_SIS_06_21_2018.jpg')
+```
 
-![Post-2019 Form G324-A SIS showing instructions](images/MOROWOH21-MorrowCoCorrFac-SIS.jpg)
+```{r post2019-sis, out.width = "100%", fig.cap="Post-2019 Form G 324-A SIS showing instructions."}
+knitr::include_graphics('images/MOROWOH21-MorrowCoCorrFac-SIS.jpg')
+```
 
 Congress directed ICE to release "all final detention facility reports." ICE claims to post "all facility inspection reports," but instead *ICE is posting SIS forms that must be filled out before inspectors even arrive at the facility*. Full facility inspection reports regularly run in excess of 150 pages. There are examples of complete inspections obtained by National Immigrant Justice Center ([NIJC](https://immigrantjustice.org/research-items/report-lives-peril-how-ineffective-inspections-make-ice-complicit-detention-center)) through FOIA [@nijc2015]. Outside of those earlier FOIA requests, which required lengthy litigation by the NIJC to force compliance, ICE has released no full inspection reports and is not complying with an unambiguous Congressional mandate to do so.
 
@@ -101,23 +105,6 @@ Though not in compliance, the SIS and cover letter forms do provide some informa
 ## How the work was done
 
 During the Summer of 2021, data from the SIS and inspection cover letters was compiled into a series of spreadsheets, note this work is still in progress. Nathan Craig developed the idea for a project to collate and organize information in SIS and inspection cover letters to examine them for trends, patterns, and anomalies. The work was performed by three students funded under a National Science Foundation grant awarded to Dr. Neil Harvey (NMSU) and Dr. Jeremy Slack (NMSU). The students who performed the work were Juan Becerra (Stanford), Avigail Turima Romo (Columbia), and Daniela Navarro Verdugo (CSSLO). The three students worked with Dr. Craig to develop a workflow for compiling individual SIS and inspection cover letters into a series of spreadsheets. These web pages, still in development, document those procedures. Much of the analysis is done in R [@R-base], `tidyverse` [@R-tidyverse], and ggplot2 [@R-ggplot2].
-
-## Inspections by Facility
-
-Table \@ref(tab:inspection-count) shows the number of inspections per facility that are processed so far. The values range from 1-3 inspections. Dorchester County Detention Center, Golden State Annex, and River Correctional Center all have three inspections.
-
-```{r inspection-count}
-df_facility <- df_324 %>% 
-  group_by(facility) %>% 
-  summarise(n_inspections = n()) %>% 
-  ungroup() 
-  
-df_facility %>% 
-  kable(caption = "Inspections Reviewed by Facility",
-        col.names = c("Facility", "Inspections Reviewed")) %>% 
-  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
-  scroll_box(height = "300px")
-```
 
 ```{r package-references-1}
 knitr::write_bib(file = 'packages.bib')

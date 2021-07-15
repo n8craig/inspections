@@ -1,13 +1,19 @@
 # Assaults
 
 ```{r setup-4, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
 options(scipen=999)
 ```
 
 ```{r load-libraries-4, message=FALSE}
+library(tidyverse)
 # Plotting
 library(ggplot2)
+library(gghighlight)
 library(RColorBrewer)
 
 # Tables
@@ -23,14 +29,13 @@ The ICE G-324A Significant Incident Summary sheet contains information on a numb
 -   Detained Person on Detained Person with Serious Injury
 -   Detained Person on Detained Person without Serious Injury
 
-Conspicuously absent from this list of assault types are assaults on detained persons by staff. This is deeply concerning because already initial review of inspection forms and prior news stories indicates that staff assaults on detained persons do occur. For example, at the Bristol County County Jail and House of Corrections independent investigation by the Massachusetts Office of Attorney General (MAOG) found that facility staff found a "planned and deliberate-use of force against the ICE detainees that was disproportionate to the security needs at that time and unnecessarily caused, or risked causing, harm to all involved" [@maag2020, ii]. The MOAG found that facility staff used "a flash bang grenade, pepper-ball launchers, pepper spray canisters, anti-riot shields, and canines--against detainees who had exhibited calm and nonviolent behavior for at least an hour before this operation" [@maag2020, ii]. Investigations found that staff "deployed these weapons both indiscriminately upon entry and also specifically against detainees who were not combative, assaultive, or otherwise actively resisting staff" [@maag2020, ii].
+Conspicuously absent from this list of assault types are assaults on detained persons by staff. This is deeply concerning because already initial review of inspection forms and prior news stories indicates that staff assaults on detained persons do occur. However, these are described as "use of force" incidents and are not tallied as assaults. Use of force incidents are described in Section \@ref(use-of-force).
 
-While the aforementioned Bristol County Jail may be a particularly egregious instance of staff assaulting detained persons, it is not an isolated case. For example, [video evidence](https://www.youtube.com/watch?v=JP_PfOhdLuM) from the Torrance County Detention Facility in Estancia NM shows CoreCivic's private facility staff pepper spraying persons detained by ICE on hunger strike [@swetlitz2020]. Review of inspections has also revealed additional inappropriate use of force incidents. The omission of a field to record instances of staff assaulting detained persons occludes and obscures real instances of violence. As the inspections process is a detention reform designed to make a more humane system of civil incarceration, the omission of categories for logging staff physical mistreatment of detained persons raises serious questions about the inspections processes ability to record significant and documented civil and human rights violations.
+Out of the `r inspect_proc_n` inspections that occurred at `r facility_n` facilities between `r format(inspect_earliest, format= "%B %e, %Y")` and `r format(inspect_latest, format= "%B %e, %Y")`, there were `r assault_sum` assaults (Table \@ref(tab:assault-summary-by-type)).
 
+Over the course of 20.5 months represented by the inspections in this sample, there were on average `r round(assault_sum/20.5, digits=0)` assaults per month.The majority of those assaults occurred between detained persons and did not result in serious injury (86%, n=2926). The SIS form does distinguish if an assault on a person detained by ICE was by another person detained by ICE or by a person detained under a corrections context. This is an important detail because many facilities are mixed use wherein individuals detained for civil immigration purposes are in corrections facilities.
 
-## Summary Tables
-
-```{r assault-summary}
+```{r assault-summary-by-type}
 df_assaults %>% 
   group_by(assault_type) %>% 
   summarise(`Total Assaults by Type` = sum(assault_count, na.rm = TRUE)) %>% 
@@ -38,17 +43,60 @@ df_assaults %>%
   kable(caption = "Total Assaults by Type",
         col.names = c("Assault Type", "Total Assault Type")) %>% 
   kable_styling(c("hover", "striped", "condensed", "responsive"))
+```
 
-
-df_assaults %>% 
+```{r df-assaults-sum}
+df_assaults_sum <- df_assaults %>% 
   group_by(facility) %>% 
   summarise(total_assaults = sum(assault_count, na.rm = TRUE)) %>% 
   arrange(desc(total_assaults)) %>% 
-  ungroup() %>% 
-  kable(caption = "Total Assaults by Facility",
-        col.names = c("Facility", "Total Assaults by Facility")) %>% 
+  ungroup()
+  
+df_assaults_sum <- left_join(df_assaults_sum, df_facility_n_inspect) %>% 
+  mutate(total_assaults_by_inspection = round(total_assaults / n_inspections, digits = 0))
+
+
+m_assaults_fac_by_insp <- mean(df_assaults_sum$total_assaults_by_inspection)
+sd_assaults_fac_by_insp <- sd(df_assaults_sum$total_assaults_by_inspection)
+outlier_assault_fac_by_insp <- m_assaults_fac_by_insp+(2*sd_assaults_fac_by_insp)
+```
+
+The mean number of assaults by facility per inspection is `r round(m_assaults_fac_by_insp, digits=0)` (SD=`r round(sd_assaults_fac_by_insp, digits=2)`) (Table \@ref(tab:assault-summary-by-facility)). Based on this mean, five facilities have greater than average number of assaults per inspection (\> `r round(outlier_assault_fac_by_insp, digits=2)` assaults) (Figures \@ref(fig:histogram-assaults-by-inspection) and \@ref(fig:assault-greater-than-average-facility)). Among the facilities with significantly higher than average number of assaults per inspection three are managed by The Geo Group; one is managed by LaSalle Corrections; and one is a Service Processing Center managed by ICE.
+
+```{r assault-summary-by-facility}
+color.me <- which(df_assaults_sum$total_assaults_by_inspection > outlier_assault_fac_by_insp)
+
+df_assaults_sum %>% 
+  select(-n_inspections) %>%
+  relocate(fac_operator, .after = facility) %>% 
+  kable(caption = "Assaults by facility, facilities with significantly greater than average number of assaults by inspection shown in bold.",
+        col.names = c("Facility", "Facility Operator", "Total Assaults", "Assaults by Inspections")) %>%
   kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  row_spec(color.me, bold = TRUE) %>%
   scroll_box(height = "300px")
+```
+
+```{r histogram-assaults-by-inspection, fig.cap="Histogram of assaults by inspection highlighting facilities that have significantly higher than average number of assaults per inspection."}
+df_assaults_sum %>% 
+  ggplot(aes(x = total_assaults_by_inspection, fill= facility))+
+  geom_histogram()+
+  gghighlight(max(total_assaults_by_inspection) > outlier_assault_fac_by_insp, use_direct_label = FALSE)+
+  labs(title = "Histogram of assaults by inspection",
+       subtitle = "Facilities with significantly higher than average number of assaults per inspection highlighted.",
+       fill = "Facility")+
+  xlab("Assaults by Inspection")+
+  ylab("Number of Facilities")
+
+```
+
+```{r assault-greater-than-average-facility, fig.cap="Facilities in the sample with greater than average number of assaults per inspection."}
+df_assaults_sum %>% 
+  filter(total_assaults_by_inspection > outlier_assault_fac_by_insp) %>% 
+  ggplot(aes(x = total_assaults_by_inspection, y=reorder(facility, -total_assaults_by_inspection, sum)))+
+  geom_bar(stat="identity")+
+
+  xlab("Assaults by Inspection")+
+  ylab("Facility")
 ```
 
 ## Facet Plot of Assaults by Facility

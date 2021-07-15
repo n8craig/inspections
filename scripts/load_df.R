@@ -8,34 +8,36 @@ library(tidyverse)
 # Rating DF ---------------------------------------------------------------
 # See load_variables.R
 
+
+# Inspection Count by Facility --------------------------------------------
+
+df_facility_n_inspect <- df_324 %>% 
+  group_by(facility, fac_operator) %>% 
+  summarise(n_inspections = n()) %>% 
+  ungroup() 
+
 # Assault DF --------------------------------------------------------------
 df_assaults <- df_324_inc %>%
-  
   # Subset the df to only the used cols
   select(id, facility, date,
          detainee_physical_assault_on_staff_with_serious_injury:
            detainee_on_detainee_physical_assault_fight_with_no_serious_injury
   ) %>% 
-  
   # Need the rowwise function to compute a row-at-a-time
   # in the following mutate function
   rowwise(id) %>% 
-  
   # Create a new total column
   mutate(total_assaults = sum(c_across(
     detainee_physical_assault_on_staff_with_serious_injury:
       detainee_on_detainee_physical_assault_fight_with_no_serious_injury
   ), na.rm = TRUE)) %>% 
-  
   # Call a range of table columns and pivot long
   pivot_longer(.,
                cols=  detainee_physical_assault_on_staff_with_serious_injury:total_assaults,
                names_to = "assault_type",
                values_to = "assault_count") %>% 
-  
   # Remove NA Values
   drop_na() %>% 
-  
   # Explicitly define factor levels
   mutate(assault_type = factor(assault_type, levels = c(
     "detainee_physical_assault_on_staff_with_serious_injury",
@@ -48,32 +50,26 @@ df_assaults <- df_324_inc %>%
 
 # Disciplinary DF ---------------------------------------------------------
 df_discipline <- df_324_inc %>%
-  
   # Subset the df to only the used cols
   select(id, facility, date,
          disciplinary_infractions:
            sanctions_over_60_days
   ) %>% 
-  
   # Need the rowwise function to compute a row-at-a-time
   # in the following mutate function
   rowwise(id) %>% 
-  
   # Create a new total column
   mutate(total_disciplinary = sum(c_across(
     disciplinary_infractions:
       sanctions_over_60_days
   ), na.rm = TRUE)) %>% 
-  
   # Call a range of table columns and pivot long
   pivot_longer(.,
                cols=  disciplinary_infractions:total_disciplinary,
                names_to = "disciplinary_type",
                values_to = "disciplinary_count") %>%
-  
   # Remove NA values
   drop_na() %>% 
-  
   # Explicitly set factor levels
   mutate(disciplinary_type = factor(disciplinary_type, levels =c(
     "disciplinary_infractions",

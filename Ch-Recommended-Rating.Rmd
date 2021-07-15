@@ -1,4 +1,4 @@
-# Facility Inspection Ratings
+# Inspection Standards and Ratings
 
 ```{r}
 knitr::opts_chunk$set(
@@ -16,32 +16,80 @@ library(kableExtra)
 load("data/data.RData")
 ```
 
-All adult facility inspections listed on the ICE website were inspected by The Nakamoto Group. There are two major sets of standards and several versions of each. The two major sets of standards are the Performance Based National Detention Standards (PBNDS) for dedicated facilities and the National Detention Standards for non-dedicated facilities. PBNDS has two versions: PBNDS 2008 and PBNDS 2011 with revisions in 2016. NDS also has two versions: NDS 2000 and NDS 2019.
+All adult facility inspections listed on the ICE website were inspected by The Nakamoto Group. There are two major sets of standards and several versions of each. These are the Performance Based National Detention Standards (PBNDS) for dedicated facilities and the National Detention Standards for non-dedicated facilities. PBNDS has two versions: PBNDS 2008 and PBNDS 2011 with revisions in 2016. NDS also has two versions: NDS 2000 and NDS 2019. Though ICE detention is not punitive, both sets of standards are based on corrections models [@schriro2009, 2-3]. Except for Service Processing Centers managed by ICE, all facilities are managed by either private prison companies, sheriff's offices, or a local corrections board.
 
-Between `r format(inspect_earliest, format= "%B %e, %Y")` and `r format(inspect_latest, format= "%B %e, %Y")` `r inspect_proc_n` facilities were inspected. Of these, `r pbnds_perc`% (n=`r pbnds`) were inspected under some version of PBNDS and `r nds_perc`% (n=`r nds`) were inspected under some version of NDS (Table \@ref(tab:summary-standards)).
+> "ICE relies primarily on correctional incarceration standards designed for pre-trial felons and on correctional principles of care, custody, and control. These standards impose more restrictions and carry more costs than are necessary to effectively manage the majority of the detained population" [@schriro2009, 2-3].
 
-Among the `r inspect_proc_n` inspections reviewed, `r pass_perc`% (n=`r pass`) received a rating of either "Meets Standards" or "Acceptable" while `r no_pass_perc`% (n=`r no_pass`) were recommended "Does Not Meet Standards" or "Deficient" (Table \@ref(tab:summary-recommended-rating)).
+## Standards Applied
+
+Between `r format(inspect_earliest, format= "%B %e, %Y")` and `r format(inspect_latest, format= "%B %e, %Y")`, `r inspect_proc_n` facilities were inspected. Of these, `r pbnds_perc`% (n=`r pbnds`) were inspected under some version of PBNDS and `r nds_perc`% (n=`r nds`) were inspected under some version of NDS (Table \@ref(tab:summary-standards)).
 
 ```{r summary-standards}
 df_standards %>% 
  
-  kable(caption = "Summary of Inspections by Type of Standard",
+  kable(caption = "Summary of inspections by type of standard.",
         col.names = c("Rating", "Count", "%")) %>% 
   kable_styling(c("hover", "striped", "condensed", "responsive"))
 ```
+
+## Inspections by Facility and Operator
+
+Among the `r inspect_proc_n` facilities in the sample, most facilities were inspected one or two times Table \@ref(tab:inspection-facility-count). During the span of time represented by this sample, three is the maximum number of times a facility was inspected. These facilities are represented by: Dorchester County Detention Center, Golden State Annex, and River Correctional Center.
+
+```{r inspection-facility-count}
+# df_facility_n_inspect <- df_324 %>% 
+#   group_by(facility, fac_operator) %>% 
+#   summarise(n_inspections = n()) %>% 
+#   ungroup() 
+  
+df_facility_n_inspect %>% 
+  kable(caption = "Number of inspections per facility in sample.",
+        col.names = c("Facility", "Facility Operator", "Inspections Reviewed")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  scroll_box(height = "300px")
+```
+
+```{r}
+# private_operators <- c("CoreCivic", "The GEO Group, Inc.", "LaSalle Corrections", "Management & Training Corporation (MTC)")
+# 
+# df_324 %>% 
+#   select(facility, fac_operator) %>% distinct(facility, .keep_all = TRUE) %>% 
+#   filter(fac_operator %in% private_operators)
+```
+
+Among the `r inspect_proc_n` inspections in the sample, 46% (n=58) were at facilities operated by four private prison companies: The GEO Group, CoreCivic, LaSalle Corrections, and MTC (Table \@ref(tab:inspection-operator-count)). Tallying inspections by operator, 39% (n=49) are operated by a combination of county sheriff's offices or state corrections boards. ICE operated facilities represent 7% (n=9) of the inspections.
+
+```{r inspection-operator-count}
+df_324 %>% 
+  select(facility, fac_operator) %>% 
+  group_by(fac_operator) %>% 
+  summarise(operator_count = length(fac_operator)) %>% 
+  arrange(desc(operator_count)) %>% 
+    kable(caption = "Inspections by facility operator.",
+        col.names = c("Facility Operator", "Inspection Count")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  scroll_box(height = "300px")
+```
+
+## Recommended Rating
+
+Among the `r inspect_proc_n` inspections reviewed, `r pass_perc`% (n=`r pass`) received a rating of either "Meets Standards" or "Acceptable" while `r no_pass_perc`% (n=`r no_pass`) were recommended "Does Not Meet Standards" or "Deficient" (Table \@ref(tab:summary-recommended-rating)).
 
 ```{r summary-recommended-rating}
 
 df_rating %>% 
-  kable(caption = "Facility Inspection Recommended Rating",
+  kable(caption = "Facility inspection recommended rating.",
         col.names = c("Rating", "Count", "%")) %>% 
   kable_styling(c("hover", "striped", "condensed", "responsive"))
 ```
 
+Three of the five facilities that did not pass inspection are managed by county sheriff's offices, one is a county managed detention center. Notably, the fifth non-passing facility is Krome, a dedicated ICE Service Processing Center. It bears mention that Krome was the first service processing center established in 1980 under the Immigration and Naturalization Service, and since its founding is a facility riddled with problems [@simon1998.; @lindskoog2018; @loyd2018; @lipman2013; @helton1986; @helton1986a]. However, as will become apparent, there are deep and significant problems with facilities that passed inspection.
+
 ```{r}
 df_324 %>% 
-  select(facility, fac_operator) %>% 
-  group_by(facility, fac_operator) %>% 
-  summarise(operator_count = length(fac_operator)) %>% 
-  arrange(desc(operator_count))
+  filter(recommended_rating %in% c("Does Not Meet Standards", "Deficient")) %>% 
+  select(facility, fac_operator, inspection_date, standards, recommended_rating) %>% 
+  kable(caption = "Facilities that did not pass inspection.",
+        col.names = c("Facility", "Facility Operator", "Inspection Date", "Standards", "Recommended Rating")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"))
 ```

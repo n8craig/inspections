@@ -11,6 +11,7 @@ library(lubridate)
 
 # Load custom name cleaning function
 source("scripts/function_clean_facility_names.R")
+source("scripts/function_clean_fac_operator_names.R")
 
 # Data cleaning vectors
 change_pbnds2008 <- c("PBNDS 2008; 2011 SAAPI", "PBNDS 2008/SAAPI 2011", "PBNDS 2008/ SAAPI 2011",
@@ -40,8 +41,9 @@ df_324 <- read_sheet("https://docs.google.com/spreadsheets/d/1im5VSi3bIEi13O8WQ5
                      col_types = "c") %>% 
   clean_names() %>% 
   
-  # Run custom cleaning function
+  # Run custom cleaning functions
   clean_facility_names() %>% 
+  clean_fac_operator_names() %>% 
   
   # Clean inspection standards names
   mutate(standards = replace(standards, standards %in% change_pbnds2011, "PBNDS 2011"),

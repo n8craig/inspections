@@ -69,9 +69,6 @@ df_force %>%
   labs(title = "Inspections where > 20 Use of Force Incidents\nWere Reported for the Year.")+
   xlab("Use of Force Incidents Reported for Year")+
   ylab("Facility")
-  
-  
-  
 
 ```
 
@@ -100,6 +97,12 @@ The Calculated Use of Force Incident unfolded over the course of more than an ho
 The MA GA concluded that "a series of institutional failures and poor decisions" culminated in a "planned and deliberate--use of force against the ICE B detainees that was disproportionate to the security needs at that time and unnecessarily caused, or risked causing, harm to all involved"[@maag2020a, ii]. The MA GA found that facility staff used "a flash bang grenade, pepper-ball launchers, pepper spray canisters, anti-riot shields, and canines---against detainees who had exhibited calm and nonviolent behavior for at least an hour before this operation"[@maag2020a, ii].
 
 The details of the May 1, 2020 Use of Force incident do not come to light in either SIS form or the Nakamoto Group inspection cover letter. The SIS form inaccurately characterizes the multiple Use of Force incidents entailed in the event, fails to report what is clearly a Calculated Use of Force, and does not report multiple Use of Force Incidents with Serious Injury that resulted from from the extensive use of pepper spray. The Nakamoto cover letter states that, "the detainees felt safe in the facility and registered no substantive com-plaints about any aspect of their detention except for their exposure to the COVID-19 risk in the facility." Inspectors wrote that "[t]here were no areas of concern or significant observations noted during the inspection" but noted that the "inspection was conducted remotely, and inspectors were unable to personally observe practices and procedures with-in the facility" and that the "inspection team relied upon photographs and/or videos to validate the observation of many standards."
+
+## EXTRA TEXT TO INCCORPORATE
+
+For example, at the Bristol County County Jail and House of Corrections independent investigation by the Massachusetts Office of Attorney General (MAOG) found that facility staff found a "planned and deliberate-use of force against the ICE detainees that was disproportionate to the security needs at that time and unnecessarily caused, or risked causing, harm to all involved" [@maag2020, ii]. The MOAG found that facility staff used "a flash bang grenade, pepper-ball launchers, pepper spray canisters, anti-riot shields, and canines--against detainees who had exhibited calm and nonviolent behavior for at least an hour before this operation" [@maag2020, ii]. Investigations found that staff "deployed these weapons both indiscriminately upon entry and also specifically against detainees who were not combative, assaultive, or otherwise actively resisting staff" [@maag2020, ii].
+
+While the aforementioned Bristol County Jail may be a particularly egregious instance of staff assaulting detained persons, it is not an isolated case. For example, [video evidence](https://www.youtube.com/watch?v=JP_PfOhdLuM) from the Torrance County Detention Facility in Estancia NM shows CoreCivic's private facility staff pepper spraying persons detained by ICE on hunger strike [@swetlitz2020]. Review of inspections has also revealed additional inappropriate use of force incidents. The omission of a field to record instances of staff assaulting detained persons occludes and obscures real instances of violence. As the inspections process is a detention reform designed to make a more humane system of civil incarceration, the omission of categories for logging staff physical mistreatment of detained persons raises serious questions about the inspections processes ability to record significant and documented civil and human rights violations.
 
 ## Facet Plot of Use of Force by Facility
 
