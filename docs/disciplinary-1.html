@@ -56,7 +56,93 @@
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -154,7 +240,10 @@
 <ul>
 <li class="chapter" data-level="2" data-path="appendix-a-reading-in-sis-forms.html"><a href="appendix-a-reading-in-sis-forms.html#summary-tables-5"><i class="fa fa-check"></i><b>2</b> Summary Tables</a></li>
 <li class="chapter" data-level="3" data-path="appendix-a-reading-in-sis-forms.html"><a href="appendix-a-reading-in-sis-forms.html#facet-plots"><i class="fa fa-check"></i><b>3</b> Facet Plots</a></li>
-<li class="chapter" data-level="4" data-path="appendix-a-reading-in-sis-forms.html"><a href="appendix-a-reading-in-sis-forms.html#cleaning-script"><i class="fa fa-check"></i><b>4</b> Cleaning Script</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="appendix-b-data-cleaning.html"><a href="appendix-b-data-cleaning.html"><i class="fa fa-check"></i>Appendix B: Data Cleaning</a>
+<ul>
+<li class="chapter" data-level="4" data-path="appendix-b-data-cleaning.html"><a href="appendix-b-data-cleaning.html#cleaning-script"><i class="fa fa-check"></i><b>4</b> Cleaning Script</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
@@ -254,8 +343,14 @@ total_disciplinary
 <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
 Facility
 </th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Facility Operator
+</th>
 <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 Total Discipline by Facility
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Total Disciplinary by Inspection
 </th>
 </tr>
 </thead>
@@ -264,341 +359,151 @@ Total Discipline by Facility
 <td style="text-align:left;font-weight: bold;">
 Eloy Detention Center
 </td>
+<td style="text-align:left;font-weight: bold;">
+CoreCivic
+</td>
 <td style="text-align:right;font-weight: bold;">
-7128
+3564
+</td>
+<td style="text-align:right;font-weight: bold;">
+1782
 </td>
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
 La Palma Correctional Center
 </td>
+<td style="text-align:left;font-weight: bold;">
+CoreCivic
+</td>
 <td style="text-align:right;font-weight: bold;">
-6954
+3477
+</td>
+<td style="text-align:right;font-weight: bold;">
+3477
 </td>
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
 Krome Service Processing Center
 </td>
+<td style="text-align:left;font-weight: bold;">
+ICE
+</td>
 <td style="text-align:right;font-weight: bold;">
-4888
+2444
+</td>
+<td style="text-align:right;font-weight: bold;">
+1222
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Sherburne County Jail
 </td>
+<td style="text-align:left;">
+Sherburne County Sheriff’s Office
+</td>
 <td style="text-align:right;">
-4070
+2035
+</td>
+<td style="text-align:right;">
+1018
 </td>
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
 Immigration Centers of America - Farmville
 </td>
+<td style="text-align:left;font-weight: bold;">
+Immigration Centers of America
+</td>
 <td style="text-align:right;font-weight: bold;">
-3808
+1904
+</td>
+<td style="text-align:right;font-weight: bold;">
+1904
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Yuba County Jail
 </td>
+<td style="text-align:left;">
+Yuba County Sheriff’s Office
+</td>
 <td style="text-align:right;">
-3712
+1856
+</td>
+<td style="text-align:right;">
+928
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Stewart Detention Center
 </td>
+<td style="text-align:left;">
+CoreCivic
+</td>
 <td style="text-align:right;">
-3068
+1534
+</td>
+<td style="text-align:right;">
+767
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Aurora ICE Processing Center
 </td>
+<td style="text-align:left;">
+The GEO Group, Inc. 
+</td>
 <td style="text-align:right;">
-2678
+1339
+</td>
+<td style="text-align:right;">
+670
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Aurora ICE Processing Center II - Annex
 </td>
+<td style="text-align:left;">
+The GEO Group, Inc. 
+</td>
 <td style="text-align:right;">
-2678
+1339
+</td>
+<td style="text-align:right;">
+670
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Otay Mesa Detention Center
 </td>
+<td style="text-align:left;">
+CoreCivic
+</td>
 <td style="text-align:right;">
-2504
+1252
+</td>
+<td style="text-align:right;">
+626
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Winn Correctional Center
 </td>
-<td style="text-align:right;">
-2264
-</td>
-</tr>
-<tr>
 <td style="text-align:left;">
-Calhoun County Correctional Center
+LaSalle Corrections
 </td>
 <td style="text-align:right;">
-2098
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Montgomery Processing Center
-</td>
-<td style="text-align:right;">
-2060
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Caroline Detention Facility
-</td>
-<td style="text-align:right;">
-1954
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Bluebonnet Detention Center
-</td>
-<td style="text-align:right;">
-1926
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Otero County Processing Center
-</td>
-<td style="text-align:right;">
-1924
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-South Texas ICE Processing Center
-</td>
-<td style="text-align:right;">
-1912
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Prairieland Detention Center
-</td>
-<td style="text-align:right;">
-1596
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Bergen County Jail
-</td>
-<td style="text-align:right;">
-1432
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Essex County Correctional Facility
-</td>
-<td style="text-align:right;">
-1304
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Adelanto ICE Processing Center - West
-</td>
-<td style="text-align:right;">
-1284
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-El Paso Service Processing Center
-</td>
-<td style="text-align:right;">
-1246
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Imperial Regional Detention Facility
-</td>
-<td style="text-align:right;">
-1240
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Jena LaSalle Detention Facility
-</td>
-<td style="text-align:right;">
-1234
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Bristol County Jail and House of Correction
-</td>
-<td style="text-align:right;">
-1186
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-LaSalle ICE Processing Center
-</td>
-<td style="text-align:right;">
-1176
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-York County Prison
-</td>
-<td style="text-align:right;">
-1172
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Clinton County Correctional Facility
-</td>
-<td style="text-align:right;">
-1166
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Northwest ICE Processing Center
-</td>
-<td style="text-align:right;">
-1070
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Polk County Adult Detention Center
-</td>
-<td style="text-align:right;">
-1010
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-River Correctional Center
-</td>
-<td style="text-align:right;">
-924
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Laredo Processing Center
-</td>
-<td style="text-align:right;">
-888
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Port Isabel Service Processing Center
-</td>
-<td style="text-align:right;">
-848
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Glades County Detention Center
-</td>
-<td style="text-align:right;">
-822
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Folkston ICE Processing Center
-</td>
-<td style="text-align:right;">
-814
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-McHenry County Adult Correctional Facility
-</td>
-<td style="text-align:right;">
-796
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Adams County Correctional Center
-</td>
-<td style="text-align:right;">
-756
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Pulaski County Detention Center
-</td>
-<td style="text-align:right;">
-746
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Adelanto ICE Processing Center - East
-</td>
-<td style="text-align:right;">
-742
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Irwin County Detention Center
-</td>
-<td style="text-align:right;">
-680
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Pine Prairie ICE Processing Center
-</td>
-<td style="text-align:right;">
-638
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Hudson County Corrections and Rehabilitation Center
-</td>
-<td style="text-align:right;">
-592
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Butler County Jail
+1132
 </td>
 <td style="text-align:right;">
 566
@@ -606,103 +511,167 @@ Butler County Jail
 </tr>
 <tr>
 <td style="text-align:left;">
-Pike County Correctional Facility
+Calhoun County Correctional Center
+</td>
+<td style="text-align:left;">
+Calhoun County Sheriff’s Department
 </td>
 <td style="text-align:right;">
-560
+1049
+</td>
+<td style="text-align:right;">
+1049
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Folkston ICE Processing Center Annex
+Calhoun County Correctional Center
+</td>
+<td style="text-align:left;">
+Sheriff of Calhoun County
 </td>
 <td style="text-align:right;">
-502
+1049
+</td>
+<td style="text-align:right;">
+1049
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-David L. Moss Criminal Justice Center
+Montgomery Processing Center
+</td>
+<td style="text-align:left;">
+The GEO Group, Inc. 
 </td>
 <td style="text-align:right;">
-498
+1030
+</td>
+<td style="text-align:right;">
+515
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Dodge County Detention Facility
+Caroline Detention Facility
+</td>
+<td style="text-align:left;">
+Peumansend Creek Regional Jail Authority
 </td>
 <td style="text-align:right;">
-496
+977
+</td>
+<td style="text-align:right;">
+488
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Freeborn County Adult Detention Center
+Bluebonnet Detention Center
+</td>
+<td style="text-align:left;">
+Management &amp; Training Corporation (MTC)
 </td>
 <td style="text-align:right;">
-492
+963
+</td>
+<td style="text-align:right;">
+963
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Mesa Verde ICE Processing Facility
+Otero County Processing Center
+</td>
+<td style="text-align:left;">
+Management &amp; Training Corporation (MTC)
 </td>
 <td style="text-align:right;">
-482
+962
+</td>
+<td style="text-align:right;">
+481
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Houston Contract Detention Facility
+South Texas ICE Processing Center
+</td>
+<td style="text-align:left;">
+The GEO Group, Inc. 
 </td>
 <td style="text-align:right;">
-480
+956
+</td>
+<td style="text-align:right;">
+956
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Orange County Correctional Facility
+Prairieland Detention Center
+</td>
+<td style="text-align:left;">
+LaSalle Corrections
 </td>
 <td style="text-align:right;">
-480
+798
+</td>
+<td style="text-align:right;">
+399
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Krome North Service Processing Center
+Bergen County Jail
+</td>
+<td style="text-align:left;">
+Bergen County Sheriff’s Department
 </td>
 <td style="text-align:right;">
-438
+716
+</td>
+<td style="text-align:right;">
+358
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Torrance County Detention Facility
+Essex County Correctional Facility
+</td>
+<td style="text-align:left;">
+Essex Department of Corrections
 </td>
 <td style="text-align:right;">
-420
+652
+</td>
+<td style="text-align:right;">
+326
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Strafford County Department of Corrections
+Adelanto ICE Processing Center - West
+</td>
+<td style="text-align:left;">
+The GEO Group, Inc. 
 </td>
 <td style="text-align:right;">
-400
+642
+</td>
+<td style="text-align:right;">
+321
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Webb County Detention Center
+El Paso Service Processing Center
+</td>
+<td style="text-align:left;">
+ICE
 </td>
 <td style="text-align:right;">
-322
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Baker County Detention Center
+623
 </td>
 <td style="text-align:right;">
 312
@@ -710,7 +679,13 @@ Baker County Detention Center
 </tr>
 <tr>
 <td style="text-align:left;">
-Florence Service Processing Center
+Imperial Regional Detention Facility
+</td>
+<td style="text-align:left;">
+Management &amp; Training Corporation (MTC)
+</td>
+<td style="text-align:right;">
+620
 </td>
 <td style="text-align:right;">
 310
@@ -718,15 +693,111 @@ Florence Service Processing Center
 </tr>
 <tr>
 <td style="text-align:left;">
-Donald W. Wyatt Detention Facility
+Jena LaSalle Detention Facility
+</td>
+<td style="text-align:left;">
+The GEO Group, Inc. 
 </td>
 <td style="text-align:right;">
-262
+617
+</td>
+<td style="text-align:right;">
+617
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Plymouth County Correctional Facility
+Bristol County Jail and House of Correction
+</td>
+<td style="text-align:left;">
+Bristol County
+</td>
+<td style="text-align:right;">
+593
+</td>
+<td style="text-align:right;">
+593
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bristol County Jail and House of Correction
+</td>
+<td style="text-align:left;">
+Bristol County Sheriff’s Office
+</td>
+<td style="text-align:right;">
+593
+</td>
+<td style="text-align:right;">
+593
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LaSalle ICE Processing Center
+</td>
+<td style="text-align:left;">
+The GEO Group, Inc. 
+</td>
+<td style="text-align:right;">
+588
+</td>
+<td style="text-align:right;">
+588
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+York County Prison
+</td>
+<td style="text-align:left;">
+York County Prison Board
+</td>
+<td style="text-align:right;">
+586
+</td>
+<td style="text-align:right;">
+293
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Clinton County Correctional Facility
+</td>
+<td style="text-align:left;">
+Clinton County Prison Board
+</td>
+<td style="text-align:right;">
+583
+</td>
+<td style="text-align:right;">
+292
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Northwest ICE Processing Center
+</td>
+<td style="text-align:left;">
+The GEO Group, Inc. 
+</td>
+<td style="text-align:right;">
+535
+</td>
+<td style="text-align:right;">
+268
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Polk County Adult Detention Center
+</td>
+<td style="text-align:left;">
+Management &amp; Training Corporation (MTC)
+</td>
+<td style="text-align:right;">
+505
 </td>
 <td style="text-align:right;">
 252
@@ -734,47 +805,111 @@ Plymouth County Correctional Facility
 </tr>
 <tr>
 <td style="text-align:left;">
-Worcester County Jail
+River Correctional Center
+</td>
+<td style="text-align:left;">
+LaSalle Corrections
 </td>
 <td style="text-align:right;">
-250
+462
+</td>
+<td style="text-align:right;">
+154
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Jackson Parish Correctional Center
+Laredo Processing Center
+</td>
+<td style="text-align:left;">
+CoreCivic
 </td>
 <td style="text-align:right;">
-234
+444
+</td>
+<td style="text-align:right;">
+222
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Eden Detention Center
+Port Isabel Service Processing Center
+</td>
+<td style="text-align:left;">
+ICE
 </td>
 <td style="text-align:right;">
-230
+424
+</td>
+<td style="text-align:right;">
+212
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Joe Corley Processing Center
+Glades County Detention Center
+</td>
+<td style="text-align:left;">
+Glades County Sheriff
 </td>
 <td style="text-align:right;">
-214
+411
+</td>
+<td style="text-align:right;">
+411
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Johnson County Corrections Center
+Folkston ICE Processing Center
+</td>
+<td style="text-align:left;">
+The GEO Group, Inc. 
 </td>
 <td style="text-align:right;">
-204
+407
+</td>
+<td style="text-align:right;">
+407
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-CCA Florence Correctional Center
+McHenry County Adult Correctional Facility
+</td>
+<td style="text-align:left;">
+McHenry County Sheriff
+</td>
+<td style="text-align:right;">
+398
+</td>
+<td style="text-align:right;">
+398
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Adams County Correctional Center
+</td>
+<td style="text-align:left;">
+CoreCivic
+</td>
+<td style="text-align:right;">
+378
+</td>
+<td style="text-align:right;">
+189
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pulaski County Detention Center
+</td>
+<td style="text-align:left;">
+Pulaski County
+</td>
+<td style="text-align:right;">
+373
 </td>
 <td style="text-align:right;">
 186
@@ -782,87 +917,111 @@ CCA Florence Correctional Center
 </tr>
 <tr>
 <td style="text-align:left;">
-Limestone County Detention Center
+Adelanto ICE Processing Center - East
+</td>
+<td style="text-align:left;">
+The GEO Group, Inc. 
 </td>
 <td style="text-align:right;">
-176
+371
+</td>
+<td style="text-align:right;">
+186
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Okmulgee County Jail - Moore Detention Facility
+Irwin County Detention Center
+</td>
+<td style="text-align:left;">
+LaSalle Corrections
 </td>
 <td style="text-align:right;">
-176
+340
+</td>
+<td style="text-align:right;">
+340
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Jerome Combs Detention Center
+Pine Prairie ICE Processing Center
+</td>
+<td style="text-align:left;">
+The GEO Group, Inc. 
 </td>
 <td style="text-align:right;">
-174
+319
+</td>
+<td style="text-align:right;">
+160
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Broward Transitional Center
+Hudson County Corrections and Rehabilitation Center
+</td>
+<td style="text-align:left;">
+Hudson County Board of Corrections
 </td>
 <td style="text-align:right;">
-166
+296
+</td>
+<td style="text-align:right;">
+148
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Allen Parish Public Safety Complex
+Butler County Jail
+</td>
+<td style="text-align:left;">
+Butler County Sheriff’s Office
 </td>
 <td style="text-align:right;">
-158
+283
+</td>
+<td style="text-align:right;">
+283
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Elizabeth Contract Detention Facility
+Pike County Correctional Facility
+</td>
+<td style="text-align:left;">
+Pike County Prison Board
 </td>
 <td style="text-align:right;">
-152
+280
+</td>
+<td style="text-align:right;">
+140
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Kay County Detention Center
+Folkston ICE Processing Center Annex
+</td>
+<td style="text-align:left;">
+The GEO Group, Inc. 
 </td>
 <td style="text-align:right;">
-144
+251
+</td>
+<td style="text-align:right;">
+251
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Henderson Detention Center
+David L. Moss Criminal Justice Center
+</td>
+<td style="text-align:left;">
+Tulsa County Sheriff’s Office
 </td>
 <td style="text-align:right;">
-136
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Hardin County Jail
-</td>
-<td style="text-align:right;">
-132
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Wakulla County Detention Facility
-</td>
-<td style="text-align:right;">
-128
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-El Valle Detention Facility
+249
 </td>
 <td style="text-align:right;">
 124
@@ -870,31 +1029,139 @@ El Valle Detention Facility
 </tr>
 <tr>
 <td style="text-align:left;">
-Nye County Detention Center
+Dodge County Detention Facility
+</td>
+<td style="text-align:left;">
+Dodge County Sheriff’s Office
 </td>
 <td style="text-align:right;">
-112
+248
+</td>
+<td style="text-align:right;">
+124
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Catahoula Correctional Center
+Freeborn County Adult Detention Center
+</td>
+<td style="text-align:left;">
+Freeborn County Sheriff’s Office
 </td>
 <td style="text-align:right;">
-88
+246
+</td>
+<td style="text-align:right;">
+123
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Geauga County Jail
+Mesa Verde ICE Processing Facility
+</td>
+<td style="text-align:left;">
+The GEO Group, Inc. 
 </td>
 <td style="text-align:right;">
-88
+241
+</td>
+<td style="text-align:right;">
+241
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Bossier Parish Corrections Center
+Houston Contract Detention Facility
+</td>
+<td style="text-align:left;">
+CoreCivic
+</td>
+<td style="text-align:right;">
+240
+</td>
+<td style="text-align:right;">
+120
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Orange County Correctional Facility
+</td>
+<td style="text-align:left;">
+Orange County Sheriff’s Office
+</td>
+<td style="text-align:right;">
+240
+</td>
+<td style="text-align:right;">
+120
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Krome North Service Processing Center
+</td>
+<td style="text-align:left;">
+ICE
+</td>
+<td style="text-align:right;">
+219
+</td>
+<td style="text-align:right;">
+219
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Torrance County Detention Facility
+</td>
+<td style="text-align:left;">
+CoreCivic
+</td>
+<td style="text-align:right;">
+210
+</td>
+<td style="text-align:right;">
+210
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Strafford County Department of Corrections
+</td>
+<td style="text-align:left;">
+County of Strafford
+</td>
+<td style="text-align:right;">
+200
+</td>
+<td style="text-align:right;">
+200
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Strafford County Department of Corrections
+</td>
+<td style="text-align:left;">
+Straffordd County Sheriff’s Office
+</td>
+<td style="text-align:right;">
+200
+</td>
+<td style="text-align:right;">
+200
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Webb County Detention Center
+</td>
+<td style="text-align:left;">
+CoreCivic
+</td>
+<td style="text-align:right;">
+161
 </td>
 <td style="text-align:right;">
 80
@@ -902,39 +1169,139 @@ Bossier Parish Corrections Center
 </tr>
 <tr>
 <td style="text-align:left;">
-Montgomery County Jail
+Baker County Detention Center
+</td>
+<td style="text-align:left;">
+Baker County Sheriff’s Office
 </td>
 <td style="text-align:right;">
-80
+156
+</td>
+<td style="text-align:right;">
+78
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Hall County Department of Corrections
+Florence Service Processing Center
+</td>
+<td style="text-align:left;">
+ICE
 </td>
 <td style="text-align:right;">
-66
+155
+</td>
+<td style="text-align:right;">
+78
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Cambria County Prison
+Donald W. Wyatt Detention Facility
+</td>
+<td style="text-align:left;">
+Central Falls Detention Facility Corporation
 </td>
 <td style="text-align:right;">
-64
+131
+</td>
+<td style="text-align:right;">
+131
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Seneca County Jail
+Donald W. Wyatt Detention Facility
+</td>
+<td style="text-align:left;">
+Providence County
 </td>
 <td style="text-align:right;">
-62
+131
+</td>
+<td style="text-align:right;">
+131
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Howard County Detention Center
+Plymouth County Correctional Facility
+</td>
+<td style="text-align:left;">
+Plymouth County Sherrif’s Department
+</td>
+<td style="text-align:right;">
+126
+</td>
+<td style="text-align:right;">
+126
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Worcester County Jail
+</td>
+<td style="text-align:left;">
+Worcester County
+</td>
+<td style="text-align:right;">
+125
+</td>
+<td style="text-align:right;">
+125
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jackson Parish Correctional Center
+</td>
+<td style="text-align:left;">
+Jackson Parish Sheriff’s Department
+</td>
+<td style="text-align:right;">
+117
+</td>
+<td style="text-align:right;">
+117
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jackson Parish Correctional Center
+</td>
+<td style="text-align:left;">
+LaSalle Corrections
+</td>
+<td style="text-align:right;">
+117
+</td>
+<td style="text-align:right;">
+117
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Eden Detention Center
+</td>
+<td style="text-align:left;">
+CoreCivic
+</td>
+<td style="text-align:right;">
+115
+</td>
+<td style="text-align:right;">
+115
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Joe Corley Processing Center
+</td>
+<td style="text-align:left;">
+The GEO Group, Inc. 
+</td>
+<td style="text-align:right;">
+107
 </td>
 <td style="text-align:right;">
 54
@@ -942,23 +1309,41 @@ Howard County Detention Center
 </tr>
 <tr>
 <td style="text-align:left;">
-Rio Grande Detention Center
+Johnson County Corrections Center
+</td>
+<td style="text-align:left;">
+LaSalle Corrections
 </td>
 <td style="text-align:right;">
-54
+102
+</td>
+<td style="text-align:right;">
+102
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Cibola County Correctional Center
+CCA Florence Correctional Center
+</td>
+<td style="text-align:left;">
+CoreCivic
 </td>
 <td style="text-align:right;">
-48
+93
+</td>
+<td style="text-align:right;">
+93
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Chippewa County Correctional Facility
+Limestone County Detention Center
+</td>
+<td style="text-align:left;">
+LaSalle Corrections
+</td>
+<td style="text-align:right;">
+88
 </td>
 <td style="text-align:right;">
 44
@@ -966,47 +1351,167 @@ Chippewa County Correctional Facility
 </tr>
 <tr>
 <td style="text-align:left;">
-Cass County Jail
+Okmulgee County Jail - Moore Detention Facility
+</td>
+<td style="text-align:left;">
+Okmulgee County Criminal Justice Authority
 </td>
 <td style="text-align:right;">
-40
+88
+</td>
+<td style="text-align:right;">
+88
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Coastal Bend Detention Center
+Jerome Combs Detention Center
+</td>
+<td style="text-align:left;">
+Kankakee County Sheriff’s Office
 </td>
 <td style="text-align:right;">
-40
+87
+</td>
+<td style="text-align:right;">
+44
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Golden State Annex
+Broward Transitional Center
+</td>
+<td style="text-align:left;">
+The GEO Group, Inc. 
 </td>
 <td style="text-align:right;">
-40
+83
+</td>
+<td style="text-align:right;">
+42
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Morgan County Adult Detention Center
+Allen Parish Public Safety Complex
+</td>
+<td style="text-align:left;">
+Allen Parish Sheriff’s Office
 </td>
 <td style="text-align:right;">
-40
+79
+</td>
+<td style="text-align:right;">
+79
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Washoe County Detention Center
+Allen Parish Public Safety Complex
+</td>
+<td style="text-align:left;">
+Allen Parish Sheriff’s Office
 </td>
 <td style="text-align:right;">
-40
+79
+</td>
+<td style="text-align:right;">
+79
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Richwood Correctional Center
+Elizabeth Contract Detention Facility
+</td>
+<td style="text-align:left;">
+CoreCivic
+</td>
+<td style="text-align:right;">
+76
+</td>
+<td style="text-align:right;">
+38
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kay County Detention Center
+</td>
+<td style="text-align:left;">
+Kay County Justice Facilities Authority
+</td>
+<td style="text-align:right;">
+72
+</td>
+<td style="text-align:right;">
+36
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Henderson Detention Center
+</td>
+<td style="text-align:left;">
+Henderson Police Department
+</td>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+68
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Hardin County Jail
+</td>
+<td style="text-align:left;">
+Hardin County Sheriff’s Department
+</td>
+<td style="text-align:right;">
+66
+</td>
+<td style="text-align:right;">
+33
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Wakulla County Detention Facility
+</td>
+<td style="text-align:left;">
+Wakulla County Sheriff’s Office
+</td>
+<td style="text-align:right;">
+64
+</td>
+<td style="text-align:right;">
+32
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+El Valle Detention Facility
+</td>
+<td style="text-align:left;">
+Management &amp; Training Corporation (MTC)
+</td>
+<td style="text-align:right;">
+62
+</td>
+<td style="text-align:right;">
+62
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nye County Detention Center
+</td>
+<td style="text-align:left;">
+Nye County Sheriff’s Office
+</td>
+<td style="text-align:right;">
+56
 </td>
 <td style="text-align:right;">
 28
@@ -1014,55 +1519,111 @@ Richwood Correctional Center
 </tr>
 <tr>
 <td style="text-align:left;">
-South Louisiana ICE Processing Center
+Catahoula Correctional Center
+</td>
+<td style="text-align:left;">
+LaSalle Corrections
 </td>
 <td style="text-align:right;">
-28
+44
+</td>
+<td style="text-align:right;">
+44
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Sheriff Al Cannon Detention Center
+Geauga County Jail
+</td>
+<td style="text-align:left;">
+Geauga County County Sheriff’s Office
 </td>
 <td style="text-align:right;">
-24
+44
+</td>
+<td style="text-align:right;">
+44
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Carver County Jail
+Geauga County Jail
+</td>
+<td style="text-align:left;">
+Geauga County Sheriff’s Department
 </td>
 <td style="text-align:right;">
-22
+44
+</td>
+<td style="text-align:right;">
+44
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Saint Clair County Jail
+Bossier Parish Corrections Center
+</td>
+<td style="text-align:left;">
+Bossier Parish Sheriffs Office
 </td>
 <td style="text-align:right;">
-20
+40
+</td>
+<td style="text-align:right;">
+40
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Northern Oregon Correctional Facility
+Montgomery County Jail
+</td>
+<td style="text-align:left;">
+Montgomery County Sheriff’s Office
 </td>
 <td style="text-align:right;">
-18
+40
+</td>
+<td style="text-align:right;">
+40
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Shawnee County Department of Corrections - Adult Detention Center
+Hall County Department of Corrections
+</td>
+<td style="text-align:left;">
+Hall County Board of Corrections
 </td>
 <td style="text-align:right;">
-18
+33
+</td>
+<td style="text-align:right;">
+33
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Teller County Jail
+Cambria County Prison
+</td>
+<td style="text-align:left;">
+Cambria County Prison Board
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+32
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Seneca County Jail
+</td>
+<td style="text-align:left;">
+Seneca County Sheriff’s Office
+</td>
+<td style="text-align:right;">
+31
 </td>
 <td style="text-align:right;">
 16
@@ -1070,7 +1631,41 @@ Teller County Jail
 </tr>
 <tr>
 <td style="text-align:left;">
-Rolling Plains Detention Center
+Howard County Detention Center
+</td>
+<td style="text-align:left;">
+Howard County Government
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+27
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rio Grande Detention Center
+</td>
+<td style="text-align:left;">
+The GEO Group, Inc. 
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cibola County Correctional Center
+</td>
+<td style="text-align:left;">
+CoreCivic
+</td>
+<td style="text-align:right;">
+24
 </td>
 <td style="text-align:right;">
 12
@@ -1078,47 +1673,195 @@ Rolling Plains Detention Center
 </tr>
 <tr>
 <td style="text-align:left;">
-Christian County Jail
+Chippewa County Correctional Facility
+</td>
+<td style="text-align:left;">
+Chippewa County Sheriff’s Office
 </td>
 <td style="text-align:right;">
-8
+22
+</td>
+<td style="text-align:right;">
+22
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Monroe County Inmate Dormitory
+Cass County Jail
+</td>
+<td style="text-align:left;">
+Cass County Sheriff’s Office
 </td>
 <td style="text-align:right;">
-8
+20
+</td>
+<td style="text-align:right;">
+20
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-San Luis Regional Detention Center
+Coastal Bend Detention Center
+</td>
+<td style="text-align:left;">
+The GEO Group, Inc. 
 </td>
 <td style="text-align:right;">
-8
+20
+</td>
+<td style="text-align:right;">
+20
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-T. Don Hutto Residential Center
+Golden State Annex
+</td>
+<td style="text-align:left;">
+The GEO Group, Inc. 
 </td>
 <td style="text-align:right;">
-8
+20
+</td>
+<td style="text-align:right;">
+7
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-West Texas Detention Facility
+Morgan County Adult Detention Center
+</td>
+<td style="text-align:left;">
+Morgan County
 </td>
 <td style="text-align:right;">
-8
+20
+</td>
+<td style="text-align:right;">
+20
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Clay County Jail
+Washoe County Detention Center
+</td>
+<td style="text-align:left;">
+Sheriff of Washoe County
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+20
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Richwood Correctional Center
+</td>
+<td style="text-align:left;">
+LaSalle Corrections
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+South Louisiana ICE Processing Center
+</td>
+<td style="text-align:left;">
+The GEO Group, Inc. 
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sheriff Al Cannon Detention Center
+</td>
+<td style="text-align:left;">
+Charleston County Sheriff’s Office
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Carver County Jail
+</td>
+<td style="text-align:left;">
+Carver County Sheriff’s Office
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Saint Clair County Jail
+</td>
+<td style="text-align:left;">
+Saint Clair County Sheriff’s Department
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Northern Oregon Correctional Facility
+</td>
+<td style="text-align:left;">
+Northern Oregon Corrections
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Shawnee County Department of Corrections - Adult Detention Center
+</td>
+<td style="text-align:left;">
+Shawnee County Board of Comissioners
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Teller County Jail
+</td>
+<td style="text-align:left;">
+Teller County Sheriff’s Department
+</td>
+<td style="text-align:right;">
+8
 </td>
 <td style="text-align:right;">
 4
@@ -1126,7 +1869,55 @@ Clay County Jail
 </tr>
 <tr>
 <td style="text-align:left;">
-Desert View Annex
+Rolling Plains Detention Center
+</td>
+<td style="text-align:left;">
+LaSalle Corrections
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Christian County Jail
+</td>
+<td style="text-align:left;">
+Christian County Sheriff’s Office
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Monroe County Inmate Dormitory
+</td>
+<td style="text-align:left;">
+Monroe County Sheriff and County Board of Commissioners
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+San Luis Regional Detention Center
+</td>
+<td style="text-align:left;">
+LaSalle Corrections
+</td>
+<td style="text-align:right;">
+4
 </td>
 <td style="text-align:right;">
 2
@@ -1134,7 +1925,69 @@ Desert View Annex
 </tr>
 <tr>
 <td style="text-align:left;">
+T. Don Hutto Residential Center
+</td>
+<td style="text-align:left;">
+CoreCivic
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+West Texas Detention Facility
+</td>
+<td style="text-align:left;">
+LaSalle Corrections
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Clay County Jail
+</td>
+<td style="text-align:left;">
+Clay County Sheriff’s Office
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Desert View Annex
+</td>
+<td style="text-align:left;">
+The GEO Group, Inc. 
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 Alamance County Detention Center
+</td>
+<td style="text-align:left;">
+Almance County Sheriff’s Office
+</td>
+<td style="text-align:right;">
+0
 </td>
 <td style="text-align:right;">
 0
@@ -1144,6 +1997,12 @@ Alamance County Detention Center
 <td style="text-align:left;">
 Alamance County Jail
 </td>
+<td style="text-align:left;">
+Alamance County Sherrif’s Office
+</td>
+<td style="text-align:right;">
+0
+</td>
 <td style="text-align:right;">
 0
 </td>
@@ -1151,6 +2010,12 @@ Alamance County Jail
 <tr>
 <td style="text-align:left;">
 Boone County Jail
+</td>
+<td style="text-align:left;">
+Boone County Sheriff’s Office
+</td>
+<td style="text-align:right;">
+0
 </td>
 <td style="text-align:right;">
 0
@@ -1160,6 +2025,12 @@ Boone County Jail
 <td style="text-align:left;">
 Brooks County Detention Center
 </td>
+<td style="text-align:left;">
+The GEO Group, Inc. 
+</td>
+<td style="text-align:right;">
+0
+</td>
 <td style="text-align:right;">
 0
 </td>
@@ -1167,6 +2038,12 @@ Brooks County Detention Center
 <tr>
 <td style="text-align:left;">
 Chase County Detention Center
+</td>
+<td style="text-align:left;">
+County of Chase
+</td>
+<td style="text-align:right;">
+0
 </td>
 <td style="text-align:right;">
 0
@@ -1176,6 +2053,12 @@ Chase County Detention Center
 <td style="text-align:left;">
 Dorchester County Detention Center
 </td>
+<td style="text-align:left;">
+Dorchester County Sheriff’s Office
+</td>
+<td style="text-align:right;">
+0
+</td>
 <td style="text-align:right;">
 0
 </td>
@@ -1183,6 +2066,12 @@ Dorchester County Detention Center
 <tr>
 <td style="text-align:left;">
 Douglas County Department of Corrections
+</td>
+<td style="text-align:left;">
+Douglas County Board of Corrections
+</td>
+<td style="text-align:right;">
+0
 </td>
 <td style="text-align:right;">
 0
@@ -1192,6 +2081,12 @@ Douglas County Department of Corrections
 <td style="text-align:left;">
 East Hidalgo Detention Center
 </td>
+<td style="text-align:left;">
+The GEO Group, Inc. 
+</td>
+<td style="text-align:right;">
+0
+</td>
 <td style="text-align:right;">
 0
 </td>
@@ -1199,6 +2094,12 @@ East Hidalgo Detention Center
 <tr>
 <td style="text-align:left;">
 Etowah County Jail
+</td>
+<td style="text-align:left;">
+Etowah County
+</td>
+<td style="text-align:right;">
+0
 </td>
 <td style="text-align:right;">
 0
@@ -1208,6 +2109,12 @@ Etowah County Jail
 <td style="text-align:left;">
 LaSalle Correctional Center
 </td>
+<td style="text-align:left;">
+LaSalle Corrections
+</td>
+<td style="text-align:right;">
+0
+</td>
 <td style="text-align:right;">
 0
 </td>
@@ -1215,6 +2122,12 @@ LaSalle Correctional Center
 <tr>
 <td style="text-align:left;">
 LaSalle County Regional Detention Center
+</td>
+<td style="text-align:left;">
+LaSalle County Sheriff’s Department
+</td>
+<td style="text-align:right;">
+0
 </td>
 <td style="text-align:right;">
 0
@@ -1224,6 +2137,12 @@ LaSalle County Regional Detention Center
 <td style="text-align:left;">
 Morrow County Correctional Facility
 </td>
+<td style="text-align:left;">
+Morrow County Sheriff
+</td>
+<td style="text-align:right;">
+0
+</td>
 <td style="text-align:right;">
 0
 </td>
@@ -1231,6 +2150,12 @@ Morrow County Correctional Facility
 <tr>
 <td style="text-align:left;">
 Platte County Detention Center
+</td>
+<td style="text-align:left;">
+Platte County Sheriff’s Office
+</td>
+<td style="text-align:right;">
+0
 </td>
 <td style="text-align:right;">
 0
@@ -1240,6 +2165,12 @@ Platte County Detention Center
 <td style="text-align:left;">
 Robert A. Deyton Detention Facility
 </td>
+<td style="text-align:left;">
+The GEO Group, Inc. 
+</td>
+<td style="text-align:right;">
+0
+</td>
 <td style="text-align:right;">
 0
 </td>
@@ -1247,6 +2178,12 @@ Robert A. Deyton Detention Facility
 <tr>
 <td style="text-align:left;">
 Val Verde Correctional Facility
+</td>
+<td style="text-align:left;">
+The GEO Group, Inc. 
+</td>
+<td style="text-align:right;">
+0
 </td>
 <td style="text-align:right;">
 0
@@ -1256,6 +2193,12 @@ Val Verde Correctional Facility
 <td style="text-align:left;">
 Western Tennessee Detention Facility
 </td>
+<td style="text-align:left;">
+CoreCivic
+</td>
+<td style="text-align:right;">
+0
+</td>
 <td style="text-align:right;">
 0
 </td>
@@ -1263,6 +2206,12 @@ Western Tennessee Detention Facility
 <tr>
 <td style="text-align:left;">
 Willacy County Regional Detention Facility
+</td>
+<td style="text-align:left;">
+Management &amp; Training Corporation (MTC)
+</td>
+<td style="text-align:right;">
+0
 </td>
 <td style="text-align:right;">
 0

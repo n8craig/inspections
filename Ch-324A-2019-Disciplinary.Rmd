@@ -52,13 +52,14 @@ df_discipline %>%
 ```{r disciplinary-by-facility}
 color.me <- which(df_discipline_sum$total_disciplinary_by_inspection > outlier_discipline_fac_by_insp)
 
-df_discipline %>% 
+df_discipline_sum %>% 
   group_by(facility) %>% 
-  summarise(total_disciplinary = sum(disciplinary_count, na.rm = TRUE)) %>% 
-  arrange(desc(total_disciplinary)) %>% 
+  # summarise(total_disciplinary = sum(disciplinary_count, na.rm = TRUE)) %>% 
+  arrange(desc(total_disciplinary_facility)) %>%
+  select(-n_inspections) %>% 
   ungroup() %>% 
   kable(caption = "Total discipline by facility, with facilities having significnatly greater than average number of disciplinary infractions issued per inspection shown in bold.",
-        col.names = c("Facility", "Total Discipline by Facility")) %>% 
+        col.names = c("Facility", "Facility Operator",  "Total Discipline by Facility", "Total Disciplinary by Inspection")) %>% 
   kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
   row_spec(color.me, bold = TRUE) %>% 
   scroll_box(height = "300px")
