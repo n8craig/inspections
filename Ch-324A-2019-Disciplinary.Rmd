@@ -33,11 +33,11 @@ sd_discipline_fac_by_insp <- sd(df_discipline_sum$total_disciplinary_by_inspecti
 outlier_discipline_fac_by_insp <- m_discipline_fac_by_insp + 2*sd_discipline_fac_by_insp
 ```
 
-As a matter of law, ICE detention is not punitive it is purely administrative civil holding to ensure that individuals are present for their immigration proceedings (REFF). Despite that fact, there is a tremendous amount of punitive disciplinary actions that occur in ICE detention facilities. Some of this information on discipline in ICE detention is logged in facility inspections.
+As a matter of law, ICE detention is not punitive it is purely administrative civil holding to ensure that individuals are present for their immigration proceedings [@ice2016, i; @schriro2009, 2-3]. Despite that fact, punitive disciplinary actions are logged on ICE's G-324A SIS form. The form also lists the number of disciplinary fractions found guilty, appeals, and appeals in favor of detained persons.
 
-During the `r inspect_sample_interval` covering the period between `r format(inspect_earliest, format= "%B %e, %Y")` and `r format(inspect_latest, format= "%B %e, %Y")`, there were `r disciplinary_sum` disciplinary infractions issued by facility operators (Table \@ref(tab:total-disciplinary-type)). There were an average of `r round(m_discipline_fac_by_insp, digits = 2)` (SD = `r round(sd_discipline_fac_by_insp, digits = 2)`) disciplinary infractions per facility by inspection (Table \@ref(tab:disciplinary-by-facility)).
+During the `r inspect_sample_interval` months covering the period between `r format(inspect_earliest, format= "%B %e, %Y")` and `r format(inspect_latest, format= "%B %e, %Y")`, there were `r disciplinary_sum` disciplinary infractions issued by facility operators (Table \@ref(tab:total-disciplinary-type)). There were an average of `r round(m_discipline_fac_by_insp, digits = 2)` (SD = `r round(sd_discipline_fac_by_insp, digits = 2)`) disciplinary infractions per facility by inspection (Table \@ref(tab:disciplinary-by-facility)).
 
-Four facilities have significantly greater than average number of disciplinary infractions per inspection (Figures \@ref(fig:histogram-disciplinary-by-inspection) and \@ref(fig:disciplinary-greater-than-average-facility)). Of the facilities with greater than average number of disciplinary infractions issued per inspection two are managed by CoreCivic, one is managed by Immigration Centers of America, and one is managed by ICE.
+Four facilities have significantly greater than average number of disciplinary infractions per inspection (Figures \@ref(fig:histogram-disciplinary-by-inspection) and \@ref(fig:disciplinary-greater-than-average-facility)). Of the facilities with significantly greater than average number of disciplinary infractions issued per inspection two are managed by CoreCivic, one is managed by Immigration Centers of America, and one is a service processing center managed by ICE.
 
 ```{r total-disciplinary-type}
 df_discipline %>% 
@@ -72,7 +72,7 @@ df_discipline_sum %>%
   geom_histogram()+
   gghighlight(max(total_disciplinary_by_inspection) > outlier_discipline_fac_by_insp, use_direct_label = FALSE)+
   labs(title = "Histogram disciplinary infractions issued by inspection",
-       subtitle = "Facilities with significantly higher than average number of disciplinary infractions per inspection highlighted.",
+       subtitle = "Facilities with significantly higher than average number of disciplinary infractions\nper inspection highlighted.",
        fill = "Facility")+
   xlab("Disciplinary by Inspection")+
   ylab("Number of Facilities")
@@ -86,71 +86,4 @@ df_discipline_sum %>%
 
   xlab("Disciplinary Infractions by Inspection")+
   ylab("Facility")
-```
-
-## Facet Plot of Disciplinary by Facility
-
-```{r disciplinary-facet, fig.height=40}
-# Generating a linetype vector for use in the plot
-plot_lines <- c(
-    "solid",
-    "solid",
-    "solid",
-    "solid",
-    "solid",
-    "dotted"
-    )
-
-# Use Color Brewer to set colors and modify
-# the last color to be black for totals.
-plot_colors <- brewer.pal(6, "Paired")
-plot_colors[6] <- "#000000"
-
-# Create plot labels
-
-plot_labels <- c(
-    "Disciplinary Infractions",
-    "Disciplinary Infractions - Guilty",
-    "Disciplinary Appeals",
-    "Disciplinary Appeals in Favor of Detainee",
-    "Sanctions Over 60 Days",
-    "Total Disciplinary")
-
-
-df_discipline %>% 
-  
-  # Calling the plot and formatting
-  ggplot(aes(x=date,
-             y = disciplinary_count,
-             linetype = disciplinary_type))+
-  geom_line(aes(color = disciplinary_type), size = .65) +
-  
-  # Set the linetype
-  scale_linetype_manual(
-    values = plot_lines,
-    labels = plot_labels,
-    name = "Disciplinary Type:",
-    guide = guide_legend(nrow = 6)
-    )+
-  
-  # Setting the color
-  scale_color_manual(
-  values = plot_colors,
-  labels = plot_labels,
-  name = "Disciplinary Type:"
-  )+
-
-  labs(title = "Disciplinary")+
-  ylab("Number of Disciplinary Infractions")+
-  xlab("Date")+
-  theme(
-    strip.text = element_text(size = 8),
-    legend.position = "bottom"
-    )+
-
-  # Set the legend to multiple rows
-  guides(col = guide_legend(nrow =6))+
-  
-  # Wrap
-  facet_wrap(~ facility, ncol=3)
 ```

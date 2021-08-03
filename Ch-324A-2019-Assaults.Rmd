@@ -22,14 +22,12 @@ library(kableExtra)
 load("data/data.RData")
 ```
 
-The ICE G-324A Significant Incident Summary sheet contains information on a number of different kinds of assaults. Specifically, there are four categories of assaults listed:
+The ICE G-324A Significant Incident Summary sheet contains information on four categories of assaults:
 
 -   Detained Person on Staff with Serious Injury
 -   Detained Person on Staff without Serious Injury
 -   Detained Person on Detained Person with Serious Injury
 -   Detained Person on Detained Person without Serious Injury
-
-Conspicuously absent from this list of assault types are assaults on detained persons by staff. This is deeply concerning because already initial review of inspection forms and prior news stories indicates that staff assaults on detained persons do occur. However, these are described as "use of force" incidents and are not tallied as assaults. Use of force incidents are described in Section \@ref(use-of-force).
 
 Out of the `r inspect_proc_n` inspections that occurred at `r facility_n` facilities between `r format(inspect_earliest, format= "%B %e, %Y")` and `r format(inspect_latest, format= "%B %e, %Y")`, there were `r assault_sum` assaults (Table \@ref(tab:assault-summary-by-type)).
 
@@ -61,7 +59,7 @@ sd_assaults_fac_by_insp <- sd(df_assaults_sum$total_assaults_by_inspection)
 outlier_assault_fac_by_insp <- m_assaults_fac_by_insp+(2*sd_assaults_fac_by_insp)
 ```
 
-The mean number of assaults by facility per inspection is `r round(m_assaults_fac_by_insp, digits=0)` (SD=`r round(sd_assaults_fac_by_insp, digits=2)`) (Table \@ref(tab:assault-summary-by-facility)). Based on this mean, five facilities have greater than average number of assaults per inspection (\> `r round(outlier_assault_fac_by_insp, digits=2)` assaults) (Figures \@ref(fig:histogram-assaults-by-inspection) and \@ref(fig:assault-greater-than-average-facility)). Among the facilities with significantly higher than average number of assaults per inspection three are managed by The Geo Group; one is managed by LaSalle Corrections; and one is a Service Processing Center managed by ICE.
+The mean number of assaults by facility per inspection is `r round(m_assaults_fac_by_insp, digits=0)` (SD=`r round(sd_assaults_fac_by_insp, digits=2)`) (Table \@ref(tab:assault-summary-by-facility)). Based on this mean, five facilities have significnatly greater than average number of assaults per inspection (\> `r round(outlier_assault_fac_by_insp, digits=2)` assaults) (Figures \@ref(fig:histogram-assaults-by-inspection) and \@ref(fig:assault-greater-than-average-facility)). Among the facilities with significantly higher than average number of assaults per inspection three are managed by The Geo Group; one is managed by LaSalle Corrections; and one is a Service Processing Center managed by ICE.
 
 ```{r assault-summary-by-facility}
 color.me <- which(df_assaults_sum$total_assaults_by_inspection > outlier_assault_fac_by_insp)
@@ -99,65 +97,6 @@ df_assaults_sum %>%
   ylab("Facility")
 ```
 
-## Facet Plot of Assaults by Facility
+## Discussion
 
-The figure below is a facet plot of the assault categories present on the G-324A SIS form.
-
-```{r assault-facet, fig.height=40}
-
-# Generating a linetype vector for use in the plot
-plot_lines <- c(
-    "solid",
-    "solid",
-    "solid",
-    "solid",
-    "dotted"
-    )
-
-# Use Color Brewer to set colors and modify
-# the last color to be black for totals.
-plot_colors <- brewer.pal(5, "Paired")
-plot_colors[5] <- "#000000"
-
-# Create the labels
-plot_labels <- c(
-    "Detained Person on Staff w. Serious Injury",
-    "Detained Person on Staff w/o Serious Injury",
-    "Detained Person on Detained Person w. Serous Injury",
-    "Detained Person on Detained Person w/o Serous Injury",
-    "Total Assaults")
-
-df_assaults %>% 
-  # Calling the plot and formatting
-  ggplot(aes(x=date, y = assault_count, linetype=assault_type))+
-  geom_line(aes(color = assault_type), size =.65) +
-  
-  # Set the line type
-  scale_linetype_manual(
-    values = plot_lines,
-    labels = plot_labels,
-    name = "Assault Type:",
-    guide = guide_legend(nrow = 5)
-    )+
-  
-  # Setting the color
-  scale_color_manual(
-    values = plot_colors,
-    labels = plot_labels,
-  name = "Assault Type:"
-  )+
-
-  labs(title = "Reported Assaults")+
-  ylab("Number of Assaults")+
-  xlab("Date")+
-  theme(
-    strip.text = element_text(size = 8),
-    legend.position = "bottom"
-    )+
-
-  # Set the legend to multiple rows
-  guides(col = guide_legend(nrow =5))+
-  
-  # Wrap
-  facet_wrap(~ facility, ncol=3)
-```
+Conspicuously absent from the four assault types listed on ICE's G-324A SIS form are assaults on detained persons by staff. This omission is deeply concerning because prior news stories and review of the inspection forms themselves show that staff assaults on detained persons do occur. However, these are generally described as "use of force" incidents and are not tallied as assaults. Use of force incidents are described in Section \@ref(use-of-force).

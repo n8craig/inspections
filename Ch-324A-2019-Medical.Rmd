@@ -44,60 +44,6 @@ df_observation %>%
   scroll_box(height = "300px")
 ```
 
-### Facet Plot of Medical Mental Observation by Facility
-
-```{r medical-mental-observation-facet, fig.height=40}
-# Generating a linetype vector for use in the plot
-plot_lines <- c(
-    "solid",
-    "solid",
-    "dotted"
-    )
-
-# Use Color Brewer to set colors
-plot_colors <- brewer.pal(3, "Paired")
-plot_colors[3] <- "#000000"
-
-# Create plot labels
-plot_labels <- c(
-    "Detainees in Medical Observation",
-    "Detainees in Mental Health Observation",
-    "Total Individuals in Medical or Mental Health Observation")
-
-df_observation %>% 
-
-  # Calling the plot and formatting
-  ggplot(aes(x=date, y = medical_mental_observation_count, linetype=medical_mental_observation_type))+
-  geom_line(aes(color = medical_mental_observation_type),size=.65) +
-  
-  # Set the linetype
-  scale_linetype_manual(
-    values = plot_lines,
-    labels = plot_labels,
-    name = "Observation Type:",
-    guide = guide_legend(nrow = 3)
-    )+
-  
-  # Set the color
-  scale_color_manual(values = plot_colors,
-                     labels = plot_labels,
-                     name = "Observation Type:",)+
-
-  labs(title = "Medical and Mental Health Observation")+
-  ylab("Number of Individuals in Observation")+
-  xlab("Date")+
-  theme(
-    strip.text = element_text(size = 8),
-    legend.position = "bottom"
-    )+
-
-  # Set the legend to multiple rows
-  guides(col = guide_legend(nrow =3))+
-  
-  # Wrap
-  facet_wrap(~ facility, ncol=3)
-  
-```
 
 ## Infections Disease
 
@@ -126,57 +72,6 @@ df_infectious %>%
 
 ```
 
-### Facet Plot of Infectious Disease by Facility
-
-```{r infectious-disease-facet, fig.height=40}
-# Generating a linetype vector for use in the plot
-plot_lines <- c(
-    "solid",
-    "solid"
-    )
-
-# Use Color Brewer to set colors
-plot_colors <- brewer.pal(2, "Paired")
-
-# Create plot labels
-plot_labels <- c(
-    "Infectious Disease Reported",
-    "Infectious Disease Confirmed")
-
-df_infectious %>% 
-  
-  # Calling the plot and formatting
-  ggplot(aes(x=date, y = infectious_disease_count, linetype=infectious_disease_type))+
-  geom_line(aes(color = infectious_disease_type),size=.65) +
-  
-  # Set the linetype
-  scale_linetype_manual(
-    values = plot_lines,
-    labels = plot_labels,
-    name = "Category:",
-    guide = guide_legend(nrow = 2)
-    )+
-  
-  # Set the color
-  scale_color_manual(values = plot_colors,
-    labels = plot_labels,
-    name = "Category:")+
-
-  labs(title = "Infectious Diseases Reported and Confirmed")+
-  ylab("Count")+
-  xlab("Date")+
-  theme(
-    strip.text = element_text(size = 8),
-    legend.position = "bottom"
-    )+
-
-  # Set the legend to multiple rows
-  guides(col = guide_legend(nrow =3))+
-  
-  # Wrap
-  facet_wrap(~ facility, ncol=3)
-```
-
 ## Medical and Mental Health Referrals
 
 ```{r referrals-summary}
@@ -199,59 +94,7 @@ df_referrals %>%
   scroll_box(height = "300px")
 ```
 
-```{r referrals-facet, fig.height=40}
-# Generating a linetype vector for use in the plot
-plot_lines <- c(
-    "solid",
-    "solid",
-    "solid",
-    "solid",
-    "dotted"
-    )
-
-# Use Color Brewer to set colors
-plot_colors <- brewer.pal(5, "Paired")
-plot_colors[5] <- "#000000"
-
-# Create plot labels
-plot_labels <- c(
-    "Outside Medical Referrals",
-    "Detainees Transported to Off-Site Hospitals for Emergency Reasons",
-    "Admissions to Off-Site Hospitals for Medical Reasons",
-    "Admissions to Off-Site Hospitals for Mental Health Reasons",
-    "Total Referrals")
-
-df_referrals %>% 
-  # Calling the plot and formatting
-  ggplot(aes(x=date, y = referral_count, linetype=referral_type))+
-  geom_line(aes(color = referral_type),size=.65) +
-  
-  # Set the linetype
-  scale_linetype_manual(
-    values = plot_lines,
-    labels = plot_labels,
-    name = "Referral Type:",
-    guide = guide_legend(nrow = 5)
-    )+
-  
-  # Set the color
-  scale_color_manual(values = plot_colors,
-    labels = plot_labels,
-    name = "Referral Type:")+
-
-  labs(title = "Medical and Mental Health Referrals")+
-  ylab("Number of Referrals")+
-  xlab("Date")+
-  theme(
-    strip.text = element_text(size = 8),
-    legend.position = "bottom"
-    )+
-
-  # Set the legend to multiple rows
-  guides(col = guide_legend(nrow =5))+
-  
-  # Wrap
-  facet_wrap(~ facility, ncol=3)
+```
 ```
 
 ## Sick Call Requests and Encounters
@@ -276,89 +119,6 @@ df_sick_call %>%
   scroll_box(height = "300px")
 ```
 
-```{r sick-calls-plot, fig.height=40}
-# Generating a linetype vector for use in the plot
-plot_lines <- c(
-    "solid",
-    "solid",
-    "dotted"
-    )
-
-# Use Color Brewer to set colors
-plot_colors <- brewer.pal(3, "Paired")
-plot_colors[3] <- "#000000"
-
-# Create labels
-plot_labels <- c(
-    "Sick Call Requests",
-    "Sick Call Encounters",
-    "Total Sick Calls")
-
-df_324_inc %>%
-  
-  # Subset the df to only the used cols
-  select(id, facility, date,
-       sick_call_requests:
-       sick_call_encounters
-       ) %>% 
-  
-  # Need the rowwise function to compute a row-at-a-time
-  # in the following mutate function
-  rowwise(id) %>% 
-  
-  # Create a new total column
-  mutate(total_sick_calls = sum(c_across(
-       sick_call_requests:
-       sick_call_encounters
-  ), na.rm = TRUE)) %>% 
-
-  # Call a range of table columns and pivot long
-  pivot_longer(.,
-               cols=  sick_call_requests:total_sick_calls,
-               names_to = "sick_call_type",
-               values_to = "sick_call_count") %>%
-  
-  # Remove NA values
-  drop_na() %>% 
-  
-  # Explicitly define factor levels
-  mutate(sick_call_type = factor(sick_call_type, levels = c(
-    "sick_call_requests",
-    "sick_call_encounters",
-    "total_sick_calls"
-  ))) %>% 
-  
-  # Calling the plot and formatting
-  ggplot(aes(x=date, y = sick_call_count, linetype=sick_call_type))+
-  geom_line(aes(color = sick_call_type),size=.65) +
-  
-  # Set the linetype
-  scale_linetype_manual(
-    values = plot_lines,
-    labels = plot_labels,
-    name = "Sick Call Type:",
-    guide = guide_legend(nrow = 3)
-    )+
-  
-  # Set the color
-  scale_color_manual(values = plot_colors,
-    labels = plot_labels,
-    name = "Sick Call Type:")+
-
-  labs(title = "Sick Calls")+
-  ylab("Number of Sick Calls")+
-  xlab("Date")+
-  theme(
-    strip.text = element_text(size = 8),
-    legend.position = "bottom"
-    )+
-
-  # Set the legend to multiple rows
-  guides(col = guide_legend(nrow =3))+
-  
-  # Wrap
-  facet_wrap(~ facility, ncol=3)
-```
 
 ## Suicide Attempts and Watches
 
@@ -384,42 +144,6 @@ df_suicide %>%
   scroll_box(height = "300px")
 ```
 
-```{r suicide-facet, fig.height=40}
-
-# Use Color Brewer to set colors and modify
-# the last color to be black for totals.
-plot_colors <- brewer.pal(2, "Paired")
-
-# Create plot labels
-plot_labels <- c(
-      "Suicide Attempts or Self Harm",
-      "Suicide Watches/Constant Watch/Mental Health Observation")
-
-# Calling the plot and formatting
-df_suicide %>% 
-  ggplot(aes(x=date, y = suicide_count))+
-  geom_line(aes(color=suicide_type), size = .65) +
-  
-  # Set the color
-  scale_color_manual(
-    values = plot_colors,
-    labels = plot_labels,
-    name = "Type:"
-    )+
-  
-  labs(title = "Suicide Attempts and Watches")+
-  ylab("Number of Attempts or Watches")+
-  xlab("Date")+
-  theme(
-    strip.text = element_text(size = 5),
-    legend.position = "bottom"
-    )+
-  # Set the legend to multiple rows
-  guides(col = guide_legend(nrow =5))+
-  
-  # Wrap
-  facet_wrap(~ facility, ncol = 3)
-```
 
 ## Hunger Strikes
 
@@ -437,29 +161,4 @@ df_hunger_strike %>%
   scroll_box(height = "300px")
 ```
 
-```{r hunger-strike-facet, fig.height=40, fig.cap="Facet plot of hunger strikes per month by facility."}
-# Use Color Brewer to set colors and modify
-# the last color to be black for totals.
-plot_colors <- brewer.pal(2, "Paired")
 
-df_hunger_strike %>% 
-  
-  # Calling the plot and formatting
-  ggplot(aes(x=date, y = hunger_strikes))+
-  geom_line(size = .65) +
-  
-
-  labs(title = "Hunger Strikes")+
-  ylab("Number of Hunger Strikes")+
-  xlab("Date")+
-  theme(
-    strip.text = element_text(size = 5),
-    legend.position = "bottom"
-    )+
-  
-  # Set the legend to multiple rows
-  guides(col = guide_legend(nrow =5))+
-  
-  # Wrap
-  facet_wrap(~ facility, ncol = 3)
-```

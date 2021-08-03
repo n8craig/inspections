@@ -249,14 +249,12 @@ library(kableExtra)
 load("data/data.RData")
 ```
 
-The ICE G-324A Significant Incident Summary sheet contains information on a number of different kinds of assaults. Specifically, there are four categories of assaults listed:
+The ICE G-324A Significant Incident Summary sheet contains information on four categories of assaults:
 
 -   Detained Person on Staff with Serious Injury
 -   Detained Person on Staff without Serious Injury
 -   Detained Person on Detained Person with Serious Injury
 -   Detained Person on Detained Person without Serious Injury
-
-Conspicuously absent from this list of assault types are assaults on detained persons by staff. This is deeply concerning because already initial review of inspection forms and prior news stories indicates that staff assaults on detained persons do occur. However, these are described as "use of force" incidents and are not tallied as assaults. Use of force incidents are described in Section \@ref(use-of-force).
 
 Out of the `r inspect_proc_n` inspections that occurred at `r facility_n` facilities between `r format(inspect_earliest, format= "%B %e, %Y")` and `r format(inspect_latest, format= "%B %e, %Y")`, there were `r assault_sum` assaults (Table \@ref(tab:assault-summary-by-type)).
 
@@ -288,7 +286,7 @@ sd_assaults_fac_by_insp <- sd(df_assaults_sum$total_assaults_by_inspection)
 outlier_assault_fac_by_insp <- m_assaults_fac_by_insp+(2*sd_assaults_fac_by_insp)
 ```
 
-The mean number of assaults by facility per inspection is `r round(m_assaults_fac_by_insp, digits=0)` (SD=`r round(sd_assaults_fac_by_insp, digits=2)`) (Table \@ref(tab:assault-summary-by-facility)). Based on this mean, five facilities have greater than average number of assaults per inspection (\> `r round(outlier_assault_fac_by_insp, digits=2)` assaults) (Figures \@ref(fig:histogram-assaults-by-inspection) and \@ref(fig:assault-greater-than-average-facility)). Among the facilities with significantly higher than average number of assaults per inspection three are managed by The Geo Group; one is managed by LaSalle Corrections; and one is a Service Processing Center managed by ICE.
+The mean number of assaults by facility per inspection is `r round(m_assaults_fac_by_insp, digits=0)` (SD=`r round(sd_assaults_fac_by_insp, digits=2)`) (Table \@ref(tab:assault-summary-by-facility)). Based on this mean, five facilities have significnatly greater than average number of assaults per inspection (\> `r round(outlier_assault_fac_by_insp, digits=2)` assaults) (Figures \@ref(fig:histogram-assaults-by-inspection) and \@ref(fig:assault-greater-than-average-facility)). Among the facilities with significantly higher than average number of assaults per inspection three are managed by The Geo Group; one is managed by LaSalle Corrections; and one is a Service Processing Center managed by ICE.
 
 ```{r assault-summary-by-facility}
 color.me <- which(df_assaults_sum$total_assaults_by_inspection > outlier_assault_fac_by_insp)
@@ -326,68 +324,9 @@ df_assaults_sum %>%
   ylab("Facility")
 ```
 
-## Facet Plot of Assaults by Facility
+## Discussion
 
-The figure below is a facet plot of the assault categories present on the G-324A SIS form.
-
-```{r assault-facet, fig.height=40}
-
-# Generating a linetype vector for use in the plot
-plot_lines <- c(
-    "solid",
-    "solid",
-    "solid",
-    "solid",
-    "dotted"
-    )
-
-# Use Color Brewer to set colors and modify
-# the last color to be black for totals.
-plot_colors <- brewer.pal(5, "Paired")
-plot_colors[5] <- "#000000"
-
-# Create the labels
-plot_labels <- c(
-    "Detained Person on Staff w. Serious Injury",
-    "Detained Person on Staff w/o Serious Injury",
-    "Detained Person on Detained Person w. Serous Injury",
-    "Detained Person on Detained Person w/o Serous Injury",
-    "Total Assaults")
-
-df_assaults %>% 
-  # Calling the plot and formatting
-  ggplot(aes(x=date, y = assault_count, linetype=assault_type))+
-  geom_line(aes(color = assault_type), size =.65) +
-  
-  # Set the line type
-  scale_linetype_manual(
-    values = plot_lines,
-    labels = plot_labels,
-    name = "Assault Type:",
-    guide = guide_legend(nrow = 5)
-    )+
-  
-  # Setting the color
-  scale_color_manual(
-    values = plot_colors,
-    labels = plot_labels,
-  name = "Assault Type:"
-  )+
-
-  labs(title = "Reported Assaults")+
-  ylab("Number of Assaults")+
-  xlab("Date")+
-  theme(
-    strip.text = element_text(size = 8),
-    legend.position = "bottom"
-    )+
-
-  # Set the legend to multiple rows
-  guides(col = guide_legend(nrow =5))+
-  
-  # Wrap
-  facet_wrap(~ facility, ncol=3)
-```
+Conspicuously absent from the four assault types listed on ICE's G-324A SIS form are assaults on detained persons by staff. This omission is deeply concerning because prior news stories and review of the inspection forms themselves show that staff assaults on detained persons do occur. However, these are generally described as "use of force" incidents and are not tallied as assaults. Use of force incidents are described in Section \@ref(use-of-force).
 ```{r include=FALSE, cache=FALSE}
 rm(list = ls(all = TRUE))
 ```
@@ -432,11 +371,11 @@ sd_discipline_fac_by_insp <- sd(df_discipline_sum$total_disciplinary_by_inspecti
 outlier_discipline_fac_by_insp <- m_discipline_fac_by_insp + 2*sd_discipline_fac_by_insp
 ```
 
-As a matter of law, ICE detention is not punitive it is purely administrative civil holding to ensure that individuals are present for their immigration proceedings (REFF). Despite that fact, there is a tremendous amount of punitive disciplinary actions that occur in ICE detention facilities. Some of this information on discipline in ICE detention is logged in facility inspections.
+As a matter of law, ICE detention is not punitive it is purely administrative civil holding to ensure that individuals are present for their immigration proceedings [@ice2016, i; @schriro2009, 2-3]. Despite that fact, punitive disciplinary actions are logged on ICE's G-324A SIS form. The form also lists the number of disciplinary fractions found guilty, appeals, and appeals in favor of detained persons.
 
-During the `r inspect_sample_interval` covering the period between `r format(inspect_earliest, format= "%B %e, %Y")` and `r format(inspect_latest, format= "%B %e, %Y")`, there were `r disciplinary_sum` disciplinary infractions issued by facility operators (Table \@ref(tab:total-disciplinary-type)). There were an average of `r round(m_discipline_fac_by_insp, digits = 2)` (SD = `r round(sd_discipline_fac_by_insp, digits = 2)`) disciplinary infractions per facility by inspection (Table \@ref(tab:disciplinary-by-facility)).
+During the `r inspect_sample_interval` months covering the period between `r format(inspect_earliest, format= "%B %e, %Y")` and `r format(inspect_latest, format= "%B %e, %Y")`, there were `r disciplinary_sum` disciplinary infractions issued by facility operators (Table \@ref(tab:total-disciplinary-type)). There were an average of `r round(m_discipline_fac_by_insp, digits = 2)` (SD = `r round(sd_discipline_fac_by_insp, digits = 2)`) disciplinary infractions per facility by inspection (Table \@ref(tab:disciplinary-by-facility)).
 
-Four facilities have significantly greater than average number of disciplinary infractions per inspection (Figures \@ref(fig:histogram-disciplinary-by-inspection) and \@ref(fig:disciplinary-greater-than-average-facility)). Of the facilities with greater than average number of disciplinary infractions issued per inspection two are managed by CoreCivic, one is managed by Immigration Centers of America, and one is managed by ICE.
+Four facilities have significantly greater than average number of disciplinary infractions per inspection (Figures \@ref(fig:histogram-disciplinary-by-inspection) and \@ref(fig:disciplinary-greater-than-average-facility)). Of the facilities with significantly greater than average number of disciplinary infractions issued per inspection two are managed by CoreCivic, one is managed by Immigration Centers of America, and one is a service processing center managed by ICE.
 
 ```{r total-disciplinary-type}
 df_discipline %>% 
@@ -471,7 +410,7 @@ df_discipline_sum %>%
   geom_histogram()+
   gghighlight(max(total_disciplinary_by_inspection) > outlier_discipline_fac_by_insp, use_direct_label = FALSE)+
   labs(title = "Histogram disciplinary infractions issued by inspection",
-       subtitle = "Facilities with significantly higher than average number of disciplinary infractions per inspection highlighted.",
+       subtitle = "Facilities with significantly higher than average number of disciplinary infractions\nper inspection highlighted.",
        fill = "Facility")+
   xlab("Disciplinary by Inspection")+
   ylab("Number of Facilities")
@@ -485,73 +424,6 @@ df_discipline_sum %>%
 
   xlab("Disciplinary Infractions by Inspection")+
   ylab("Facility")
-```
-
-## Facet Plot of Disciplinary by Facility
-
-```{r disciplinary-facet, fig.height=40}
-# Generating a linetype vector for use in the plot
-plot_lines <- c(
-    "solid",
-    "solid",
-    "solid",
-    "solid",
-    "solid",
-    "dotted"
-    )
-
-# Use Color Brewer to set colors and modify
-# the last color to be black for totals.
-plot_colors <- brewer.pal(6, "Paired")
-plot_colors[6] <- "#000000"
-
-# Create plot labels
-
-plot_labels <- c(
-    "Disciplinary Infractions",
-    "Disciplinary Infractions - Guilty",
-    "Disciplinary Appeals",
-    "Disciplinary Appeals in Favor of Detainee",
-    "Sanctions Over 60 Days",
-    "Total Disciplinary")
-
-
-df_discipline %>% 
-  
-  # Calling the plot and formatting
-  ggplot(aes(x=date,
-             y = disciplinary_count,
-             linetype = disciplinary_type))+
-  geom_line(aes(color = disciplinary_type), size = .65) +
-  
-  # Set the linetype
-  scale_linetype_manual(
-    values = plot_lines,
-    labels = plot_labels,
-    name = "Disciplinary Type:",
-    guide = guide_legend(nrow = 6)
-    )+
-  
-  # Setting the color
-  scale_color_manual(
-  values = plot_colors,
-  labels = plot_labels,
-  name = "Disciplinary Type:"
-  )+
-
-  labs(title = "Disciplinary")+
-  ylab("Number of Disciplinary Infractions")+
-  xlab("Date")+
-  theme(
-    strip.text = element_text(size = 8),
-    legend.position = "bottom"
-    )+
-
-  # Set the legend to multiple rows
-  guides(col = guide_legend(nrow =6))+
-  
-  # Wrap
-  facet_wrap(~ facility, ncol=3)
 ```
 ```{r include=FALSE, cache=FALSE}
 rm(list = ls(all = TRUE))
@@ -569,10 +441,10 @@ knitr::opts_chunk$set(echo = FALSE)
 options(scipen=999)
 ```
 
-
 ```{r load-libraries-6, message=FALSE}
 # Plotting
 library(ggplot2)
+library(gghighlight)
 library(RColorBrewer)
 
 # Tables
@@ -581,9 +453,35 @@ library(kableExtra)
 load("data/data.RData")
 ```
 
-## Summary Tables
+```{r}
+df_solitary_sum <- df_solitary %>% 
+  group_by(facility) %>% 
+  filter(segregation_type == "total_segregation") %>% 
+  summarise(total_segregation_facility = sum(segregation_count, na.rm = TRUE)) %>% 
+  arrange(desc(total_segregation_facility)) %>% 
+  ungroup
 
-Of the present 163 inspections reviewed so far, there are more than 34,000 instances of solitary. That is roughly 208 instances of solitary per inspection.
+df_solitary_sum <- left_join(df_solitary_sum, df_facility_n_inspect) %>% 
+  mutate(total_segregation_by_inspection = round(total_segregation_facility / n_inspections, digits = 0)) %>% 
+  relocate(fac_operator:n_inspections, .after= facility)
+
+m_segregation_fac_by_insp <- mean(df_solitary_sum$total_segregation_by_inspection)
+sd_segregation_fac_by_insp <- sd(df_solitary_sum$total_segregation_by_inspection)
+outlier_segregation_fac_by_insp <- m_segregation_fac_by_insp + 2*sd_segregation_fac_by_insp
+```
+
+ICE PBNDS defines a "Special Management Unit" as "housing unit for detainees in administrative or disciplinary segregation" and defines segregation as "[c]onfinement in an individual cell isolated from the general population; for administrative, disciplinary, or protective reasons" [@ice2016, 473, 474]. These are anodyne euphemisms for solitary confinement. The G-324A SIS form records information on four kinds of solitary confinement:
+
+-   administrative
+-   disciplinary
+-   medical
+-   mental health
+
+During the `r inspect_sample_interval` months covering the period between `r format(inspect_earliest, format= "%B %e, %Y")` and `r format(inspect_latest, format= "%B %e, %Y")`, there were `r segregation_sum` instances of solitary reported (Tables \@ref(tab:solitary-summary) and \@ref(tab:solitary-by-facility)).
+
+There was an average of `r round(m_segregation_fac_by_insp, digits = 2)` (SD=`r round(sd_segregation_fac_by_insp, digits =2)`) instances of segregation per facility by inspection. Six facilities have significantly higher than average number of solitary instances reported per inspection. Of these facilities two are managed by ICE, one is managed by the Henderson Police Department, two are operated by CoreCivic, and one is managed by LaSalle Corrections.
+
+Roughly half of the total instances of solitary were administrative segregation (`r segregation_admin_perc`%, n = `r segregation_admin_sum`) while disciplinary (`r segregation_disciplinary_perc`%, n = `r segregation_disciplinary_sum`) and medical (`r segregation_medical_perc`%, n =`r segregation_medical_sum`) segregation made up nearly the other half. Mental health segregation (`r segregation_mental_health_perc`%, n = `r segregation_mental_health_sum`) comprised a relatively small proportion of the total number of solitary instances and still surpassed 1000 instances.
 
 ```{r solitary-summary}
 df_solitary %>% 
@@ -595,74 +493,114 @@ df_solitary %>%
   kable_styling(c("hover", "striped", "condensed", "responsive"))
 
 
-df_solitary %>% 
-  group_by(facility) %>% 
-  summarise(total_segregation = sum(segregation_count, na.rm = TRUE)) %>% 
-  arrange(desc(total_segregation)) %>% 
-  ungroup() %>% 
-  kable(caption = "Total Solitary by Facility",
-        col.names = c("Facility", "Total Solitary by Facility")) %>% 
-  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
-  scroll_box(height = "300px")
+# df_solitary %>% 
+#   group_by(facility) %>% 
+#   summarise(total_segregation = sum(segregation_count, na.rm = TRUE)) %>% 
+#   arrange(desc(total_segregation)) %>% 
+#   ungroup() %>% 
+#   kable(caption = "Total Solitary by Facility",
+#         col.names = c("Facility", "Total Solitary by Facility")) %>% 
+#   kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+#   scroll_box(height = "300px")
 ```
 
-## Facet Plots of Solitary by Facility
+```{r solitary-by-facility}
+color.me <- which(df_solitary_sum$total_segregation_by_inspection > outlier_segregation_fac_by_insp)
 
-```{r solitary-facet, fig.height=40}
-# Generating a linetype vector for use in the plot
-plot_lines <- c(
-    "solid",
-    "solid",
-    "solid",
-    "solid",
-    "dotted"
-    )
+df_solitary_sum %>% 
+  group_by(facility) %>% 
+  arrange(desc(total_segregation_facility)) %>%
+  select(-n_inspections) %>% 
+  ungroup() %>% 
+  kable(caption = "Total solitary by facility, with facilities having significnatly greater than average number of solitary instances per inspection shown in bold.",
+        col.names = c("Facility", "Facility Operator",  "Total Solitary by Facility", "Total Solitary by Inspection")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  row_spec(color.me, bold = TRUE) %>% 
+  scroll_box(height = "400px")
+```
 
-# Use Color Brewer to set colors and modify
-# the last color to be black for totals.
-plot_colors <- brewer.pal(5, "Paired")
-plot_colors[5] <- "#000000"
+```{r histogram-solitary-by-inspection, fig.cap="Histogram of solitary instances reported by inspection highlighting facilities that have significantly higher than average number of solitary instances reported per inspection."}
+df_solitary_sum %>% 
+  ggplot(aes(x = total_segregation_by_inspection, fill = facility))+
+  geom_histogram()+
+  gghighlight(max(total_segregation_by_inspection) > outlier_segregation_fac_by_insp, use_direct_label = FALSE)+
+  labs(title = "Histogram solitary instances reported by inspection",
+       subtitle = "Facilities with significantly higher than average number of solitary instances reported\nper inspection highlighted.",
+       fill = "Facility")+
+  xlab("Solitary by Inspection")+
+  ylab("Number of Facilities")
+```
 
-# Create plot labels
-plot_labels <- c(
-    "Administrative",
-    "Disciplinary",
-    "Medical",
-    "Mental Health",
-    "Total")
+```{r solitary-greater-than-average-facility, fig.cap="Facilities in the sample with greater than average number of solitary instances reported per inspection."}
+df_solitary_sum %>% 
+  filter(total_segregation_by_inspection > outlier_segregation_fac_by_insp) %>% 
+  ggplot(aes(x = total_segregation_by_inspection, y=reorder(facility, -total_segregation_by_inspection, sum)))+
+  geom_bar(stat="identity")+
 
-df_solitary %>% 
-
-# Calling the plot and formatting
-  ggplot(aes(x=date,
-             y = segregation_count,
-             linetype = segregation_type))+
-  geom_line(aes(color = segregation_type), size = .65) +
-  
-  # Set the color
-  scale_color_manual(
-  values = plot_colors,
-  name = "Solitary Type:",
-  labels = plot_labels)+
-  
-  # Set the linetype
-  scale_linetype_manual(
-    values = plot_lines,
-      name = "Solitary Type:",
-    labels = plot_labels)+
-  
-  
-  labs(title = "Reported Use of Solitary")+
-  ylab("Number of Individuals Palced in Solitary")+
-  xlab("Date")+
-  theme(
-    strip.text = element_text(size = 8),
-    legend.position = "bottom"
-    )+
-    facet_wrap(~ facility, ncol=3)
+  xlab("Solitary by Inspection")+
+  ylab("Facility")
 ```
 
 ## Solitary Over 60 Days
+
+```{r}
+df_seg60_sum <- df_324 %>% 
+  select(facility, 
+         fac_operator, 
+         admin_seg_60_ice,
+         disc_seg_60_ice) %>% 
+  mutate(total_seg_60 = admin_seg_60_ice+disc_seg_60_ice)
+  
+
+df_seg60_sum <- left_join(df_seg60_sum, df_facility_n_inspect) %>%
+  drop_na %>% 
+  # filter(seg60_type == "total_seg_60") %>% 
+  mutate(total_seg60_by_inspection = round(total_seg_60 / n_inspections, digits = 0)) %>% 
+  relocate(fac_operator:n_inspections, .after= facility) %>% 
+  arrange(desc(total_seg60_by_inspection))
+
+# Variables
+sum_seg60 <- sum(df_seg60_sum$total_seg_60)
+m_seg60_insp <- round( mean(df_seg60_sum$total_seg60_by_inspection), digits = 2)
+sd_seg60_insp <- round( sd(df_seg60_sum$total_seg60_by_inspection), digits = 2)
+
+admin_seg60_sum <- sum(df_324$admin_seg_60_ice, na.rm = TRUE)
+admin_seg60_perc <- round((sum(df_324$admin_seg_60_ice, na.rm = TRUE)/sum_seg60)*100, digits = 2)
+
+disc_seg60_sum <- sum(df_324$disc_seg_60_ice, na.rm = TRUE)
+disc_seg60_perc <- round((sum(df_324$disc_seg_60_ice, na.rm = TRUE)/sum_seg60)*100, digits = 2)
+```
+
+```{r}
+df_seg60_sum_facility <- df_seg60_sum %>% 
+  group_by(facility, fac_operator) %>% 
+  summarise(sum_seg60_insp = sum(total_seg60_by_inspection)) %>% 
+  arrange(desc(sum_seg60_insp))
+
+m_seg60_insp <- mean(df_seg60_sum_facility$sum_seg60_insp)
+sd_seg60_insp <- sd(df_seg60_sum_facility$sum_seg60_insp)
+outlier_seg60_insp <- m_seg60_insp + 2*sd_seg60_insp
+```
+
+The G-324A SIS form includes line items for annual number of administrative and disciplinary segregation stays over 60 days. ICE PBNDS Appendix 3.1.A, Offense Categories I.B.3 defines up to 60 days as the maximum length of disciplinary segregation [@ice2016, 224]. It is unclear why form G-324A has an entry for reporting uses of disciplinary solitary exceeding the 60 day maximum defined by PBNDS.
+
+Based on the inspections reviewed there were `r sum_seg60` instances of segregation \> 60 days reported. Of these cases, `r admin_seg60_perc`% (n=`r admin_seg60_sum`) involved administrative solitary and `r disc_seg60_perc`% (n=`r disc_seg60_sum`) involved disciplinary solitary.
+
+Within this sample of inspections, there were on average `r round(m_seg60_insp, digits = 2)` (SD=`r round(sd_seg60_insp, digits = 2)`) instances of segregation greater than 60 days per inspection. There are five facilities that have significantly higher than average number of incidents of solitary greater than 60 days.
+
+Of these, one is operated by MTC, three by the GEO Group, and one by CoreCivic. MTC's Imperial Regional Detention Facility stands out with more than double the next two highest ranking facilities regarding solitary \> 60 days.
+
+```{r}
+color.me <- which(df_seg60_sum_facility$sum_seg60_insp > outlier_seg60_insp)
+
+df_seg60_sum_facility %>% 
+ 
+  kable(caption = "Total solitary >60 days by facility, with facilities having significnatly greater than average number of solitary >60 days instances per inspection shown in bold.",
+        col.names = c("Facility", "Facility Operator",  "Total Solitary > 60 days by Facility by Inspection")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  row_spec(color.me, bold = TRUE) %>% 
+  scroll_box(height = "400px")
+```
 
 ```{r solitary-60-facet}
 
@@ -716,8 +654,6 @@ df_324 %>%
         y = "Facility Operator")+
   theme(legend.position = "bottom")
 ```
-
-
 ```{r include=FALSE, cache=FALSE}
 rm(list = ls(all = TRUE))
 ```
@@ -832,73 +768,6 @@ The details of the May 1, 2020 Use of Force incident do not come to light in eit
 For example, at the Bristol County County Jail and House of Corrections independent investigation by the Massachusetts Office of Attorney General (MAOG) found that facility staff found a "planned and deliberate-use of force against the ICE detainees that was disproportionate to the security needs at that time and unnecessarily caused, or risked causing, harm to all involved" [@maag2020, ii]. The MOAG found that facility staff used "a flash bang grenade, pepper-ball launchers, pepper spray canisters, anti-riot shields, and canines--against detainees who had exhibited calm and nonviolent behavior for at least an hour before this operation" [@maag2020, ii]. Investigations found that staff "deployed these weapons both indiscriminately upon entry and also specifically against detainees who were not combative, assaultive, or otherwise actively resisting staff" [@maag2020, ii].
 
 While the aforementioned Bristol County Jail may be a particularly egregious instance of staff assaulting detained persons, it is not an isolated case. For example, [video evidence](https://www.youtube.com/watch?v=JP_PfOhdLuM) from the Torrance County Detention Facility in Estancia NM shows CoreCivic's private facility staff pepper spraying persons detained by ICE on hunger strike [@swetlitz2020]. Review of inspections has also revealed additional inappropriate use of force incidents. The omission of a field to record instances of staff assaulting detained persons occludes and obscures real instances of violence. As the inspections process is a detention reform designed to make a more humane system of civil incarceration, the omission of categories for logging staff physical mistreatment of detained persons raises serious questions about the inspections processes ability to record significant and documented civil and human rights violations.
-
-## Facet Plot of Use of Force by Facility
-
-```{r use-force-facet, fig.height=40}
-# Generating a linetype vector for use in the plot
-plot_lines <- c(
-    "solid",
-    "solid",
-    "solid",
-    "solid",
-    "solid",
-    "solid",
-    "solid",
-    "dotted"
-    )
-
-# Use Color Brewer to set colors and modify
-# the last color to be black for totals.
-plot_colors <- brewer.pal(8, "Paired")
-plot_colors[8] <- "#000000"
-
-# Create plot labels
-plot_labels <- c(
-    "Immediate Use of Force Incidents",
-    "Calculated Use of Force Incidents",
-    "Uses of Force with Chemical Agents",
-    "Incidents Where Non-Lethal Weapons Were Used",
-    "Times 4/5 Point Restraints Used",
-    "Use of Force With Serious Injury",
-    "Strip Searches",
-    "Total Disciplinary")
-
-df_force %>% 
-  
-  # Calling the plot and formatting
-  ggplot(aes(x=date, y = use_of_force_count, linetype=use_of_force_type))+
-  geom_line(aes(color = use_of_force_type), size = .65) +
-  
-  # setting the linetype
-  scale_linetype_manual(
-    values = plot_lines,
-    labels = plot_labels,
-    name = "Use of Force Type:",
-    guide = guide_legend(nrow = 8)
-    )+
-  
-  # Setting the color
-  scale_color_manual(
-  values = plot_colors,
-  labels = plot_labels,
-  name = "Use of Force Type:",
-  )+
-
-  labs(title = "Disciplinary")+
-  ylab("Number of Disciplinary Infractions")+
-  xlab("Date")+
-  theme(
-    strip.text = element_text(size = 8),
-    legend.position = "bottom"
-    )+
-
-    # Set the legend to multiple rows
-  guides(col = guide_legend(nrow =8))+
-  
-  # Wrap
-  facet_wrap(~ facility, ncol=3)
-```
 ```{r include=FALSE, cache=FALSE}
 rm(list = ls(all = TRUE))
 ```
@@ -955,66 +824,6 @@ df_sex_alleg %>%
   scroll_box(height = "300px")
 ```
 
-### Facet Plot of Sexual Abuse and Assault Allegations by Facility
-
-```{r sexual-abuse-allegation-facet, fig.height=40}
-# Generating a linetype vector for use in the plot
-plot_lines <- c(
-    "solid",
-    "solid",
-    "solid",
-    "solid",
-    "solid",
-    "dotted"
-    )
-
-# Use Color Brewer to set colors and modify
-# the last color to be black for totals.
-plot_colors <- brewer.pal(6, "Paired")
-plot_colors[6] <- "#000000"
-
-# Create plot labels
-plot_labels <- c(
-    "Sexual Abuse Allegations - Detainee on Detainee",
-    "Sexual Abuse Allegations - Inmate on Detainee",
-    "Sexual Abuse Allegations - Detainee on Inmate",
-    "Sexual Abuse Allegations - Staff/Contractor/Volunteer on Detainee",
-    "Number of Sexual Abuse Allegations - Detainee on Staff/Contractor/Volunteer",
-    "Total Sexual Abuse Allegations")
-
-df_sex_alleg %>% 
-  # Calling the plot and formatting
-  ggplot(aes(x=date, y = sexual_abuse_allegations_count, linetype=sexual_abuse_allegations_type))+
-  geom_line(aes(color = sexual_abuse_allegations_type),size=.65) +
-  
-  # Set the linetype
-  scale_linetype_manual(
-    values = plot_lines,
-    labels = plot_labels,
-    name = "Sexual Abuse Allegation Type:",
-    guide = guide_legend(nrow = 6)
-    )+
-  
-  # Set the color
-  scale_color_manual(values = plot_colors,
-                     labels = plot_labels,
-                     name = "Sexual Abuse Allegation Type:")+
-
-  labs(title = "Sexual Abuse Allegations")+
-  ylab("Number of Allegations")+
-  xlab("Date")+
-  theme(
-    strip.text = element_text(size = 8),
-    legend.position = "bottom"
-    )+
-
-    # Set the legend to multiple rows
-  guides(col = guide_legend(nrow =8))+
-  
-  # Wrap
-  facet_wrap(~ facility, ncol=3)
-```
-
 ## Substantiated Allegations
 
 ### Summary Tables
@@ -1038,67 +847,6 @@ df_sex_alleg_sub %>%
         col.names = c("Facility", "Total Substantiated Allegations by Facility")) %>% 
   kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
   scroll_box(height = "300px")
-```
-
-### Facet Plot of Substantiated Sexual Abuse and Assault Allegations
-
-```{r sexual-abuse-substantiated-facet, fig.height=40}
-# Generating a linetype vector for use in the plot
-plot_lines <- c(
-    "solid",
-    "solid",
-    "solid",
-    "solid",
-    "solid",
-    "dotted"
-    )
-
-# Use Color Brewer to set colors and modify
-# the last color to be black for totals.
-plot_colors <- brewer.pal(6, "Paired")
-plot_colors[6] <- "#000000"
-
-# Create the labels
-plot_labels <- c(
-    "Sexual Abuse Allegations - Detainee on Detainee",
-    "Sexual Abuse Allegations - Inmate on Detainee",
-    "Sexual Abuse Allegations - Detainee on Inmate",
-    "Sexual Abuse Allegations - Staff/Contractor/Volunteer on Detainee",
-    "Number of Sexual Abuse Allegations - Detainee on Staff/Contractor/Volunteer",
-    "Total Sexual Abuse Allegations")
-
-df_sex_alleg_sub %>% 
-  
-  # Calling the plot and formatting
-  ggplot(aes(x=date, y = sexual_abuse_substantiated_count, linetype=sexual_abuse_substantiated_type))+
-  geom_line(aes(color = sexual_abuse_substantiated_type),size=.65) +
-  
-  # Set the linetype
-  scale_linetype_manual(
-    values = plot_lines,
-    labels = plot_labels,
-    name = "Sexual Abuse Allegation Type:",
-    guide = guide_legend(nrow = 6)
-    )+
-  
-  # Set the color
-  scale_color_manual(values = plot_colors,
-                     labels = plot_labels,
-                     name = "Sexual Abuse Allegation Type:")+
-
-  labs(title = "Sexual Abuse Allegations Substantiated")+
-  ylab("Number of Allegations")+
-  xlab("Date")+
-  theme(
-    strip.text = element_text(size = 8),
-    legend.position = "bottom"
-    )+
-
-  # Set the legend to multiple rows
-  guides(col = guide_legend(nrow =8))+
-  
-  # Wrap
-  facet_wrap(~ facility, ncol=3)
 ```
 ```{r include=FALSE, cache=FALSE}
 rm(list = ls(all = TRUE))
@@ -1155,60 +903,6 @@ df_observation %>%
   scroll_box(height = "300px")
 ```
 
-### Facet Plot of Medical Mental Observation by Facility
-
-```{r medical-mental-observation-facet, fig.height=40}
-# Generating a linetype vector for use in the plot
-plot_lines <- c(
-    "solid",
-    "solid",
-    "dotted"
-    )
-
-# Use Color Brewer to set colors
-plot_colors <- brewer.pal(3, "Paired")
-plot_colors[3] <- "#000000"
-
-# Create plot labels
-plot_labels <- c(
-    "Detainees in Medical Observation",
-    "Detainees in Mental Health Observation",
-    "Total Individuals in Medical or Mental Health Observation")
-
-df_observation %>% 
-
-  # Calling the plot and formatting
-  ggplot(aes(x=date, y = medical_mental_observation_count, linetype=medical_mental_observation_type))+
-  geom_line(aes(color = medical_mental_observation_type),size=.65) +
-  
-  # Set the linetype
-  scale_linetype_manual(
-    values = plot_lines,
-    labels = plot_labels,
-    name = "Observation Type:",
-    guide = guide_legend(nrow = 3)
-    )+
-  
-  # Set the color
-  scale_color_manual(values = plot_colors,
-                     labels = plot_labels,
-                     name = "Observation Type:",)+
-
-  labs(title = "Medical and Mental Health Observation")+
-  ylab("Number of Individuals in Observation")+
-  xlab("Date")+
-  theme(
-    strip.text = element_text(size = 8),
-    legend.position = "bottom"
-    )+
-
-  # Set the legend to multiple rows
-  guides(col = guide_legend(nrow =3))+
-  
-  # Wrap
-  facet_wrap(~ facility, ncol=3)
-  
-```
 
 ## Infections Disease
 
@@ -1237,57 +931,6 @@ df_infectious %>%
 
 ```
 
-### Facet Plot of Infectious Disease by Facility
-
-```{r infectious-disease-facet, fig.height=40}
-# Generating a linetype vector for use in the plot
-plot_lines <- c(
-    "solid",
-    "solid"
-    )
-
-# Use Color Brewer to set colors
-plot_colors <- brewer.pal(2, "Paired")
-
-# Create plot labels
-plot_labels <- c(
-    "Infectious Disease Reported",
-    "Infectious Disease Confirmed")
-
-df_infectious %>% 
-  
-  # Calling the plot and formatting
-  ggplot(aes(x=date, y = infectious_disease_count, linetype=infectious_disease_type))+
-  geom_line(aes(color = infectious_disease_type),size=.65) +
-  
-  # Set the linetype
-  scale_linetype_manual(
-    values = plot_lines,
-    labels = plot_labels,
-    name = "Category:",
-    guide = guide_legend(nrow = 2)
-    )+
-  
-  # Set the color
-  scale_color_manual(values = plot_colors,
-    labels = plot_labels,
-    name = "Category:")+
-
-  labs(title = "Infectious Diseases Reported and Confirmed")+
-  ylab("Count")+
-  xlab("Date")+
-  theme(
-    strip.text = element_text(size = 8),
-    legend.position = "bottom"
-    )+
-
-  # Set the legend to multiple rows
-  guides(col = guide_legend(nrow =3))+
-  
-  # Wrap
-  facet_wrap(~ facility, ncol=3)
-```
-
 ## Medical and Mental Health Referrals
 
 ```{r referrals-summary}
@@ -1310,59 +953,7 @@ df_referrals %>%
   scroll_box(height = "300px")
 ```
 
-```{r referrals-facet, fig.height=40}
-# Generating a linetype vector for use in the plot
-plot_lines <- c(
-    "solid",
-    "solid",
-    "solid",
-    "solid",
-    "dotted"
-    )
-
-# Use Color Brewer to set colors
-plot_colors <- brewer.pal(5, "Paired")
-plot_colors[5] <- "#000000"
-
-# Create plot labels
-plot_labels <- c(
-    "Outside Medical Referrals",
-    "Detainees Transported to Off-Site Hospitals for Emergency Reasons",
-    "Admissions to Off-Site Hospitals for Medical Reasons",
-    "Admissions to Off-Site Hospitals for Mental Health Reasons",
-    "Total Referrals")
-
-df_referrals %>% 
-  # Calling the plot and formatting
-  ggplot(aes(x=date, y = referral_count, linetype=referral_type))+
-  geom_line(aes(color = referral_type),size=.65) +
-  
-  # Set the linetype
-  scale_linetype_manual(
-    values = plot_lines,
-    labels = plot_labels,
-    name = "Referral Type:",
-    guide = guide_legend(nrow = 5)
-    )+
-  
-  # Set the color
-  scale_color_manual(values = plot_colors,
-    labels = plot_labels,
-    name = "Referral Type:")+
-
-  labs(title = "Medical and Mental Health Referrals")+
-  ylab("Number of Referrals")+
-  xlab("Date")+
-  theme(
-    strip.text = element_text(size = 8),
-    legend.position = "bottom"
-    )+
-
-  # Set the legend to multiple rows
-  guides(col = guide_legend(nrow =5))+
-  
-  # Wrap
-  facet_wrap(~ facility, ncol=3)
+```
 ```
 
 ## Sick Call Requests and Encounters
@@ -1387,89 +978,6 @@ df_sick_call %>%
   scroll_box(height = "300px")
 ```
 
-```{r sick-calls-plot, fig.height=40}
-# Generating a linetype vector for use in the plot
-plot_lines <- c(
-    "solid",
-    "solid",
-    "dotted"
-    )
-
-# Use Color Brewer to set colors
-plot_colors <- brewer.pal(3, "Paired")
-plot_colors[3] <- "#000000"
-
-# Create labels
-plot_labels <- c(
-    "Sick Call Requests",
-    "Sick Call Encounters",
-    "Total Sick Calls")
-
-df_324_inc %>%
-  
-  # Subset the df to only the used cols
-  select(id, facility, date,
-       sick_call_requests:
-       sick_call_encounters
-       ) %>% 
-  
-  # Need the rowwise function to compute a row-at-a-time
-  # in the following mutate function
-  rowwise(id) %>% 
-  
-  # Create a new total column
-  mutate(total_sick_calls = sum(c_across(
-       sick_call_requests:
-       sick_call_encounters
-  ), na.rm = TRUE)) %>% 
-
-  # Call a range of table columns and pivot long
-  pivot_longer(.,
-               cols=  sick_call_requests:total_sick_calls,
-               names_to = "sick_call_type",
-               values_to = "sick_call_count") %>%
-  
-  # Remove NA values
-  drop_na() %>% 
-  
-  # Explicitly define factor levels
-  mutate(sick_call_type = factor(sick_call_type, levels = c(
-    "sick_call_requests",
-    "sick_call_encounters",
-    "total_sick_calls"
-  ))) %>% 
-  
-  # Calling the plot and formatting
-  ggplot(aes(x=date, y = sick_call_count, linetype=sick_call_type))+
-  geom_line(aes(color = sick_call_type),size=.65) +
-  
-  # Set the linetype
-  scale_linetype_manual(
-    values = plot_lines,
-    labels = plot_labels,
-    name = "Sick Call Type:",
-    guide = guide_legend(nrow = 3)
-    )+
-  
-  # Set the color
-  scale_color_manual(values = plot_colors,
-    labels = plot_labels,
-    name = "Sick Call Type:")+
-
-  labs(title = "Sick Calls")+
-  ylab("Number of Sick Calls")+
-  xlab("Date")+
-  theme(
-    strip.text = element_text(size = 8),
-    legend.position = "bottom"
-    )+
-
-  # Set the legend to multiple rows
-  guides(col = guide_legend(nrow =3))+
-  
-  # Wrap
-  facet_wrap(~ facility, ncol=3)
-```
 
 ## Suicide Attempts and Watches
 
@@ -1495,42 +1003,6 @@ df_suicide %>%
   scroll_box(height = "300px")
 ```
 
-```{r suicide-facet, fig.height=40}
-
-# Use Color Brewer to set colors and modify
-# the last color to be black for totals.
-plot_colors <- brewer.pal(2, "Paired")
-
-# Create plot labels
-plot_labels <- c(
-      "Suicide Attempts or Self Harm",
-      "Suicide Watches/Constant Watch/Mental Health Observation")
-
-# Calling the plot and formatting
-df_suicide %>% 
-  ggplot(aes(x=date, y = suicide_count))+
-  geom_line(aes(color=suicide_type), size = .65) +
-  
-  # Set the color
-  scale_color_manual(
-    values = plot_colors,
-    labels = plot_labels,
-    name = "Type:"
-    )+
-  
-  labs(title = "Suicide Attempts and Watches")+
-  ylab("Number of Attempts or Watches")+
-  xlab("Date")+
-  theme(
-    strip.text = element_text(size = 5),
-    legend.position = "bottom"
-    )+
-  # Set the legend to multiple rows
-  guides(col = guide_legend(nrow =5))+
-  
-  # Wrap
-  facet_wrap(~ facility, ncol = 3)
-```
 
 ## Hunger Strikes
 
@@ -1548,32 +1020,7 @@ df_hunger_strike %>%
   scroll_box(height = "300px")
 ```
 
-```{r hunger-strike-facet, fig.height=40, fig.cap="Facet plot of hunger strikes per month by facility."}
-# Use Color Brewer to set colors and modify
-# the last color to be black for totals.
-plot_colors <- brewer.pal(2, "Paired")
 
-df_hunger_strike %>% 
-  
-  # Calling the plot and formatting
-  ggplot(aes(x=date, y = hunger_strikes))+
-  geom_line(size = .65) +
-  
-
-  labs(title = "Hunger Strikes")+
-  ylab("Number of Hunger Strikes")+
-  xlab("Date")+
-  theme(
-    strip.text = element_text(size = 5),
-    legend.position = "bottom"
-    )+
-  
-  # Set the legend to multiple rows
-  guides(col = guide_legend(nrow =5))+
-  
-  # Wrap
-  facet_wrap(~ facility, ncol = 3)
-```
 ```{r include=FALSE, cache=FALSE}
 rm(list = ls(all = TRUE))
 ```
@@ -1697,9 +1144,9 @@ rm(list = ls(all = TRUE))
 ```{r include=FALSE, cache=FALSE}
 rm(list = ls(all = TRUE))
 ```
-# (APPENDIX) Appendix {-}
+# (APPENDIX) Appendix {.unnumbered}
 
-#  Appendix A: Reading in SIS Forms {-}
+# Reading in SIS Forms
 
 ```{r setup-appendix, include=FALSE}
 knitr::opts_chunk$set(
@@ -1737,7 +1184,7 @@ Summary tables help to provide an overview of how many instances occur within pa
 
 Facet plots partition each portion of a plot into a matrix of panels. These plots are produced for several categories of data where each panel represents a facility for a given variable reported in the SIS form. Within each category, columns are pivoted longer and plotted by date. Graphing is done using the `ggplot2` library [@R-ggplot2] with the `facet_wrap` function to provide a means to compare multiple facilities simultaneously. Such a plot can help identify trends and guide more specific questions.
 
-# Appendix B: Data Cleaning {-}
+# Data Cleaning
 
 Anyone familiar working with ICE data knows that the agency is notorious for releasing dirty data filled with pesky errors. For example, consider the Krome Service Processing Center, the very first immigration processing center established in the 1980's after the closure of Ellis Island in 1954. Of all the facilities the agency should name consistently, Krome the very first detention center of the contemporary system, one would expect ICE to get right. However, the facility inspections page lists the following names for the Krome Service Processing Center:
 
@@ -1951,7 +1398,6 @@ df_inspect <- df_inspect %>%
          )
 ```
 
-
 ```{r df-inspect-after}
 df_inspect %>% 
   select(id, facility) %>% 
@@ -1970,11 +1416,705 @@ df_inspect %>%
   scroll_box(height="400px")
 ```
 
-
 ```{r package-references-appendix, echo=FALSE}
 knitr::write_bib(file = 'packages.bib')
 ```
 
+# Facet Plots
+
+## Assaults
+
+```{r assault-facet, fig.height=40}
+
+# Generating a linetype vector for use in the plot
+plot_lines <- c(
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "dotted"
+    )
+
+# Use Color Brewer to set colors and modify
+# the last color to be black for totals.
+plot_colors <- brewer.pal(5, "Paired")
+plot_colors[5] <- "#000000"
+
+# Create the labels
+plot_labels <- c(
+    "Detained Person on Staff w. Serious Injury",
+    "Detained Person on Staff w/o Serious Injury",
+    "Detained Person on Detained Person w. Serous Injury",
+    "Detained Person on Detained Person w/o Serous Injury",
+    "Total Assaults")
+
+df_assaults %>% 
+  # Calling the plot and formatting
+  ggplot(aes(x=date, y = assault_count, linetype=assault_type))+
+  geom_line(aes(color = assault_type), size =.65) +
+  
+  # Set the line type
+  scale_linetype_manual(
+    values = plot_lines,
+    labels = plot_labels,
+    name = "Assault Type:",
+    guide = guide_legend(nrow = 5)
+    )+
+  
+  # Setting the color
+  scale_color_manual(
+    values = plot_colors,
+    labels = plot_labels,
+  name = "Assault Type:"
+  )+
+
+  labs(title = "Reported Assaults")+
+  ylab("Number of Assaults")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 8),
+    legend.position = "bottom"
+    )+
+
+  # Set the legend to multiple rows
+  guides(col = guide_legend(nrow =5))+
+  
+  # Wrap
+  facet_wrap(~ facility, ncol=3)
+```
+
+## Disciplinary
+
+```{r disciplinary-facet, fig.height=40}
+# Generating a linetype vector for use in the plot
+plot_lines <- c(
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "dotted"
+    )
+
+# Use Color Brewer to set colors and modify
+# the last color to be black for totals.
+plot_colors <- brewer.pal(6, "Paired")
+plot_colors[6] <- "#000000"
+
+# Create plot labels
+
+plot_labels <- c(
+    "Disciplinary Infractions",
+    "Disciplinary Infractions - Guilty",
+    "Disciplinary Appeals",
+    "Disciplinary Appeals in Favor of Detainee",
+    "Sanctions Over 60 Days",
+    "Total Disciplinary")
+
+
+df_discipline %>% 
+  
+  # Calling the plot and formatting
+  ggplot(aes(x=date,
+             y = disciplinary_count,
+             linetype = disciplinary_type))+
+  geom_line(aes(color = disciplinary_type), size = .65) +
+  
+  # Set the linetype
+  scale_linetype_manual(
+    values = plot_lines,
+    labels = plot_labels,
+    name = "Disciplinary Type:",
+    guide = guide_legend(nrow = 6)
+    )+
+  
+  # Setting the color
+  scale_color_manual(
+  values = plot_colors,
+  labels = plot_labels,
+  name = "Disciplinary Type:"
+  )+
+
+  labs(title = "Disciplinary")+
+  ylab("Number of Disciplinary Infractions")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 8),
+    legend.position = "bottom"
+    )+
+
+  # Set the legend to multiple rows
+  guides(col = guide_legend(nrow =6))+
+  
+  # Wrap
+  facet_wrap(~ facility, ncol=3)
+```
+
+## Solitary
+
+```{r solitary-facet, fig.height=40, fig.cap="Facet plot of solitary instances reported by facility over time"}
+# Generating a linetype vector for use in the plot
+plot_lines <- c(
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "dotted"
+    )
+
+# Use Color Brewer to set colors and modify
+# the last color to be black for totals.
+plot_colors <- brewer.pal(5, "Paired")
+plot_colors[5] <- "#000000"
+
+# Create plot labels
+plot_labels <- c(
+    "Administrative",
+    "Disciplinary",
+    "Medical",
+    "Mental Health",
+    "Total")
+
+df_solitary %>% 
+
+# Calling the plot and formatting
+  ggplot(aes(x=date,
+             y = segregation_count,
+             linetype = segregation_type))+
+  geom_line(aes(color = segregation_type), size = .65) +
+  
+  # Set the color
+  scale_color_manual(
+  values = plot_colors,
+  name = "Solitary Type:",
+  labels = plot_labels)+
+  
+  # Set the linetype
+  scale_linetype_manual(
+    values = plot_lines,
+      name = "Solitary Type:",
+    labels = plot_labels)+
+  
+  
+  labs(title = "Reported Use of Solitary")+
+  ylab("Number of Individuals Palced in Solitary")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 8),
+    legend.position = "bottom"
+    )+
+    facet_wrap(~ facility, ncol=3)
+```
+
+## Use of Force
+
+```{r use-force-facet, fig.height=40}
+# Generating a linetype vector for use in the plot
+plot_lines <- c(
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "dotted"
+    )
+
+# Use Color Brewer to set colors and modify
+# the last color to be black for totals.
+plot_colors <- brewer.pal(8, "Paired")
+plot_colors[8] <- "#000000"
+
+# Create plot labels
+plot_labels <- c(
+    "Immediate Use of Force Incidents",
+    "Calculated Use of Force Incidents",
+    "Uses of Force with Chemical Agents",
+    "Incidents Where Non-Lethal Weapons Were Used",
+    "Times 4/5 Point Restraints Used",
+    "Use of Force With Serious Injury",
+    "Strip Searches",
+    "Total Disciplinary")
+
+df_force %>% 
+  
+  # Calling the plot and formatting
+  ggplot(aes(x=date, y = use_of_force_count, linetype=use_of_force_type))+
+  geom_line(aes(color = use_of_force_type), size = .65) +
+  
+  # setting the linetype
+  scale_linetype_manual(
+    values = plot_lines,
+    labels = plot_labels,
+    name = "Use of Force Type:",
+    guide = guide_legend(nrow = 8)
+    )+
+  
+  # Setting the color
+  scale_color_manual(
+  values = plot_colors,
+  labels = plot_labels,
+  name = "Use of Force Type:",
+  )+
+
+  labs(title = "Disciplinary")+
+  ylab("Number of Disciplinary Infractions")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 8),
+    legend.position = "bottom"
+    )+
+
+    # Set the legend to multiple rows
+  guides(col = guide_legend(nrow =8))+
+  
+  # Wrap
+  facet_wrap(~ facility, ncol=3)
+```
+
+## Sexual Abuse and Assault
+
+### Allegations
+
+```{r sexual-abuse-allegation-facet, fig.height=40}
+# Generating a linetype vector for use in the plot
+plot_lines <- c(
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "dotted"
+    )
+
+# Use Color Brewer to set colors and modify
+# the last color to be black for totals.
+plot_colors <- brewer.pal(6, "Paired")
+plot_colors[6] <- "#000000"
+
+# Create plot labels
+plot_labels <- c(
+    "Sexual Abuse Allegations - Detainee on Detainee",
+    "Sexual Abuse Allegations - Inmate on Detainee",
+    "Sexual Abuse Allegations - Detainee on Inmate",
+    "Sexual Abuse Allegations - Staff/Contractor/Volunteer on Detainee",
+    "Number of Sexual Abuse Allegations - Detainee on Staff/Contractor/Volunteer",
+    "Total Sexual Abuse Allegations")
+
+df_sex_alleg %>% 
+  # Calling the plot and formatting
+  ggplot(aes(x=date, y = sexual_abuse_allegations_count, linetype=sexual_abuse_allegations_type))+
+  geom_line(aes(color = sexual_abuse_allegations_type),size=.65) +
+  
+  # Set the linetype
+  scale_linetype_manual(
+    values = plot_lines,
+    labels = plot_labels,
+    name = "Sexual Abuse Allegation Type:",
+    guide = guide_legend(nrow = 6)
+    )+
+  
+  # Set the color
+  scale_color_manual(values = plot_colors,
+                     labels = plot_labels,
+                     name = "Sexual Abuse Allegation Type:")+
+
+  labs(title = "Sexual Abuse Allegations")+
+  ylab("Number of Allegations")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 8),
+    legend.position = "bottom"
+    )+
+
+    # Set the legend to multiple rows
+  guides(col = guide_legend(nrow =8))+
+  
+  # Wrap
+  facet_wrap(~ facility, ncol=3)
+```
+
+### Allegations Substantiated
+
+```{r sexual-abuse-substantiated-facet, fig.height=40}
+# Generating a linetype vector for use in the plot
+plot_lines <- c(
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "dotted"
+    )
+
+# Use Color Brewer to set colors and modify
+# the last color to be black for totals.
+plot_colors <- brewer.pal(6, "Paired")
+plot_colors[6] <- "#000000"
+
+# Create the labels
+plot_labels <- c(
+    "Sexual Abuse Allegations - Detainee on Detainee",
+    "Sexual Abuse Allegations - Inmate on Detainee",
+    "Sexual Abuse Allegations - Detainee on Inmate",
+    "Sexual Abuse Allegations - Staff/Contractor/Volunteer on Detainee",
+    "Number of Sexual Abuse Allegations - Detainee on Staff/Contractor/Volunteer",
+    "Total Sexual Abuse Allegations")
+
+df_sex_alleg_sub %>% 
+  
+  # Calling the plot and formatting
+  ggplot(aes(x=date, y = sexual_abuse_substantiated_count, linetype=sexual_abuse_substantiated_type))+
+  geom_line(aes(color = sexual_abuse_substantiated_type),size=.65) +
+  
+  # Set the linetype
+  scale_linetype_manual(
+    values = plot_lines,
+    labels = plot_labels,
+    name = "Sexual Abuse Allegation Type:",
+    guide = guide_legend(nrow = 6)
+    )+
+  
+  # Set the color
+  scale_color_manual(values = plot_colors,
+                     labels = plot_labels,
+                     name = "Sexual Abuse Allegation Type:")+
+
+  labs(title = "Sexual Abuse Allegations Substantiated")+
+  ylab("Number of Allegations")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 8),
+    legend.position = "bottom"
+    )+
+
+  # Set the legend to multiple rows
+  guides(col = guide_legend(nrow =8))+
+  
+  # Wrap
+  facet_wrap(~ facility, ncol=3)
+```
+
+## Medical
+
+### Medical Mental Observation
+
+```{r medical-mental-observation-facet, fig.height=40}
+# Generating a linetype vector for use in the plot
+plot_lines <- c(
+    "solid",
+    "solid",
+    "dotted"
+    )
+
+# Use Color Brewer to set colors
+plot_colors <- brewer.pal(3, "Paired")
+plot_colors[3] <- "#000000"
+
+# Create plot labels
+plot_labels <- c(
+    "Detainees in Medical Observation",
+    "Detainees in Mental Health Observation",
+    "Total Individuals in Medical or Mental Health Observation")
+
+df_observation %>% 
+
+  # Calling the plot and formatting
+  ggplot(aes(x=date, y = medical_mental_observation_count, linetype=medical_mental_observation_type))+
+  geom_line(aes(color = medical_mental_observation_type),size=.65) +
+  
+  # Set the linetype
+  scale_linetype_manual(
+    values = plot_lines,
+    labels = plot_labels,
+    name = "Observation Type:",
+    guide = guide_legend(nrow = 3)
+    )+
+  
+  # Set the color
+  scale_color_manual(values = plot_colors,
+                     labels = plot_labels,
+                     name = "Observation Type:",)+
+
+  labs(title = "Medical and Mental Health Observation")+
+  ylab("Number of Individuals in Observation")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 8),
+    legend.position = "bottom"
+    )+
+
+  # Set the legend to multiple rows
+  guides(col = guide_legend(nrow =3))+
+  
+  # Wrap
+  facet_wrap(~ facility, ncol=3)
+```
+
+### Infectious Disease
+
+```{r infectious-disease-facet, fig.height=40}
+# Generating a linetype vector for use in the plot
+plot_lines <- c(
+    "solid",
+    "solid"
+    )
+
+# Use Color Brewer to set colors
+plot_colors <- brewer.pal(2, "Paired")
+
+# Create plot labels
+plot_labels <- c(
+    "Infectious Disease Reported",
+    "Infectious Disease Confirmed")
+
+df_infectious %>% 
+  
+  # Calling the plot and formatting
+  ggplot(aes(x=date, y = infectious_disease_count, linetype=infectious_disease_type))+
+  geom_line(aes(color = infectious_disease_type),size=.65) +
+  
+  # Set the linetype
+  scale_linetype_manual(
+    values = plot_lines,
+    labels = plot_labels,
+    name = "Category:",
+    guide = guide_legend(nrow = 2)
+    )+
+  
+  # Set the color
+  scale_color_manual(values = plot_colors,
+    labels = plot_labels,
+    name = "Category:")+
+
+  labs(title = "Infectious Diseases Reported and Confirmed")+
+  ylab("Count")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 8),
+    legend.position = "bottom"
+    )+
+
+  # Set the legend to multiple rows
+  guides(col = guide_legend(nrow =3))+
+  
+  # Wrap
+  facet_wrap(~ facility, ncol=3)
+```
+
+### Medical and Mental Health Referrals
+
+```{r referrals-facet, fig.height=40}
+# Generating a linetype vector for use in the plot
+plot_lines <- c(
+    "solid",
+    "solid",
+    "solid",
+    "solid",
+    "dotted"
+    )
+
+# Use Color Brewer to set colors
+plot_colors <- brewer.pal(5, "Paired")
+plot_colors[5] <- "#000000"
+
+# Create plot labels
+plot_labels <- c(
+    "Outside Medical Referrals",
+    "Detainees Transported to Off-Site Hospitals for Emergency Reasons",
+    "Admissions to Off-Site Hospitals for Medical Reasons",
+    "Admissions to Off-Site Hospitals for Mental Health Reasons",
+    "Total Referrals")
+
+df_referrals %>% 
+  # Calling the plot and formatting
+  ggplot(aes(x=date, y = referral_count, linetype=referral_type))+
+  geom_line(aes(color = referral_type),size=.65) +
+  
+  # Set the linetype
+  scale_linetype_manual(
+    values = plot_lines,
+    labels = plot_labels,
+    name = "Referral Type:",
+    guide = guide_legend(nrow = 5)
+    )+
+  
+  # Set the color
+  scale_color_manual(values = plot_colors,
+    labels = plot_labels,
+    name = "Referral Type:")+
+
+  labs(title = "Medical and Mental Health Referrals")+
+  ylab("Number of Referrals")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 8),
+    legend.position = "bottom"
+    )+
+
+  # Set the legend to multiple rows
+  guides(col = guide_legend(nrow =5))+
+  
+  # Wrap
+  facet_wrap(~ facility, ncol=3)
+```
+
+### Sick Call Requests and Encounters
+
+```{r sick-calls-plot, fig.height=40}
+# Generating a linetype vector for use in the plot
+plot_lines <- c(
+    "solid",
+    "solid",
+    "dotted"
+    )
+
+# Use Color Brewer to set colors
+plot_colors <- brewer.pal(3, "Paired")
+plot_colors[3] <- "#000000"
+
+# Create labels
+plot_labels <- c(
+    "Sick Call Requests",
+    "Sick Call Encounters",
+    "Total Sick Calls")
+
+df_324_inc %>%
+  
+  # Subset the df to only the used cols
+  select(id, facility, date,
+       sick_call_requests:
+       sick_call_encounters
+       ) %>% 
+  
+  # Need the rowwise function to compute a row-at-a-time
+  # in the following mutate function
+  rowwise(id) %>% 
+  
+  # Create a new total column
+  mutate(total_sick_calls = sum(c_across(
+       sick_call_requests:
+       sick_call_encounters
+  ), na.rm = TRUE)) %>% 
+
+  # Call a range of table columns and pivot long
+  pivot_longer(.,
+               cols=  sick_call_requests:total_sick_calls,
+               names_to = "sick_call_type",
+               values_to = "sick_call_count") %>%
+  
+  # Remove NA values
+  drop_na() %>% 
+  
+  # Explicitly define factor levels
+  mutate(sick_call_type = factor(sick_call_type, levels = c(
+    "sick_call_requests",
+    "sick_call_encounters",
+    "total_sick_calls"
+  ))) %>% 
+  
+  # Calling the plot and formatting
+  ggplot(aes(x=date, y = sick_call_count, linetype=sick_call_type))+
+  geom_line(aes(color = sick_call_type),size=.65) +
+  
+  # Set the linetype
+  scale_linetype_manual(
+    values = plot_lines,
+    labels = plot_labels,
+    name = "Sick Call Type:",
+    guide = guide_legend(nrow = 3)
+    )+
+  
+  # Set the color
+  scale_color_manual(values = plot_colors,
+    labels = plot_labels,
+    name = "Sick Call Type:")+
+
+  labs(title = "Sick Calls")+
+  ylab("Number of Sick Calls")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 8),
+    legend.position = "bottom"
+    )+
+
+  # Set the legend to multiple rows
+  guides(col = guide_legend(nrow =3))+
+  
+  # Wrap
+  facet_wrap(~ facility, ncol=3)
+```
+
+### Suicide Attempts and Watches
+
+```{r suicide-facet, fig.height=40}
+
+# Use Color Brewer to set colors and modify
+# the last color to be black for totals.
+plot_colors <- brewer.pal(2, "Paired")
+
+# Create plot labels
+plot_labels <- c(
+      "Suicide Attempts or Self Harm",
+      "Suicide Watches/Constant Watch/Mental Health Observation")
+
+# Calling the plot and formatting
+df_suicide %>% 
+  ggplot(aes(x=date, y = suicide_count))+
+  geom_line(aes(color=suicide_type), size = .65) +
+  
+  # Set the color
+  scale_color_manual(
+    values = plot_colors,
+    labels = plot_labels,
+    name = "Type:"
+    )+
+  
+  labs(title = "Suicide Attempts and Watches")+
+  ylab("Number of Attempts or Watches")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 5),
+    legend.position = "bottom"
+    )+
+  # Set the legend to multiple rows
+  guides(col = guide_legend(nrow =5))+
+  
+  # Wrap
+  facet_wrap(~ facility, ncol = 3)
+```
+
+### Hunger Strikes
+
+```{r hunger-strike-facet, fig.height=40, fig.cap="Facet plot of hunger strikes per month by facility."}
+# Use Color Brewer to set colors and modify
+# the last color to be black for totals.
+plot_colors <- brewer.pal(2, "Paired")
+
+df_hunger_strike %>% 
+  
+  # Calling the plot and formatting
+  ggplot(aes(x=date, y = hunger_strikes))+
+  geom_line(size = .65) +
+  
+
+  labs(title = "Hunger Strikes")+
+  ylab("Number of Hunger Strikes")+
+  xlab("Date")+
+  theme(
+    strip.text = element_text(size = 5),
+    legend.position = "bottom"
+    )+
+  
+  # Set the legend to multiple rows
+  guides(col = guide_legend(nrow =5))+
+  
+  # Wrap
+  facet_wrap(~ facility, ncol = 3)
+```
+
+## Cause of Death
 ```{r include=FALSE, cache=FALSE}
 rm(list = ls(all = TRUE))
 ```
