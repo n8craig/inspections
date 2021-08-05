@@ -346,8 +346,7 @@ plot_lines <- c(
     "solid",
     "solid",
     "solid",
-    "solid",
-    "dotted"
+    "solid"
     )
 
 # Use Color Brewer to set colors and modify
@@ -362,8 +361,7 @@ plot_labels <- c(
     "Disciplinary Infractions - Guilty",
     "Disciplinary Appeals",
     "Disciplinary Appeals in Favor of Detainee",
-    "Sanctions Over 60 Days",
-    "Total Disciplinary")
+    "Sanctions Over 60 Days")
 
 
 df_discipline %>% 

@@ -22,7 +22,6 @@ df_324_inc <- read_sheet("https://docs.google.com/spreadsheets/d/1im5VSi3bIEi13O
   # Run custom cleaning function
   clean_facility_names() %>% 
   
-  
   # df_specific changes
   unite(date, year:month) %>% 
   mutate(facility = as.factor(facility),

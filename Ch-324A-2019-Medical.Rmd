@@ -22,8 +22,6 @@ load("data/data.RData")
 
 ## Medical Observation
 
-### Summary Tables
-
 ```{r medical-observation-summary}
 df_observation %>% 
   group_by(medical_mental_observation_type) %>% 
@@ -33,21 +31,26 @@ df_observation %>%
         col.names = c("Type", "Total")) %>% 
   kable_styling(c("hover", "striped", "condensed", "responsive"))
 
-df_observation %>% 
-  group_by(facility) %>% 
-  summarise(total_observation = sum(medical_mental_observation_count, na.rm = TRUE)) %>% 
-  arrange(desc(total_observation)) %>% 
-  ungroup() %>% 
-  kable(caption = "Total Medical/Mental Observations by Facility",
-        col.names = c("Facility", "Total")) %>% 
-  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
-  scroll_box(height = "300px")
 ```
 
+```{r medical-observation-fac-insp}
+df_observation %>% 
+  filter(medical_mental_observation_type == "total_mental_medical_observation") %>%
+  group_by(facility) %>% 
+  summarise(total_observation = sum(medical_mental_observation_count, na.rm = TRUE)) %>% 
+  
+  left_join(., df_facility_n_inspect) %>% 
+  mutate(total_observation_insp = round(total_observation/n_inspections, digits = 0)) %>% 
+  arrange(desc(total_observation)) %>% 
+  select(facility, fac_operator, total_observation, total_observation_insp) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Medical/Mental Observations by Facility",
+        col.names = c("Facility", "Facility Operator", "Total Observation", "Total Observation by Inspection")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  scroll_box(height = "400px")
+```
 
 ## Infections Disease
-
-### Summary Table
 
 ```{r infectious-disease-summary}
 
@@ -58,18 +61,22 @@ df_infectious %>%
   kable(caption = "Total by Type",
         col.names = c("Type", "Total")) %>% 
   kable_styling(c("hover", "striped", "condensed", "responsive"))
+```
 
+```{r infectious-disease-by-fac-inspect}
 df_infectious %>% 
+  filter(infectious_disease_type == "infections_disease_confirmed") %>% 
   group_by(facility) %>% 
-  summarise(total_infectious = sum(infectious_disease_count, na.rm = TRUE)) %>% 
-  arrange(desc(total_infectious)) %>% 
+  summarise(total_infectious_confirmed = sum(infectious_disease_count, na.rm = TRUE)) %>%
+  left_join(., df_facility_n_inspect) %>% 
+  mutate(infectious_disease_confirmed_insp = round(total_infectious_confirmed/n_inspections, digits = 0)) %>% 
+  select(facility, fac_operator, total_infectious_confirmed, infectious_disease_confirmed_insp) %>%
+  arrange(desc(total_infectious_confirmed)) %>% 
   ungroup() %>% 
-  kable(caption = "Total by Facility",
-        col.names = c("Facility", "Total")) %>% 
+  kable(caption = "Total Confirmed by Facility",
+        col.names = c("Facility", "Facility Operator", "Total Confirmed", "Total Confirmed by Inspection")) %>% 
   kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
   scroll_box(height = "300px")
-
-
 ```
 
 ## Medical and Mental Health Referrals
@@ -82,19 +89,22 @@ df_referrals %>%
   kable(caption = "Total Referrals by Type",
         col.names = c("Type", "Total")) %>% 
   kable_styling(c("hover", "striped", "condensed", "responsive"))
+```
 
+```{r referrals-facility-insp}
 df_referrals %>% 
+  filter(referral_type == "total_referrals") %>% 
   group_by(facility) %>% 
   summarise(total_referral = sum(referral_count, na.rm = TRUE)) %>% 
+  left_join(., df_facility_n_inspect) %>% 
+  mutate(total_referral_insp = round(total_referral/n_inspections, digits = 0)) %>% 
+  select(facility, fac_operator, total_referral, total_referral_insp) %>% 
   arrange(desc(total_referral)) %>% 
   ungroup() %>% 
   kable(caption = "Total Referrals by Facility",
-        col.names = c("Facility", "Total")) %>% 
+        col.names = c("Facility", "Facility Operator", "Total Referrals", "Total Referrals by Inspection")) %>% 
   kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
   scroll_box(height = "300px")
-```
-
-```
 ```
 
 ## Sick Call Requests and Encounters
@@ -107,18 +117,23 @@ df_sick_call %>%
   kable(caption = "Total Sick Call by Type",
         col.names = c("Type", "Total")) %>% 
   kable_styling(c("hover", "striped", "condensed", "responsive"))
+```
 
+```{r sick-calls-fac-insp}
 df_sick_call %>% 
+  filter(sick_call_type == "total_sick_call") %>% 
   group_by(facility) %>% 
   summarise(total_sick_call = sum(sick_call_count, na.rm = TRUE)) %>% 
   arrange(desc(total_sick_call)) %>% 
+  left_join(., df_facility_n_inspect) %>% 
+  mutate(total_sick_call_insp = round(total_sick_call/n_inspections, digits = 0)) %>% 
+  select(facility, fac_operator, total_sick_call, total_sick_call_insp) %>% 
   ungroup() %>% 
   kable(caption = "Total Sick Call Requests/Encounters by Facility",
-        col.names = c("Facility", "Total")) %>% 
+        col.names = c("Facility", "Facility Operator", "Total Sick Call", "Total Sick Call by Inspection")) %>% 
   kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
   scroll_box(height = "300px")
 ```
-
 
 ## Suicide Attempts and Watches
 
@@ -132,33 +147,39 @@ df_suicide %>%
   kable(caption = "Total Suicide Attempt or Watch by Type",
         col.names = c("Type", "Total")) %>% 
   kable_styling(c("hover", "striped", "condensed", "responsive"))
-
-df_suicide %>% 
-  group_by(facility) %>% 
-  summarise(total = sum(suicide_count, na.rm = TRUE)) %>% 
-  arrange(desc(total)) %>% 
-  ungroup() %>% 
-  kable(caption = "Total Suicide Attempt or Watch by Facility",
-        col.names = c("Facility", "Total")) %>% 
-  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
-  scroll_box(height = "300px")
 ```
 
+```{r}
+df_suicide %>% 
+  filter(suicide_type == "total") %>% 
+  group_by(facility) %>% 
+  summarise(total_incidents = sum(suicide_count, na.rm = TRUE)) %>% 
+  left_join(., df_facility_n_inspect) %>% 
+  mutate(total_incidents_insp = round(total_incidents/n_inspections, digits = 0)) %>% 
+  select(facility, fac_operator, total_incidents, total_incidents_insp) %>% 
+  arrange(desc(total_incidents)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Suicide Attempt or Watch by Facility",
+        col.names = c("Facility", "Facility Operator", "Total Incidents", "Total Incidents by Inspection")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  scroll_box(height = "400px")
+```
 
 ## Hunger Strikes
 
-There were `r hunger_strike_sum` at `r hunger_strike_facility_n` facilities, Table \@ref(tab:hunger-strike-summary) provides a breakdown of hunger strikes by facility and Figure \@ref(fig:hunger-strike-facet) is a facet plot of hunger strikes by facility.
+There were `r hunger_strike_sum` at `r hunger_strike_facility_n` facilities, Table \@ref(tab:hunger-strike-summary) provides a breakdown of hunger strikes by facility.
 
 ```{r hunger-strike-summary}
 df_hunger_strike %>%
   group_by(facility) %>% 
   summarise(total_hunger_strike = sum(hunger_strikes, na.rm = TRUE)) %>% 
+  left_join(., df_facility_n_inspect) %>% 
+  select(facility, fac_operator, total_hunger_strike) %>% 
+  
   arrange(desc(total_hunger_strike)) %>% 
   ungroup() %>% 
   kable(caption = "Total Hunger Strikes by Facility",
-        col.names = c("Facility", "Total Hunger Strikes")) %>% 
+        col.names = c("Facility", "Facility Operator", "Total Hunger Strikes")) %>%
   kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
   scroll_box(height = "300px")
 ```
-
-

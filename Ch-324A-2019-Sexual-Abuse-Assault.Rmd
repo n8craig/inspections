@@ -35,6 +35,7 @@ df_sex_alleg %>%
 
 
 df_sex_alleg %>% 
+  filter(sexual_abuse_allegations_type == "total_sexual_abuse_allegations") %>% 
   group_by(facility) %>% 
   summarise(total_sexual_abuse_allegations = sum(sexual_abuse_allegations_count, na.rm = TRUE)) %>% 
   arrange(desc(total_sexual_abuse_allegations)) %>% 
@@ -60,6 +61,7 @@ df_sex_alleg_sub %>%
 
 
 df_sex_alleg_sub %>% 
+  filter(sexual_abuse_substantiated_type == "total_sexual_abuse_allegations_substantiated") %>% 
   group_by(facility) %>% 
   summarise(total_sexual_abuse_substantiated = sum(sexual_abuse_substantiated_count, na.rm = TRUE)) %>% 
   arrange(desc(total_sexual_abuse_substantiated)) %>% 

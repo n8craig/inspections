@@ -55,17 +55,21 @@ df_discipline <- df_324_inc %>%
          disciplinary_infractions:
            sanctions_over_60_days
   ) %>% 
-  # Need the rowwise function to compute a row-at-a-time
-  # in the following mutate function
-  rowwise(id) %>% 
-  # Create a new total column
-  mutate(total_disciplinary = sum(c_across(
-    disciplinary_infractions:
-      sanctions_over_60_days
-  ), na.rm = TRUE)) %>% 
+  
+  ## NOTE: Total Disciplinary as calculated makes no sense and over estimates.
+  ## commenting this section out and re-running.
+  # # Need the rowwise function to compute a row-at-a-time
+  # # in the following mutate function
+  # rowwise(id) %>% 
+  # # Create a new total column
+  # mutate(total_disciplinary = sum(c_across(
+  #   disciplinary_infractions:
+  #     sanctions_over_60_days
+  # ), na.rm = TRUE)) %>% 
+  
   # Call a range of table columns and pivot long
   pivot_longer(.,
-               cols=  disciplinary_infractions:total_disciplinary,
+               cols=  disciplinary_infractions:sanctions_over_60_days,
                names_to = "disciplinary_type",
                values_to = "disciplinary_count") %>%
   # Remove NA values
@@ -76,8 +80,8 @@ df_discipline <- df_324_inc %>%
     "disciplinary_infractions_guilty",
     "disciplinary_appeals",
     "disciplinary_appeals_found_in_favor_of_detainee",
-    "sanctions_over_60_days",
-    "total_disciplinary"
+    "sanctions_over_60_days"
+    # "total_disciplinary"
   )))
 
 
@@ -460,3 +464,50 @@ df_suicide <- df_324_inc %>%
     "suicide_watches_constant_watch_mental_health_observation",
     "total"
   )))
+
+
+# COD ---------------------------------------------------------------------
+
+df_cod <- df_324 %>% 
+  select(id,
+         facility,
+         fac_operator,
+         date,
+         cod_natural_ice:cod_other_not_ice) %>% 
+  
+  # Need the rowwise function to compute a row-at-a-time
+  # in the following mutate function
+  rowwise(id) %>% 
+  
+  # Create new total column
+  mutate(total_cod = cod_natural_ice+
+           cod_natural_not_ice +
+           cod_homicide_ice +
+           cod_homicide_not_ice +
+           cod_suicide_ice +
+           cod_suicide_not_ice+
+           cod_other_ice +
+           cod_other_not_ice) %>% 
+  
+  # Tidy
+  pivot_longer(.,
+               cols = cod_natural_ice:total_cod,
+               names_to = "cod_type",
+               values_to = "cod_count") %>% 
+  
+  # Remove NA
+  drop_na() %>% 
+  
+  # Explicitly set factor levels
+  mutate(cod_type = factor(cod_type, levels = c(
+    "cod_natural_ice",
+    "cod_natural_not_ice",
+    "cod_homicide_ice",
+    "cod_homicide_not_ice",
+    "cod_suicide_ice",
+    "cod_suicide_not_ice",
+    "cod_other_ice",
+    "cod_other_not_ice",
+    "total_cod"
+  )))
+

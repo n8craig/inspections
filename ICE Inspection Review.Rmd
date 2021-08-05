@@ -26,15 +26,33 @@ source("scripts/load_data_all.R")
 load("data/data.RData")
 ```
 
+```{css echo=FALSE}
+.infobox {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  border: 2px solid maroon;
+  border-radius: 10px;
+  background: mistyrose;
+}
+```
+
+::: {.infobox}
+## NOTICE {.infobox}
+
+This document is a work in progress **under development**. Until this notice is removed, information in this document is subject to change as the underlying code is modified and refined.
+
+Last update: *`r format(Sys.time(), "%A %B %d, %Y at %I:%M:%S %p")`*
+:::
+
 ```{r, echo= FALSE, out.width= "60%", out.extra='style="float:right; padding:10px"'}
 knitr::include_graphics('./images/inspection_cover_page.jpg')
 ```
 
-This project involves collating, cleaning, performing preliminary analysis of, and supplying to the public inspections related data released by Immigration and Customs Enforcement (ICE). ICE oversees a sprawling network of more than 200 immigration detention facilities. The agency is required to inspect each of these facilities at least annually according to one of several sets of detention standards. In 2018, Congressional appropriations stipulated that "ICE is directed to make public all final detention facility inspection reports within 60 days of inspection" [@departme2017, 33]. As of July, 2021 ICE is not complying with this standing directive from Congress (see \@ref(note-regarding-inspections)). Our aim was to assemble this information together in one place, process and provide the data using reproducible methods [@yu2020; @implemen2014], and offer some insights regarding what we found.
+This project involves collating, cleaning, performing preliminary analysis of, and supplying to the public inspections related data released by Immigration and Customs Enforcement (ICE). ICE oversees a sprawling network of more than 200 immigration detention facilities. The agency is required to inspect each of these facilities at least annually according to one of several sets of detention standards. In 2018, Congressional appropriations stipulated that "ICE is directed to make public all final detention facility inspection reports within 60 days of inspection" [@departme2017, 33]. Following this, ICE began releasing pre-prepared Significant Incident Summary (SIS) forms and inspection letters. These documents do not comply with the Congressional mandate. As of July, 2021 ICE is not complying with this standing directive from Congress (see \@ref(note-regarding-inspections)). Our aim was to assemble in one place what information ICE does release, process and provide those data using reproducible methods [@yu2020; @implemen2014], and offer some insights regarding what was found.
 
 ## What We Found
 
-This portion of the project looks at all ICE detention facility inspections that use the most current Significant Incident Summary (SIS) form. These are all inspections between `r format(inspect_earliest, format= "%B %e, %Y")` and `r format(inspect_latest, format= "%B %e, %Y")`. This sample entails `r inspect_proc_n` SIS forms at `r facility_n` facilities. Within this sample of `r inspect_proc_n` inspections, `r pass_perc`% (n=`r pass`) received a rating of either "Meets Standards" or "Acceptable."
+Summary numbers reported here are limited to ICE detention facility inspections that use the most current SIS form. These are all inspections between `r format(inspect_earliest, format= "%B %e, %Y")` and `r format(inspect_latest, format= "%B %e, %Y")`. This sample entails `r inspect_proc_n` SIS forms at `r facility_n` facilities. Within this sample of `r inspect_proc_n` inspections, `r pass_perc`% (n=`r pass`) received a rating of either "Meets Standards" or "Acceptable."
 
 The ICE G-324A Significant Incident Summary is organized around the following categories of information: Assaults, Disciplinary, Solitary, Use of Force, Sexual Abuse and Assault, Medical, Cause of Death.
 
@@ -101,13 +119,13 @@ knitr::include_graphics('images/MOROWOH21-MorrowCoCorrFac-SIS.jpg')
 
 Congress directed ICE to release "all final detention facility reports." ICE claims to post "all facility inspection reports," but instead *ICE is posting SIS forms that must be filled out before inspectors even arrive at the facility*. Full facility inspection reports regularly run in excess of 150 pages. There are examples of complete inspections obtained by National Immigrant Justice Center ([NIJC](https://immigrantjustice.org/research-items/report-lives-peril-how-ineffective-inspections-make-ice-complicit-detention-center)) through FOIA [@nijc2015]. Outside of those earlier FOIA requests, which required lengthy litigation by the NIJC to force compliance, ICE has released no full inspection reports and is not complying with an unambiguous Congressional mandate to do so.
 
-Though not in compliance, the SIS and cover letter forms do provide some information to the public. Unfortunately, data are siloed in individual pdf documents and presented in tables that are not commensurate with comparative analysis. To make matters worse, as of February 2021, ICE under the Biden administration began releasing un OCR'd bit-mapped versions of the SIS forms. Previously, these forms were released as full text pdfs. The decision by ICE to do this to SIS forms makes it that much harder to use the data that are released.[^index-3] *This project seeks to retrieve data from these documents, clean and organize that information into a usable form, and supply it along with some preliminary analysis to the public.*
+Though not in compliance, the SIS and cover letter forms do provide some information to the public. Unfortunately, data are siloed in individual pdf documents. To make matters worse, as of February 2021, under the Biden administration, ICE changed its protocol and began releasing un OCR'd bit-mapped versions of the SIS forms. Previously, these forms were released as full text pdfs. The decision by ICE to do this to SIS forms makes it that much harder to use the data that are released.[^index-3] *This project seeks to retrieve data from these documents, clean and organize that information into a usable form, and supply it along with some preliminary analysis to the public.*
 
 [^index-3]: Under ICE Acting Director Tae Johnson, DHS Secretary Alejandro Mayorkas, and ultimately President Joe Biden.
 
 ## How the work was done
 
-During the Summer of 2021, data from the SIS and inspection cover letters was compiled into a series of spreadsheets, note this work is still in progress. Nathan Craig developed the idea for a project to collate and organize information in SIS and inspection cover letters to examine them for trends, patterns, and anomalies. The work was performed by three students funded under a National Science Foundation grant awarded to Dr. Neil Harvey (NMSU) and Dr. Jeremy Slack (NMSU). The students who performed the work were Juan Becerra (Stanford), Avigail Turima Romo (Columbia), and Daniela Navarro Verdugo (CSSLO). The three students worked with Dr. Craig to develop a workflow for compiling individual SIS and inspection cover letters into a series of spreadsheets. These web pages, still in development, document those procedures. Much of the analysis is done in R [@R-base], `tidyverse` [@R-tidyverse], and ggplot2 [@R-ggplot2].
+During the Summer of 2021, data from the SIS and inspection cover letters was compiled into a series of spreadsheets; this work is still in progress. Nathan Craig developed the idea for a project to collate and organize information in SIS and inspection cover letters to examine them for trends, patterns, and anomalies. The work was performed by three students funded under a National Science Foundation grant awarded to Dr. Neil Harvey (NMSU) and Dr. Jeremy Slack (NMSU). The students who performed the work were Juan Becerra (Stanford), Avigail Turima Romo (Columbia), and Daniela Navarro Verdugo (CSSLO). The three students and Dr. Craig developed a workflow for compiling individual SIS and inspection cover letters into a series of spreadsheets. These web pages, still in development, document those procedures, and provide some initial summary. Much of the analysis is done in R [@R-base] relying on the `tidyverse` [@R-tidyverse] with ggplot2 [@R-ggplot2].
 
 ```{r package-references-1}
 knitr::write_bib(file = 'packages.bib')
@@ -258,7 +276,7 @@ The ICE G-324A Significant Incident Summary sheet contains information on four c
 
 Out of the `r inspect_proc_n` inspections that occurred at `r facility_n` facilities between `r format(inspect_earliest, format= "%B %e, %Y")` and `r format(inspect_latest, format= "%B %e, %Y")`, there were `r assault_sum` assaults (Table \@ref(tab:assault-summary-by-type)).
 
-Over the course of 20.5 months represented by the inspections in this sample, there were on average `r round(assault_sum/20.5, digits=0)` assaults per month.The majority of those assaults occurred between detained persons and did not result in serious injury (86%, n=2926). The SIS form does distinguish if an assault on a person detained by ICE was by another person detained by ICE or by a person detained under a corrections context. This is an important detail because many facilities are mixed use wherein individuals detained for civil immigration purposes are in corrections facilities.
+Over the course of `r inspect_sample_interval` months represented by the inspections in this sample, there were on average `r round(assault_sum/inspect_sample_interval, digits=0)` assaults per month.The majority of those assaults occurred between detained persons and did not result in serious injury (86%, n=2926). The SIS form does distinguish if an assault on a person detained by ICE was by another person detained by ICE or by a person detained under a corrections context. This is an important detail because many facilities are mixed use wherein individuals detained for civil immigration purposes are in corrections facilities.
 
 ```{r assault-summary-by-type}
 df_assaults %>% 
@@ -273,6 +291,7 @@ df_assaults %>%
 ```{r df-assaults-sum}
 df_assaults_sum <- df_assaults %>% 
   group_by(facility) %>% 
+  filter(assault_type == "total_assaults") %>% 
   summarise(total_assaults = sum(assault_count, na.rm = TRUE)) %>% 
   arrange(desc(total_assaults)) %>% 
   ungroup()
@@ -281,47 +300,41 @@ df_assaults_sum <- left_join(df_assaults_sum, df_facility_n_inspect) %>%
   mutate(total_assaults_by_inspection = round(total_assaults / n_inspections, digits = 0))
 
 
-m_assaults_fac_by_insp <- mean(df_assaults_sum$total_assaults_by_inspection)
-sd_assaults_fac_by_insp <- sd(df_assaults_sum$total_assaults_by_inspection)
-outlier_assault_fac_by_insp <- m_assaults_fac_by_insp+(2*sd_assaults_fac_by_insp)
+assaults_fac_by_insp_m <- mean(df_assaults_sum$total_assaults_by_inspection)
+assaults_fac_by_insp_sd <- sd(df_assaults_sum$total_assaults_by_inspection)
+assault_fac_by_insp_outlier <- assaults_fac_by_insp_m+(2*assaults_fac_by_insp_sd)
 ```
 
-The mean number of assaults by facility per inspection is `r round(m_assaults_fac_by_insp, digits=0)` (SD=`r round(sd_assaults_fac_by_insp, digits=2)`) (Table \@ref(tab:assault-summary-by-facility)). Based on this mean, five facilities have significnatly greater than average number of assaults per inspection (\> `r round(outlier_assault_fac_by_insp, digits=2)` assaults) (Figures \@ref(fig:histogram-assaults-by-inspection) and \@ref(fig:assault-greater-than-average-facility)). Among the facilities with significantly higher than average number of assaults per inspection three are managed by The Geo Group; one is managed by LaSalle Corrections; and one is a Service Processing Center managed by ICE.
+The mean number of assaults by facility per inspection is `r round(assaults_fac_by_insp_m, digits=0)` (SD=`r round(assaults_fac_by_insp_sd, digits=2)`) (Figure \@ref(fig:assaults-bar-by-facility) and Table \@ref(tab:assault-summary-by-facility)). Based on this mean, five facilities have significantly greater than average number of assaults per inspection (\> `r round(assault_fac_by_insp_outlier, digits=2)` assaults). Among the facilities with significantly higher than average number of assaults per inspection three are managed by The Geo Group; one is managed by LaSalle Corrections; and one is a Service Processing Center managed by ICE.
 
-```{r assault-summary-by-facility}
-color.me <- which(df_assaults_sum$total_assaults_by_inspection > outlier_assault_fac_by_insp)
+```{r assaults-bar-by-facility, fig.cap="Bar plot of facilities with greater than average number of assaults reported per inspection.", fig.height=6}
+threshold <- assaults_fac_by_insp_m + assaults_fac_by_insp_sd *2
 
 df_assaults_sum %>% 
+  group_by(facility, fac_operator) %>% 
+  filter(total_assaults_by_inspection > assaults_fac_by_insp_m) %>% 
+  ggplot(aes(x = total_assaults_by_inspection, y = reorder(facility, total_assaults_by_inspection, sum)))+
+  geom_bar(stat = "identity")+
+  gghighlight(max(total_assaults_by_inspection) > threshold)+
+  labs(title = "Facilities with > μ Assaults per Inspection.",
+       subtitle = "Facilities with significantly higher than average number\nof assaults are dark grey.")+
+  xlab("Assaults Per Inspection")+
+  ylab("Facility")
+```
+
+```{r assault-summary-by-facility}
+color.me <- which(df_assaults_sum$total_assaults_by_inspection > assault_fac_by_insp_outlier)
+
+df_assaults_sum %>% 
+  arrange(desc(total_assaults_by_inspection)) %>% 
   select(-n_inspections) %>%
   relocate(fac_operator, .after = facility) %>% 
   kable(caption = "Assaults by facility, facilities with significantly greater than average number of assaults by inspection shown in bold.",
         col.names = c("Facility", "Facility Operator", "Total Assaults", "Assaults by Inspections")) %>%
-  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"), 
+                font_size = 12) %>% 
   row_spec(color.me, bold = TRUE) %>%
-  scroll_box(height = "300px")
-```
-
-```{r histogram-assaults-by-inspection, fig.cap="Histogram of assaults by inspection highlighting facilities that have significantly higher than average number of assaults per inspection."}
-df_assaults_sum %>% 
-  ggplot(aes(x = total_assaults_by_inspection, fill= facility))+
-  geom_histogram()+
-  gghighlight(max(total_assaults_by_inspection) > outlier_assault_fac_by_insp, use_direct_label = FALSE)+
-  labs(title = "Histogram of assaults by inspection",
-       subtitle = "Facilities with significantly higher than average number of assaults per inspection highlighted.",
-       fill = "Facility")+
-  xlab("Assaults by Inspection")+
-  ylab("Number of Facilities")
-
-```
-
-```{r assault-greater-than-average-facility, fig.cap="Facilities in the sample with greater than average number of assaults per inspection."}
-df_assaults_sum %>% 
-  filter(total_assaults_by_inspection > outlier_assault_fac_by_insp) %>% 
-  ggplot(aes(x = total_assaults_by_inspection, y=reorder(facility, -total_assaults_by_inspection, sum)))+
-  geom_bar(stat="identity")+
-
-  xlab("Assaults by Inspection")+
-  ylab("Facility")
+  scroll_box(height = "400px")
 ```
 
 ## Discussion
@@ -355,27 +368,44 @@ load("data/data.RData")
 ```
 
 ```{r}
-df_discipline_sum <- df_discipline %>% 
-  group_by(facility) %>% 
-  filter(disciplinary_type == "total_disciplinary") %>% 
-  summarise(total_disciplinary_facility = sum(disciplinary_count, na.rm = TRUE)) %>% 
-  arrange(desc(total_disciplinary_facility)) %>% 
-  ungroup
+df_discipline_wide <- df_324_inc %>% 
+  select(id, 
+         facility, 
+         inspection_date, 
+         date, 
+         disciplinary_infractions, 
+         disciplinary_infractions_guilty, 
+         disciplinary_appeals, 
+         disciplinary_appeals_found_in_favor_of_detainee,
+         sanctions_over_60_days) %>% 
+  left_join(., df_facility_n_inspect) %>% 
+  relocate(fac_operator, .after = facility) %>%
+  relocate(n_inspections, .after = date)
+```
 
-df_discipline_sum <- left_join(df_discipline_sum, df_facility_n_inspect) %>% 
-  mutate(total_disciplinary_by_inspection = round(total_disciplinary_facility / n_inspections, digits = 0)) %>% 
-  relocate(fac_operator:n_inspections, .after= facility)
+```{r}
+df_discipline_sum <- df_discipline %>%
+  group_by(facility) %>%
+ filter(disciplinary_type == "disciplinary_infractions") %>%
+ summarise(total_disciplinary_facility = sum(disciplinary_count, na.rm = TRUE)) %>%
+ arrange(desc(total_disciplinary_facility)) %>%
+ ungroup
 
-m_discipline_fac_by_insp <- mean(df_discipline_sum$total_disciplinary_by_inspection)
-sd_discipline_fac_by_insp <- sd(df_discipline_sum$total_disciplinary_by_inspection)
-outlier_discipline_fac_by_insp <- m_discipline_fac_by_insp + 2*sd_discipline_fac_by_insp
+df_discipline_sum <- left_join(df_discipline_sum, df_facility_n_inspect) %>%
+  mutate(total_disciplinary_by_inspection = round(total_disciplinary_facility / n_inspections, digits = 0)) %>%
+ relocate(fac_operator:n_inspections, .after= facility)
+
+
+discipline_fac_by_insp_m <- mean(df_discipline_sum$total_disciplinary_by_inspection)
+discipline_fac_by_insp_sd <- sd(df_discipline_sum$total_disciplinary_by_inspection)
+discipline_fac_by_insp_outlier <- discipline_fac_by_insp_m + 2*discipline_fac_by_insp_sd
 ```
 
 As a matter of law, ICE detention is not punitive it is purely administrative civil holding to ensure that individuals are present for their immigration proceedings [@ice2016, i; @schriro2009, 2-3]. Despite that fact, punitive disciplinary actions are logged on ICE's G-324A SIS form. The form also lists the number of disciplinary fractions found guilty, appeals, and appeals in favor of detained persons.
 
-During the `r inspect_sample_interval` months covering the period between `r format(inspect_earliest, format= "%B %e, %Y")` and `r format(inspect_latest, format= "%B %e, %Y")`, there were `r disciplinary_sum` disciplinary infractions issued by facility operators (Table \@ref(tab:total-disciplinary-type)). There were an average of `r round(m_discipline_fac_by_insp, digits = 2)` (SD = `r round(sd_discipline_fac_by_insp, digits = 2)`) disciplinary infractions per facility by inspection (Table \@ref(tab:disciplinary-by-facility)).
+During the `r inspect_sample_interval` months covering the period between `r format(inspect_earliest, format= "%B %e, %Y")` and `r format(inspect_latest, format= "%B %e, %Y")`, there were `r disciplinary_sum` disciplinary infractions issued by facility operators (Table \@ref(tab:total-disciplinary-type)). There were an average of `r round(discipline_fac_by_insp_m, digits = 2)` (SD = `r round(discipline_fac_by_insp_sd, digits = 2)`) disciplinary infractions per facility by inspection (Figure \@ref(fig:disciplinary-bar-facility) and Table \@ref(tab:disciplinary-by-facility)).
 
-Four facilities have significantly greater than average number of disciplinary infractions per inspection (Figures \@ref(fig:histogram-disciplinary-by-inspection) and \@ref(fig:disciplinary-greater-than-average-facility)). Of the facilities with significantly greater than average number of disciplinary infractions issued per inspection two are managed by CoreCivic, one is managed by Immigration Centers of America, and one is a service processing center managed by ICE.
+Four facilities have significantly greater than average number of disciplinary infractions per inspection. Of the facilities with significantly greater than average number of disciplinary infractions issued per inspection two are managed by CoreCivic, one is managed by Immigration Centers of America, and one is a service processing center managed by ICE.
 
 ```{r total-disciplinary-type}
 df_discipline %>% 
@@ -387,8 +417,22 @@ df_discipline %>%
   kable_styling(c("hover", "striped", "condensed", "responsive"))
 ```
 
+```{r disciplinary-bar-facility, fig.cap="Bar plot of facilities with greater than average number of Disciplinary infractions filed by inspection.",fig.height=6}
+threshold <- discipline_fac_by_insp_m + discipline_fac_by_insp_sd *2
+
+df_discipline_sum %>% 
+  group_by(facility, fac_operator) %>% 
+  filter(total_disciplinary_by_inspection > discipline_fac_by_insp_m) %>% 
+  ggplot(aes(x = total_disciplinary_by_inspection, y = reorder(facility, total_disciplinary_by_inspection, sum)))+
+  geom_bar(stat = "identity")+
+  gghighlight(max(total_disciplinary_by_inspection) > threshold)+
+  labs(title = "Facilities with > μ Disciplinary per Inspection Reported.")+
+  xlab("Disciplinary Per Inspection")+
+  ylab("Facility")
+```
+
 ```{r disciplinary-by-facility}
-color.me <- which(df_discipline_sum$total_disciplinary_by_inspection > outlier_discipline_fac_by_insp)
+color.me <- which(df_discipline_sum$total_disciplinary_by_inspection > discipline_fac_by_insp_outlier)
 
 df_discipline_sum %>% 
   group_by(facility) %>% 
@@ -398,32 +442,11 @@ df_discipline_sum %>%
   ungroup() %>% 
   kable(caption = "Total discipline by facility, with facilities having significnatly greater than average number of disciplinary infractions issued per inspection shown in bold.",
         col.names = c("Facility", "Facility Operator",  "Total Discipline by Facility", "Total Disciplinary by Inspection")) %>% 
-  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"),
+                font_size = 12) %>% 
   row_spec(color.me, bold = TRUE) %>% 
-  scroll_box(height = "300px")
+  scroll_box(height = "400px")
   
-```
-
-```{r histogram-disciplinary-by-inspection, fig.cap="Histogram of disciplinary infractions issued by inspection highlighting facilities that have significantly higher than average number of disciplinary infractions issued per inspection."}
-df_discipline_sum %>% 
-  ggplot(aes(x = total_disciplinary_by_inspection, fill = facility))+
-  geom_histogram()+
-  gghighlight(max(total_disciplinary_by_inspection) > outlier_discipline_fac_by_insp, use_direct_label = FALSE)+
-  labs(title = "Histogram disciplinary infractions issued by inspection",
-       subtitle = "Facilities with significantly higher than average number of disciplinary infractions\nper inspection highlighted.",
-       fill = "Facility")+
-  xlab("Disciplinary by Inspection")+
-  ylab("Number of Facilities")
-```
-
-```{r disciplinary-greater-than-average-facility, fig.cap="Facilities in the sample with greater than average number of disciplinary infractions issued per inspection."}
-df_discipline_sum %>% 
-  filter(total_disciplinary_by_inspection > outlier_discipline_fac_by_insp) %>% 
-  ggplot(aes(x = total_disciplinary_by_inspection, y=reorder(facility, -total_disciplinary_by_inspection, sum)))+
-  geom_bar(stat="identity")+
-
-  xlab("Disciplinary Infractions by Inspection")+
-  ylab("Facility")
 ```
 ```{r include=FALSE, cache=FALSE}
 rm(list = ls(all = TRUE))
@@ -465,9 +488,9 @@ df_solitary_sum <- left_join(df_solitary_sum, df_facility_n_inspect) %>%
   mutate(total_segregation_by_inspection = round(total_segregation_facility / n_inspections, digits = 0)) %>% 
   relocate(fac_operator:n_inspections, .after= facility)
 
-m_segregation_fac_by_insp <- mean(df_solitary_sum$total_segregation_by_inspection)
-sd_segregation_fac_by_insp <- sd(df_solitary_sum$total_segregation_by_inspection)
-outlier_segregation_fac_by_insp <- m_segregation_fac_by_insp + 2*sd_segregation_fac_by_insp
+segregation_fac_by_insp_m <- mean(df_solitary_sum$total_segregation_by_inspection)
+segregation_fac_by_insp_sd <- sd(df_solitary_sum$total_segregation_by_inspection)
+segregation_fac_by_insp_outlier <- segregation_fac_by_insp_m + 2*segregation_fac_by_insp_sd
 ```
 
 ICE PBNDS defines a "Special Management Unit" as "housing unit for detainees in administrative or disciplinary segregation" and defines segregation as "[c]onfinement in an individual cell isolated from the general population; for administrative, disciplinary, or protective reasons" [@ice2016, 473, 474]. These are anodyne euphemisms for solitary confinement. The G-324A SIS form records information on four kinds of solitary confinement:
@@ -477,9 +500,9 @@ ICE PBNDS defines a "Special Management Unit" as "housing unit for detainees in 
 -   medical
 -   mental health
 
-During the `r inspect_sample_interval` months covering the period between `r format(inspect_earliest, format= "%B %e, %Y")` and `r format(inspect_latest, format= "%B %e, %Y")`, there were `r segregation_sum` instances of solitary reported (Tables \@ref(tab:solitary-summary) and \@ref(tab:solitary-by-facility)).
+During the `r inspect_sample_interval` months covering the period between `r format(inspect_earliest, format= "%B %e, %Y")` and `r format(inspect_latest, format= "%B %e, %Y")`, there were `r segregation_sum` instances of solitary reported (Tables \@ref(tab:solitary-summary), \@ref(tab:solitary-by-facility), and Figure \@ref(fig:solitary-bar-facility)).
 
-There was an average of `r round(m_segregation_fac_by_insp, digits = 2)` (SD=`r round(sd_segregation_fac_by_insp, digits =2)`) instances of segregation per facility by inspection. Six facilities have significantly higher than average number of solitary instances reported per inspection. Of these facilities two are managed by ICE, one is managed by the Henderson Police Department, two are operated by CoreCivic, and one is managed by LaSalle Corrections.
+There was an average of `r round(segregation_fac_by_insp_m, digits = 2)` (SD=`r round(segregation_fac_by_insp_sd, digits =2)`) instances of segregation per facility by inspection. Six facilities have significantly higher than average number of solitary instances reported per inspection. Of these facilities two are managed by ICE, one is managed by the Henderson Police Department, two are operated by CoreCivic, and one is managed by LaSalle Corrections.
 
 Roughly half of the total instances of solitary were administrative segregation (`r segregation_admin_perc`%, n = `r segregation_admin_sum`) while disciplinary (`r segregation_disciplinary_perc`%, n = `r segregation_disciplinary_sum`) and medical (`r segregation_medical_perc`%, n =`r segregation_medical_sum`) segregation made up nearly the other half. Mental health segregation (`r segregation_mental_health_perc`%, n = `r segregation_mental_health_sum`) comprised a relatively small proportion of the total number of solitary instances and still surpassed 1000 instances.
 
@@ -504,8 +527,23 @@ df_solitary %>%
 #   scroll_box(height = "300px")
 ```
 
+```{r solitary-bar-facility, fig.cap="Bar plot of facilities with greater than average number of instances of solitary > 60 days.", fig.height=6}
+threshold <- segregation_fac_by_insp_m + segregation_fac_by_insp_sd *2
+
+df_solitary_sum %>% 
+  group_by(facility, fac_operator) %>% 
+  filter(total_segregation_by_inspection > segregation_fac_by_insp_m) %>% 
+  ggplot(aes(x = total_segregation_by_inspection, y = reorder(facility, total_segregation_by_inspection, sum)))+
+  geom_bar(stat = "identity")+
+  gghighlight(max(total_segregation_by_inspection) > threshold)+
+  labs(title = "Facilities with > μ Instances of Solitary per Inspection.",
+       subtitle = "Facilities with significantly higher than average number\nof solitary incidents are dark grey.")+
+  xlab("Solitary Incidents Per Inspection")+
+  ylab("Facility")
+```
+
 ```{r solitary-by-facility}
-color.me <- which(df_solitary_sum$total_segregation_by_inspection > outlier_segregation_fac_by_insp)
+color.me <- which(df_solitary_sum$total_segregation_by_inspection > segregation_fac_by_insp_outlier)
 
 df_solitary_sum %>% 
   group_by(facility) %>% 
@@ -514,31 +552,10 @@ df_solitary_sum %>%
   ungroup() %>% 
   kable(caption = "Total solitary by facility, with facilities having significnatly greater than average number of solitary instances per inspection shown in bold.",
         col.names = c("Facility", "Facility Operator",  "Total Solitary by Facility", "Total Solitary by Inspection")) %>% 
-  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"),
+                font_size = 12) %>% 
   row_spec(color.me, bold = TRUE) %>% 
   scroll_box(height = "400px")
-```
-
-```{r histogram-solitary-by-inspection, fig.cap="Histogram of solitary instances reported by inspection highlighting facilities that have significantly higher than average number of solitary instances reported per inspection."}
-df_solitary_sum %>% 
-  ggplot(aes(x = total_segregation_by_inspection, fill = facility))+
-  geom_histogram()+
-  gghighlight(max(total_segregation_by_inspection) > outlier_segregation_fac_by_insp, use_direct_label = FALSE)+
-  labs(title = "Histogram solitary instances reported by inspection",
-       subtitle = "Facilities with significantly higher than average number of solitary instances reported\nper inspection highlighted.",
-       fill = "Facility")+
-  xlab("Solitary by Inspection")+
-  ylab("Number of Facilities")
-```
-
-```{r solitary-greater-than-average-facility, fig.cap="Facilities in the sample with greater than average number of solitary instances reported per inspection."}
-df_solitary_sum %>% 
-  filter(total_segregation_by_inspection > outlier_segregation_fac_by_insp) %>% 
-  ggplot(aes(x = total_segregation_by_inspection, y=reorder(facility, -total_segregation_by_inspection, sum)))+
-  geom_bar(stat="identity")+
-
-  xlab("Solitary by Inspection")+
-  ylab("Facility")
 ```
 
 ## Solitary Over 60 Days
@@ -560,49 +577,63 @@ df_seg60_sum <- left_join(df_seg60_sum, df_facility_n_inspect) %>%
   arrange(desc(total_seg60_by_inspection))
 
 # Variables
-sum_seg60 <- sum(df_seg60_sum$total_seg_60)
-m_seg60_insp <- round( mean(df_seg60_sum$total_seg60_by_inspection), digits = 2)
-sd_seg60_insp <- round( sd(df_seg60_sum$total_seg60_by_inspection), digits = 2)
+seg60_sum <- sum(df_seg60_sum$total_seg_60)
+seg60_insp_m <- round( mean(df_seg60_sum$total_seg60_by_inspection), digits = 2)
+seg60_insp_sd <- round( sd(df_seg60_sum$total_seg60_by_inspection), digits = 2)
 
 admin_seg60_sum <- sum(df_324$admin_seg_60_ice, na.rm = TRUE)
-admin_seg60_perc <- round((sum(df_324$admin_seg_60_ice, na.rm = TRUE)/sum_seg60)*100, digits = 2)
+admin_seg60_perc <- round((sum(df_324$admin_seg_60_ice, na.rm = TRUE)/seg60_sum)*100, digits = 2)
 
 disc_seg60_sum <- sum(df_324$disc_seg_60_ice, na.rm = TRUE)
-disc_seg60_perc <- round((sum(df_324$disc_seg_60_ice, na.rm = TRUE)/sum_seg60)*100, digits = 2)
+disc_seg60_perc <- round((sum(df_324$disc_seg_60_ice, na.rm = TRUE)/seg60_sum)*100, digits = 2)
 ```
 
 ```{r}
 df_seg60_sum_facility <- df_seg60_sum %>% 
   group_by(facility, fac_operator) %>% 
-  summarise(sum_seg60_insp = sum(total_seg60_by_inspection)) %>% 
-  arrange(desc(sum_seg60_insp))
+  summarise(seg60_sum_insp = sum(total_seg60_by_inspection)) %>% 
+  arrange(desc(seg60_sum_insp))
 
-m_seg60_insp <- mean(df_seg60_sum_facility$sum_seg60_insp)
-sd_seg60_insp <- sd(df_seg60_sum_facility$sum_seg60_insp)
-outlier_seg60_insp <- m_seg60_insp + 2*sd_seg60_insp
+seg60_insp_m <- mean(df_seg60_sum_facility$seg60_sum_insp)
+seg60_insp_sd <- sd(df_seg60_sum_facility$seg60_sum_insp)
+seg60_insp_outlier <- seg60_insp_m + 2*seg60_insp_sd
 ```
 
 The G-324A SIS form includes line items for annual number of administrative and disciplinary segregation stays over 60 days. ICE PBNDS Appendix 3.1.A, Offense Categories I.B.3 defines up to 60 days as the maximum length of disciplinary segregation [@ice2016, 224]. It is unclear why form G-324A has an entry for reporting uses of disciplinary solitary exceeding the 60 day maximum defined by PBNDS.
 
-Based on the inspections reviewed there were `r sum_seg60` instances of segregation \> 60 days reported. Of these cases, `r admin_seg60_perc`% (n=`r admin_seg60_sum`) involved administrative solitary and `r disc_seg60_perc`% (n=`r disc_seg60_sum`) involved disciplinary solitary.
+Based on the inspections reviewed there were `r seg60_sum` instances of segregation \> 60 days reported (Figures \@ref(fig:seg60-bar), \@ref(fig:seg60-bar-operator), and Table \@ref(tab:seg60-table)). Of these cases, `r admin_seg60_perc`% (n=`r admin_seg60_sum`) involved administrative solitary and `r disc_seg60_perc`% (n=`r disc_seg60_sum`) involved disciplinary solitary.
 
-Within this sample of inspections, there were on average `r round(m_seg60_insp, digits = 2)` (SD=`r round(sd_seg60_insp, digits = 2)`) instances of segregation greater than 60 days per inspection. There are five facilities that have significantly higher than average number of incidents of solitary greater than 60 days.
+Within this sample of inspections, there were on average `r round(seg60_insp_m, digits = 2)` (SD=`r round(seg60_insp_sd, digits = 2)`) instances of segregation greater than 60 days per inspection. There are five facilities that have significantly higher than average number of incidents of solitary greater than 60 days. Of these, one is operated by MTC, three by the GEO Group, and one by CoreCivic. MTC's Imperial Regional Detention Facility stands out with more than double the next two highest ranking facilities regarding solitary \> 60 days.
 
-Of these, one is operated by MTC, three by the GEO Group, and one by CoreCivic. MTC's Imperial Regional Detention Facility stands out with more than double the next two highest ranking facilities regarding solitary \> 60 days.
+```{r seg60-bar, fig.cap="Bar plot of facilities with greater than average number of instances of solitary > 60 days.", fig.height=6}
+threshold <- seg60_insp_m + seg60_insp_sd *2
 
-```{r}
-color.me <- which(df_seg60_sum_facility$sum_seg60_insp > outlier_seg60_insp)
+df_seg60_sum_facility %>% 
+  group_by(facility, fac_operator) %>% 
+  filter(seg60_sum_insp > seg60_insp_m) %>% 
+  ggplot(aes(x = seg60_sum_insp, y = reorder(facility, seg60_sum_insp, sum)))+
+  geom_bar(stat = "identity")+
+  gghighlight(max(seg60_sum_insp) > threshold)+
+  labs(title = "Facilities with > μ Instances of Solitary > 60 Days per Inspection.",
+       subtitle = "Facilities with significantly higher than average number\nof solitary incidents > 60 days are dark grey.")+
+  xlab("Solitary Incidents > 60 Days Per Inspection")+
+  ylab("Facility")
+```
+
+```{r seg60-table}
+color.me <- which(df_seg60_sum_facility$seg60_sum_insp > seg60_insp_outlier)
 
 df_seg60_sum_facility %>% 
  
   kable(caption = "Total solitary >60 days by facility, with facilities having significnatly greater than average number of solitary >60 days instances per inspection shown in bold.",
         col.names = c("Facility", "Facility Operator",  "Total Solitary > 60 days by Facility by Inspection")) %>% 
-  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"),
+                font_size = 12) %>% 
   row_spec(color.me, bold = TRUE) %>% 
   scroll_box(height = "400px")
 ```
 
-```{r solitary-60-facet}
+```{r seg60-bar-operator, fig.cap="Bar plot of solitary > 60 days by facility operator"}
 
 # Use Color Brewer to set colors and modify
 # the last color to be black for totals.
@@ -678,6 +709,7 @@ options(scipen=999)
 # Plotting
 library(ggplot2)
 library(RColorBrewer)
+library(gghighlight)
 
 # Tables
 library(kableExtra)
@@ -685,61 +717,122 @@ library(kableExtra)
 load("data/data.RData")
 ```
 
-## Summary Tables
+```{r df-force-sum}
+df_force_sum <- df_force %>% 
+  filter(use_of_force_type == "total_use_of_force") %>% 
+  group_by(facility) %>% 
+  summarise(total_use_of_force = sum(use_of_force_count, na.rm = TRUE)) %>% 
+  arrange(desc(total_use_of_force)) %>% 
+  ungroup()
+  
 
-```{r use-of-force-annual-table}
-df_force %>%
-  mutate(inspection = str_c(facility, " - ", inspection_date), .before = facility) %>%
-  filter(., use_of_force_type == "total_use_of_force") %>% 
-  group_by(inspection) %>%
-  summarise(total = sum(use_of_force_count)) %>% 
-   
-  select(inspection, total) %>% 
-  arrange(desc(total)) %>% 
+df_force_sum <- left_join(df_force_sum, df_facility_n_inspect) %>% 
+  mutate(total_use_of_force_by_inspection = round(total_use_of_force / n_inspections, digits = 0))
+
+use_force_m <- mean(df_force_sum$total_use_of_force_by_inspection)
+use_force_sd <- sd(df_force_sum$total_use_of_force_by_inspection)
+use_force_outlier <- use_force_m + (2 * use_force_sd)
+```
+
+Form G-324A provides fields for reporting monthly use of force data. There are seven items under the Use of Force/Restraints/Strip Searches section of form G-324A:
+
+-   Immediate use of force incidents
+-   Calculated use of force incidents
+-   Uses of force with chemical agents
+-   Incidents were non-legal weapons were used
+-   Number of times 4/5 point restraints were used
+-   Use of force with serious injury
+-   Strip searches
+
+Out of the `r inspect_proc_n` inspections that occurred at `r facility_n` facilities between `r format(inspect_earliest, format= "%B %e, %Y")` and `r format(inspect_latest, format= "%B %e, %Y")` there were `r use_force_sum` use of force incidents (Table \@ref(tab:use-force-by-type)). Over the span of `r inspect_sample_interval` months represented by the inspections in this sample, there were on average `r round (use_force_sum/inspect_sample_interval, digits = 0)` use of force incidents per month. The mean number of use of force incidents per inspection is `r round(use_force_m, digits = 0)` (SD=`r round(use_force_sd, digits = 0)`). Based on this mean, there are four facilities with significantly higher than average number of use of force incidents reported per inspection (n\> `r round(use_force_outlier, digits = 2)`). Among the facilities with significantly higher number of use of force incidents per inspection two are county entities while the other two are Immigration Centers of America and CoreCivic.
+
+```{r use-force-by-type}
+# Use of force by type
+
+df_force %>% 
+  group_by(use_of_force_type) %>% 
+  summarise('Total Use of Force by Type' = sum(use_of_force_count, na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Use of Force by Type",
+        col.names = c("Use of Force Type", "Count")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"))
+```
+
+```{r use-force-bar-by-facility, fig.cap="Bar plot of facilities with greater than average number of use of force incidents reported per inspection.", fig.height=6}
+threshold <- use_force_m + use_force_sd *2
+
+df_force_sum %>% 
+  group_by(facility, fac_operator) %>% 
+  filter(total_use_of_force_by_inspection > use_force_m) %>% 
+  ggplot(aes(x = total_use_of_force_by_inspection, y = reorder(facility, total_use_of_force_by_inspection, sum)))+
+  geom_bar(stat = "identity")+
+  gghighlight(max(total_use_of_force_by_inspection) > threshold)+
+  labs(title = "Facilities with > μ Use of Force Incidents per Inspection.",
+       subtitle = "Facilities with significantly higher than average number\nof use of force incidents are dark grey.")+
+  xlab("Use of Force Incidents Per Inspection")+
+  ylab("Facility")
+```
+
+```{r use-of-force-inspection-table}
+color.me <- which(df_force_sum$total_use_of_force_by_inspection > use_force_outlier)
+
+df_force_sum %>%
+  group_by(facility) %>%
+  select(facility, 
+         fac_operator, 
+         total_use_of_force, 
+         total_use_of_force_by_inspection) %>% 
+  arrange(desc(total_use_of_force_by_inspection)) %>% 
 
   kable(caption = "Total Use of Force Per Inspection by Facility",
-        col.names = c("Inspection", "Total Use of Force")) %>% 
-  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
-  scroll_box(height = "300px")
+        col.names = c("Facility", "Facility Operator", "Total Use of Force", "Total use of Force by Inspection")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"),
+                font_size = 12) %>% 
+  row_spec(color.me, bold = TRUE) %>% 
+  scroll_box(height = "400px")
 ```
 
-```{r use-of-force-no-ss-annual-table}
-df_force %>%
-  mutate(inspection = str_c(facility, " - ",
-                            inspection_date)) %>%
-  filter(!use_of_force_type %in% c("total_use_of_force", "strip_searches")) %>% 
-  group_by(inspection) %>%
-  summarise(total = sum(use_of_force_count)) %>% 
-   
-  select(inspection, total) %>% 
-  arrange(desc(total)) %>% 
+```{r force-no-strip}
+df_force_no_strip <- df_force %>% 
+  filter(!use_of_force_type %in% c("strip_searches", "total_use_of_force")) %>% 
+  group_by(facility) %>% 
+  summarise(use_force_total = sum(use_of_force_count)) %>% 
+  left_join(.,df_facility_n_inspect) %>% 
+  relocate(fac_operator:n_inspections, .after = facility) %>% 
+  mutate(use_force_insp = round(use_force_total/n_inspections, digits = 0)) %>% 
+  arrange(desc(use_force_insp)) %>% 
+  select(facility, fac_operator, use_force_total, use_force_insp)
 
-  kable(caption = "Use of Force Excluding Strip Searches Per Inspection by Facility",
-        col.names = c("Inspection", "Use of Force Excluding Strip Searches")) %>% 
-  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
-  scroll_box(height = "300px")
+
+use_force_no_strip_insp_m <- mean(df_force_no_strip$use_force_insp)
+use_force_no_strip_insp_sd <- sd(df_force_no_strip$use_force_insp)
+use_force_no_strip_insp_outlier <- use_force_no_strip_insp_m +(2*use_force_no_strip_insp_sd)
 ```
 
-```{r use-force-annual-bar, fig.height=6, fig.cap="Facilities with >20 total Use of Force incidents by annual inspection"}
-df_force %>% 
-  mutate(id = as.numeric(id)) %>% 
-  filter(., use_of_force_type == "total_use_of_force") %>% 
-  group_by(id, facility, inspection_date) %>%
-  summarise(total = sum(use_of_force_count)) %>% 
-  mutate(inspection = str_c(facility, " - ", inspection_date), .after = id) %>% 
-  select(inspection, facility, total) %>% 
-  filter(total>20) %>% 
-  ggplot(aes(x = total, y = reorder(facility, -total, sum)))+
-  geom_bar(stat = "identity")+
-  labs(title = "Inspections where > 20 Use of Force Incidents\nWere Reported for the Year.")+
-  xlab("Use of Force Incidents Reported for Year")+
-  ylab("Facility")
+Strip searches make up `r use_force_strip_search_perc`% (n=`r use_force_strip_search_sum`) of the use of force incidents (Table \@ref(tab:use-force-by-type) ). Removing strip searches and looking at the remaining `r use_force_sum-use_force_strip_search_sum` use of force incidents by inspection results in an average of `r use_force_no_strip_insp_m` (SD=`r use_force_no_strip_insp_sd`) incidents per facility per inspection. Based on this average five facilities have significantly greater than average non-strip search use of force incidents per inspection. Of these, two facilities are managed by CoreCivic, one by the GeoGroup, one by Immigration Centers of America, and one by the Glades County Sheriff.
 
+```{r force-no-strip-table}
+color.me <- which(df_force_no_strip$use_force_insp > use_force_no_strip_insp_outlier)
+
+
+df_force_no_strip %>%  
+  
+  kable(caption = "Use of Force Excluding Strip Searches by Facility",
+        col.names = c("Facility", "Facility Operator", "Total", "Total by Inspection")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"), font_size = 12) %>% 
+  row_spec(color.me, bold = TRUE) %>% 
+  scroll_box(height = "400px")
 ```
+
+## Discussion
+
+According to PBNDS, "[u]se of force in detention facilities is never used as punishment" pg 201
+
+PBNDS states that "[c]anines shall not be used for force, control, or intimidation of detainees." 201.
 
 ## Under Reporting Use of Force Incidents {#under-reporting-use-of-force-incidents}
 
-There are few opportunities for independent evaluation of use of force incidents in ICE detention facilities. However, in at least some circumstances use of force incidents are inaccurately documented and under reported. For example, in some instances strip searches are tallied in total use of force summaries and in other cases they are not.
+There are few opportunities for independent evaluation of use of force incidents in ICE detention facilities. However, in at least some circumstances evidence indicates that use of force incidents are inaccurately documented and under reported. For example, in some instances strip searches are tallied in total use of force summaries and in other cases they are not.
 
 The Bristol County Jail is one noteworthy instance where use of force incidents received independent evaluation. On May 2, 2020 Massachusetts news outlets reported on a major incident that occurred at the Bristol County House of Correction the previous day when detained persons expressed concern about the potential for COVID-19 infection from the facility's medical wing [@dooling2020]. The Bristol County Sheriff claimed that people refused to go to the medical unit for testing, and those detained reported being attacked with pepper spray and dogs. Nakamoto Group Inspectors visited the facility between November 16-18, 2020 and reviewed it under PBNDS 2008 [@ice2020]. The inspectors received a G-324 SIS which reported use of force incidents (Figure \@ref(fig:bristol-2020-sis)). For May, the sheet lists 1 Immediate Use of Force Incident, 1 Use of Force with Chemical Agents, 1 Incident where Non-Lethal Weapons were Used, and 3 Strip Searches. The sheet lists no Use of Force with Serious Injury. Nakamoto Group inspectors found that the facility met all 39 standards and had only three deficient components: Key and Lock Control, Special Management Unit, and Suicide Prevention and Intervention. The Nakamoto inspection letter made no mention of use of force incidents.
 
@@ -753,19 +846,15 @@ The Massachusetts Attorney General's Office (MA AG) independently investigated t
 -   1 immediate use of force incident with a chemical agent;
 -   1 calculated use of force incident that involved 16 officers armed with pepper spray, flash bang grenades, riot shields, shotguns with bean bag rounds, pepper ball launchers, battering rams, multiple K9 teams; and another 12 person restraint team.
 
-The Calculated Use of Force Incident unfolded over the course of more than an hour and involved the deployment of flash bang grenades; firing more than 30 rounds of pepper balls, several of which directly hit individuals; numerous instances involving K-9 use of force, and multiple "hands on" use of force instances. Additionally, the MA GA found multiple cases where individuals suffered serious injuries as the result of the use of force:
+The Calculated Use of Force Incident unfolded over the course of more than an hour and involved the deployment of flash bang grenades; firing more than 30 rounds of pepper balls, several of which directly hit individuals; numerous instances involving K-9 use of force, and multiple "hands on" use of force instances. Additionally, the MA AG found multiple cases where individuals suffered serious injuries as the result of the use of force:
 
 -   1 individual experienced cardiac arrest
 -   1 individual with a history of chronic obstructive pulmonary disease (COPD) suffered respiratory distress
 -   1 individual experienced respiratory distress resulting in critically low oxygen levels
 
-The MA GA concluded that "a series of institutional failures and poor decisions" culminated in a "planned and deliberate--use of force against the ICE B detainees that was disproportionate to the security needs at that time and unnecessarily caused, or risked causing, harm to all involved"[@maag2020a, ii]. The MA GA found that facility staff used "a flash bang grenade, pepper-ball launchers, pepper spray canisters, anti-riot shields, and canines---against detainees who had exhibited calm and nonviolent behavior for at least an hour before this operation"[@maag2020a, ii].
+The MA AG concluded that "a series of institutional failures and poor decisions" culminated in a "planned and deliberate--use of force against the ICE B detainees that was disproportionate to the security needs at that time and unnecessarily caused, or risked causing, harm to all involved"[@maag2020a, ii]. The MA AG found that facility staff used "a flash bang grenade, pepper-ball launchers, pepper spray canisters, anti-riot shields, and canines---against detainees who had exhibited calm and nonviolent behavior for at least an hour before this operation"[@maag2020a, ii]. MA AG found that staff "deployed these weapons both indiscriminately upon entry and also specifically against detainees who were not combative, assaultive, or otherwise actively resisting staff" [@maag2020, ii].
 
-The details of the May 1, 2020 Use of Force incident do not come to light in either SIS form or the Nakamoto Group inspection cover letter. The SIS form inaccurately characterizes the multiple Use of Force incidents entailed in the event, fails to report what is clearly a Calculated Use of Force, and does not report multiple Use of Force Incidents with Serious Injury that resulted from from the extensive use of pepper spray. The Nakamoto cover letter states that, "the detainees felt safe in the facility and registered no substantive com-plaints about any aspect of their detention except for their exposure to the COVID-19 risk in the facility." Inspectors wrote that "[t]here were no areas of concern or significant observations noted during the inspection" but noted that the "inspection was conducted remotely, and inspectors were unable to personally observe practices and procedures with-in the facility" and that the "inspection team relied upon photographs and/or videos to validate the observation of many standards."
-
-## EXTRA TEXT TO INCCORPORATE
-
-For example, at the Bristol County County Jail and House of Corrections independent investigation by the Massachusetts Office of Attorney General (MAOG) found that facility staff found a "planned and deliberate-use of force against the ICE detainees that was disproportionate to the security needs at that time and unnecessarily caused, or risked causing, harm to all involved" [@maag2020, ii]. The MOAG found that facility staff used "a flash bang grenade, pepper-ball launchers, pepper spray canisters, anti-riot shields, and canines--against detainees who had exhibited calm and nonviolent behavior for at least an hour before this operation" [@maag2020, ii]. Investigations found that staff "deployed these weapons both indiscriminately upon entry and also specifically against detainees who were not combative, assaultive, or otherwise actively resisting staff" [@maag2020, ii].
+The details of the May 1, 2020 Use of Force incident do not come to light in either SIS form or the Nakamoto Group inspection cover letter. The SIS form inaccurately characterizes the multiple Use of Force incidents entailed in the event, fails to report what is clearly a Calculated Use of Force, and does not report multiple Use of Force Incidents with Serious Injury that resulted from from the extensive use of pepper spray. Inspectors made no mention of the use of muzzled and unmuzzled canine units that were deployed for control and intimidation. The Nakamoto cover letter states that, "the detainees felt safe in the facility and registered no substantive complaints about any aspect of their detention except for their exposure to the COVID-19 risk in the facility." Inspectors wrote that "[t]here were no areas of concern or significant observations noted during the inspection" but noted that the "inspection was conducted remotely, and inspectors were unable to personally observe practices and procedures with-in the facility" and that the "inspection team relied upon photographs and/or videos to validate the observation of many standards."
 
 While the aforementioned Bristol County Jail may be a particularly egregious instance of staff assaulting detained persons, it is not an isolated case. For example, [video evidence](https://www.youtube.com/watch?v=JP_PfOhdLuM) from the Torrance County Detention Facility in Estancia NM shows CoreCivic's private facility staff pepper spraying persons detained by ICE on hunger strike [@swetlitz2020]. Review of inspections has also revealed additional inappropriate use of force incidents. The omission of a field to record instances of staff assaulting detained persons occludes and obscures real instances of violence. As the inspections process is a detention reform designed to make a more humane system of civil incarceration, the omission of categories for logging staff physical mistreatment of detained persons raises serious questions about the inspections processes ability to record significant and documented civil and human rights violations.
 ```{r include=FALSE, cache=FALSE}
@@ -814,6 +903,7 @@ df_sex_alleg %>%
 
 
 df_sex_alleg %>% 
+  filter(sexual_abuse_allegations_type == "total_sexual_abuse_allegations") %>% 
   group_by(facility) %>% 
   summarise(total_sexual_abuse_allegations = sum(sexual_abuse_allegations_count, na.rm = TRUE)) %>% 
   arrange(desc(total_sexual_abuse_allegations)) %>% 
@@ -839,6 +929,7 @@ df_sex_alleg_sub %>%
 
 
 df_sex_alleg_sub %>% 
+  filter(sexual_abuse_substantiated_type == "total_sexual_abuse_allegations_substantiated") %>% 
   group_by(facility) %>% 
   summarise(total_sexual_abuse_substantiated = sum(sexual_abuse_substantiated_count, na.rm = TRUE)) %>% 
   arrange(desc(total_sexual_abuse_substantiated)) %>% 
@@ -881,8 +972,6 @@ load("data/data.RData")
 
 ## Medical Observation
 
-### Summary Tables
-
 ```{r medical-observation-summary}
 df_observation %>% 
   group_by(medical_mental_observation_type) %>% 
@@ -892,21 +981,26 @@ df_observation %>%
         col.names = c("Type", "Total")) %>% 
   kable_styling(c("hover", "striped", "condensed", "responsive"))
 
-df_observation %>% 
-  group_by(facility) %>% 
-  summarise(total_observation = sum(medical_mental_observation_count, na.rm = TRUE)) %>% 
-  arrange(desc(total_observation)) %>% 
-  ungroup() %>% 
-  kable(caption = "Total Medical/Mental Observations by Facility",
-        col.names = c("Facility", "Total")) %>% 
-  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
-  scroll_box(height = "300px")
 ```
 
+```{r medical-observation-fac-insp}
+df_observation %>% 
+  filter(medical_mental_observation_type == "total_mental_medical_observation") %>%
+  group_by(facility) %>% 
+  summarise(total_observation = sum(medical_mental_observation_count, na.rm = TRUE)) %>% 
+  
+  left_join(., df_facility_n_inspect) %>% 
+  mutate(total_observation_insp = round(total_observation/n_inspections, digits = 0)) %>% 
+  arrange(desc(total_observation)) %>% 
+  select(facility, fac_operator, total_observation, total_observation_insp) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Medical/Mental Observations by Facility",
+        col.names = c("Facility", "Facility Operator", "Total Observation", "Total Observation by Inspection")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  scroll_box(height = "400px")
+```
 
 ## Infections Disease
-
-### Summary Table
 
 ```{r infectious-disease-summary}
 
@@ -917,18 +1011,22 @@ df_infectious %>%
   kable(caption = "Total by Type",
         col.names = c("Type", "Total")) %>% 
   kable_styling(c("hover", "striped", "condensed", "responsive"))
+```
 
+```{r infectious-disease-by-fac-inspect}
 df_infectious %>% 
+  filter(infectious_disease_type == "infections_disease_confirmed") %>% 
   group_by(facility) %>% 
-  summarise(total_infectious = sum(infectious_disease_count, na.rm = TRUE)) %>% 
-  arrange(desc(total_infectious)) %>% 
+  summarise(total_infectious_confirmed = sum(infectious_disease_count, na.rm = TRUE)) %>%
+  left_join(., df_facility_n_inspect) %>% 
+  mutate(infectious_disease_confirmed_insp = round(total_infectious_confirmed/n_inspections, digits = 0)) %>% 
+  select(facility, fac_operator, total_infectious_confirmed, infectious_disease_confirmed_insp) %>%
+  arrange(desc(total_infectious_confirmed)) %>% 
   ungroup() %>% 
-  kable(caption = "Total by Facility",
-        col.names = c("Facility", "Total")) %>% 
+  kable(caption = "Total Confirmed by Facility",
+        col.names = c("Facility", "Facility Operator", "Total Confirmed", "Total Confirmed by Inspection")) %>% 
   kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
   scroll_box(height = "300px")
-
-
 ```
 
 ## Medical and Mental Health Referrals
@@ -941,19 +1039,22 @@ df_referrals %>%
   kable(caption = "Total Referrals by Type",
         col.names = c("Type", "Total")) %>% 
   kable_styling(c("hover", "striped", "condensed", "responsive"))
+```
 
+```{r referrals-facility-insp}
 df_referrals %>% 
+  filter(referral_type == "total_referrals") %>% 
   group_by(facility) %>% 
   summarise(total_referral = sum(referral_count, na.rm = TRUE)) %>% 
+  left_join(., df_facility_n_inspect) %>% 
+  mutate(total_referral_insp = round(total_referral/n_inspections, digits = 0)) %>% 
+  select(facility, fac_operator, total_referral, total_referral_insp) %>% 
   arrange(desc(total_referral)) %>% 
   ungroup() %>% 
   kable(caption = "Total Referrals by Facility",
-        col.names = c("Facility", "Total")) %>% 
+        col.names = c("Facility", "Facility Operator", "Total Referrals", "Total Referrals by Inspection")) %>% 
   kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
   scroll_box(height = "300px")
-```
-
-```
 ```
 
 ## Sick Call Requests and Encounters
@@ -966,18 +1067,23 @@ df_sick_call %>%
   kable(caption = "Total Sick Call by Type",
         col.names = c("Type", "Total")) %>% 
   kable_styling(c("hover", "striped", "condensed", "responsive"))
+```
 
+```{r sick-calls-fac-insp}
 df_sick_call %>% 
+  filter(sick_call_type == "total_sick_call") %>% 
   group_by(facility) %>% 
   summarise(total_sick_call = sum(sick_call_count, na.rm = TRUE)) %>% 
   arrange(desc(total_sick_call)) %>% 
+  left_join(., df_facility_n_inspect) %>% 
+  mutate(total_sick_call_insp = round(total_sick_call/n_inspections, digits = 0)) %>% 
+  select(facility, fac_operator, total_sick_call, total_sick_call_insp) %>% 
   ungroup() %>% 
   kable(caption = "Total Sick Call Requests/Encounters by Facility",
-        col.names = c("Facility", "Total")) %>% 
+        col.names = c("Facility", "Facility Operator", "Total Sick Call", "Total Sick Call by Inspection")) %>% 
   kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
   scroll_box(height = "300px")
 ```
-
 
 ## Suicide Attempts and Watches
 
@@ -991,36 +1097,42 @@ df_suicide %>%
   kable(caption = "Total Suicide Attempt or Watch by Type",
         col.names = c("Type", "Total")) %>% 
   kable_styling(c("hover", "striped", "condensed", "responsive"))
-
-df_suicide %>% 
-  group_by(facility) %>% 
-  summarise(total = sum(suicide_count, na.rm = TRUE)) %>% 
-  arrange(desc(total)) %>% 
-  ungroup() %>% 
-  kable(caption = "Total Suicide Attempt or Watch by Facility",
-        col.names = c("Facility", "Total")) %>% 
-  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
-  scroll_box(height = "300px")
 ```
 
+```{r}
+df_suicide %>% 
+  filter(suicide_type == "total") %>% 
+  group_by(facility) %>% 
+  summarise(total_incidents = sum(suicide_count, na.rm = TRUE)) %>% 
+  left_join(., df_facility_n_inspect) %>% 
+  mutate(total_incidents_insp = round(total_incidents/n_inspections, digits = 0)) %>% 
+  select(facility, fac_operator, total_incidents, total_incidents_insp) %>% 
+  arrange(desc(total_incidents)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Suicide Attempt or Watch by Facility",
+        col.names = c("Facility", "Facility Operator", "Total Incidents", "Total Incidents by Inspection")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
+  scroll_box(height = "400px")
+```
 
 ## Hunger Strikes
 
-There were `r hunger_strike_sum` at `r hunger_strike_facility_n` facilities, Table \@ref(tab:hunger-strike-summary) provides a breakdown of hunger strikes by facility and Figure \@ref(fig:hunger-strike-facet) is a facet plot of hunger strikes by facility.
+There were `r hunger_strike_sum` at `r hunger_strike_facility_n` facilities, Table \@ref(tab:hunger-strike-summary) provides a breakdown of hunger strikes by facility.
 
 ```{r hunger-strike-summary}
 df_hunger_strike %>%
   group_by(facility) %>% 
   summarise(total_hunger_strike = sum(hunger_strikes, na.rm = TRUE)) %>% 
+  left_join(., df_facility_n_inspect) %>% 
+  select(facility, fac_operator, total_hunger_strike) %>% 
+  
   arrange(desc(total_hunger_strike)) %>% 
   ungroup() %>% 
   kable(caption = "Total Hunger Strikes by Facility",
-        col.names = c("Facility", "Total Hunger Strikes")) %>% 
+        col.names = c("Facility", "Facility Operator", "Total Hunger Strikes")) %>%
   kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
   scroll_box(height = "300px")
 ```
-
-
 ```{r include=FALSE, cache=FALSE}
 rm(list = ls(all = TRUE))
 ```
@@ -1058,29 +1170,7 @@ load("data/data.RData")
 # source("function_load_324.R", local = knitr::knit_global())
 ```
 
-```{r}
-df_cod <- df_324 %>% 
-  select(id,
-         facility,
-         state,
-         fac_operator,
-         cod_natural_ice:cod_other_not_ice) %>% 
-  pivot_longer(., cod_natural_ice:cod_other_not_ice, names_to = "cod_type", values_to = "cod_count")
-```
-
-
-```{r}
-df_cod %>% 
-  group_by(cod_type) %>% 
-  summarise(total = sum(cod_count, na.rm = TRUE)) %>% 
-  arrange(desc(total)) %>% 
-  ungroup() %>% 
-  adorn_totals("row") %>% 
-  kable(caption = "COD Totals by Category") %>% 
-  kable_styling(c("hover", "striped", "condensed", "responsive"))
-
-```
-
+Form G-324A contains fields for reporting cause of death (COD) for persons incarcerated by ICE and persons incarcerated not by ICE. The non-ICE COD reporting is presumably for corrections facilities where ICE has civil immigration detention bed contracts.
 
 ```{r}
 df_cod %>% 
@@ -1094,16 +1184,22 @@ df_cod %>%
   kable_styling(c("hover", "striped", "condensed", "responsive"))
 ```
 
-
-
 ```{r}
 df_cod %>% 
   filter(!str_detect(cod_type, "not_ice"),
-         cod_count>0) %>% 
-  group_by(facility) %>% ungroup()
+         cod_count>0,
+         cod_type == "total_cod") %>% 
+  left_join(., df_facility_n_inspect) %>% 
+  mutate(cod_count_insp = round(cod_count/n_inspections, digits = 0)) %>% 
+  select(facility, fac_operator, cod_count, cod_count_insp) %>% 
+  group_by(facility) %>% ungroup() %>% 
+  arrange(desc(cod_count)) %>% 
+  kable(caption = "COD by Facility",
+        col.names = c("Facility", "Facility Operator", "COD Total", "COD Total by Inspection")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"),
+                font_size = 12) %>% 
+  scroll_box(height = "400px")
 ```
-
-
 
 ## Suicide as Cause of Death
 
@@ -1111,25 +1207,38 @@ Bar plot of ICE and non-ICE deaths by suicide plotted by facility as of `r Sys.D
 
 ```{r suicide-cod-plot}
  
-df_324 %>%
-  select(id,
-         facility,
-         state,
-         date,
-         fac_operator,
-         cod_suicide_ice,
-         cod_suicide_not_ice) %>%
-  drop_na() %>%
-  filter(cod_suicide_ice>0|cod_suicide_not_ice >0) %>% 
-  mutate(cod_suicide_total = cod_suicide_ice + cod_suicide_not_ice) %>% 
+# df_324 %>%
+#   select(id,
+#          facility,
+#          state,
+#          date,
+#          fac_operator,
+#          cod_suicide_ice,
+#          cod_suicide_not_ice) %>%
+#   drop_na() %>%
+#   filter(cod_suicide_ice>0|cod_suicide_not_ice >0) %>% 
+#   mutate(cod_suicide_total = cod_suicide_ice + cod_suicide_not_ice) %>% 
+  
+  
+  
+df_cod %>% 
+  left_join(., df_facility_n_inspect) %>%
+  filter(!str_detect(cod_type, "not_ice"),
+        cod_count >0,
+        cod_type == "total_cod") %>% 
+  mutate(cod_count_insp = round(cod_count/n_inspections, digits = 0)) %>% 
+  select(facility, fac_operator, cod_count, cod_count_insp) %>% 
+  
   
   # Here one could call datatable() or kable()
   # to get a list of the facilities and count
   
   # Initiate the plot
-  ggplot(aes(x=cod_suicide_total, y=facility))+
-  geom_boxplot()+
-  scale_x_continuous(breaks = c(1,2))+
+  ggplot(aes(x=cod_count_insp, y=reorder(facility, cod_count, sum)))+
+  
+  
+  geom_bar(stat = "identity")+
+  # scale_x_continuous(breaks = c(1,2))+
   labs(title = "Cause of Death Suicide",
        subtitle = "Includes ICE and non-ICE Deaths by Suicide")+
   xlab("COD Suicide Total")+
@@ -1492,8 +1601,7 @@ plot_lines <- c(
     "solid",
     "solid",
     "solid",
-    "solid",
-    "dotted"
+    "solid"
     )
 
 # Use Color Brewer to set colors and modify
@@ -1508,8 +1616,7 @@ plot_labels <- c(
     "Disciplinary Infractions - Guilty",
     "Disciplinary Appeals",
     "Disciplinary Appeals in Favor of Detainee",
-    "Sanctions Over 60 Days",
-    "Total Disciplinary")
+    "Sanctions Over 60 Days")
 
 
 df_discipline %>% 

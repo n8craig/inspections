@@ -52,9 +52,11 @@ no_pass_perc <- pull(df_rating[4,3]+df_rating[5,3])
 
 assault_sum <- aggregate(assault_count~assault_type, df_assaults, sum)[5,2]
 
-
 # Disciplinary ------------------------------------------------------------
-disciplinary_sum <- aggregate(disciplinary_count~disciplinary_type, df_discipline, sum)[6,2]
+disciplinary_sum <- df_discipline %>% 
+  filter(disciplinary_type == "disciplinary_infractions") %>% 
+  summarise(total = sum(disciplinary_count, na.rm = TRUE)) %>% 
+  pluck(1)
 
 disciplinary_guilty_sum <- aggregate(disciplinary_count~disciplinary_type, df_discipline, sum)[2,2]
 disciplinary_guilty_perc <- round(disciplinary_guilty_sum/disciplinary_sum*100, digits = 2)

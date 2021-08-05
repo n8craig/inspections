@@ -26,29 +26,7 @@ load("data/data.RData")
 # source("function_load_324.R", local = knitr::knit_global())
 ```
 
-```{r}
-df_cod <- df_324 %>% 
-  select(id,
-         facility,
-         state,
-         fac_operator,
-         cod_natural_ice:cod_other_not_ice) %>% 
-  pivot_longer(., cod_natural_ice:cod_other_not_ice, names_to = "cod_type", values_to = "cod_count")
-```
-
-
-```{r}
-df_cod %>% 
-  group_by(cod_type) %>% 
-  summarise(total = sum(cod_count, na.rm = TRUE)) %>% 
-  arrange(desc(total)) %>% 
-  ungroup() %>% 
-  adorn_totals("row") %>% 
-  kable(caption = "COD Totals by Category") %>% 
-  kable_styling(c("hover", "striped", "condensed", "responsive"))
-
-```
-
+Form G-324A contains fields for reporting cause of death (COD) for persons incarcerated by ICE and persons incarcerated not by ICE. The non-ICE COD reporting is presumably for corrections facilities where ICE has civil immigration detention bed contracts.
 
 ```{r}
 df_cod %>% 
@@ -62,16 +40,22 @@ df_cod %>%
   kable_styling(c("hover", "striped", "condensed", "responsive"))
 ```
 
-
-
 ```{r}
 df_cod %>% 
   filter(!str_detect(cod_type, "not_ice"),
-         cod_count>0) %>% 
-  group_by(facility) %>% ungroup()
+         cod_count>0,
+         cod_type == "total_cod") %>% 
+  left_join(., df_facility_n_inspect) %>% 
+  mutate(cod_count_insp = round(cod_count/n_inspections, digits = 0)) %>% 
+  select(facility, fac_operator, cod_count, cod_count_insp) %>% 
+  group_by(facility) %>% ungroup() %>% 
+  arrange(desc(cod_count)) %>% 
+  kable(caption = "COD by Facility",
+        col.names = c("Facility", "Facility Operator", "COD Total", "COD Total by Inspection")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"),
+                font_size = 12) %>% 
+  scroll_box(height = "400px")
 ```
-
-
 
 ## Suicide as Cause of Death
 
@@ -79,25 +63,38 @@ Bar plot of ICE and non-ICE deaths by suicide plotted by facility as of `r Sys.D
 
 ```{r suicide-cod-plot}
  
-df_324 %>%
-  select(id,
-         facility,
-         state,
-         date,
-         fac_operator,
-         cod_suicide_ice,
-         cod_suicide_not_ice) %>%
-  drop_na() %>%
-  filter(cod_suicide_ice>0|cod_suicide_not_ice >0) %>% 
-  mutate(cod_suicide_total = cod_suicide_ice + cod_suicide_not_ice) %>% 
+# df_324 %>%
+#   select(id,
+#          facility,
+#          state,
+#          date,
+#          fac_operator,
+#          cod_suicide_ice,
+#          cod_suicide_not_ice) %>%
+#   drop_na() %>%
+#   filter(cod_suicide_ice>0|cod_suicide_not_ice >0) %>% 
+#   mutate(cod_suicide_total = cod_suicide_ice + cod_suicide_not_ice) %>% 
+  
+  
+  
+df_cod %>% 
+  left_join(., df_facility_n_inspect) %>%
+  filter(!str_detect(cod_type, "not_ice"),
+        cod_count >0,
+        cod_type == "total_cod") %>% 
+  mutate(cod_count_insp = round(cod_count/n_inspections, digits = 0)) %>% 
+  select(facility, fac_operator, cod_count, cod_count_insp) %>% 
+  
   
   # Here one could call datatable() or kable()
   # to get a list of the facilities and count
   
   # Initiate the plot
-  ggplot(aes(x=cod_suicide_total, y=facility))+
-  geom_boxplot()+
-  scale_x_continuous(breaks = c(1,2))+
+  ggplot(aes(x=cod_count_insp, y=reorder(facility, cod_count, sum)))+
+  
+  
+  geom_bar(stat = "identity")+
+  # scale_x_continuous(breaks = c(1,2))+
   labs(title = "Cause of Death Suicide",
        subtitle = "Includes ICE and non-ICE Deaths by Suicide")+
   xlab("COD Suicide Total")+

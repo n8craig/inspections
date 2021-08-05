@@ -13,6 +13,7 @@ options(scipen=999)
 # Plotting
 library(ggplot2)
 library(RColorBrewer)
+library(gghighlight)
 
 # Tables
 library(kableExtra)
@@ -20,61 +21,122 @@ library(kableExtra)
 load("data/data.RData")
 ```
 
-## Summary Tables
+```{r df-force-sum}
+df_force_sum <- df_force %>% 
+  filter(use_of_force_type == "total_use_of_force") %>% 
+  group_by(facility) %>% 
+  summarise(total_use_of_force = sum(use_of_force_count, na.rm = TRUE)) %>% 
+  arrange(desc(total_use_of_force)) %>% 
+  ungroup()
+  
 
-```{r use-of-force-annual-table}
-df_force %>%
-  mutate(inspection = str_c(facility, " - ", inspection_date), .before = facility) %>%
-  filter(., use_of_force_type == "total_use_of_force") %>% 
-  group_by(inspection) %>%
-  summarise(total = sum(use_of_force_count)) %>% 
-   
-  select(inspection, total) %>% 
-  arrange(desc(total)) %>% 
+df_force_sum <- left_join(df_force_sum, df_facility_n_inspect) %>% 
+  mutate(total_use_of_force_by_inspection = round(total_use_of_force / n_inspections, digits = 0))
+
+use_force_m <- mean(df_force_sum$total_use_of_force_by_inspection)
+use_force_sd <- sd(df_force_sum$total_use_of_force_by_inspection)
+use_force_outlier <- use_force_m + (2 * use_force_sd)
+```
+
+Form G-324A provides fields for reporting monthly use of force data. There are seven items under the Use of Force/Restraints/Strip Searches section of form G-324A:
+
+-   Immediate use of force incidents
+-   Calculated use of force incidents
+-   Uses of force with chemical agents
+-   Incidents were non-legal weapons were used
+-   Number of times 4/5 point restraints were used
+-   Use of force with serious injury
+-   Strip searches
+
+Out of the `r inspect_proc_n` inspections that occurred at `r facility_n` facilities between `r format(inspect_earliest, format= "%B %e, %Y")` and `r format(inspect_latest, format= "%B %e, %Y")` there were `r use_force_sum` use of force incidents (Table \@ref(tab:use-force-by-type)). Over the span of `r inspect_sample_interval` months represented by the inspections in this sample, there were on average `r round (use_force_sum/inspect_sample_interval, digits = 0)` use of force incidents per month. The mean number of use of force incidents per inspection is `r round(use_force_m, digits = 0)` (SD=`r round(use_force_sd, digits = 0)`). Based on this mean, there are four facilities with significantly higher than average number of use of force incidents reported per inspection (n\> `r round(use_force_outlier, digits = 2)`). Among the facilities with significantly higher number of use of force incidents per inspection two are county entities while the other two are Immigration Centers of America and CoreCivic.
+
+```{r use-force-by-type}
+# Use of force by type
+
+df_force %>% 
+  group_by(use_of_force_type) %>% 
+  summarise('Total Use of Force by Type' = sum(use_of_force_count, na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  kable(caption = "Total Use of Force by Type",
+        col.names = c("Use of Force Type", "Count")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"))
+```
+
+```{r use-force-bar-by-facility, fig.cap="Bar plot of facilities with greater than average number of use of force incidents reported per inspection.", fig.height=6}
+threshold <- use_force_m + use_force_sd *2
+
+df_force_sum %>% 
+  group_by(facility, fac_operator) %>% 
+  filter(total_use_of_force_by_inspection > use_force_m) %>% 
+  ggplot(aes(x = total_use_of_force_by_inspection, y = reorder(facility, total_use_of_force_by_inspection, sum)))+
+  geom_bar(stat = "identity")+
+  gghighlight(max(total_use_of_force_by_inspection) > threshold)+
+  labs(title = "Facilities with > μ Use of Force Incidents per Inspection.",
+       subtitle = "Facilities with significantly higher than average number\nof use of force incidents are dark grey.")+
+  xlab("Use of Force Incidents Per Inspection")+
+  ylab("Facility")
+```
+
+```{r use-of-force-inspection-table}
+color.me <- which(df_force_sum$total_use_of_force_by_inspection > use_force_outlier)
+
+df_force_sum %>%
+  group_by(facility) %>%
+  select(facility, 
+         fac_operator, 
+         total_use_of_force, 
+         total_use_of_force_by_inspection) %>% 
+  arrange(desc(total_use_of_force_by_inspection)) %>% 
 
   kable(caption = "Total Use of Force Per Inspection by Facility",
-        col.names = c("Inspection", "Total Use of Force")) %>% 
-  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
-  scroll_box(height = "300px")
+        col.names = c("Facility", "Facility Operator", "Total Use of Force", "Total use of Force by Inspection")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"),
+                font_size = 12) %>% 
+  row_spec(color.me, bold = TRUE) %>% 
+  scroll_box(height = "400px")
 ```
 
-```{r use-of-force-no-ss-annual-table}
-df_force %>%
-  mutate(inspection = str_c(facility, " - ",
-                            inspection_date)) %>%
-  filter(!use_of_force_type %in% c("total_use_of_force", "strip_searches")) %>% 
-  group_by(inspection) %>%
-  summarise(total = sum(use_of_force_count)) %>% 
-   
-  select(inspection, total) %>% 
-  arrange(desc(total)) %>% 
+```{r force-no-strip}
+df_force_no_strip <- df_force %>% 
+  filter(!use_of_force_type %in% c("strip_searches", "total_use_of_force")) %>% 
+  group_by(facility) %>% 
+  summarise(use_force_total = sum(use_of_force_count)) %>% 
+  left_join(.,df_facility_n_inspect) %>% 
+  relocate(fac_operator:n_inspections, .after = facility) %>% 
+  mutate(use_force_insp = round(use_force_total/n_inspections, digits = 0)) %>% 
+  arrange(desc(use_force_insp)) %>% 
+  select(facility, fac_operator, use_force_total, use_force_insp)
 
-  kable(caption = "Use of Force Excluding Strip Searches Per Inspection by Facility",
-        col.names = c("Inspection", "Use of Force Excluding Strip Searches")) %>% 
-  kable_styling(c("hover", "striped", "condensed", "responsive")) %>% 
-  scroll_box(height = "300px")
+
+use_force_no_strip_insp_m <- mean(df_force_no_strip$use_force_insp)
+use_force_no_strip_insp_sd <- sd(df_force_no_strip$use_force_insp)
+use_force_no_strip_insp_outlier <- use_force_no_strip_insp_m +(2*use_force_no_strip_insp_sd)
 ```
 
-```{r use-force-annual-bar, fig.height=6, fig.cap="Facilities with >20 total Use of Force incidents by annual inspection"}
-df_force %>% 
-  mutate(id = as.numeric(id)) %>% 
-  filter(., use_of_force_type == "total_use_of_force") %>% 
-  group_by(id, facility, inspection_date) %>%
-  summarise(total = sum(use_of_force_count)) %>% 
-  mutate(inspection = str_c(facility, " - ", inspection_date), .after = id) %>% 
-  select(inspection, facility, total) %>% 
-  filter(total>20) %>% 
-  ggplot(aes(x = total, y = reorder(facility, -total, sum)))+
-  geom_bar(stat = "identity")+
-  labs(title = "Inspections where > 20 Use of Force Incidents\nWere Reported for the Year.")+
-  xlab("Use of Force Incidents Reported for Year")+
-  ylab("Facility")
+Strip searches make up `r use_force_strip_search_perc`% (n=`r use_force_strip_search_sum`) of the use of force incidents (Table \@ref(tab:use-force-by-type) ). Removing strip searches and looking at the remaining `r use_force_sum-use_force_strip_search_sum` use of force incidents by inspection results in an average of `r use_force_no_strip_insp_m` (SD=`r use_force_no_strip_insp_sd`) incidents per facility per inspection. Based on this average five facilities have significantly greater than average non-strip search use of force incidents per inspection. Of these, two facilities are managed by CoreCivic, one by the GeoGroup, one by Immigration Centers of America, and one by the Glades County Sheriff.
 
+```{r force-no-strip-table}
+color.me <- which(df_force_no_strip$use_force_insp > use_force_no_strip_insp_outlier)
+
+
+df_force_no_strip %>%  
+  
+  kable(caption = "Use of Force Excluding Strip Searches by Facility",
+        col.names = c("Facility", "Facility Operator", "Total", "Total by Inspection")) %>% 
+  kable_styling(c("hover", "striped", "condensed", "responsive"), font_size = 12) %>% 
+  row_spec(color.me, bold = TRUE) %>% 
+  scroll_box(height = "400px")
 ```
+
+## Discussion
+
+According to PBNDS, "[u]se of force in detention facilities is never used as punishment" pg 201
+
+PBNDS states that "[c]anines shall not be used for force, control, or intimidation of detainees." 201.
 
 ## Under Reporting Use of Force Incidents {#under-reporting-use-of-force-incidents}
 
-There are few opportunities for independent evaluation of use of force incidents in ICE detention facilities. However, in at least some circumstances use of force incidents are inaccurately documented and under reported. For example, in some instances strip searches are tallied in total use of force summaries and in other cases they are not.
+There are few opportunities for independent evaluation of use of force incidents in ICE detention facilities. However, in at least some circumstances evidence indicates that use of force incidents are inaccurately documented and under reported. For example, in some instances strip searches are tallied in total use of force summaries and in other cases they are not.
 
 The Bristol County Jail is one noteworthy instance where use of force incidents received independent evaluation. On May 2, 2020 Massachusetts news outlets reported on a major incident that occurred at the Bristol County House of Correction the previous day when detained persons expressed concern about the potential for COVID-19 infection from the facility's medical wing [@dooling2020]. The Bristol County Sheriff claimed that people refused to go to the medical unit for testing, and those detained reported being attacked with pepper spray and dogs. Nakamoto Group Inspectors visited the facility between November 16-18, 2020 and reviewed it under PBNDS 2008 [@ice2020]. The inspectors received a G-324 SIS which reported use of force incidents (Figure \@ref(fig:bristol-2020-sis)). For May, the sheet lists 1 Immediate Use of Force Incident, 1 Use of Force with Chemical Agents, 1 Incident where Non-Lethal Weapons were Used, and 3 Strip Searches. The sheet lists no Use of Force with Serious Injury. Nakamoto Group inspectors found that the facility met all 39 standards and had only three deficient components: Key and Lock Control, Special Management Unit, and Suicide Prevention and Intervention. The Nakamoto inspection letter made no mention of use of force incidents.
 
@@ -88,18 +150,14 @@ The Massachusetts Attorney General's Office (MA AG) independently investigated t
 -   1 immediate use of force incident with a chemical agent;
 -   1 calculated use of force incident that involved 16 officers armed with pepper spray, flash bang grenades, riot shields, shotguns with bean bag rounds, pepper ball launchers, battering rams, multiple K9 teams; and another 12 person restraint team.
 
-The Calculated Use of Force Incident unfolded over the course of more than an hour and involved the deployment of flash bang grenades; firing more than 30 rounds of pepper balls, several of which directly hit individuals; numerous instances involving K-9 use of force, and multiple "hands on" use of force instances. Additionally, the MA GA found multiple cases where individuals suffered serious injuries as the result of the use of force:
+The Calculated Use of Force Incident unfolded over the course of more than an hour and involved the deployment of flash bang grenades; firing more than 30 rounds of pepper balls, several of which directly hit individuals; numerous instances involving K-9 use of force, and multiple "hands on" use of force instances. Additionally, the MA AG found multiple cases where individuals suffered serious injuries as the result of the use of force:
 
 -   1 individual experienced cardiac arrest
 -   1 individual with a history of chronic obstructive pulmonary disease (COPD) suffered respiratory distress
 -   1 individual experienced respiratory distress resulting in critically low oxygen levels
 
-The MA GA concluded that "a series of institutional failures and poor decisions" culminated in a "planned and deliberate--use of force against the ICE B detainees that was disproportionate to the security needs at that time and unnecessarily caused, or risked causing, harm to all involved"[@maag2020a, ii]. The MA GA found that facility staff used "a flash bang grenade, pepper-ball launchers, pepper spray canisters, anti-riot shields, and canines---against detainees who had exhibited calm and nonviolent behavior for at least an hour before this operation"[@maag2020a, ii].
+The MA AG concluded that "a series of institutional failures and poor decisions" culminated in a "planned and deliberate--use of force against the ICE B detainees that was disproportionate to the security needs at that time and unnecessarily caused, or risked causing, harm to all involved"[@maag2020a, ii]. The MA AG found that facility staff used "a flash bang grenade, pepper-ball launchers, pepper spray canisters, anti-riot shields, and canines---against detainees who had exhibited calm and nonviolent behavior for at least an hour before this operation"[@maag2020a, ii]. MA AG found that staff "deployed these weapons both indiscriminately upon entry and also specifically against detainees who were not combative, assaultive, or otherwise actively resisting staff" [@maag2020, ii].
 
-The details of the May 1, 2020 Use of Force incident do not come to light in either SIS form or the Nakamoto Group inspection cover letter. The SIS form inaccurately characterizes the multiple Use of Force incidents entailed in the event, fails to report what is clearly a Calculated Use of Force, and does not report multiple Use of Force Incidents with Serious Injury that resulted from from the extensive use of pepper spray. The Nakamoto cover letter states that, "the detainees felt safe in the facility and registered no substantive com-plaints about any aspect of their detention except for their exposure to the COVID-19 risk in the facility." Inspectors wrote that "[t]here were no areas of concern or significant observations noted during the inspection" but noted that the "inspection was conducted remotely, and inspectors were unable to personally observe practices and procedures with-in the facility" and that the "inspection team relied upon photographs and/or videos to validate the observation of many standards."
-
-## EXTRA TEXT TO INCCORPORATE
-
-For example, at the Bristol County County Jail and House of Corrections independent investigation by the Massachusetts Office of Attorney General (MAOG) found that facility staff found a "planned and deliberate-use of force against the ICE detainees that was disproportionate to the security needs at that time and unnecessarily caused, or risked causing, harm to all involved" [@maag2020, ii]. The MOAG found that facility staff used "a flash bang grenade, pepper-ball launchers, pepper spray canisters, anti-riot shields, and canines--against detainees who had exhibited calm and nonviolent behavior for at least an hour before this operation" [@maag2020, ii]. Investigations found that staff "deployed these weapons both indiscriminately upon entry and also specifically against detainees who were not combative, assaultive, or otherwise actively resisting staff" [@maag2020, ii].
+The details of the May 1, 2020 Use of Force incident do not come to light in either SIS form or the Nakamoto Group inspection cover letter. The SIS form inaccurately characterizes the multiple Use of Force incidents entailed in the event, fails to report what is clearly a Calculated Use of Force, and does not report multiple Use of Force Incidents with Serious Injury that resulted from from the extensive use of pepper spray. Inspectors made no mention of the use of muzzled and unmuzzled canine units that were deployed for control and intimidation. The Nakamoto cover letter states that, "the detainees felt safe in the facility and registered no substantive complaints about any aspect of their detention except for their exposure to the COVID-19 risk in the facility." Inspectors wrote that "[t]here were no areas of concern or significant observations noted during the inspection" but noted that the "inspection was conducted remotely, and inspectors were unable to personally observe practices and procedures with-in the facility" and that the "inspection team relied upon photographs and/or videos to validate the observation of many standards."
 
 While the aforementioned Bristol County Jail may be a particularly egregious instance of staff assaulting detained persons, it is not an isolated case. For example, [video evidence](https://www.youtube.com/watch?v=JP_PfOhdLuM) from the Torrance County Detention Facility in Estancia NM shows CoreCivic's private facility staff pepper spraying persons detained by ICE on hunger strike [@swetlitz2020]. Review of inspections has also revealed additional inappropriate use of force incidents. The omission of a field to record instances of staff assaulting detained persons occludes and obscures real instances of violence. As the inspections process is a detention reform designed to make a more humane system of civil incarceration, the omission of categories for logging staff physical mistreatment of detained persons raises serious questions about the inspections processes ability to record significant and documented civil and human rights violations.
