@@ -4,7 +4,7 @@ tab:summary-standards
 tab:inspection-facility-count
 tab:inspection-operator-count
 tab:summary-recommended-rating
-tab:unnamed-chunk-9
+tab:unnamed-chunk-8
 tab:assault-summary-by-type
 fig:assaults-bar-by-facility
 tab:assault-summary-by-facility
@@ -33,10 +33,10 @@ tab:referrals-facility-insp
 tab:sick-calls-summary
 tab:sick-calls-fac-insp
 tab:suicide-summary
-tab:unnamed-chunk-27
+tab:unnamed-chunk-26
 tab:hunger-strike-summary
+tab:unnamed-chunk-29
 tab:unnamed-chunk-30
-tab:unnamed-chunk-31
 tab:df-inspect-before
 tab:df-inspect-after
 fig:solitary-facet
@@ -65,6 +65,7 @@ use-of-force-1
 discussion-1
 under-reporting-use-of-force-incidents
 sexual-abuse-and-assault-1
+notice-1
 allegations
 summary-tables
 substantiated-allegations

@@ -23,16 +23,6 @@ source("scripts/load_data_all.R")
 load("data/data.RData")
 ```
 
-```{css echo=FALSE}
-.infobox {
-  padding: 1em 1em 1em 4em;
-  margin-bottom: 10px;
-  border: 2px solid maroon;
-  border-radius: 10px;
-  background: mistyrose;
-}
-```
-
 ::: {.infobox}
 ## NOTICE {.infobox}
 

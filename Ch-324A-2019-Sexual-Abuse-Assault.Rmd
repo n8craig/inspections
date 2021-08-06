@@ -20,6 +20,14 @@ library(kableExtra)
 load("data/data.RData")
 ```
 
+::: {.infobox}
+## NOTICE {.infobox}
+
+This document is a work in progress **under development**. Until this notice is removed, information in this document is subject to change as the underlying code is modified and refined.
+
+Last update: *`r format(Sys.time(), "%A %B %d, %Y at %I:%M:%S %p")`*
+:::
+
 ## Allegations
 
 ### Summary Tables

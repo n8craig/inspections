@@ -30,6 +30,16 @@ div.csl-entry{margin-bottom: 1em;}
     height: 0px;
 }
 
+/* Infobox Admonition*/
+.infobox {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  border: 2px solid maroon;
+  border-radius: 10px;
+  background: mistyrose;
+}
+
+
 /*____Code Chunks____*/
 
 .sourceCode pre {
