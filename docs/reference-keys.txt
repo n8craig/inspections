@@ -42,7 +42,6 @@ tab:df-inspect-after
 fig:solitary-facet
 fig:hunger-strike-facet
 introduction
-notice
 what-we-found
 assaults
 disciplinary

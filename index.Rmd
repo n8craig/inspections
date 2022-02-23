@@ -23,19 +23,19 @@ source("scripts/load_data_all.R")
 load("data/data.RData")
 ```
 
-::: {.infobox}
-## NOTICE {.infobox}
+::: {.rmdwarning}
+## NOTICE {-}
 
 This document is a work in progress **under development**. Until this notice is removed, information in this document is subject to change as the underlying code is modified and refined.
 
 Last update: *`r format(Sys.time(), "%A %B %d, %Y at %I:%M:%S %p")`*
 :::
 
-```{r, echo= FALSE, out.width= "60%", out.extra='style="float:right; padding:10px"'}
+This project involves collating, cleaning, performing preliminary analysis of, and supplying to the public inspections related data released by Immigration and Customs Enforcement (ICE). ICE oversees a sprawling network of more than 200 immigration detention facilities. The agency is required to inspect each of these facilities at least annually according to one of several sets of detention standards. In 2018, Congressional appropriations stipulated that "ICE is directed to make public all final detention facility inspection reports within 60 days of inspection" [@departme2017, 33]. Following this, ICE began releasing pre-prepared Significant Incident Summary (SIS) forms and inspection letters. These documents do not comply with the Congressional mandate. As of July, 2021 ICE is not complying with this standing directive from Congress (see \@ref(note-regarding-inspections)). Our aim was to assemble in one place what information ICE does release, process and provide those data using reproducible methods [@yu2020; @implemen2014], and offer some insights regarding what was found.
+
+```{r, echo= FALSE, out.width= "60%", fig.align='center'}
 knitr::include_graphics('./images/inspection_cover_page.jpg')
 ```
-
-This project involves collating, cleaning, performing preliminary analysis of, and supplying to the public inspections related data released by Immigration and Customs Enforcement (ICE). ICE oversees a sprawling network of more than 200 immigration detention facilities. The agency is required to inspect each of these facilities at least annually according to one of several sets of detention standards. In 2018, Congressional appropriations stipulated that "ICE is directed to make public all final detention facility inspection reports within 60 days of inspection" [@departme2017, 33]. Following this, ICE began releasing pre-prepared Significant Incident Summary (SIS) forms and inspection letters. These documents do not comply with the Congressional mandate. As of July, 2021 ICE is not complying with this standing directive from Congress (see \@ref(note-regarding-inspections)). Our aim was to assemble in one place what information ICE does release, process and provide those data using reproducible methods [@yu2020; @implemen2014], and offer some insights regarding what was found.
 
 ## What We Found
 

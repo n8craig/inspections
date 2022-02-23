@@ -1,277 +1,70 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html lang="en">
 <head>
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>B Data Cleaning | ICE Inspection Review</title>
-  <meta name="description" content="This is a document in progress that involves organizing inspection materials released on the ICE website" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
-
-  <meta property="og:title" content="B Data Cleaning | ICE Inspection Review" />
-  <meta property="og:type" content="book" />
-  
-  
-  <meta property="og:description" content="This is a document in progress that involves organizing inspection materials released on the ICE website" />
-  
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="B Data Cleaning | ICE Inspection Review" />
-  
-  <meta name="twitter:description" content="This is a document in progress that involves organizing inspection materials released on the ICE website" />
-  
-
-<meta name="author" content="Nathan Craig" />
-
-
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
-  
-<link rel="prev" href="reading-in-sis-forms.html"/>
-<link rel="next" href="facet-plots-1.html"/>
-<script src="libs/header-attrs-2.8/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
-
-
-
-
-
-
-
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-
-
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
-
-<link rel="stylesheet" href="style.css" type="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>B Data Cleaning | ICE Inspection Review</title>
+<meta name="author" content="Nathan Craig">
+<meta name="description" content="Anyone familiar working with ICE data knows that the agency is notorious for releasing dirty data filled with pesky errors. For example, consider the Krome Service Processing Center, the very...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="B Data Cleaning | ICE Inspection Review">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Anyone familiar working with ICE data knows that the agency is notorious for releasing dirty data filled with pesky errors. For example, consider the Krome Service Processing Center, the very...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="B Data Cleaning | ICE Inspection Review">
+<meta name="twitter:description" content="Anyone familiar working with ICE data knows that the agency is notorious for releasing dirty data filled with pesky errors. For example, consider the Krome Service Processing Center, the very...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="bs4_style.css">
 </head>
+<body data-spy="scroll" data-target="#toc">
 
-<body>
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
-
-
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li><a href="./">ICE Inspection Review</a></li>
-
-<li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
-<ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#notice"><i class="fa fa-check"></i><b>1.1</b> NOTICE</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#what-we-found"><i class="fa fa-check"></i><b>1.2</b> What We Found</a>
-<ul>
-<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#assaults"><i class="fa fa-check"></i><b>1.2.1</b> Assaults</a></li>
-<li class="chapter" data-level="1.2.2" data-path="index.html"><a href="index.html#disciplinary"><i class="fa fa-check"></i><b>1.2.2</b> Disciplinary</a></li>
-<li class="chapter" data-level="1.2.3" data-path="index.html"><a href="index.html#solitary"><i class="fa fa-check"></i><b>1.2.3</b> Solitary</a></li>
-<li class="chapter" data-level="1.2.4" data-path="index.html"><a href="index.html#use-of-force"><i class="fa fa-check"></i><b>1.2.4</b> Use of Force</a></li>
-<li class="chapter" data-level="1.2.5" data-path="index.html"><a href="index.html#sexual-abuse-and-assault"><i class="fa fa-check"></i><b>1.2.5</b> Sexual Abuse and Assault</a></li>
-<li class="chapter" data-level="1.2.6" data-path="index.html"><a href="index.html#medical-observation"><i class="fa fa-check"></i><b>1.2.6</b> Medical Observation</a></li>
-</ul></li>
-<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#note-regarding-inspections"><i class="fa fa-check"></i><b>1.3</b> Note Regarding Inspections</a></li>
-<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#how-the-work-was-done"><i class="fa fa-check"></i><b>1.4</b> How the work was done</a></li>
-</ul></li>
-<li class="chapter" data-level="2" data-path="inspection-standards-and-ratings.html"><a href="inspection-standards-and-ratings.html"><i class="fa fa-check"></i><b>2</b> Inspection Standards and Ratings</a>
-<ul>
-<li class="chapter" data-level="2.1" data-path="inspection-standards-and-ratings.html"><a href="inspection-standards-and-ratings.html#standards-applied"><i class="fa fa-check"></i><b>2.1</b> Standards Applied</a></li>
-<li class="chapter" data-level="2.2" data-path="inspection-standards-and-ratings.html"><a href="inspection-standards-and-ratings.html#inspections-by-facility-and-operator"><i class="fa fa-check"></i><b>2.2</b> Inspections by Facility and Operator</a></li>
-<li class="chapter" data-level="2.3" data-path="inspection-standards-and-ratings.html"><a href="inspection-standards-and-ratings.html#recommended-rating"><i class="fa fa-check"></i><b>2.3</b> Recommended Rating</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="assaults-1.html"><a href="assaults-1.html"><i class="fa fa-check"></i><b>3</b> Assaults</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="assaults-1.html"><a href="assaults-1.html#discussion"><i class="fa fa-check"></i><b>3.1</b> Discussion</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="disciplinary-1.html"><a href="disciplinary-1.html"><i class="fa fa-check"></i><b>4</b> Disciplinary</a></li>
-<li class="chapter" data-level="5" data-path="solitary-1.html"><a href="solitary-1.html"><i class="fa fa-check"></i><b>5</b> Solitary</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="solitary-1.html"><a href="solitary-1.html#solitary-over-60-days"><i class="fa fa-check"></i><b>5.1</b> Solitary Over 60 Days</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="use-of-force-1.html"><a href="use-of-force-1.html"><i class="fa fa-check"></i><b>6</b> Use of Force</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="use-of-force-1.html"><a href="use-of-force-1.html#discussion-1"><i class="fa fa-check"></i><b>6.1</b> Discussion</a></li>
-<li class="chapter" data-level="6.2" data-path="use-of-force-1.html"><a href="use-of-force-1.html#under-reporting-use-of-force-incidents"><i class="fa fa-check"></i><b>6.2</b> Under Reporting Use of Force Incidents</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="sexual-abuse-and-assault-1.html"><a href="sexual-abuse-and-assault-1.html"><i class="fa fa-check"></i><b>7</b> Sexual Abuse and Assault</a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="sexual-abuse-and-assault-1.html"><a href="sexual-abuse-and-assault-1.html#notice-1"><i class="fa fa-check"></i><b>7.1</b> NOTICE</a></li>
-<li class="chapter" data-level="7.2" data-path="sexual-abuse-and-assault-1.html"><a href="sexual-abuse-and-assault-1.html#allegations"><i class="fa fa-check"></i><b>7.2</b> Allegations</a>
-<ul>
-<li class="chapter" data-level="7.2.1" data-path="sexual-abuse-and-assault-1.html"><a href="sexual-abuse-and-assault-1.html#summary-tables"><i class="fa fa-check"></i><b>7.2.1</b> Summary Tables</a></li>
-</ul></li>
-<li class="chapter" data-level="7.3" data-path="sexual-abuse-and-assault-1.html"><a href="sexual-abuse-and-assault-1.html#substantiated-allegations"><i class="fa fa-check"></i><b>7.3</b> Substantiated Allegations</a>
-<ul>
-<li class="chapter" data-level="7.3.1" data-path="sexual-abuse-and-assault-1.html"><a href="sexual-abuse-and-assault-1.html#summary-tables-1"><i class="fa fa-check"></i><b>7.3.1</b> Summary Tables</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="medical.html"><a href="medical.html"><i class="fa fa-check"></i><b>8</b> Medical</a>
-<ul>
-<li class="chapter" data-level="8.1" data-path="medical.html"><a href="medical.html#medical-observation-1"><i class="fa fa-check"></i><b>8.1</b> Medical Observation</a></li>
-<li class="chapter" data-level="8.2" data-path="medical.html"><a href="medical.html#infections-disease"><i class="fa fa-check"></i><b>8.2</b> Infections Disease</a></li>
-<li class="chapter" data-level="8.3" data-path="medical.html"><a href="medical.html#medical-and-mental-health-referrals"><i class="fa fa-check"></i><b>8.3</b> Medical and Mental Health Referrals</a></li>
-<li class="chapter" data-level="8.4" data-path="medical.html"><a href="medical.html#sick-call-requests-and-encounters"><i class="fa fa-check"></i><b>8.4</b> Sick Call Requests and Encounters</a></li>
-<li class="chapter" data-level="8.5" data-path="medical.html"><a href="medical.html#suicide-attempts-and-watches"><i class="fa fa-check"></i><b>8.5</b> Suicide Attempts and Watches</a></li>
-<li class="chapter" data-level="8.6" data-path="medical.html"><a href="medical.html#hunger-strikes"><i class="fa fa-check"></i><b>8.6</b> Hunger Strikes</a></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="cause-of-death.html"><a href="cause-of-death.html"><i class="fa fa-check"></i><b>9</b> Cause of Death</a>
-<ul>
-<li class="chapter" data-level="9.1" data-path="cause-of-death.html"><a href="cause-of-death.html#suicide-as-cause-of-death"><i class="fa fa-check"></i><b>9.1</b> Suicide as Cause of Death</a></li>
-</ul></li>
-<li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="reading-in-sis-forms.html"><a href="reading-in-sis-forms.html"><i class="fa fa-check"></i><b>A</b> Reading in SIS Forms</a>
-<ul>
-<li class="chapter" data-level="A.1" data-path="reading-in-sis-forms.html"><a href="reading-in-sis-forms.html#summary-tables-2"><i class="fa fa-check"></i><b>A.1</b> Summary Tables</a></li>
-<li class="chapter" data-level="A.2" data-path="reading-in-sis-forms.html"><a href="reading-in-sis-forms.html#facet-plots"><i class="fa fa-check"></i><b>A.2</b> Facet Plots</a></li>
-</ul></li>
-<li class="chapter" data-level="B" data-path="data-cleaning.html"><a href="data-cleaning.html"><i class="fa fa-check"></i><b>B</b> Data Cleaning</a>
-<ul>
-<li class="chapter" data-level="B.1" data-path="data-cleaning.html"><a href="data-cleaning.html#cleaning-script"><i class="fa fa-check"></i><b>B.1</b> Cleaning Script</a></li>
-</ul></li>
-<li class="chapter" data-level="C" data-path="facet-plots-1.html"><a href="facet-plots-1.html"><i class="fa fa-check"></i><b>C</b> Facet Plots</a>
-<ul>
-<li class="chapter" data-level="C.1" data-path="facet-plots-1.html"><a href="facet-plots-1.html#assaults-2"><i class="fa fa-check"></i><b>C.1</b> Assaults</a></li>
-<li class="chapter" data-level="C.2" data-path="facet-plots-1.html"><a href="facet-plots-1.html#disciplinary-2"><i class="fa fa-check"></i><b>C.2</b> Disciplinary</a></li>
-<li class="chapter" data-level="C.3" data-path="facet-plots-1.html"><a href="facet-plots-1.html#solitary-2"><i class="fa fa-check"></i><b>C.3</b> Solitary</a></li>
-<li class="chapter" data-level="C.4" data-path="facet-plots-1.html"><a href="facet-plots-1.html#use-of-force-2"><i class="fa fa-check"></i><b>C.4</b> Use of Force</a></li>
-<li class="chapter" data-level="C.5" data-path="facet-plots-1.html"><a href="facet-plots-1.html#sexual-abuse-and-assault-2"><i class="fa fa-check"></i><b>C.5</b> Sexual Abuse and Assault</a>
-<ul>
-<li class="chapter" data-level="C.5.1" data-path="facet-plots-1.html"><a href="facet-plots-1.html#allegations-1"><i class="fa fa-check"></i><b>C.5.1</b> Allegations</a></li>
-<li class="chapter" data-level="C.5.2" data-path="facet-plots-1.html"><a href="facet-plots-1.html#allegations-substantiated"><i class="fa fa-check"></i><b>C.5.2</b> Allegations Substantiated</a></li>
-</ul></li>
-<li class="chapter" data-level="C.6" data-path="facet-plots-1.html"><a href="facet-plots-1.html#medical-1"><i class="fa fa-check"></i><b>C.6</b> Medical</a>
-<ul>
-<li class="chapter" data-level="C.6.1" data-path="facet-plots-1.html"><a href="facet-plots-1.html#medical-mental-observation"><i class="fa fa-check"></i><b>C.6.1</b> Medical Mental Observation</a></li>
-<li class="chapter" data-level="C.6.2" data-path="facet-plots-1.html"><a href="facet-plots-1.html#infectious-disease"><i class="fa fa-check"></i><b>C.6.2</b> Infectious Disease</a></li>
-<li class="chapter" data-level="C.6.3" data-path="facet-plots-1.html"><a href="facet-plots-1.html#medical-and-mental-health-referrals-1"><i class="fa fa-check"></i><b>C.6.3</b> Medical and Mental Health Referrals</a></li>
-<li class="chapter" data-level="C.6.4" data-path="facet-plots-1.html"><a href="facet-plots-1.html#sick-call-requests-and-encounters-1"><i class="fa fa-check"></i><b>C.6.4</b> Sick Call Requests and Encounters</a></li>
-<li class="chapter" data-level="C.6.5" data-path="facet-plots-1.html"><a href="facet-plots-1.html#suicide-attempts-and-watches-1"><i class="fa fa-check"></i><b>C.6.5</b> Suicide Attempts and Watches</a></li>
-<li class="chapter" data-level="C.6.6" data-path="facet-plots-1.html"><a href="facet-plots-1.html#hunger-strikes-1"><i class="fa fa-check"></i><b>C.6.6</b> Hunger Strikes</a></li>
-</ul></li>
-<li class="chapter" data-level="C.7" data-path="facet-plots-1.html"><a href="facet-plots-1.html#cause-of-death-1"><i class="fa fa-check"></i><b>C.7</b> Cause of Death</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
-</ul>
-
-      </nav>
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">ICE Inspection Review</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
 
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">ICE Inspection Review</a>
-          </h1>
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="inspection-standards-and-ratings.html"><span class="header-section-number">2</span> Inspection Standards and Ratings</a></li>
+<li><a class="" href="assaults-1.html"><span class="header-section-number">3</span> Assaults</a></li>
+<li><a class="" href="disciplinary-1.html"><span class="header-section-number">4</span> Disciplinary</a></li>
+<li><a class="" href="solitary-1.html"><span class="header-section-number">5</span> Solitary</a></li>
+<li><a class="" href="use-of-force-1.html"><span class="header-section-number">6</span> Use of Force</a></li>
+<li><a class="" href="sexual-abuse-and-assault-1.html"><span class="header-section-number">7</span> Sexual Abuse and Assault</a></li>
+<li><a class="" href="medical.html"><span class="header-section-number">8</span> Medical</a></li>
+<li><a class="" href="cause-of-death.html"><span class="header-section-number">9</span> Cause of Death</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="reading-in-sis-forms.html"><span class="header-section-number">A</span> Reading in SIS Forms</a></li>
+<li><a class="active" href="data-cleaning.html"><span class="header-section-number">B</span> Data Cleaning</a></li>
+<li><a class="" href="facet-plots-1.html"><span class="header-section-number">C</span> Facet Plots</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/n8craig/inspections/">View book source <i class="fab fa-github"></i></a></p>
         </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
-<div id="data-cleaning" class="section level1" number="11">
-<h1><span class="header-section-number">B</span> Data Cleaning</h1>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="data-cleaning" class="section level1" number="11">
+<h1>
+<span class="header-section-number">B</span> Data Cleaning<a class="anchor" aria-label="anchor" href="#data-cleaning"><i class="fas fa-link"></i></a>
+</h1>
 <p>Anyone familiar working with ICE data knows that the agency is notorious for releasing dirty data filled with pesky errors. For example, consider the Krome Service Processing Center, the very first immigration processing center established in the 1980’s after the closure of Ellis Island in 1954. Of all the facilities the agency should name consistently, Krome the very first detention center of the contemporary system, one would expect ICE to get right. However, the facility inspections page lists the following names for the Krome Service Processing Center:</p>
 <ul>
 <li>Krome Special Processing Center (SPC) (FL) - Feb. 10, 2021</li>
@@ -281,30 +74,31 @@ div.csl-indent {
 <p>Every instance is different. In one case “Special” is replaced for “Service.” In another case the word processing is misspelled “Procesing,” while in a third, the title is abbreviated. This is one example of many. In other cases facilities are sometimes named “Detention Center” rather than “Detention Facility,” etc. Assembling the data into a useful table that can be sorted, filtered, and summarized requires standardizing the names.</p>
 <p>From early on, Craig decided to assemble the data as reported, errors and all, and perform standardization programmatically. Doing this facilitates reproducibility. The project’s primary cleaning functions are incorporated into a custom function <code>clean_facility_names()</code> and moved to a <a href="https://github.com/n8craig/inspections/blob/main/function_clean_facility_names.R">separate R file</a>. This allows more than 100 lines of code to be collapsed into a single function call. However, for display purposes, the lines of code that make up the transformations are detailed on this page.</p>
 <div id="cleaning-script" class="section level2" number="11.1">
-<h2><span class="header-section-number">B.1</span> Cleaning Script</h2>
+<h2>
+<span class="header-section-number">B.1</span> Cleaning Script<a class="anchor" aria-label="anchor" href="#cleaning-script"><i class="fas fa-link"></i></a>
+</h2>
 <p>During the time that the students were assembling data, we worked out of a Google Sheet as this permitted each of us to have simultaneous access to the data. For preliminary analysis, a data frame is constructed by reading from the sheet.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="data-cleaning.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in the sheet</span></span>
-<span id="cb1-2"><a href="data-cleaning.html#cb1-2" aria-hidden="true" tabindex="-1"></a>df_inspect <span class="ot">&lt;-</span> <span class="fu">read_sheet</span>(<span class="st">&quot;https://docs.google.com/spreadsheets/d/1im5VSi3bIEi13O8WQ56wEIXSyNEstbGMylXXgD9bAG0/edit#gid=1858227071&quot;</span>,</span>
-<span id="cb1-3"><a href="data-cleaning.html#cb1-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">sheet=</span><span class="st">&quot;Inspections&quot;</span>,</span>
-<span id="cb1-4"><a href="data-cleaning.html#cb1-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">col_names =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb1-5"><a href="data-cleaning.html#cb1-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">col_types =</span> <span class="st">&quot;c&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-6"><a href="data-cleaning.html#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span></code></pre></div>
-<p>Sometimes facility names are repeated. Use of the <code>dplyr</code> function <code>distinct</code> is useful for isolating issues with field names <span class="citation">(<a href="#ref-R-dplyr" role="doc-biblioref">Wickham, François, et al. 2021</a>)</span>.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Read in the sheet</span>
+<span class="va">df_inspect</span> <span class="op">&lt;-</span> <span class="fu">read_sheet</span><span class="op">(</span><span class="st">"https://docs.google.com/spreadsheets/d/1im5VSi3bIEi13O8WQ56wEIXSyNEstbGMylXXgD9bAG0/edit#gid=1858227071"</span>,
+                 sheet<span class="op">=</span><span class="st">"Inspections"</span>,
+                 col_names <span class="op">=</span> <span class="cn">TRUE</span>,
+                 col_types <span class="op">=</span> <span class="st">"c"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">clean_names</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p>Sometimes facility names are repeated. Use of the <code>dplyr</code> function <code>distinct</code> is useful for isolating issues with field names <span class="citation">(<a href="references.html#ref-R-dplyr" role="doc-biblioref">Wickham, François, et al. 2021</a>)</span>.</p>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; ">
-<table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+<div class="inline-table"><table class=" lightable-paper" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;'>
 <caption>
 <span id="tab:df-inspect-before">Table B.1: </span>Facility Names Before Cleaning
 </caption>
-<thead>
-<tr>
+<thead><tr>
 <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
 ID
 </th>
 <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
 Facility
 </th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
@@ -3363,176 +3157,175 @@ Yuba County Jail (CA) - Nov. 16, 2018
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 </div>
-<p>The following procedures detail the main facility name cleaning operations. This block of code was converted to a custom function and written to an R file. By doing this, the entire following code block can be called with a single function, or incorporated into an analysis specific pipeline. The cleaning procedures are provided here to show the transformations, but the separate function file can be <a href="https://github.com/n8craig/inspections/blob/main/function_clean_facility_names.R">downloaded</a> directly. Heavy use is made of the <code>dplyr</code> library <span class="citation">(<a href="#ref-R-dplyr" role="doc-biblioref">Wickham, François, et al. 2021</a>)</span> <code>mutate</code> function in combination with the <code>stringr</code> library <span class="citation">(<a href="#ref-R-stringr" role="doc-biblioref">Wickham 2019</a>)</span> functions <code>str_replace_all</code> and <code>replace</code> functions. All of these are part of the <code>tidyverse</code> <span class="citation">(<a href="#ref-R-tidyverse" role="doc-biblioref">Wickham 2021</a>)</span> family of libraries.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="data-cleaning.html#cb2-1" aria-hidden="true" tabindex="-1"></a>df_inspect <span class="ot">&lt;-</span> df_inspect <span class="sc">%&gt;%</span> </span>
-<span id="cb2-2"><a href="data-cleaning.html#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Removing a curious whitespace character that appears</span></span>
-<span id="cb2-3"><a href="data-cleaning.html#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># in more recent facility names</span></span>
-<span id="cb2-4"><a href="data-cleaning.html#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-5"><a href="data-cleaning.html#cb2-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">pattern =</span> <span class="st">&quot; &quot;</span>,</span>
-<span id="cb2-6"><a href="data-cleaning.html#cb2-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">replacement =</span> <span class="st">&quot; &quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb2-7"><a href="data-cleaning.html#cb2-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-8"><a href="data-cleaning.html#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(.,</span>
-<span id="cb2-9"><a href="data-cleaning.html#cb2-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">col =</span> facility,</span>
-<span id="cb2-10"><a href="data-cleaning.html#cb2-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;facility&quot;</span>,<span class="st">&quot;inspection_date&quot;</span>),</span>
-<span id="cb2-11"><a href="data-cleaning.html#cb2-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">) - &quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb2-12"><a href="data-cleaning.html#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(.,</span>
-<span id="cb2-13"><a href="data-cleaning.html#cb2-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">col =</span> facility,</span>
-<span id="cb2-14"><a href="data-cleaning.html#cb2-14" aria-hidden="true" tabindex="-1"></a>           <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;facility&quot;</span>,<span class="st">&quot;state&quot;</span>),</span>
-<span id="cb2-15"><a href="data-cleaning.html#cb2-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">(&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb2-16"><a href="data-cleaning.html#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="data-cleaning.html#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Deal with issues in the file names, state, and inspection date</span></span>
-<span id="cb2-18"><a href="data-cleaning.html#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">facility =</span> <span class="fu">str_trim</span>(facility, <span class="at">side =</span> <span class="st">&quot;both&quot;</span>),</span>
-<span id="cb2-19"><a href="data-cleaning.html#cb2-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">state =</span> <span class="fu">str_trim</span>(state, <span class="at">side =</span> <span class="st">&quot;both&quot;</span>),</span>
-<span id="cb2-20"><a href="data-cleaning.html#cb2-20" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-21"><a href="data-cleaning.html#cb2-21" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Adelanto ICE Processing Center-East&quot;</span>,</span>
-<span id="cb2-22"><a href="data-cleaning.html#cb2-22" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Adelanto ICE Processing Center - East&quot;</span>),</span>
-<span id="cb2-23"><a href="data-cleaning.html#cb2-23" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-24"><a href="data-cleaning.html#cb2-24" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Adelanto ICE Processing Center-West&quot;</span>,</span>
-<span id="cb2-25"><a href="data-cleaning.html#cb2-25" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Adelanto ICE Processing Center - West&quot;</span>),</span>
-<span id="cb2-26"><a href="data-cleaning.html#cb2-26" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-27"><a href="data-cleaning.html#cb2-27" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Allen Parish Detention Facility&quot;</span>,</span>
-<span id="cb2-28"><a href="data-cleaning.html#cb2-28" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Allen Parish Public Safety Complex&quot;</span>),</span>
-<span id="cb2-29"><a href="data-cleaning.html#cb2-29" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-30"><a href="data-cleaning.html#cb2-30" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Berks County Residential Center&quot;</span>,</span>
-<span id="cb2-31"><a href="data-cleaning.html#cb2-31" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Berks Family Residential Center&quot;</span>),</span>
-<span id="cb2-32"><a href="data-cleaning.html#cb2-32" aria-hidden="true" tabindex="-1"></a>         <span class="at">inspection_date =</span> <span class="fu">replace</span>(inspection_date, inspection_date<span class="sc">==</span><span class="st">&quot;Jan. 29 - 31, 2019&quot;</span>, <span class="st">&quot;Jan. 31, 2019&quot;</span>),</span>
-<span id="cb2-33"><a href="data-cleaning.html#cb2-33" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-34"><a href="data-cleaning.html#cb2-34" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Bristol County Jail$&quot;</span>,</span>
-<span id="cb2-35"><a href="data-cleaning.html#cb2-35" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Bristol County Jail and House of Correction&quot;</span>),</span>
-<span id="cb2-36"><a href="data-cleaning.html#cb2-36" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-37"><a href="data-cleaning.html#cb2-37" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Buffalo$&quot;</span>,</span>
-<span id="cb2-38"><a href="data-cleaning.html#cb2-38" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Buffalo Batavia Service Processing Center&quot;</span>),</span>
-<span id="cb2-39"><a href="data-cleaning.html#cb2-39" aria-hidden="true" tabindex="-1"></a>         <span class="at">state =</span> <span class="fu">replace</span>(state, state <span class="sc">==</span> <span class="st">&quot;Batavia) Service Processing Center&quot;</span>, <span class="st">&quot;NY&quot;</span>),</span>
-<span id="cb2-40"><a href="data-cleaning.html#cb2-40" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-41"><a href="data-cleaning.html#cb2-41" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Calhoun County Jail&quot;</span>,</span>
-<span id="cb2-42"><a href="data-cleaning.html#cb2-42" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Calhoun County Correctional Center&quot;</span>),</span>
-<span id="cb2-43"><a href="data-cleaning.html#cb2-43" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-44"><a href="data-cleaning.html#cb2-44" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Clay County Justice Center&quot;</span>,</span>
-<span id="cb2-45"><a href="data-cleaning.html#cb2-45" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Clay County Jail&quot;</span>),</span>
-<span id="cb2-46"><a href="data-cleaning.html#cb2-46" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-47"><a href="data-cleaning.html#cb2-47" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Coastal Bend Detention Facility&quot;</span>,</span>
-<span id="cb2-48"><a href="data-cleaning.html#cb2-48" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Coastal Bend Detention Center&quot;</span>),</span>
-<span id="cb2-49"><a href="data-cleaning.html#cb2-49" aria-hidden="true" tabindex="-1"></a>         <span class="at">state =</span> <span class="fu">replace</span>(state, state <span class="sc">==</span> <span class="st">&quot;David L. Moss Criminal Justice Center)&quot;</span>, <span class="st">&quot;OK&quot;</span>),</span>
-<span id="cb2-50"><a href="data-cleaning.html#cb2-50" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-51"><a href="data-cleaning.html#cb2-51" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Dodge County Detention Center&quot;</span>,</span>
-<span id="cb2-52"><a href="data-cleaning.html#cb2-52" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Dodge County Detention Facility&quot;</span>),</span>
-<span id="cb2-53"><a href="data-cleaning.html#cb2-53" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-54"><a href="data-cleaning.html#cb2-54" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Donald W. Wyatt Detention Center&quot;</span>,</span>
-<span id="cb2-55"><a href="data-cleaning.html#cb2-55" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Donald W. Wyatt Detention Facility&quot;</span>),</span>
-<span id="cb2-56"><a href="data-cleaning.html#cb2-56" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-57"><a href="data-cleaning.html#cb2-57" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Essex County Corrections Facility&quot;</span>,</span>
-<span id="cb2-58"><a href="data-cleaning.html#cb2-58" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Essex County Correctional Facility&quot;</span>),</span>
-<span id="cb2-59"><a href="data-cleaning.html#cb2-59" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-60"><a href="data-cleaning.html#cb2-60" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Farmville Detention Center$&quot;</span>,</span>
-<span id="cb2-61"><a href="data-cleaning.html#cb2-61" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Immigration Centers of America - Farmville&quot;</span>),</span>
-<span id="cb2-62"><a href="data-cleaning.html#cb2-62" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-63"><a href="data-cleaning.html#cb2-63" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Florence SPC&quot;</span>,</span>
-<span id="cb2-64"><a href="data-cleaning.html#cb2-64" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Florence Service Processing Center&quot;</span>),</span>
-<span id="cb2-65"><a href="data-cleaning.html#cb2-65" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-66"><a href="data-cleaning.html#cb2-66" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Houston CDF&quot;</span>,</span>
-<span id="cb2-67"><a href="data-cleaning.html#cb2-67" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Houston Contract Detention Facility&quot;</span>),</span>
-<span id="cb2-68"><a href="data-cleaning.html#cb2-68" aria-hidden="true" tabindex="-1"></a>         <span class="at">state =</span> <span class="fu">replace</span>(state, state <span class="sc">==</span> <span class="st">&quot;Polk)&quot;</span>, <span class="st">&quot;TX&quot;</span>),</span>
-<span id="cb2-69"><a href="data-cleaning.html#cb2-69" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-70"><a href="data-cleaning.html#cb2-70" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Immigration Centers of America$&quot;</span>,</span>
-<span id="cb2-71"><a href="data-cleaning.html#cb2-71" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Immigration Centers of America - Farmville&quot;</span>),</span>
-<span id="cb2-72"><a href="data-cleaning.html#cb2-72" aria-hidden="true" tabindex="-1"></a>         <span class="at">state =</span> <span class="fu">replace</span>(state, state <span class="sc">==</span><span class="st">&quot;ICA&quot;</span>, <span class="st">&quot;VA&quot;</span>),</span>
-<span id="cb2-73"><a href="data-cleaning.html#cb2-73" aria-hidden="true" tabindex="-1"></a>         <span class="at">inspection_date =</span> <span class="fu">replace</span>(inspection_date,</span>
-<span id="cb2-74"><a href="data-cleaning.html#cb2-74" aria-hidden="true" tabindex="-1"></a>                                   inspection_date <span class="sc">==</span> <span class="st">&quot;Farmville Detention Center (FDC) (VA&quot;</span>,</span>
-<span id="cb2-75"><a href="data-cleaning.html#cb2-75" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&quot;Feb. 24, 2021&quot;</span>),</span>
-<span id="cb2-76"><a href="data-cleaning.html#cb2-76" aria-hidden="true" tabindex="-1"></a>         <span class="co"># This one picks a value in the facility col and changes a value in the state col</span></span>
-<span id="cb2-77"><a href="data-cleaning.html#cb2-77" aria-hidden="true" tabindex="-1"></a>         <span class="at">state =</span> <span class="fu">replace</span>(state, facility <span class="sc">==</span> <span class="st">&quot;Immigration Centers of America - Farmville&quot;</span>,</span>
-<span id="cb2-78"><a href="data-cleaning.html#cb2-78" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;VA&quot;</span>),</span>
-<span id="cb2-79"><a href="data-cleaning.html#cb2-79" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-80"><a href="data-cleaning.html#cb2-80" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Joe Corley Detention Facility&quot;</span>,</span>
-<span id="cb2-81"><a href="data-cleaning.html#cb2-81" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Joe Corley Processing Center&quot;</span>),</span>
-<span id="cb2-82"><a href="data-cleaning.html#cb2-82" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-83"><a href="data-cleaning.html#cb2-83" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Karnes County Residential Center&quot;</span>,</span>
-<span id="cb2-84"><a href="data-cleaning.html#cb2-84" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Karnes County Family Residential Center&quot;</span>),</span>
-<span id="cb2-85"><a href="data-cleaning.html#cb2-85" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-86"><a href="data-cleaning.html#cb2-86" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Krome SPC&quot;</span>,</span>
-<span id="cb2-87"><a href="data-cleaning.html#cb2-87" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Krome Service Procesing Center&quot;</span>),</span>
-<span id="cb2-88"><a href="data-cleaning.html#cb2-88" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-89"><a href="data-cleaning.html#cb2-89" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Krome Special Processing Center&quot;</span>,</span>
-<span id="cb2-90"><a href="data-cleaning.html#cb2-90" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Krome Service Procesing Center&quot;</span>),</span>
-<span id="cb2-91"><a href="data-cleaning.html#cb2-91" aria-hidden="true" tabindex="-1"></a>         <span class="at">state =</span> <span class="fu">replace</span>(state, state <span class="sc">==</span><span class="st">&quot;SPC)&quot;</span>, <span class="st">&quot;FL&quot;</span>),</span>
-<span id="cb2-92"><a href="data-cleaning.html#cb2-92" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-93"><a href="data-cleaning.html#cb2-93" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Mesa Verde Detention Facility&quot;</span>,</span>
-<span id="cb2-94"><a href="data-cleaning.html#cb2-94" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Mesa Verde ICE Processing Facility&quot;</span>),</span>
-<span id="cb2-95"><a href="data-cleaning.html#cb2-95" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-96"><a href="data-cleaning.html#cb2-96" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Northwest Contract Detention Center&quot;</span>,</span>
-<span id="cb2-97"><a href="data-cleaning.html#cb2-97" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Northwest ICE Processing Center&quot;</span>),</span>
-<span id="cb2-98"><a href="data-cleaning.html#cb2-98" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-99"><a href="data-cleaning.html#cb2-99" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Northwest Detention Center&quot;</span>,</span>
-<span id="cb2-100"><a href="data-cleaning.html#cb2-100" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Northwest ICE Processing Center&quot;</span>),</span>
-<span id="cb2-101"><a href="data-cleaning.html#cb2-101" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-102"><a href="data-cleaning.html#cb2-102" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Okmulgee County Jail-Moore Detention Facility&quot;</span>,</span>
-<span id="cb2-103"><a href="data-cleaning.html#cb2-103" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Okmulgee County Jail - Moore Detention Facility&quot;</span>),</span>
-<span id="cb2-104"><a href="data-cleaning.html#cb2-104" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-105"><a href="data-cleaning.html#cb2-105" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Orange County Jail&quot;</span>,</span>
-<span id="cb2-106"><a href="data-cleaning.html#cb2-106" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Orange County Correctional Facility&quot;</span>),</span>
-<span id="cb2-107"><a href="data-cleaning.html#cb2-107" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-108"><a href="data-cleaning.html#cb2-108" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Otay Mesa Detention Facility&quot;</span>,</span>
-<span id="cb2-109"><a href="data-cleaning.html#cb2-109" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Otay Mesa Detention Center&quot;</span>),</span>
-<span id="cb2-110"><a href="data-cleaning.html#cb2-110" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-111"><a href="data-cleaning.html#cb2-111" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Prarieland Detention Center&quot;</span>,</span>
-<span id="cb2-112"><a href="data-cleaning.html#cb2-112" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Prairieland Detention Center&quot;</span>),</span>
-<span id="cb2-113"><a href="data-cleaning.html#cb2-113" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-114"><a href="data-cleaning.html#cb2-114" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Richwood Correcrtional Center&quot;</span>,</span>
-<span id="cb2-115"><a href="data-cleaning.html#cb2-115" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Richwood Correctional Center&quot;</span>),</span>
-<span id="cb2-116"><a href="data-cleaning.html#cb2-116" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-117"><a href="data-cleaning.html#cb2-117" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Rio Grande Processing Center&quot;</span>,</span>
-<span id="cb2-118"><a href="data-cleaning.html#cb2-118" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Rio Grande Detention Center&quot;</span>),</span>
-<span id="cb2-119"><a href="data-cleaning.html#cb2-119" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-120"><a href="data-cleaning.html#cb2-120" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Robert A. Deyton Correctional Center&quot;</span>,</span>
-<span id="cb2-121"><a href="data-cleaning.html#cb2-121" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Robert A. Deyton Detention Facility&quot;</span>),</span>
-<span id="cb2-122"><a href="data-cleaning.html#cb2-122" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-123"><a href="data-cleaning.html#cb2-123" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Robert A. Deyton Detention Center&quot;</span>,</span>
-<span id="cb2-124"><a href="data-cleaning.html#cb2-124" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Robert A. Deyton Detention Facility&quot;</span>),</span>
-<span id="cb2-125"><a href="data-cleaning.html#cb2-125" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-126"><a href="data-cleaning.html#cb2-126" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^South Texas Detention Complex&quot;</span>,</span>
-<span id="cb2-127"><a href="data-cleaning.html#cb2-127" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;South Texas ICE Processing Center&quot;</span>),</span>
-<span id="cb2-128"><a href="data-cleaning.html#cb2-128" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-129"><a href="data-cleaning.html#cb2-129" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^South Texas Processing Center&quot;</span>,</span>
-<span id="cb2-130"><a href="data-cleaning.html#cb2-130" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;South Texas ICE Processing Center&quot;</span>),</span>
-<span id="cb2-131"><a href="data-cleaning.html#cb2-131" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-132"><a href="data-cleaning.html#cb2-132" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Strafford County Corrections&quot;</span>,</span>
-<span id="cb2-133"><a href="data-cleaning.html#cb2-133" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Strafford County Department of Corrections&quot;</span>),</span>
-<span id="cb2-134"><a href="data-cleaning.html#cb2-134" aria-hidden="true" tabindex="-1"></a>         <span class="at">inspection_date =</span> <span class="fu">replace</span>(inspection_date, state <span class="sc">==</span><span class="st">&quot;CO)- Mar. 31, 2021&quot;</span>, <span class="st">&quot;Mar. 31, 2021&quot;</span>),</span>
-<span id="cb2-135"><a href="data-cleaning.html#cb2-135" aria-hidden="true" tabindex="-1"></a>         <span class="at">state =</span> <span class="fu">replace</span>(state, state <span class="sc">==</span> <span class="st">&quot;CO)- Mar. 31, 2021&quot;</span>, <span class="st">&quot;CO&quot;</span>),</span>
-<span id="cb2-136"><a href="data-cleaning.html#cb2-136" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-137"><a href="data-cleaning.html#cb2-137" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^T. Don Hutto Detention Center$&quot;</span>,</span>
-<span id="cb2-138"><a href="data-cleaning.html#cb2-138" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;T. Don Hutto Residential Center&quot;</span>),</span>
-<span id="cb2-139"><a href="data-cleaning.html#cb2-139" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-140"><a href="data-cleaning.html#cb2-140" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;Tulsa County Jail - David L. Moss Criminal Jutice Center&quot;</span>,</span>
-<span id="cb2-141"><a href="data-cleaning.html#cb2-141" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;David L. Moss Criminal Justice Center&quot;</span>),</span>
-<span id="cb2-142"><a href="data-cleaning.html#cb2-142" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-143"><a href="data-cleaning.html#cb2-143" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Tulsa County Jail$&quot;</span>,</span>
-<span id="cb2-144"><a href="data-cleaning.html#cb2-144" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;David L. Moss Criminal Justice Center&quot;</span>),</span>
-<span id="cb2-145"><a href="data-cleaning.html#cb2-145" aria-hidden="true" tabindex="-1"></a>         <span class="at">state =</span> <span class="fu">replace</span>(state, state <span class="sc">==</span> <span class="st">&quot;David L. Moss Justice Center)&quot;</span>, <span class="st">&quot;OK&quot;</span>),</span>
-<span id="cb2-146"><a href="data-cleaning.html#cb2-146" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-147"><a href="data-cleaning.html#cb2-147" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Washoe County Detention Centerr&quot;</span>,</span>
-<span id="cb2-148"><a href="data-cleaning.html#cb2-148" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Washoe County Detention Center&quot;</span>),</span>
-<span id="cb2-149"><a href="data-cleaning.html#cb2-149" aria-hidden="true" tabindex="-1"></a>         <span class="at">facility =</span> <span class="fu">str_replace_all</span>(facility,</span>
-<span id="cb2-150"><a href="data-cleaning.html#cb2-150" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pattern =</span> <span class="st">&quot;^Webb County Detention Facility&quot;</span>,</span>
-<span id="cb2-151"><a href="data-cleaning.html#cb2-151" aria-hidden="true" tabindex="-1"></a>                            <span class="at">replacement =</span> <span class="st">&quot;Webb County Detention Center&quot;</span>),</span>
-<span id="cb2-152"><a href="data-cleaning.html#cb2-152" aria-hidden="true" tabindex="-1"></a>         )</span></code></pre></div>
+<p>The following procedures detail the main facility name cleaning operations. This block of code was converted to a custom function and written to an R file. By doing this, the entire following code block can be called with a single function, or incorporated into an analysis specific pipeline. The cleaning procedures are provided here to show the transformations, but the separate function file can be <a href="https://github.com/n8craig/inspections/blob/main/function_clean_facility_names.R">downloaded</a> directly. Heavy use is made of the <code>dplyr</code> library <span class="citation">(<a href="references.html#ref-R-dplyr" role="doc-biblioref">Wickham, François, et al. 2021</a>)</span> <code>mutate</code> function in combination with the <code>stringr</code> library <span class="citation">(<a href="references.html#ref-R-stringr" role="doc-biblioref">Wickham 2019</a>)</span> functions <code>str_replace_all</code> and <code>replace</code> functions. All of these are part of the <code>tidyverse</code> <span class="citation">(<a href="references.html#ref-R-tidyverse" role="doc-biblioref">Wickham 2021</a>)</span> family of libraries.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df_inspect</span> <span class="op">&lt;-</span> <span class="va">df_inspect</span> <span class="op">%&gt;%</span> 
+  <span class="co"># Removing a curious whitespace character that appears</span>
+  <span class="co"># in more recent facility names</span>
+  <span class="fu">mutate</span><span class="op">(</span>facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+         pattern <span class="op">=</span> <span class="st">" "</span>,
+         replacement <span class="op">=</span> <span class="st">" "</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  
+  <span class="fu">separate</span><span class="op">(</span><span class="va">.</span>,
+           col <span class="op">=</span> <span class="va">facility</span>,
+           into <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"facility"</span>,<span class="st">"inspection_date"</span><span class="op">)</span>,
+           sep <span class="op">=</span> <span class="st">"\\) - "</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">separate</span><span class="op">(</span><span class="va">.</span>,
+           col <span class="op">=</span> <span class="va">facility</span>,
+           into <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"facility"</span>,<span class="st">"state"</span><span class="op">)</span>,
+           sep <span class="op">=</span> <span class="st">"\\("</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+
+  <span class="co"># Deal with issues in the file names, state, and inspection date</span>
+  <span class="fu">mutate</span><span class="op">(</span>facility <span class="op">=</span> <span class="fu">str_trim</span><span class="op">(</span><span class="va">facility</span>, side <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span>,
+         state <span class="op">=</span> <span class="fu">str_trim</span><span class="op">(</span><span class="va">state</span>, side <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Adelanto ICE Processing Center-East"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Adelanto ICE Processing Center - East"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Adelanto ICE Processing Center-West"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Adelanto ICE Processing Center - West"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Allen Parish Detention Facility"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Allen Parish Public Safety Complex"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Berks County Residential Center"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Berks Family Residential Center"</span><span class="op">)</span>,
+         inspection_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/replace.html">replace</a></span><span class="op">(</span><span class="va">inspection_date</span>, <span class="va">inspection_date</span><span class="op">==</span><span class="st">"Jan. 29 - 31, 2019"</span>, <span class="st">"Jan. 31, 2019"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Bristol County Jail$"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Bristol County Jail and House of Correction"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Buffalo$"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Buffalo Batavia Service Processing Center"</span><span class="op">)</span>,
+         state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/replace.html">replace</a></span><span class="op">(</span><span class="va">state</span>, <span class="va">state</span> <span class="op">==</span> <span class="st">"Batavia) Service Processing Center"</span>, <span class="st">"NY"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Calhoun County Jail"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Calhoun County Correctional Center"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Clay County Justice Center"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Clay County Jail"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Coastal Bend Detention Facility"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Coastal Bend Detention Center"</span><span class="op">)</span>,
+         state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/replace.html">replace</a></span><span class="op">(</span><span class="va">state</span>, <span class="va">state</span> <span class="op">==</span> <span class="st">"David L. Moss Criminal Justice Center)"</span>, <span class="st">"OK"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Dodge County Detention Center"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Dodge County Detention Facility"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Donald W. Wyatt Detention Center"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Donald W. Wyatt Detention Facility"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Essex County Corrections Facility"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Essex County Correctional Facility"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Farmville Detention Center$"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Immigration Centers of America - Farmville"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Florence SPC"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Florence Service Processing Center"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Houston CDF"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Houston Contract Detention Facility"</span><span class="op">)</span>,
+         state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/replace.html">replace</a></span><span class="op">(</span><span class="va">state</span>, <span class="va">state</span> <span class="op">==</span> <span class="st">"Polk)"</span>, <span class="st">"TX"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Immigration Centers of America$"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Immigration Centers of America - Farmville"</span><span class="op">)</span>,
+         state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/replace.html">replace</a></span><span class="op">(</span><span class="va">state</span>, <span class="va">state</span> <span class="op">==</span><span class="st">"ICA"</span>, <span class="st">"VA"</span><span class="op">)</span>,
+         inspection_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/replace.html">replace</a></span><span class="op">(</span><span class="va">inspection_date</span>,
+                                   <span class="va">inspection_date</span> <span class="op">==</span> <span class="st">"Farmville Detention Center (FDC) (VA"</span>,
+                                   <span class="st">"Feb. 24, 2021"</span><span class="op">)</span>,
+         <span class="co"># This one picks a value in the facility col and changes a value in the state col</span>
+         state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/replace.html">replace</a></span><span class="op">(</span><span class="va">state</span>, <span class="va">facility</span> <span class="op">==</span> <span class="st">"Immigration Centers of America - Farmville"</span>,
+                         <span class="st">"VA"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Joe Corley Detention Facility"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Joe Corley Processing Center"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Karnes County Residential Center"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Karnes County Family Residential Center"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Krome SPC"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Krome Service Procesing Center"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Krome Special Processing Center"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Krome Service Procesing Center"</span><span class="op">)</span>,
+         state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/replace.html">replace</a></span><span class="op">(</span><span class="va">state</span>, <span class="va">state</span> <span class="op">==</span><span class="st">"SPC)"</span>, <span class="st">"FL"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Mesa Verde Detention Facility"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Mesa Verde ICE Processing Facility"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Northwest Contract Detention Center"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Northwest ICE Processing Center"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Northwest Detention Center"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Northwest ICE Processing Center"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Okmulgee County Jail-Moore Detention Facility"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Okmulgee County Jail - Moore Detention Facility"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Orange County Jail"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Orange County Correctional Facility"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Otay Mesa Detention Facility"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Otay Mesa Detention Center"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Prarieland Detention Center"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Prairieland Detention Center"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Richwood Correcrtional Center"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Richwood Correctional Center"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Rio Grande Processing Center"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Rio Grande Detention Center"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Robert A. Deyton Correctional Center"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Robert A. Deyton Detention Facility"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Robert A. Deyton Detention Center"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Robert A. Deyton Detention Facility"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^South Texas Detention Complex"</span>,
+                            replacement <span class="op">=</span> <span class="st">"South Texas ICE Processing Center"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^South Texas Processing Center"</span>,
+                            replacement <span class="op">=</span> <span class="st">"South Texas ICE Processing Center"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Strafford County Corrections"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Strafford County Department of Corrections"</span><span class="op">)</span>,
+         inspection_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/replace.html">replace</a></span><span class="op">(</span><span class="va">inspection_date</span>, <span class="va">state</span> <span class="op">==</span><span class="st">"CO)- Mar. 31, 2021"</span>, <span class="st">"Mar. 31, 2021"</span><span class="op">)</span>,
+         state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/replace.html">replace</a></span><span class="op">(</span><span class="va">state</span>, <span class="va">state</span> <span class="op">==</span> <span class="st">"CO)- Mar. 31, 2021"</span>, <span class="st">"CO"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^T. Don Hutto Detention Center$"</span>,
+                            replacement <span class="op">=</span> <span class="st">"T. Don Hutto Residential Center"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"Tulsa County Jail - David L. Moss Criminal Jutice Center"</span>,
+                            replacement <span class="op">=</span> <span class="st">"David L. Moss Criminal Justice Center"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Tulsa County Jail$"</span>,
+                            replacement <span class="op">=</span> <span class="st">"David L. Moss Criminal Justice Center"</span><span class="op">)</span>,
+         state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/replace.html">replace</a></span><span class="op">(</span><span class="va">state</span>, <span class="va">state</span> <span class="op">==</span> <span class="st">"David L. Moss Justice Center)"</span>, <span class="st">"OK"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Washoe County Detention Centerr"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Washoe County Detention Center"</span><span class="op">)</span>,
+         facility <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">facility</span>,
+                            pattern <span class="op">=</span> <span class="st">"^Webb County Detention Facility"</span>,
+                            replacement <span class="op">=</span> <span class="st">"Webb County Detention Center"</span><span class="op">)</span>,
+         <span class="op">)</span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; ">
-<table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+<div class="inline-table"><table class=" lightable-paper" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;'>
 <caption>
 <span id="tab:df-inspect-after">Table B.2: </span>Facility Names After Cleaning
 </caption>
-<thead>
-<tr>
+<thead><tr>
 <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
 ID
 </th>
 <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
 Facility
 </th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
@@ -4815,80 +4608,43 @@ Yuba County Jail
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 </div>
 </div>
 </div>
-<h3>References</h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-R-stringr" class="csl-entry">
-Wickham, Hadley. 2019. <em>Stringr: Simple, Consistent Wrappers for Common String Operations</em>. <a href="https://CRAN.R-project.org/package=stringr">https://CRAN.R-project.org/package=stringr</a>.
-</div>
-<div id="ref-R-tidyverse" class="csl-entry">
-———. 2021. <em>Tidyverse: Easily Install and Load the Tidyverse</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>.
-</div>
-<div id="ref-R-dplyr" class="csl-entry">
-Wickham, Hadley, Romain François, Lionel Henry, and Kirill Müller. 2021. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>.
-</div>
-</div>
-            </section>
+  <div class="chapter-nav">
+<div class="prev"><a href="reading-in-sis-forms.html"><span class="header-section-number">A</span> Reading in SIS Forms</a></div>
+<div class="next"><a href="facet-plots-1.html"><span class="header-section-number">C</span> Facet Plots</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#data-cleaning"><span class="header-section-number">B</span> Data Cleaning</a></li>
+<li><a class="nav-link" href="#cleaning-script"><span class="header-section-number">B.1</span> Cleaning Script</a></li>
+</ul>
 
-          </div>
-        </div>
-      </div>
-<a href="reading-in-sis-forms.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="facet-plots-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/n8craig/inspections//blob/master/Ch-Appendix.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/n8craig/inspections//edit/master/Ch-Appendix.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>ICE Inspection Review</strong>" was written by Nathan Craig. It was last built on Wednesday February 23, 2022.</p>
   </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
-<script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": "https://github.com/n8craig/inspections/edit/master/Ch-Appendix.Rmd",
-"text": "Suggest an edit"
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": "https://github.com/n8craig/inspections/blob/master/Ch-Appendix.Rmd",
-"text": null
-},
-"download": null,
-"toc": {
-"collapse": "section"
-},
-"code_download": true
-});
-});
-</script>
 
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
 </body>
-
 </html>

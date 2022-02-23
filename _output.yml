@@ -1,14 +1,5 @@
-bookdown::gitbook:
-  css: style.css
-  config:
-    edit:
-      link: https://github.com/n8craig/inspections/edit/master/%s
-      text: "Suggest an edit"
-    toc:
-      collapse: section
-      before: |
-        <li><a href="./">ICE Inspection Review</a></li>
-      after: |
-        
-#    download: ["rmd"]
-    code_download: true
+bookdown::bs4_book:
+  css: bs4_style.css
+  theme:
+    primary: "#380313"
+  repo: https://github.com/n8craig/inspections/
